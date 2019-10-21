@@ -14,7 +14,7 @@ We are the DoMAD Capstone team for the 2019/20 Senior Capstone project
 - **Natnael Abraha**
 
 ## Navigating this repository
- ** the following is more of a template as none of this is currently in the repo and we are not likely to use the exact same things **
+ **the following is more of a template as none of this is currently in the repo and we are not likely to use the exact same things**
 Here's a breakdown of what you'll find in this repo:
 
 - `code/` - the code for the social network itself
