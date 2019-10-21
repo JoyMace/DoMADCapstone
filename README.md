@@ -5,12 +5,12 @@ New Repo for DoMAD Capstone 2019/2020
 We are the DoMAD Capstone team for the 2019/20 Senior Capstone project
 
 - **Joy Mace ([@JoyMace](https://github.com/JoyMace))** - SCRUM master
-- **Shelby Keupp **
+- **Shelby Keupp**
 - **Duaa Alahmed**
 - **Yuxuan Luo**
-- **Tanner O'Rourke **
-- **Christoph Uhl **
-- **Thomas Young **
+- **Tanner O'Rourke**
+- **Christoph Uhl**
+- **Thomas Young**
 - **Natnael Abraha**
 
 ## Navigating this repository
