@@ -32,4 +32,4 @@ Here's a breakdown of what you'll find in this repo:
 - `travis.yml` - configuration for our Travis CI testing ([look at it go!](https://travis-ci.org/mrjacobbloom/teamWORK))
 - `package.json` - a dummy manifest file, which directs Heroku to run the server in the `code/` folder
 
-
+![Git_Daily_Workflow](https://www.sonassi.com/media/catalog/2012/07/simple_git_daily_workflow.pdf)
