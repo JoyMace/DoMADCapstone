@@ -9,7 +9,7 @@ We are the DoMAD Capstone team for the 2019/20 Senior Capstone project
 - **Duaa Alahmed**
 - **Yuxuan Luo**
 - **Tanner O'Rourke**
-- **Christoph Uhl**
+- **Christoph Uhl** ([@Christoph98](https://github.com/christoph98))**
 - **Thomas Young**
 - **Natnael Abraha**
 
