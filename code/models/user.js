@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
       dateTime: { type: Date, default: Date.now },
       pictures: String, // Need to find out how to store pictures ( maybe GridFS )
       description: String,
-      quantity: String
+      quantity: Number
     }
   ]
 });
