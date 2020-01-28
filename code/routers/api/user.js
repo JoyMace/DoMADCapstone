@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const passport = require('passport');
 
-const user = require('../models/user');
+const User = require('../../models/user');
 
 /*
   login api
@@ -66,14 +66,14 @@ router.post('/signup', function(req, res) {
     {email: username}
   ]}
 
-  user.findOne(user_query, function(err, user, next) {
+  User.findOne(user_query, function(err, user, next) {
     if (user) {
       return res.status(400).send({
         message: 'User already exists with that username or email'
       });
     }else{
       // create user  
-      let newUser = new user();
+      let newUser = new User();
 
       newUser.username = username;
       newUser.firstName = firstName;
@@ -81,7 +81,7 @@ router.post('/signup', function(req, res) {
       newUser.email = email;
       newUser.setPassword(password);
 
-      newUser.save(function(err, user) {
+      newUser.save(function(err, user_check) {
         if(err) {
           return res.status(400).send({
             message: 'Failed to add user'

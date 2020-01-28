@@ -5,6 +5,8 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const path = require('path');
 
+const port = 5000
+
 // express setup
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -35,8 +37,8 @@ app.use(passport.session());
 
 // connect routers
 app.use('/', require('./routers/index'));
-app.use('/api/user', require('./routers/user'));
+app.use('/api/user', require('./routers/api/user'));
 
-app.listen(3000, function (){
-  console.log('Example app listening on port 3000!');
+app.listen(port, function (){
+  console.log(`Example app listening on port ${port}!`);
 });
