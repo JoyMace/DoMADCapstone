@@ -18,26 +18,17 @@ We are using Trello to track progress
 -**([Trello Link](https://trello.com/b/hu36FAx3/domad))**
 
 ## Navigating this repository
- **the following is more of a template as none of this is currently in the repo and we are not likely to use the exact same things**
+**the following is what we have so far, however, there will be more added. The old README is in the google drive for reference to what we might want to add**
 Here's a breakdown of what you'll find in this repo:
 
 - `code/` - the code for the social network itself
-  - `routers/` - application routes that handle client side requests
-    - `api/` - all REST apis we create
+  - `client/` - React framework files
   - `config/` - environment variables and setup
   - `html/` - html files for the backend ( will be removed I believe when integrating React )
   - `models/` - [Mongoose](https://mongoosejs.com/docs/guide.html) database schemas and models
-  - `sass/` - stylesheets that will be compiled to CSS files ([learn more](https://sass-lang.com/))
-  - `static/` - non-HTML files used by the website, like scripts, styles, and images. Includes the site's logo
-  - `views/` - HTML-like files used by [Nunjucks](https://mozilla.github.io/nunjucks/) used by the server to generate HTML files
-    - `templates/` - files used by many Nunjucks files, like the navigation links
+  - `routers/` - application routes that handle client side requests
   - `app.js` - main file for running Nodejs express server
   - `package.json` - tells [Node](https://nodejs.org/en/) how to run the server, how to run tests on it, how to set up the database, and what modules it needs to install the server
   - `package-lock.json` - Nodejs packages 
-  - `test.js` - our test suite (see below)
 - `meeting_notes/` - word documents containing the notes from our weekly meetings
 - `milestones/` - word documents marking our progress at certain points throughout the development process
-- `travis.yml` - configuration for our Travis CI testing ([look at it go!](https://travis-ci.org/mrjacobbloom/teamWORK))
-- `package.json` - a dummy manifest file, which directs Heroku to run the server in the `code/` folder
-
-![Git_Daily_Workflow](https://www.sonassi.com/media/catalog/2012/07/simple_git_daily_workflow.pdf)

@@ -36,8 +36,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // connect routers
-app.use('/', require('./routers/index'));
-app.use('/api/user', require('./routers/api/user'));
+//app.use('/', require('./routers/index'));
+app.use('/api/user', require('./routers/user'));
 
 app.listen(port, function (){
   console.log(`Example app listening on port ${port}!`);
