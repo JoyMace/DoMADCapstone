@@ -1,5 +1,6 @@
 const localStrategy = require('passport-local').Strategy;
 
+const resCode = require('./resCode');
 const user = require('../models/user');
 
 module.exports = function(passport) {
@@ -13,10 +14,10 @@ module.exports = function(passport) {
       user.findOne(query, function(err, user) {
         if (err) { return done(err); }
         if (!user) {
-          return done(null, false, { message: 'Incorrect username' });
+          return done(null, false, { message: resCode.login.wrongUsername.message });
         }
         if (!user.validatePassword(password)) {
-          return done(null, false, { message: 'Incorrect password' });
+          return done(null, false, { message: resCode.login.wrongPassword.message });
         }
         return done(null, user);
       });
