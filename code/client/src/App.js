@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import ReactDOM from 'react-dom'; //added to retrive token from url
+import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+
+
 class App extends Component {
 state = {
     data: null
@@ -12,6 +16,7 @@ state = {
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
+
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
@@ -19,13 +24,17 @@ state = {
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(body.message) 
+      throw Error(body.message)
     }
+
     return body;
   };
 
+
   render() {
+
     return (
+      <Router>
       <div>
         <h1>Signup</h1>
 
@@ -47,12 +56,50 @@ state = {
           <button type="submit">send</button>
         </form>
 
+        <h1>Reset Password</h1>
+
+        <form action="/api/user/forgot" method="POST" >
+          Email: <input type="text" name="email" /><br/>
+          <button type="submit">reset password</button>
+        </form>
+
+
+        <h1>Enter Reset Password Credentials</h1>
+
+        <div>
+          <Switch>
+            <Route path="/:token" children={<Token />} />
+          </Switch>
+        </div>
+
+
         <form action="/api/user/logout" method="POST" >
           <button type="submit">logout</button>
         </form>
       </div>
+      </Router>
     );
   }
+
+}
+
+
+
+//Function to retrive token from password reset url
+function Token() {
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  let { token } = useParams();
+
+  return (
+
+    <form action={"api/user/"+token} method="POST">
+        password: <input type="password" name="password" placeholder="New password" />
+        confirm: <input type="password" name="confirm" placeholder="Confirm password" />
+        <button type="submit" >Update Password</button>
+    </form>
+
+  );
 }
 
 export default App;

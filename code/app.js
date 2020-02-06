@@ -39,6 +39,7 @@ app.use(passport.session());
 //app.use('/', require('./routers/index'));
 app.use('/api/user', require('./routers/user'));
 
+
 app.listen(port, function (){
   console.log(`Example app listening on port ${port}!`);
 });
