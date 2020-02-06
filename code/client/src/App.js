@@ -1,11 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
+import NavBar from './components/Navbar/Navbar';
+import SideDrawer from './components/SideDrawer/SideDrawer';
+import Backdrop from './components/Backdrop/Backdrop'
+// import Footer from './components/Footer/Footer';
+
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import Account from './components/pages/Account';
+import Blogs from './components/pages/Blogs';
+import Contact from './components/pages/Contact';
+import Disclaimer from './components/pages/Disclaimer';
+import Faq from './components/pages/Faq';
+import Register from './components/pages/Register';
+import SearchLocations from './components/pages/SearchLocations';
 
 class App extends Component {
 state = {
-    data: null
+    data: null,
+    sideDrawerOpen: false
   };
+
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return{sideDrawerOpen: !prevState.sideDrawerOpen};
+    })
+  };
+
+  backdropClickHandler = () => {
+    this.setState({sideDrawerOpen: false});
+  }
 
   componentDidMount() {
       // Call our fetch function below once the component mounts
@@ -25,7 +52,30 @@ state = {
   };
 
   render() {
+    let backdrop;
+
+    if(this.state.sideDrawerOpen) {
+      backdrop = <Backdrop click={this.backdropClickHandler} />
+    }
     return (
+      <Router>
+        <div style={{height: '100%'}}>
+          <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
+          <SideDrawer show={this.state.sideDrawerOpen} />
+          {backdrop}
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/account" component={Account} />
+          <Route path="/blogs" component={Blogs} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/disclaimer" component={Disclaimer} />
+          <Route path="/faq" component={Faq} />
+          <Route path="/register" component={Register} />
+          <Route path="/search_locations" component={SearchLocations} />
+        </div>
+      </Router>
+    );
+    /*return (
       <div>
         <h1>Signup</h1>
 
@@ -51,7 +101,7 @@ state = {
           <button type="submit">logout</button>
         </form>
       </div>
-    );
+    );*/
   }
 }
 
