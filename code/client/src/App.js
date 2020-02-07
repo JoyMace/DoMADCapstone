@@ -59,11 +59,13 @@ state = {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
+      // creating routing to each page
       <Router>
         <div style={{height: '100%'}}>
           <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
           <SideDrawer show={this.state.sideDrawerOpen} />
           {backdrop}
+          
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/account" component={Account} />
