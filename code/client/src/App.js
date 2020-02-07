@@ -8,16 +8,16 @@ import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop'
 // import Footer from './components/Footer/Footer';
 
-import Home from './components/pages/Home';
-import About from './components/pages/About';
-import Account from './components/pages/Account';
-import Blogs from './components/pages/Blogs';
-import Contact from './components/pages/Contact';
-import Disclaimer from './components/pages/Disclaimer';
-import Faq from './components/pages/Faq';
-import Register from './components/pages/Register';
-import SearchLocations from './components/pages/SearchLocations';
-import Login from './components/pages/Login';
+import Home from './components/Pages/Home';
+import About from './components/Pages/About';
+import Account from './components/Pages/Account';
+import Blogs from './components/Pages/Blogs';
+import Contact from './components/Pages/Contact';
+import Disclaimer from './components/Pages/Disclaimer';
+import Faq from './components/Pages/Faq';
+import Register from './components/Pages/Register';
+import SearchLocations from './components/Pages/SearchLocations';
+import Login from './components/Pages/Login';
 
 class App extends Component {
 state = {
@@ -65,7 +65,6 @@ state = {
           <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
           <SideDrawer show={this.state.sideDrawerOpen} />
           {backdrop}
-          
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/account" component={Account} />
