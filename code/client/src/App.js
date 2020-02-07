@@ -17,6 +17,7 @@ import Disclaimer from './components/pages/Disclaimer';
 import Faq from './components/pages/Faq';
 import Register from './components/pages/Register';
 import SearchLocations from './components/pages/SearchLocations';
+import Login from './components/pages/Login';
 
 class App extends Component {
 state = {
@@ -72,6 +73,7 @@ state = {
           <Route path="/faq" component={Faq} />
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
+          <Route path="/login" component={Login} />
         </div>
       </Router>
     );
