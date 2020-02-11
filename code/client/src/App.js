@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
+import NavBar from './components/Navbar/Navbar';
+import SideDrawer from './components/SideDrawer/SideDrawer';
+import Backdrop from './components/Backdrop/Backdrop'
+// import Footer from './components/Footer/Footer';
+
+import Home from './components/Pages/Home';
+import About from './components/Pages/About';
+import Account from './components/Pages/Account';
+import Blogs from './components/Pages/Blogs';
+import Contact from './components/Pages/Contact';
+import Disclaimer from './components/Pages/Disclaimer';
+import Faq from './components/Pages/Faq';
+import Register from './components/Pages/Register';
+import SearchLocations from './components/Pages/SearchLocations';
+import Login from './components/Pages/Login';
 
 import ReactDOM from 'react-dom'; //added to retrive token from url
 import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
@@ -8,8 +25,19 @@ import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-ro
 
 class App extends Component {
 state = {
-    data: null
+    data: null,
+    sideDrawerOpen: false
   };
+
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return{sideDrawerOpen: !prevState.sideDrawerOpen};
+    })
+  };
+
+  backdropClickHandler = () => {
+    this.setState({sideDrawerOpen: false});
+  }
 
   componentDidMount() {
       // Call our fetch function below once the component mounts
@@ -32,9 +60,38 @@ state = {
 
 
   render() {
+<<<<<<< HEAD
 
     return (
       <Router>
+=======
+    let backdrop;
+
+    if(this.state.sideDrawerOpen) {
+      backdrop = <Backdrop click={this.backdropClickHandler} />
+    }
+    return (
+      // creating routing to each page
+      <Router>
+        <div style={{height: '100%'}}>
+          <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
+          <SideDrawer show={this.state.sideDrawerOpen} />
+          {backdrop}
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/account" component={Account} />
+          <Route path="/blogs" component={Blogs} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/disclaimer" component={Disclaimer} />
+          <Route path="/faq" component={Faq} />
+          <Route path="/register" component={Register} />
+          <Route path="/search_locations" component={SearchLocations} />
+          <Route path="/login" component={Login} />
+        </div>
+      </Router>
+    );
+    /*return (
+>>>>>>> 5ecb70af1848536a36b1d231fbe5b27ed6f926e6
       <div>
         <h1>Signup</h1>
 
@@ -77,8 +134,12 @@ state = {
           <button type="submit">logout</button>
         </form>
       </div>
+<<<<<<< HEAD
       </Router>
     );
+=======
+    );*/
+>>>>>>> 5ecb70af1848536a36b1d231fbe5b27ed6f926e6
   }
 
 }
