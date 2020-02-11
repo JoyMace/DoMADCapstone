@@ -35,7 +35,7 @@ state = {
     this.setState({sideDrawerOpen: false});
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
       // Call our fetch function below once the component mounts
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
@@ -50,7 +50,7 @@ state = {
       throw Error(body.message) 
     }
     return body;
-  };
+  };*/
 
   render() {
     let backdrop;
@@ -78,33 +78,6 @@ state = {
         </div>
       </Router>
     );
-    /*return (
-      <div>
-        <h1>Signup</h1>
-
-        <form action="/api/user/signup" method="POST" >
-          Username: <input type="text" name="username" /><br/>
-          First Name: <input type="text" name="firstName" /><br/>
-          Last Name: <input type="text" name="lastName" /><br/>
-          Email: <input type="text" name="email" /><br/>
-          Password: <input type="password" name="password" /><br/>
-          Verify Password: <input type="password" name="verifyPassword" /><br/>
-          <button type="submit">send</button>
-        </form>
-
-        <h1>Login</h1>
-
-        <form action="/api/user/login" method="POST" >
-          Username: <input type="text" name="username" /><br/>
-          Password: <input type="password" name="password" /><br/>
-          <button type="submit">send</button>
-        </form>
-
-        <form action="/api/user/logout" method="POST" >
-          <button type="submit">logout</button>
-        </form>
-      </div>
-    );*/
   }
 }
 
