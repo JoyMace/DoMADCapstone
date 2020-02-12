@@ -1,4 +1,39 @@
 .account {
     margin-top: 64px;
     text-align: center;
+	
+}
+	
+.row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;		
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+
+.blue-column {
+	background-color: blue;
+	justify-content: center;
+	margin-top: 20px;
+	width: 60%;
+	margin-left: 20%;
+	margin-right: 20%;
+	
+}
+
+.green-column {
+	background-color: green;
+	justify-content: center;
+	margin-top: 20px;
+	width: 60%;
+	margin-left: 20%;
+	margin-right: 20%;
+	
 }
