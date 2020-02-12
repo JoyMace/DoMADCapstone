@@ -6,7 +6,6 @@ import './App.css';
 import NavBar from './components/Navbar/Navbar';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop'
-// import Footer from './components/Footer/Footer';
 
 import Home from './components/Pages/Home';
 import About from './components/Pages/About';
@@ -18,6 +17,7 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
+import Donate from './components/Pages/Donate'
 
 class App extends Component {
 state = {
@@ -75,6 +75,7 @@ state = {
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
+          <Route path="/donate" component={Donate} />
         </div>
       </Router>
     );

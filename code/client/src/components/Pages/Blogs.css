@@ -2,6 +2,7 @@
     margin-top: 64px;
     text-align: center;
     align-content: center;
+    justify-content: center;
 }
 
 .page-info {
@@ -52,6 +53,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1200px;
 }
 
 .blog-entry {
