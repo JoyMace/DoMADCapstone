@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/Navbar/Navbar';
@@ -18,12 +18,13 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
+import Footer from './components/Footer/Footer';
 
 class App extends Component {
-state = {
-    data: null,
-    sideDrawerOpen: false
-  };
+  state = {
+      data: null,
+      sideDrawerOpen: false
+    };
 
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
@@ -52,20 +53,48 @@ state = {
     return body;
   };
 
+  /* determine current path for navbar rendering, other stuff */
+  /*current_path() {
+    let active_path = null
+    const { router } = this.context
+    const { path } = this.props
+    console.log({path})
+    if (path && router) {
+      const { location } = router
+      active_path = this.matchPath(location.pathname, { path }) != null
+    }
+    this.setState({ active_path })
+  }*/
+
   render() {
     let backdrop;
-
+    
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
-      // creating routing to each page
+      // The 'Switch' renders the component for the first matching path
+          // If path is "/" ==> Home page 
+          // Else ==> NavBar, SideDrawer, {backdrop}?? 
       <Router>
         <div style={{height: '100%'}}>
-          <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
-          <SideDrawer show={this.state.sideDrawerOpen} />
+          
+          <Switch>
+            location.path
+              <Route exact path ="/" 
+                  component={Home}/>
+              <Route path ="/:subpath" 
+                  render={props => (
+                      <div>
+                        <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
+                        <SideDrawer show={this.state.sideDrawerOpen} />
+                      </div>
+                  )}
+              />
+              <Route />
+          </Switch>
+
           {backdrop}
-          <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/account" component={Account} />
           <Route path="/blogs" component={Blogs} />
@@ -75,9 +104,18 @@ state = {
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
+
+          <Footer />
         </div>
       </Router>
     );
+
+    /*
+          <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
+          <SideDrawer show={this.state.sideDrawerOpen} />
+
+          <Route exact path="/" component={Home} />
+    */
     /*return (
       <div>
         <h1>Signup</h1>
