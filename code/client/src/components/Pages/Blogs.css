@@ -3,6 +3,7 @@
     text-align: center;
     align-content: center;
     justify-content: center;
+    margin-bottom: 64px;
 }
 
 .page-info {
@@ -17,6 +18,8 @@
 }
 
 .country-button-container {
+    display: inline-block;
+    position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -43,9 +46,9 @@
 }
 
 .country-buttons:hover {
-    border: 2px solid black;
-    background-color: white;
-    color: black;
+    border: 2px solid #010925;
+    background-color: #f4f4f4;
+    color: #010925;
 }
 
 .blog-container {
@@ -67,7 +70,7 @@
 }
 
 .blog-entry:hover {
-    border: 5px solid black;
+    border: 5px solid #010925;
 }
 
 .top-image {
@@ -91,4 +94,11 @@
     background-color: #010925;
     color: white;
     line-height: 2em;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
 }
