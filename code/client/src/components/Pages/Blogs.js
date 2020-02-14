@@ -31,7 +31,13 @@ function Blogs() {
                     <div className="bottom-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
-                        <p>Rating: </p>
+                        <div className="star-rating">
+                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                <div>
+                                    <p>Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf /></p>
+                                </div>
+                            </IconContext.Provider>
+                        </div>
                     </div>
                 </div>
                 <div className="blog-entry">
@@ -41,7 +47,13 @@ function Blogs() {
                     <div className="bottom-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
-                        <p>Rating: </p>
+                        <div className="star-rating">
+                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                <div>
+                                    <p>Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf /></p>
+                                </div>
+                            </IconContext.Provider>
+                        </div>
                     </div>
                 </div>
                 <div className="blog-entry">
@@ -51,7 +63,13 @@ function Blogs() {
                     <div className="bottom-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
-                        <p>Rating: </p>
+                        <div className="star-rating">
+                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                <div>
+                                    <p>Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf /></p>
+                                </div>
+                            </IconContext.Provider>
+                        </div>
                     </div>
                 </div>
                 <div className="blog-entry">
@@ -61,7 +79,13 @@ function Blogs() {
                     <div className="bottom-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
-                        <p>Rating: </p>
+                        <div className="star-rating">
+                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                <div>
+                                    <p>Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf /></p>
+                                </div>
+                            </IconContext.Provider>
+                        </div>
                     </div>
                 </div>
                 <div className="blog-entry">
@@ -71,9 +95,21 @@ function Blogs() {
                     <div className="bottom-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
-                        <p>Rating: </p>
+                        <div className="star-rating">
+                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                <div>
+                                    <p>Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf /></p>
+                                </div>
+                            </IconContext.Provider>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div className="bottom-buttons">
+                <IconContext.Provider value={{ className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                    <button className="country-buttons">Next Page <FaArrowRight /></button>
+                </IconContext.Provider>
+                <p>Page 1/15</p>
             </div>
         </div>
     )
