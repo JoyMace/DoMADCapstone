@@ -58,7 +58,6 @@ state = {
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
-
     return (
       // creating routing to each page
       <Router>
