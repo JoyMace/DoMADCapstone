@@ -9,140 +9,147 @@ import dons from '../../images/home-filler-volunteers.jpg';
 
 function Home() {
     return (
-        <div className="home">
 
-            <div className='top-container'>
-                <img id='bg_img' src={bg} alt={bg_alt} />
+    <div className="home">
 
-                <StickyNavbar className="navbar-container">
-                    <div className='nav-list'>
-                        <li className='dropdown'>
-                            <a href="javascript:void(0)" className="DD-btn">
-                                Get Started</a>
-                            <div className="dropdown-content">
-                                <a href="/about">Explore</a>
-                                <a href="#share">Share A Trip</a>
-                                <a href="/blogs">Go to Blogs</a>
-                            </div>
-                        </li>
-                        <li className='dropdown'>
-                            <a href="javascript:void(0)" className="DD-btn">
-                                Learn More</a>
-                            <div className="dropdown-content">
-                                <a href="/about">Our Mission</a>
-                                <a href="/contact">Contact Us</a>
-                                <a href="/faq">FAQ</a>
-                                <a href="/disclaimer">Disclaimer</a>
-                            </div>
-                        </li>
-                        <li className='nav-cell'>
-                            <a href="/register">Sign up</a>
-                        </li>
-                        <li className='nav-cell'>
-                            <a href="/account">Log in</a>
-                        </li>
+        <div className='top-container'>
+            <img id='bg_img' src={bg} alt={bg_alt} />
+
+            <StickyNavbar className="navbar-wrapper">
+                <div className='nav-list'>
+                    <li className='dropdown'>
+                        <a href="javascript:void(0)" className="DD-btn">Get Started</a>
+                        <div className="dropdown-content">
+                            <a href="/about">Explore</a>
+                            <a href="#share">Share A Trip</a>
+                            <a href="/blogs">Go to Blogs</a>
+                        </div>
+                    </li>
+                    <li className='dropdown'>
+                        <a href="/login" className='DD-btn'>Log in</a>
+                        <div id='signup-dd' className="dropdown-content">
+                            <a  href="/register">No account? Create one!</a>
+                        </div>
+                    </li>
+                    <li className='dropdown'>
+                        <a href="javascript:void(0)" className="DD-btn">Learn More</a>
+                        <div className="dropdown-content">
+                            <a href="/about">Our Mission</a>
+                            <a href="/contact">Contact Us</a>
+                            <a href="/faq">FAQ</a>
+                            <a href="/disclaimer">Disclaimer</a>
+                        </div>
+                    </li>
+                </div>
+            </StickyNavbar>
+        
+            <div className="block-wrapper">
+                <img id="block-logo" src={logo_wh} alt={logo_bl} />
+                <h2>Donations Make a Difference</h2><br/>
+
+                <div className='block-content'>
+                    <div id='exp'>
+                        <a href="/search_locations">Explore</a>
                     </div>
-                </StickyNavbar>
-
-                <div className="block-wrapper">
-                    <img id="block-logo" src={logo_wh} alt={logo_bl} />
-                    <h2>Donations Make a Difference</h2><br/>
-                    <div className='block-text'>
-                        <span id='exp'>
-                            <a href="/search_locations">Explore Locations</a>
-                        </span>
-                        <span id='blog'>
-                            <a href="/blogs">Blogs</a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <section>
-                <h4 id='spacer_under_top'>
-                    Empowering Global Travelers To Make A Difference Locally
-                </h4>
-            </section> 
-           
-            <div className='middle-wrapper'>
-                <div className="step-container">
-                    <h2>1</h2>
-                    <hr/>
-                    <p>Utilize DoMAD's interactive database of localized 
-                        donations to help you to find <i>what, how, and where</i> to 
-                        make simple donations around the world.</p>
-                </div>
-                <div className="step-container">
-                    <h2>2</h2>
-                    <hr/>
-                    <p>Pack your items however you'd like.</p>
-                </div>
-                <div className="step-container">
-                    <h2>3</h2>
-                    <hr/>
-                    <p>Donate your items! (The fun part)</p>
-                </div>
-                <div className="step-container">
-                    <h2>4</h2>
-                    <hr/>
-                    <p>Inspire others by sharing your experiences on our 
-                        blogs, commending peers, and validating their donations.</p>
-                </div>
-            </div>
-
-    <div className="horz-spacer">
-        <h4>Click <a id='learn_more' href='/About'>Here</a> to learn more.</h4>
-        <br/>
-        <hr style={{width: '70%', margin:'0px 15%'}}/>
-    </div>
-
-    
-       
-            <div className='container-donate'>
-                <h2>Recent Donation Trips</h2>
-
-                <div className="slides-container">
-                    <div className="slide-entry">
-                        <div className="top-image">
-                            <img src={ dons } alt="boulder" />
-                        </div>
-                        <div className="bottom-content">
-                            <p>Location: Boulder</p>
-                            <p>Donation: Tarp</p>
-                            <p>Rating: </p>
-                        </div>
-                    </div>
-                    <div className="slide-entry">
-                    <div className="top-image">
-                            <img src={ dons } alt="boulder" />
-                        </div>
-                        <div className="bottom-content">
-                            <p>Location: Boulder</p>
-                            <p>Donation: Tarp</p>
-                            <p>Rating: </p>
-                        </div>
-                    </div>
-                    <div className="slide-entry">
-                    <div className="top-image">
-                            <img src={ dons } alt="boulder" />
-                        </div>
-                        <div className="bottom-content">
-                            <p>Location: Boulder</p>
-                            <p>Donation: Tarp</p>
-                            <p>Rating: </p>
-                        </div>
+                    <div id='blog'>
+                        <a href="/blogs">Blogs</a>
                     </div>
                 </div>
-            </div>
-
-            <div className='more_qs'>
-                <h4>Something unclear? Checkout our <a href='/faq'>FAQ</a> page</h4>
             </div>
         </div>
+
+        <div className='steps-wrapper'>
+            <h4 className='spacer-caption'>
+                Empowering Global Travelers To Make A Difference Locally
+            </h4>
+
+            <div className='steps-container'>
+                <div className="step-entry">
+                    <div className='top-util'>
+                        <h2>1</h2>
+                    </div>
+                    <hr/>
+                    <div className='bottom-content'>
+                        <p>
+                            Reference our interactive and localized database to 
+                            gather information about your destination as we.
+                            Discover <i>what, how, and where </i> to make your donation.
+                        </p>
+                    </div>
+                </div>
+                <div className="step-entry">
+                    <div className='top-util'>
+                        <h2>2</h2>
+                    </div>
+                    <hr/>
+                    <div className='bottom-content'>
+                        <p>Pack a few items to be donated, then DONATE!</p>
+                    </div>
+                </div>
+                <div className="step-entry">
+                    <div className='top-util'>
+                        <h2>3</h2>
+                    </div>
+                    <hr/>
+                    <div className='bottom-content'>
+                        <p>
+                            Inspire others by sharing content and experiences, commending
+                            other's <i>NoMAD's</i>, and providing useful information
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div className="spacer-caption">
+                <h4>Click <a id='learn_more' href='/About'>Here</a> to learn more.</h4>
+                <br/>
+                <hr style={{width: '70%', margin:'0px 15%'}}/>
+            </div>
+        </div>
+
+        <div className='donations-wrapper'>
+            <h2>Recent Donation Trips</h2>
+            <div className="slides-container">
+                <div className="slide-entry">
+                    <div className="top-image">
+                        <img src={ dons } alt="boulder" />
+                    </div>
+                    <div className="bottom-content">
+                        <p>Location: Boulder</p>
+                        <p>Donation: Tarp</p>
+                        <p>Rating: </p>
+                    </div>
+                </div>
+                <div className="slide-entry">
+                <div className="top-image">
+                        <img src={ dons } alt="boulder" />
+                    </div>
+                    <div className="bottom-content">
+                        <p>Location: Boulder</p>
+                        <p>Donation: Tarp</p>
+                        <p>Rating: </p>
+                    </div>
+                </div>
+                <div className="slide-entry">
+                <div className="top-image">
+                        <img src={ dons } alt="boulder" />
+                    </div>
+                    <div className="bottom-content">
+                        <p>Location: Boulder</p>
+                        <p>Donation: Tarp</p>
+                        <p>Rating: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className='pre_footer-container'>
+            <h4>Something unclear? Checkout our <a href='/faq'>FAQ</a> page</h4>
+        </div>
+    </div>
     )
 }
 
-/* Sets an Observer on the wrapper after top-container */
+/* Sets an Observer on the top-container for viewport visibility*/
 function StickyNavbar({ children, sticky=false, className, ...rest }){
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
@@ -165,14 +172,5 @@ function StickyNavbar({ children, sticky=false, className, ...rest }){
         </div>
     )
 }
-
-/*document.addEventListener('sticky-nav-change', e => {
-    const header = e.detail.target;  // header became sticky or stopped sticking.
-    const sticking = e.detail.stuck; // true when header is sticky.
-    header.classList.toggle('shadow', sticking); // add drop shadow when sticking.
-  
-    document.querySelector('.who-is-sticking').textContent = header.textContent;
-}); */
-
 
 export default Home;

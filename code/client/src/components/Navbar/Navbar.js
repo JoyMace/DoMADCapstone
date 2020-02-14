@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './DoMADLogoDark.svg'
+import logo from '../../images/DoMADLogoDark.svg'
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton'
 import './Navbar.css';

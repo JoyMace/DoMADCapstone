@@ -19,13 +19,15 @@
     height: auto;
     object-fit: cover;
     min-height: 175px;
-    max-height: 1000px;
+    max-height: 1500px;
+    min-width: 650px;
+    max-width: 2000px;
     opacity: 0.85;
     z-index: 0; /* stack order (last) */
 }
 
     /*=== StickyNavbar Container & Content ===*/
-    .navbar-container {
+    .navbar-wrapper {
         position: sticky; /* old=>position: absolute */
         display: flex;
         top: 0;
@@ -37,52 +39,49 @@
 
         /*== Master Navbar '<ul>' list*/
         .nav-list {
-            list-style-type: none;
             position: fixed;
+            padding: 0% 3%;
             width: 100%;
-            padding-right: 10px;
+            list-style-type: none;
             overflow: visible;
-            float: right;
-            font-size: 0.9rem;
             /* Utilities for navbar sticky effect */
             top: -1px;
             padding-top: calc(1em + 1px);
         }
 
         /* Sticky Navbar transition effects */
-        .navbar-container.isSticky .nav-list {
-            transition: all 0.3s;
+        .navbar-wrapper.isSticky .nav-list {
+            padding: 3px 3%; /* Overwrites above sticky utility */
+            transition: all 0.4s;
             background-color: #363D48;
-            padding: 5px 0px 3px 0px; /* Utility for navbar sticky effect */
-            /*color: black; --not working?? */
-            /* width: 100%; --Can change/remove for a smaller concatenated nav ribbon */
-            
+            /* width: 40%; --Can add for a smaller concatenated nav ribbon */
         }
-            /*-- All header items --*/
-            .navbar-container li {
-                float: right;
-            }
-            /*-- All header items And DD items (!Has to be sticky!!) --*/
-            .nav-list li { 
-                text-align: center;
-                cursor: pointer;
+            
+            /*-- All Navbar head items --*/
+            .nav-list .dropdown { 
                 position: sticky;
+                margin-right: 20px;
+                float: right;
+                text-align: left;
+                cursor: pointer;
             }
-            /*-- Dropdown table groups --*/
-            .navbar-container li.dropdown {
+            /*-- Move furthest right Navbar item to the left --*/
+            .nav-list .dropdown:first-child { float: left; }
+            
+            /*-- Navbar DD item groups --*/
+            .navbar-wrapper .dropdown {
                 display: inline-block;
             }
-            /*-- On hover => add border to the top nav button --*/
-            li a:hover, .dropdown:hover .DD-btn { 
-                transition: all 0.5s;
-                border-left: 2px solid #CBB95A;
-            }
-            .nav-list li:first-child { margin-right: 20px; }
+                /*-- On hover => add border to Navbar head item --*/
+                .dropdown:hover .DD-btn { 
+                    transition: all 0.5s;
+                    border-left: 2px solid #CBB95A;
+                }
+            
 
-            /*--ALL header items corresponding child <a> tags--*/
+            /*--Every Navbar item's inner-reference tags--*/
             li a, .DD-btn {
-                display: inline-block; /*Creates vertical navs  */
-                text-align: center;
+                display: inline-block; /* create vertical navs  */
                 background: none;
                 padding: 6px 8px;
                 text-decoration: none;
@@ -90,36 +89,39 @@
                 color: white;
             }
 
-                /* On Hover => Change a dropdown head's bg-color */
-                /*.DD-btn:hover {}*/
-
-                /*=!!= Sub-Content rendered on DD button hover =!!=*/
+                /*=!!= Sub-Nav items rendered on DD button hover =!!=*/
                 .dropdown-content {
                     display: none; /* initial */
                     position: absolute;
-                    min-width: 75px;
-                    color: black;
-                    background-color: white;
+                    min-width: 20px;
+                    background-color: #010925;
                     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
                     z-index: 6; /* UI Stack order - 1st before navbar) */
+                    width: calc(100% + 10px);
                 }
-                /* Dropdown-specific <a> reference tags */
+                    /* On Navbar head item hover => Show dropdown content! */
+                    .dropdown:hover .dropdown-content {
+                        display: block;
+                    }
+
                 .dropdown-content a {
-                    color: black;
-                    padding: 6px 8px;
-                    text-decoration: none;
-                    display: block; /* change to */
-                    text-align: left;
-                }
-                /* On 'dropdown item' hover => Change its bg-color */
-                .dropdown-content a:hover {
-                    background-color: #ddd;
-                }
-                /* On dropdown header item hover => Show dropdown content*/
-                .dropdown:hover .dropdown-content {
                     display: block;
+                    padding: 6px 8px;
+                    text-align: left;
+                    text-decoration: none;
+                    color: white;
+                    font-size: 0.7em;
                 }
-     
+                #signup-dd {
+                    width: 150%;
+                }
+                    /* On Sub-Nav items hover => lighten and border */
+                    .dropdown-content a:hover {
+                        transition: all 0.4s;
+                        background-color: #1e2231;
+                        border-bottom: solid #CBB95A;
+                    }
+                
     /*=== Centered Top Container content ===*/
     .block-wrapper {
         position: absolute;
@@ -134,54 +136,63 @@
             height: auto;
             scale: 0.75;
         }
-            /*-- Centralized Buttons (Explore & Blog) --*/
-            .block-text span {
+            /*-- Central Buttons (Explore & Blog) --*/
+            .block-content span {
                 padding: 8px 6px 6px 6px;
                 border: 2px solid #CBB95A;
                 border-radius: 5px;
             }
-                .block-text span a {
+                .block-content span a {
                     color: white;
                 }
                 #exp { float: left; }
                 #blog { float: right; }
 
-/*============================*/
-/*=== 'Empowering' spacer! ===*/
-#spacer_under_top {
-    font-size: 1.2rem;
-    margin: 15px 0px;
-    position: static; /* reset back to default */
-}
+
 
 /*================================*/
 /*== Steps to DoMAD Success ==*/
-.middle-wrapper {
+    .spacer-caption {
+        font-size: 1.2rem;
+        margin: 15px 0px;
+    }
+
+.steps-wrapper {
     position: static; /*--Default, allows for flex wrap*/
     display: inline-table; /*inline*/
     width: 100%;
     height: 100%;
 }
-    .step-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 20%;
-        margin: 10px 10px; /*--top/bottom & left/right--*/
-        padding: 5px 5px 8px 8px;
-        
-        border: 2px solid #CBB95A;
+    
+    .steps-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .step-entry {
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+
+        padding: 6px 6px 12px 6px;
+        width: 22%; min-width: 250px;
+        margin: 48px 16px 16px 16px; /* margin is done here for flex utility */
+
         background-color: #010925;
+        border: 2px solid #CBB95A;
         border-radius: 10px;
         color: white;
         word-break: normal;
     }
-        .step-container div p {
-            text-align: left;
+        /*.top-util {
+        }*/
+        .step-entry hr {
+            margin: 0px 12px;
         }
-        .step-container hr {
-            display: block;
-            border-width: 1px;
-            margin: 6px 10% 12px 10%;
+        .bottom-content p {
+            text-align: left;
         }
 
 /*==============================*/
@@ -190,21 +201,21 @@
     color: #CBB95A;
 }
 #learn_more:hover, #learn_more:active {
+    transition: all 0.5s;
     text-decoration: underline;
     text-decoration-color: #010925;
 }
 
 /*==============================*/
 /*=== Donations Slide Images ===*/
-.container-donate {
+.donations-wrapper {
     margin-top: 30px;
 }
 
 .slides-container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
 
     .slide-entry {
@@ -244,7 +255,7 @@
 /*==============================*/
 /*=== 'Go to FAQ' spacer ===*/
 
-.more_qs {
+.pre_footer-container {
     text-align: center;
 }
 
