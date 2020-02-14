@@ -5,6 +5,8 @@
     height: 100%;
 }
 
+/*===============================*/
+/*==== Top Content Area containing background ====*/
 .top-container {
     position: relative; /* YES */
     width: 100%;
@@ -12,131 +14,136 @@
     margin: 0;
 }
     
-    #bg {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        min-height: 175px;
-        max-height: 1000px;
-        opacity: 0.85;
-        z-index: 0; /* stack order (last) */
-    }
-    
-    /*-=- Navbar container -=-*/
+#bg {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 175px;
+    max-height: 1000px;
+    opacity: 0.85;
+    z-index: 0; /* stack order (last) */
+}
+
+    /*=== 'navbar-container' ===*/
     .navbar-container {
-        position: absolute; /* places @absolute top-left */
+        position: sticky; /* old=>position: absolute */
         top: 0;
         left: 0;
         right: 0;
+        margin: 0;
         z-index: 4; /* Stacking order (2nd, before DD content) */
-        background: none;
+        display: flex;
+        transition: all 0.5s; /* back to top */
     }
-
-    /*== Master Navbar '<ul>' ref tag*/
-    .nav-list {
-        list-style-type: none;
-        position: fixed; /* YES */
-        margin: 0; 
-        padding: 0;
-        width: 100%;
-        padding-bottom: 25px;
-        margin: 4px 0px 0px 0px;
-        overflow: visible; /* DD's render outside 'nav-list' :( */
-        font-size: 0.65rem;
-        float: right;
-    }
-
-    /*--ALL <li> tags => float whole navbar right, global (container)styling--*/
-    .nav-list li { 
-        right: 0;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.75s;
-        margin: inherit;
-        /**** Renders sticky NavBar ****/
-        position: sticky;
-        display:  inline-block;
-    }
-    li {
-        float: right;
-    }
-        /* On hover - add border to the top nav button*/
-        li a:hover, .dropdown:hover .DD-btn { 
-            border-left: 1px solid #CBB95A;
-            background-color: #3e8e41;
-        }
-        .nav-list li:first-child {
-            margin-right: 20px;
-        }
-
-    /*--ALL SUB-NAV <a> tags--*/
-    /* 'display:block' for <a> tags makes some vertical navs */
-    li a, .DD-btn {
-        display: inline-block;
-        text-align: center;
-        background: none;
-        padding: 6px 8px;
-        text-decoration: none;
-        text-emphasis: bold;
-        color: white;
-    }
-
-    li.dropdown {
-        display: inline-block;
-    }
-        /* Changes bg-color of a dropdown when its content is displayed */
-        /*.DD-btn:hover {}*/
-
-    /*=!!!= Content rendered on DD button hover =!!!=*/
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        min-width: 75px;
+    /* Navbar transition effects */
+    .navbar-container.isSticky .nav-list {
+        transition: all 0.5s; /* from top */
+        background-color: #C9C2B2;
         color: black;
-        background-color: white;
-        box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-        z-index: 6; /* Stack order (1st, in front of .navbar) */
     }
-    /* Dropdown-specific links */
-    .dropdown-content a {
-        color: black;
-        padding: 6px 8px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-    }
-        /* On hover => Change bg-color of dropdown content */
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-        /* On Hover => Show dropdown menu content*/
-        .dropdown:hover .dropdown-content {
-            display: block;
+    
+
+        /*== Master Navbar '<ul>' list*/
+        .nav-list {
+            list-style-type: none;
+            position: fixed; /* YES */
+            margin: 0; 
+            padding: 0;
+            width: 100%;
+            /*padding-bottom: 5px;*/
+            margin: 0px 0px 0px 0px;
+            overflow: visible; /* DD's render outside 'nav-list' :( */
+            font-size: 0.65rem;
+            float: right;
+
+            /* ??? */
+            top: -1px;
+            padding-top: calc(1em + 1px);
         }
         
-    
+            /*-- ALL header items including DD's (!Has to be sticky!!) --*/
+            .nav-list li { 
+                right: 0;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.75s;
+                margin: inherit;
+                /**** Renders sticky NavBar ****/
+                position: sticky;
+                display:  inline-block;
+            }
+            /*-- ALL header items --*/
+            .navbar-container li {
+                float: right;
+            }
+            /*-- Dropdown tables --*/
+            li.dropdown {
+                display: inline-block;
+            }
+            /*-- On hover => add border to the top nav button --*/
+            li a:hover, .dropdown:hover .DD-btn { 
+                border-left: 2px solid #CBB95A;
+                /*@include transition (padding .15s ease-in-out 0s);*/
+            }
+            .nav-list li:first-child { margin-right: 20px; }
 
+            /*--ALL header items corresponding child <a> tags--*/
+            li a, .DD-btn {
+                display: inline-block; /*Creates vertical navs  */
+                text-align: center;
+                background: none;
+                padding: 6px 8px;
+                text-decoration: none;
+                text-emphasis: bold;
+                color: white;
+            }
 
+                /* On Hover => Change a dropdown head's bg-color */
+                /*.DD-btn:hover {}*/
 
-    
-         
-
-
-
-    /*== centralized bg content ==*/
-    .block-wrapper {
-        position: absolute; /*--absolute position @middle, places div 'out of context'--*/
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        z-index: 3; /* Stacking order, (3rd, after nav elements) */
+                /*=!!= Sub-Content rendered on DD button hover =!!=*/
+                .dropdown-content {
+                    display: none; /* initial */
+                    position: absolute;
+                    min-width: 75px;
+                    color: black;
+                    background-color: white;
+                    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+                    z-index: 6; /* UI Stack order - 1st before navbar) */
+                }
+                /* Dropdown-specific <a> reference tags */
+                .dropdown-content a {
+                    color: black;
+                    padding: 6px 8px;
+                    text-decoration: none;
+                    display: block; /* change to */
+                    text-align: left;
+                }
+                /* On 'dropdown item' hover => Change its bg-color */
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+                /* On dropdown header item hover => Show dropdown content*/
+                .dropdown:hover .dropdown-content {
+                    display: block;
+                }
+     
+/*========================================*/
+/*=== Centered 'top-container' content ===*/
+.block-wrapper {
+    position: absolute; /*--absolute position @middle, places div 'out of context'--*/
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 3; /* Stacking order (3rd, after the navbar) */
+}
+    #block-logo {
+        width: 100%;
+        height: auto;
+        scale: 0.75;
     }
-        #block-logo {
-            width: 100%; /* Of the parent div */
-            height: auto;
-            scale: 0.75;
-        }
+        /*-- explore and blog buttons --*/
         .block-text span {
             padding: 8px 6px 6px 6px;
             border: 2px solid #CBB95A;
@@ -145,86 +152,79 @@
             .block-text span a {
                 color: white;
             }
-                #exp { float: left; }
-                #blog { float: right; }
+            #exp { float: left; }
+            #blog { float: right; }
 
+/*============================*/
+/*=== 'Empowering' spacer! ===*/
 #horz-spacer {
     font-size: 1.3rem;
     padding: 20px 0px 30px 0px;
     margin-top: 30px;
-    position: static; /*set back to default*/
+    position: static; /* reset back to default */
 }
 
-    /* Styling the steps to DoMAD Success! */
-    .middle-wrapper {
-        position: static; /*--Default, allows for flex wrap*/
-        display: inline-table; /*inline*/
-        width: 100%;
-        height: 100%;
+/*================================*/
+/*== The steps to DoMAD Success ==*/
+.middle-wrapper {
+    position: static; /*--Default, allows for flex wrap*/
+    display: inline-table; /*inline*/
+    width: 100%;
+    height: 100%;
+}
+    .step-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 20%;
+        margin: 10px 10px; /*--top/bottom & left/right--*/
+        padding: 5px 5px 8px 8px;
+        
+        border: 2px solid #CBB95A;
+        background-color: #010925;
+        border-radius: 10px;
+        color: white;
+        word-break: normal;
     }
-        .step-container {
-            display: inline-block;
-            vertical-align: top;
-            width: 20%;
-            margin: 10px 10px; /*--top/bottom & left/right--*/
-            padding: 5px 5px 8px 8px;
-            
-            border: 2px solid #CBB95A;
-            background-color: #010925;
-            border-radius: 10px;
-            color: white;
-            word-break: normal;
+        .step-container div p {
+            text-align: left;
         }
-            .step-container div p {
-                text-align: left;
-            }
-            .step-container hr {
-                display: block;
-                border-width: 1px;
-                margin: 6px 10% 12px 10%;
-            }
+        .step-container hr {
+            display: block;
+            border-width: 1px;
+            margin: 6px 10% 12px 10%;
+        }
 
-    #learn_more a:hover,
-    #learn_more a:active {
-        color: #CBB95A;
+/*===============================*/
+#learn_more a:hover,
+#learn_more a:active {
+    color: #CBB95A;
+}
+
+/*=====================================*/
+/*======Screen sizing support =========*/
+
+/* For 'Header' => replace nav w/a solid bar at width<700 */
+/* !!!!!!!!!!!!!!!!!!!!!! */
+/*@media (min-width: 650px) {
+    .nav-list li,
+    .nav-list li {
+        float: none;
+        position: relative;
     }
+}*/
 
-    /* small-width screen support for header
-    ==> replaces nav w/solid bars at width<700 */
-    /* !!!!!!!!!!!!!!!!!!!!!! */
-    /*@media (min-width: 650px) {
-        .nav-list li,
-        .nav-list li {
-            float: none;
-            position: relative;
-        }
-    }*/
-
-    /* small-width screen support for BG-block area
-    ==> hide logo caption, ?fix logo position? */
-    @media screen and (max-width:650px) {
-        /*.block-wrapper { top: 20%; } */
-        .block-wrapper h2{
-            display: none;
-        }
+/* For BG-block area => hide logo caption, ?fix logo position? */
+@media screen and (max-width:650px) {
+    /*.block-wrapper { top: 20%; } */
+    .block-wrapper h2{
+        display: none;
     }
+}
 
-    /* small-width screen support for steps 
-    ==> positions wide vertically */
-    @media screen and (max-width:700px) {
-        .step-container {
-            width: 70%;
-            align-items: center;
-        }
+/* For steps => positions wide vertically */
+@media screen and (max-width:700px) {
+    .step-container {
+        width: 70%;
+        align-items: center;
     }
-
-    /*
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
-        <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </li>
-    */
+}

@@ -12,8 +12,8 @@ function Home() {
             <div className='top-container'>
                 <img id='bg' src={bg} alt={bg_alt} />
 
-                <div className="navbar-container">
-                    <ul className='nav-list'>
+                <StickyNavbar className="navbar-container">
+                    <div className='nav-list'>
                         <li className='dropdown'>
                             <a href="javascript:void(0)" className="DD-btn">
                                 Get Started</a>
@@ -39,8 +39,8 @@ function Home() {
                         <li className='nav-cell'>
                             <a href="/account">Log in</a>
                         </li>
-                    </ul>
-                </div>
+                    </div>
+                </StickyNavbar>
 
                 <div className="block-wrapper">
                     <img id="block-logo" src={logo_wh} alt={logo_bl} />
@@ -56,11 +56,11 @@ function Home() {
                 </div>
             </div>
             
-            <div className="wrapper">
-                <h4 id='horz-spacer'>
-                    Empowering Global Travelers To Make A Difference Locally
-                </h4>
-            </div>
+<section className='horz-spacer'>
+    <a target='_blank'>
+        <h4>Empowering Global Travelers To Make A Difference Locally</h4>
+    </a>
+</section>
            
             <div className='middle-wrapper'>
                 <div className="step-container">
@@ -102,5 +102,38 @@ function Home() {
         </div>
     )
 }
+
+/* Sets an Observer on the wrapper after top-container */
+function StickyNavbar({ children, sticky=false, className, ...rest }){
+    const [isSticky, setIsSticky] = React.useState(false);
+    const ref = React.createRef();
+    
+    // mount observer on 
+    React.useEffect(() => {
+        const cachedRef = ref.current, 
+                observer = new IntersectionObserver(
+                    ([e]) => setIsSticky(e.intersectionRatio < 1), {threshold: [1]} 
+                );
+        observer.observe(cachedRef);
+      
+        // unmount
+        return function(){ observer.unobserve(cachedRef); }
+    }, [])
+    
+  return (
+        <div className={className + (isSticky ? " isSticky" : "")} ref={ref} {...rest}>
+            {children}
+        </div>
+    )
+}
+
+/*document.addEventListener('sticky-nav-change', e => {
+    const header = e.detail.target;  // header became sticky or stopped sticking.
+    const sticking = e.detail.stuck; // true when header is sticky.
+    header.classList.toggle('shadow', sticking); // add drop shadow when sticking.
+  
+    document.querySelector('.who-is-sticking').textContent = header.textContent;
+}); */
+
 
 export default Home;
