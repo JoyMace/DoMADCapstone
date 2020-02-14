@@ -4,72 +4,81 @@
     left: 0;
     width: 100%;
     background: #ffffff;
-    /*border: 2px solid black;*/
     border-bottom: 1px solid black;
-    /*box-shadow: 0px 0px 0px rgba(0,0,0,0.5);*/
+    box-shadow: 0px 0.5px 0px rgba(0,0,0,0.5);
     height: 56px;
+    z-index: 999;
 }
 
 .navbar_navigation {
     display: flex;
-    /*flex-direction: row;*/
     height: 100%;
     align-items: center;
+    vertical-align: middle;
     padding: 0 1rem;
-    /*justify-content: space-between;*/
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
-
 .navbar_logo {
     margin-left: 1rem;
     padding-top: 1rem;
-}
-
-.left-items {
     float: left;
 }
 
-.right-items {
+.separator {
+    border: 0.5px solid black;
+}
+
+.navbar_navigation_items_left {
+    float: left;
+}
+
+.navbar_navigation_items_right {
     float: right;
 }
 
-.separator {
-    border: 1px solid black;
-    height: px;
-}
-
-.spacer {
-    flex: 1;
-}
-
-.navbar_navigation_items ul {
+.navbar_navigation_items_left ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
-.navbar_navigation_items li {
+.navbar_navigation_items_right ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar_navigation_items_left li {
     padding: 0 0.5rem;
 }
 
-.navbar_navigation_items a {
+.navbar_navigation_items_right li {
+    padding: 0 0.5rem;
+}
+
+.navbar_navigation_items_left a {
     color: black;
     text-decoration: none;
 }
 
-.navbar_navigation_items a:hover,
-.navbar_navigation_items a:active {
+.navbar_navigation_items_right a {
+    color: black;
+    text-decoration: none;
+}
+
+.navbar_navigation_items_left a:hover,
+.navbar_navigation_items_left a:active {
     color: gray;
 }
 
-/*@media (max-width: 768px) {
-    .navbar_navigation_items {
-        display: none;
-    }
-}*/
+.navbar_navigation_items_right a:hover,
+.navbar_navigation_items_right a:active {
+    color: gray;
+}
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     .navbar_navigation_items {
         display: none;
     }
