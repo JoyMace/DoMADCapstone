@@ -5,6 +5,7 @@ import bg_alt from '../../images/home-filler-inspire.jpg';
 import logo_wh from '../../images/WhiteDOMADlogo.svg';
 import logo_bl from '../../images/DoMADLogoDark.svg';
 
+
 import dons from '../../images/home-filler-volunteers.jpg';
 
 function Home() {
@@ -12,13 +13,15 @@ function Home() {
 
     <div className="home">
 
-        <div className='top-container'>
+        <StickyContainer className='top-container'>
             <img id='bg_img' src={bg} alt={bg_alt} />
 
-            <StickyNavbar className="navbar-wrapper">
-                <div className='nav-list'>
+            <div className="navbar-wrapper">
+                <ul className='nav-list'>
                     <li className='dropdown'>
-                        <a href="javascript:void(0)" className="DD-btn">Get Started</a>
+                        <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                            Get Started  <i className="down-up-arrow"></i>
+                        </a>
                         <div className="dropdown-content">
                             <a href="/about">Explore</a>
                             <a href="#share">Share A Trip</a>
@@ -26,13 +29,17 @@ function Home() {
                         </div>
                     </li>
                     <li className='dropdown'>
-                        <a href="/login" className='DD-btn'>Log in</a>
+                        <a className='DD-btn' href="/login">
+                            Log in
+                        </a>
                         <div id='signup-dd' className="dropdown-content">
                             <a  href="/register">No account? Create one!</a>
                         </div>
                     </li>
                     <li className='dropdown'>
-                        <a href="javascript:void(0)" className="DD-btn">Learn More</a>
+                        <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                            Learn More  <i className="down-up-arrow"></i>
+                        </a>
                         <div className="dropdown-content">
                             <a href="/about">Our Mission</a>
                             <a href="/contact">Contact Us</a>
@@ -40,36 +47,38 @@ function Home() {
                             <a href="/disclaimer">Disclaimer</a>
                         </div>
                     </li>
-                </div>
-            </StickyNavbar>
+                </ul>
+            </div>
         
             <div className="block-wrapper">
-                <img id="block-logo" src={logo_wh} alt={logo_bl} />
-                <h2>Donations Make a Difference</h2><br/>
-
-                <div className='block-content'>
-                    <div id='exp'>
+                <div>
+                    <img id='block-logo' src={logo_wh} alt={logo_bl} />
+                    <h3 id='block-logo-text'>Donations Make a Difference</h3>
+                    <br/>
+                </div>
+                <div id='block-content'>
+                    <div id='exp' className='block-box'>
                         <a href="/search_locations">Explore</a>
                     </div>
-                    <div id='blog'>
+                    <div id='blog' className='block-box'>
                         <a href="/blogs">Blogs</a>
                     </div>
                 </div>
             </div>
-        </div>
+        </StickyContainer>
 
-        <div className='steps-wrapper'>
+        <article className='steps-wrapper'>
             <h4 className='spacer-caption'>
                 Empowering Global Travelers To Make A Difference Locally
             </h4>
 
-            <div className='steps-container'>
-                <div className="step-entry">
-                    <div className='top-util'>
-                        <h2>1</h2>
-                    </div>
-                    <hr/>
-                    <div className='bottom-content'>
+            <div className='all-steps-container'>
+                <div className="step-container">
+                    <div><svg className='step-circle' width="100" height="100">
+                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                    </svg></div>
+
+                    <div className='step-box'>
                         <p>
                             Reference our interactive and localized database to 
                             gather information about your destination as we.
@@ -77,80 +86,82 @@ function Home() {
                         </p>
                     </div>
                 </div>
-                <div className="step-entry">
-                    <div className='top-util'>
-                        <h2>2</h2>
-                    </div>
-                    <hr/>
-                    <div className='bottom-content'>
+
+                <div className="step-container">
+                    <div><svg className='step-circle' width="100" height="100">
+                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                    </svg></div>
+
+                    <div className='step-box'>
                         <p>Pack a few items to be donated, then DONATE!</p>
                     </div>
                 </div>
-                <div className="step-entry">
-                    <div className='top-util'>
-                        <h2>3</h2>
-                    </div>
-                    <hr/>
-                    <div className='bottom-content'>
+
+                <div className="step-container">
+                    <div><svg className='step-circle' width="100" height="100">
+                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                    </svg></div>
+                    <div className='step-box'>
                         <p>
                             Inspire others by sharing content and experiences, commending
                             other's <i>NoMAD's</i>, and providing useful information
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className="spacer-caption">
-                <h4>Click <a id='learn_more' href='/About'>Here</a> to learn more.</h4>
-                <br/>
-                <hr style={{width: '70%', margin:'0px 15%'}}/>
-            </div>
-        </div>
 
-        <div className='donations-wrapper'>
+            </div>
+            
+            <h4 className='spacer-caption'>
+                Click <a className='text-hyperl' href='/About'>Here</a> to learn more.
+            </h4>
+            <hr style={{width: '70%', margin:'0px 15%'}}/>
+        </article>
+
+        <article className='donations-wrapper'>
             <h2>Recent Donation Trips</h2>
             <div className="slides-container">
                 <div className="slide-entry">
                     <div className="top-image">
                         <img src={ dons } alt="boulder" />
                     </div>
-                    <div className="bottom-content">
+                    <div className="donation-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
                         <p>Rating: </p>
                     </div>
                 </div>
                 <div className="slide-entry">
-                <div className="top-image">
+                    <div className="top-image">
                         <img src={ dons } alt="boulder" />
                     </div>
-                    <div className="bottom-content">
+                    <div className="donation-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
                         <p>Rating: </p>
                     </div>
                 </div>
                 <div className="slide-entry">
-                <div className="top-image">
+                    <div className="top-image">
                         <img src={ dons } alt="boulder" />
                     </div>
-                    <div className="bottom-content">
+                    <div className="donation-content">
                         <p>Location: Boulder</p>
                         <p>Donation: Tarp</p>
                         <p>Rating: </p>
                     </div>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div className='pre_footer-container'>
-            <h4>Something unclear? Checkout our <a href='/faq'>FAQ</a> page</h4>
-        </div>
+        <h4 className='spacer-caption'>
+            Something unclear? Checkout our <a className='text-hyperl' href='/faq'>FAQ</a> page
+        </h4>
     </div>
     )
 }
 
-/* Sets an Observer on the top-container for viewport visibility*/
-function StickyNavbar({ children, sticky=false, className, ...rest }){
+/* Sets an Observer on the  for viewport visibility*/
+function StickyContainer({ children, sticky=false, className, ...rest }){
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
     
@@ -158,7 +169,9 @@ function StickyNavbar({ children, sticky=false, className, ...rest }){
     React.useEffect(() => {
         const cachedRef = ref.current, 
                 observer = new IntersectionObserver(
-                    ([e]) => setIsSticky(e.intersectionRatio < 1), {threshold: [1]} 
+                    ([e]) => setIsSticky(e.intersectionRatio < 0.1), {
+                        threshold: [0.1]
+                    } 
                 );
         observer.observe(cachedRef);
       
