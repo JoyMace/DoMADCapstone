@@ -5,6 +5,8 @@ import bg_alt from '../../images/home-filler-inspire.jpg';
 import logo_wh from '../../images/WhiteDOMADlogo.svg';
 import logo_bl from '../../images/DoMADLogoDark.svg';
 
+import dons from '../../images/home-filler-volunteers.jpg';
+
 function Home() {
     return (
         <div className="home">
@@ -55,12 +57,12 @@ function Home() {
                     </div>
                 </div>
             </div>
-            
-<section className='horz-spacer'>
-    <a target='_blank'>
-        <h4>Empowering Global Travelers To Make A Difference Locally</h4>
-    </a>
-</section>
+
+    <section className='horz-spacer'>
+        <a target='_blank'>
+            <h4>Empowering Global Travelers To Make A Difference Locally</h4>
+        </a>
+    </section> 
            
             <div className='middle-wrapper'>
                 <div className="step-container">
@@ -88,12 +90,47 @@ function Home() {
                 </div>
             </div>
 
-            <div className="">
-                <h4 id='learn_more'>Click <a href='/About'>Here</a> to learn more.</h4>
-            </div>
-            
+    <div className="horz-spacer">
+        <h4 id='learn_more'>Click <a href='/About'>Here</a> to learn more.</h4>
+    </div>
+
+    <hr/>
+       
             <div className='container-donate'>
-                Donate it!
+                <h2>Recent Donation Trips</h2>
+
+                <div className="slides-container">
+                    <div className="slide-entry">
+                        <div className="top-image">
+                            <img src={ dons } alt="boulder" />
+                        </div>
+                        <div className="bottom-content">
+                            <p>Location: Boulder</p>
+                            <p>Donation: Tarp</p>
+                            <p>Rating: </p>
+                        </div>
+                    </div>
+                    <div className="slide-entry">
+                    <div className="top-image">
+                            <img src={ dons } alt="boulder" />
+                        </div>
+                        <div className="bottom-content">
+                            <p>Location: Boulder</p>
+                            <p>Donation: Tarp</p>
+                            <p>Rating: </p>
+                        </div>
+                    </div>
+                    <div className="slide-entry">
+                    <div className="top-image">
+                            <img src={ dons } alt="boulder" />
+                        </div>
+                        <div className="bottom-content">
+                            <p>Location: Boulder</p>
+                            <p>Donation: Tarp</p>
+                            <p>Rating: </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className='more_qs'>
@@ -108,7 +145,7 @@ function StickyNavbar({ children, sticky=false, className, ...rest }){
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
     
-    // mount observer on 
+    // mount observer
     React.useEffect(() => {
         const cachedRef = ref.current, 
                 observer = new IntersectionObserver(
