@@ -17,7 +17,7 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
-import Donate from './components/Pages/Donate'
+import Donate from './components/Pages/Donate';
 
 class App extends Component {
 state = {
@@ -58,6 +58,7 @@ state = {
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
+
     return (
       // creating routing to each page
       <Router>
