@@ -15,9 +15,11 @@ const navbar = props => (
                 <ul>
                     <li className="left-items"><a href="/search_locations">Explore</a></li>
                     <div className="separator" />
-                    <li className="left-items"><a href="/blogs">Blogs</a></li>
+                    <li className="left-items"><a href="/donate">Donate</a></li>
                     <div className="separator" />
-                    <li className="left-items"><a href="/account">Share Your Trip</a></li>
+                    <li className="left-items"><a href="/blogs">Blogs</a></li>
+                    <li className="right-items"><a href="/account">Share Your Trip</a></li>
+                    <div className="separator" />
                     <li className="right-items"><a href="/about">Info</a></li>
                     <div className="separator" />
                     <li className="right-items"><a href="/account">Profile</a></li>
