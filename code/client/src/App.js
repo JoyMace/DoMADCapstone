@@ -6,7 +6,6 @@ import './App.css';
 import NavBar from './components/Navbar/Navbar';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop'
-// import Footer from './components/Footer/Footer';
 
 import Home from './components/Pages/Home';
 import About from './components/Pages/About';
@@ -18,7 +17,7 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
-import Footer from './components/Footer/Footer';
+import Donate from './components/Pages/Donate'
 
 class App extends Component {
   state = {
@@ -36,7 +35,7 @@ class App extends Component {
     this.setState({sideDrawerOpen: false});
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
       // Call our fetch function below once the component mounts
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
@@ -51,7 +50,7 @@ class App extends Component {
       throw Error(body.message) 
     }
     return body;
-  };
+  };*/
 
   /* determine current path for navbar rendering, other stuff */
   /*current_path() {
@@ -104,45 +103,10 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
-
-          <Footer />
+          <Route path="/donate" component={Donate} />
         </div>
       </Router>
     );
-
-    /*
-          <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
-          <SideDrawer show={this.state.sideDrawerOpen} />
-
-          <Route exact path="/" component={Home} />
-    */
-    /*return (
-      <div>
-        <h1>Signup</h1>
-
-        <form action="/api/user/signup" method="POST" >
-          Username: <input type="text" name="username" /><br/>
-          First Name: <input type="text" name="firstName" /><br/>
-          Last Name: <input type="text" name="lastName" /><br/>
-          Email: <input type="text" name="email" /><br/>
-          Password: <input type="password" name="password" /><br/>
-          Verify Password: <input type="password" name="verifyPassword" /><br/>
-          <button type="submit">send</button>
-        </form>
-
-        <h1>Login</h1>
-
-        <form action="/api/user/login" method="POST" >
-          Username: <input type="text" name="username" /><br/>
-          Password: <input type="password" name="password" /><br/>
-          <button type="submit">send</button>
-        </form>
-
-        <form action="/api/user/logout" method="POST" >
-          <button type="submit">logout</button>
-        </form>
-      </div>
-    );*/
   }
 }
 
