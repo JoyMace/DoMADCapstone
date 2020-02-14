@@ -12,7 +12,7 @@ function Home() {
         <div className="home">
 
             <div className='top-container'>
-                <img id='bg' src={bg} alt={bg_alt} />
+                <img id='bg_img' src={bg} alt={bg_alt} />
 
                 <StickyNavbar className="navbar-container">
                     <div className='nav-list'>
@@ -58,11 +58,11 @@ function Home() {
                 </div>
             </div>
 
-    <section className='horz-spacer'>
-        <a target='_blank'>
-            <h4>Empowering Global Travelers To Make A Difference Locally</h4>
-        </a>
-    </section> 
+            <section>
+                <h4 id='spacer_under_top'>
+                    Empowering Global Travelers To Make A Difference Locally
+                </h4>
+            </section> 
            
             <div className='middle-wrapper'>
                 <div className="step-container">
@@ -91,10 +91,12 @@ function Home() {
             </div>
 
     <div className="horz-spacer">
-        <h4 id='learn_more'>Click <a href='/About'>Here</a> to learn more.</h4>
+        <h4>Click <a id='learn_more' href='/About'>Here</a> to learn more.</h4>
+        <br/>
+        <hr style={{width: '70%', margin:'0px 15%'}}/>
     </div>
 
-    <hr/>
+    
        
             <div className='container-donate'>
                 <h2>Recent Donation Trips</h2>

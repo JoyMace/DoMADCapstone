@@ -3,18 +3,18 @@
     line-height: inherit;
     text-align: center;
     height: 100%;
+    margin: 0;
 }
 
 /*===============================*/
-/*==== Top Content Area containing background ====*/
+/*==== Top Content Container ====*/
 .top-container {
     position: relative; /* YES */
     width: 100%;
     height: auto;
-    margin: 0;
 }
     
-#bg {
+#bg_img {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -24,59 +24,52 @@
     z-index: 0; /* stack order (last) */
 }
 
-    /*=== 'navbar-container' ===*/
+    /*=== StickyNavbar Container & Content ===*/
     .navbar-container {
         position: sticky; /* old=>position: absolute */
+        display: flex;
         top: 0;
         left: 0;
         right: 0;
-        margin: 0;
         z-index: 4; /* Stacking order (2nd, before DD content) */
-        display: flex;
         transition: all 0.5s; /* back to top */
     }
-    /* Navbar transition effects */
-    .navbar-container.isSticky .nav-list {
-        transition: all 0.5s; /* from top */
-        background-color: #C9C2B2;
-        padding-top: 3px;
-        color: black; /* not working?? */
-    }
-    
+
         /*== Master Navbar '<ul>' list*/
         .nav-list {
             list-style-type: none;
-            position: fixed; /* YES */
-            margin: 0; 
-            padding: 0;
+            position: fixed;
             width: 100%;
-            /*padding-bottom: 5px;*/
-            margin: 0px 0px 0px 0px;
-            overflow: visible; /* DD's render outside 'nav-list' :( */
-            font-size: 0.8rem;
+            padding-right: 10px;
+            overflow: visible;
             float: right;
-            /* Utility for navbar sticky effect */
+            font-size: 0.9rem;
+            /* Utilities for navbar sticky effect */
             top: -1px;
             padding-top: calc(1em + 1px);
         }
-        
-            /*-- ALL header items including DD's (!Has to be sticky!!) --*/
-            .nav-list li { 
-                right: 0;
-                text-align: center;
-                cursor: pointer;
-                transition: all 0.75s;
-                margin: inherit;
-                /**** Renders sticky NavBar ****/
-                position: sticky;
-                display:  inline-block;
-            }
-            /*-- ALL header items --*/
+
+        /* Sticky Navbar transition effects */
+        .navbar-container.isSticky .nav-list {
+            transition: all 0.3s;
+            background-color: #363D48;
+            padding: 5px 0px 3px 0px; /* Utility for navbar sticky effect */
+            /*color: black; --not working?? */
+            /* width: 100%; --Can change/remove for a smaller concatenated nav ribbon */
+            
+        }
+            /*-- All header items --*/
             .navbar-container li {
                 float: right;
             }
-            /*-- Dropdown tables --*/
-            li.dropdown {
+            /*-- All header items And DD items (!Has to be sticky!!) --*/
+            .nav-list li { 
+                text-align: center;
+                cursor: pointer;
+                position: sticky;
+            }
+            /*-- Dropdown table groups --*/
+            .navbar-container li.dropdown {
                 display: inline-block;
             }
             /*-- On hover => add border to the top nav button --*/
@@ -127,44 +120,42 @@
                     display: block;
                 }
      
-/*========================================*/
-/*=== Centered 'top-container' content ===*/
-.block-wrapper {
-    position: absolute; /*--absolute position @middle, places div 'out of context'--*/
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    z-index: 3; /* Stacking order (3rd, after the navbar) */
-}
-    #block-logo {
-        width: 100%;
-        height: auto;
-        scale: 0.75;
+    /*=== Centered Top Container content ===*/
+    .block-wrapper {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        z-index: 3; /* Stacking order (3rd, after navbar) */
     }
-        /*-- explore and blog buttons --*/
-        .block-text span {
-            padding: 8px 6px 6px 6px;
-            border: 2px solid #CBB95A;
-            border-radius: 5px;
+        #block-logo {
+            width: 100%;
+            height: auto;
+            scale: 0.75;
         }
-            .block-text span a {
-                color: white;
+            /*-- Centralized Buttons (Explore & Blog) --*/
+            .block-text span {
+                padding: 8px 6px 6px 6px;
+                border: 2px solid #CBB95A;
+                border-radius: 5px;
             }
-            #exp { float: left; }
-            #blog { float: right; }
+                .block-text span a {
+                    color: white;
+                }
+                #exp { float: left; }
+                #blog { float: right; }
 
 /*============================*/
 /*=== 'Empowering' spacer! ===*/
-#horz-spacer {
-    font-size: 1.3rem;
-    padding: 20px 0px 30px 0px;
-    margin-top: 30px;
+#spacer_under_top {
+    font-size: 1.2rem;
+    margin: 15px 0px;
     position: static; /* reset back to default */
 }
 
 /*================================*/
-/*== The steps to DoMAD Success ==*/
+/*== Steps to DoMAD Success ==*/
 .middle-wrapper {
     position: static; /*--Default, allows for flex wrap*/
     display: inline-table; /*inline*/
@@ -195,9 +186,12 @@
 
 /*==============================*/
 /*=== Click to Learn' spacer ===*/
-#learn_more a:hover,
-#learn_more a:active {
+#learn_more {
     color: #CBB95A;
+}
+#learn_more:hover, #learn_more:active {
+    text-decoration: underline;
+    text-decoration-color: #010925;
 }
 
 /*==============================*/
@@ -211,7 +205,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    /*max-width: 1200px;*/
 }
 
     .slide-entry {
