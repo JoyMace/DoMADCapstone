@@ -26,7 +26,7 @@ Here's a breakdown of what you'll find in this repo:
   - `config/` - Environment variables and setup.
   - `models/` - [Mongoose](https://mongoosejs.com/docs/guide.html) database schemas and models.
   - `routers/` - Application routes that handle client side requests.
-  - `test/` - Folder that holds all tests files. Testing is done using Mocha, Chai, Supertest, and Sinon. Look in the [backend resources](https://github.com/JoyMace/DoMADCapstone/wiki/Backend-Resources) for more inofrmation.
+  - `test/` - Folder that holds all tests files. Testing is done using Mocha, Chai, Supertest, and Sinon. Look in the [Unit Test](https://github.com/JoyMace/DoMADCapstone/wiki/Unit-Test) for more inofrmation.
   - `app.js` - Main file for running Nodejs express server.
   - `package.json` - Tells [Node](https://nodejs.org/en/) how to run the server, how to run tests on it, how to set up the database, and what modules it needs to install the server.
   - `package-lock.json` - Nodejs packages.
