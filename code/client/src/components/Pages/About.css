@@ -24,8 +24,15 @@ body {
 p {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
+    margin-bottom: 40px; 
     margin-left: 250px;
     margin-right: 250px;
+}
+
+p2 {
+    font-family: Cambria, Georgia, serif;
+    margin-left: 250px;
+    margin-right: 250px;  
 }
 
 .divl {
@@ -38,6 +45,12 @@ p {
     margin-top: 80px;
     text-align: left;
     margin-left: 400px;
+}
+
+.divl2 {
+    margin-top: 80px;
+    text-align: left;
+    margin-right: 200px;
 }
 
 h1 {
@@ -68,6 +81,16 @@ h1 {
 }
 
 .tinted { filter: brightness(50%); }
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ccc;
+    margin-right: 400px;
+    margin-left: 400px;   
+    padding: 0;
+}
 
 
 
