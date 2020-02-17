@@ -38,8 +38,12 @@ pthick {
     font-weight: bold;
 }
 
-.left {
+p.top {
     margin-top: 10px; 
+}
+
+p.bottom {
+    margin-bottom: 10px; 
 }
 
 .divl {

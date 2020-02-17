@@ -56,17 +56,17 @@ function About() {
             <h1>
                 About Us
             </h1>
-            <p>
+            <p class="top">
                 Learn more about DoMAD, our mission and our team.
             </p>
             <div class="divl2">
                 <pthick> Founders</pthick>
-                <div class="left">
-                    <p> Jill Drury</p>
-                </div>
+                <p class="bottom">
+                    Jill Drury
+                </p>
                 
                 
-                <p> Founder & Executive Director, Donations Make A Difference (DoMAD)</p>
+                <p class="top"> Founder & Executive Director, Donations Make A Difference (DoMAD)</p>
                 <p>Jill is a retired federal executive who, during her government career, 
                     worked for the US Army Corps of Engineers, Department of the Army, 
                     and Department of Homeland Security. For more than a decade, 
@@ -85,8 +85,8 @@ function About() {
                        Jill is a graduate of the University of Maryland, with a Masters of Public Policy from Georgetown University. She is a passionate traveler, horse lover, ballet dancer and dog owner. 
                        She has been delighted to develop DoMAD with an awesome team of CU Boulder computer science students. Jill can be reached at DoMAD24901@gmail.com.
                     </p>
-                <p> Stuart Drury</p>
-                <p> Co-Founder & Executive Assistant, Donations Make A Difference (DoMAD)</p>
+                <p class="bottom"> Stuart Drury</p>
+                <p class="top"> Co-Founder & Executive Assistant, Donations Make A Difference (DoMAD)</p>
                 <p>
                 Stu is a retired federal civil servant and retired Army Reserve officer. After eleven years as an active duty Army officer, 
                 Stu became a reservist and a civilian employee of the Department of Defense. He worked for the Army in Europe before being
