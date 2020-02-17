@@ -56,6 +56,7 @@ p2 {
 h1 {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
+    color: #010925
 }
 .centered1 {
     position: absolute;
@@ -86,7 +87,7 @@ hr {
     display: block;
     height: 1px;
     border: 0;
-    border-top: 2px solid #ccc;
+    border-top: 2px solid #010925;
     margin-right: 400px;
     margin-left: 400px;   
     padding: 0;
