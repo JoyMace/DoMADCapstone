@@ -16,12 +16,14 @@ function About() {
             <div class="centered2">
                 Donations Make a Difference (DoMAD) is an initiative that encourages international travelers to 
                 positively affect the less developed communities they visit by donating needed items.
-                
+            </div>
+            <div class="centered3">
                 International travelers often focus on their own needs rather than those of the communities through which they travel.  
                 Although items like soap, bandages, and mosquito nets are relatively inexpensive for most international travelers, 
                 they are not readily available or affordable to locals in many parts of the world. Recognizing this during our own travels, 
                 we decided to start this initiative to facilitate “giving back” to the places we visit.
             </div>
+
             <p>If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
                 destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 
             </p>
@@ -50,16 +52,20 @@ function About() {
             </div>
 
             <hr></hr>
-            
+
             <h1>
                 About Us
             </h1>
-            <p2>
+            <p>
                 Learn more about DoMAD, our mission and our team.
-            </p2>
+            </p>
             <div class="divl2">
-                <p> Founders</p>
-                <p2> Jill Drury</p2>
+                <pthick> Founders</pthick>
+                <div class="left">
+                    <p> Jill Drury</p>
+                </div>
+                
+                
                 <p> Founder & Executive Director, Donations Make A Difference (DoMAD)</p>
                 <p>Jill is a retired federal executive who, during her government career, 
                     worked for the US Army Corps of Engineers, Department of the Army, 
@@ -79,7 +85,7 @@ function About() {
                        Jill is a graduate of the University of Maryland, with a Masters of Public Policy from Georgetown University. She is a passionate traveler, horse lover, ballet dancer and dog owner. 
                        She has been delighted to develop DoMAD with an awesome team of CU Boulder computer science students. Jill can be reached at DoMAD24901@gmail.com.
                     </p>
-                <p2> Stuart Drury</p2>
+                <p> Stuart Drury</p>
                 <p> Co-Founder & Executive Assistant, Donations Make A Difference (DoMAD)</p>
                 <p>
                 Stu is a retired federal civil servant and retired Army Reserve officer. After eleven years as an active duty Army officer, 

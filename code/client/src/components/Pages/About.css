@@ -11,6 +11,8 @@ body {
 
 .header{
     font-family: Cambria, Georgia, serif;
+    font-weight: bold;
+    font-size: 23px;
     background-color: rgba(255,255,255, 0.5);
     border-radius: 16px;
     padding: 20px;
@@ -29,10 +31,15 @@ p {
     margin-right: 250px;
 }
 
-p2 {
+pthick {
     font-family: Cambria, Georgia, serif;
     margin-left: 250px;
-    margin-right: 250px;  
+    margin-right: 250px; 
+    font-weight: bold;
+}
+
+.left {
+    margin-top: 10px; 
 }
 
 .divl {
@@ -48,9 +55,9 @@ p2 {
 }
 
 .divl2 {
-    margin-top: 80px;
+    margin-top: 30px;
     text-align: left;
-    margin-right: 200px;
+    margin-right: 250px;
 }
 
 h1 {
@@ -58,6 +65,7 @@ h1 {
     margin-top: 40px;
     color: #010925
 }
+
 .centered1 {
     position: absolute;
     color: #ffffff;
@@ -70,10 +78,21 @@ h1 {
     position: absolute;
     font-family: Cambria, Georgia, serif;
     color: #ffffff;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);  
-  }
+}
+
+.centered3 {
+    position: absolute;
+    font-family: Cambria, Georgia, serif;
+    color: #ffffff;
+    top: 50%;
+    left: 50%;
+    bottom:45%;
+    transform: translate(-50%, -50%);  
+}
+
 
 .container img{
     position: relative;
