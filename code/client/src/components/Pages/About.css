@@ -23,10 +23,27 @@ body {
 
 p {
     font-family: Cambria, Georgia, serif;
-    margin-left: 90px;
-    margin-right: 90px;
+    margin-top: 40px;
+    margin-left: 250px;
+    margin-right: 250px;
 }
 
+.divl {
+    margin-top: 80px;
+    text-align: left;
+    margin-right: 400px;
+}
+
+.divr {
+    margin-top: 80px;
+    text-align: left;
+    margin-left: 400px;
+}
+
+h1 {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 40px;
+}
 .centered1 {
     position: absolute;
     color: #ffffff;
