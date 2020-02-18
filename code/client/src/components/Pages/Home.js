@@ -13,93 +13,110 @@ function Home() {
 
     <div className="home">
 
-        <StickyContainer className='top-container'>
+        <StickyContainer id='top-container'>
             <img id='bg_img' src={bg} alt={bg_alt} />
 
-            <div className="navbar-wrapper">
-                <ul className='nav-list'>
-                    <li className='dropdown'>
-                        <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
-                            Get Started  <i className="down-up-arrow"></i>
-                        </a>
-                        <div className="dropdown-content">
-                            <a href="/about">Explore</a>
-                            <a href="#share">Share A Trip</a>
-                            <a href="/blogs">Go to Blogs</a>
+            <div id="navbar-wrapper">
+                <ResponsiveHammedDD id='nav-container'>
+                    <a id='ham-btn'>
+                        <b>&nbsp;&#9776;</b>
+                    </a>
+                    
+                    <div id='left'>
+                        <div className='dropdown'>
+                            <a href="javascript:void(0)" className="DD-btn">
+                                Get Started<i className="down-up-arrow"></i>
+                            </a>
+                            <div className="dropdown-content">
+                                <a href="/about">Explore</a>
+                                <a href="#share">Share A Trip</a>
+                                <a href="/blogs">Go to Blogs</a>
+                            </div>
                         </div>
-                    </li>
-                    <li className='dropdown'>
-                        <a className='DD-btn' href="/login">
-                            Log in
-                        </a>
-                        <div id='signup-dd' className="dropdown-content">
-                            <a  href="/register">No account? Create one!</a>
+                    </div>
+
+                    <div id='right'>
+                        <div className='dropdown'>
+                            <a href="javascript:void(0)" className="DD-btn">
+                                Learn More<i className="down-up-arrow"></i>
+                            </a>
+                            <div className="dropdown-content">
+                                <a href="/about">Our Mission</a>
+                                <a href="/contact">Contact Us</a>
+                                <a href="/faq">FAQ</a>
+                                <a href="/disclaimer">Disclaimer</a>
+                            </div>
                         </div>
-                    </li>
-                    <li className='dropdown'>
-                        <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
-                            Learn More  <i className="down-up-arrow"></i>
-                        </a>
-                        <div className="dropdown-content">
-                            <a href="/about">Our Mission</a>
-                            <a href="/contact">Contact Us</a>
-                            <a href="/faq">FAQ</a>
-                            <a href="/disclaimer">Disclaimer</a>
+
+                        <div className='dropdown'>
+                            <a id='login-btn' className='DD-btn' href="/login">
+                                Log in
+                            </a>
+                            <div id='signup-dd' className="dropdown-content">
+                                <a  href="/register">No account? Create one!</a>
+                            </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+
+                </ResponsiveHammedDD>
             </div>
         
-            <div className="block-wrapper">
+            <div id="block-wrapper">
                 <div>
                     <img id='block-logo' src={logo_wh} alt={logo_bl} />
                     <h3 id='block-logo-text'>Donations Make a Difference</h3>
                     <br/>
                 </div>
                 <div id='block-content'>
-                    <div id='exp' className='block-box'>
+                    <div className='block-box'>
                         <a href="/search_locations">Explore</a>
                     </div>
-                    <div id='blog' className='block-box'>
+                    <div className='block-box'>
                         <a href="/blogs">Blogs</a>
                     </div>
                 </div>
             </div>
         </StickyContainer>
 
-        <article className='steps-wrapper'>
-            <h4 className='spacer-caption'>
-                Empowering Global Travelers To Make A Difference Locally
-            </h4>
+        <article id='steps-wrapper'>
+            <header className='section_heads_foots'>
+                <h4>Empowering Global Travelers To Make A Difference Locally</h4>
+                <hr className='hr-spacer'/>
+            </header>
 
-            <div className='all-steps-container'>
+            <div id='all-steps-container'>
                 <div className="step-container">
-                    <div><svg className='step-circle' width="100" height="100">
-                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                    <div><svg className='step-svg'>
+                        <g>
+                            <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                            <text x="50%" y="50%" text-anchor="middle" fill="black" font-size="20px" stroke-width="2px" dy=".3em">1</text>
+                        </g>
                     </svg></div>
-
                     <div className='step-box'>
                         <p>
                             Reference our interactive and localized database to 
-                            gather information about your destination as we.
+                            gather information about your destination.
                             Discover <i>what, how, and where </i> to make your donation.
                         </p>
                     </div>
                 </div>
-
                 <div className="step-container">
-                    <div><svg className='step-circle' width="100" height="100">
-                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                    <div><svg className='step-svg'>
+                        <g>
+                            <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                            <text x="50%" y="50%" text-anchor="middle" font-size="20px" stroke-width="2px" dy=".3em">2</text>
+                        </g>
                     </svg></div>
-
                     <div className='step-box'>
                         <p>Pack a few items to be donated, then DONATE!</p>
                     </div>
                 </div>
-
                 <div className="step-container">
-                    <div><svg className='step-circle' width="100" height="100">
-                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                    <div><svg className='step-svg'>
+                        <g>
+                            <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
+                            <text x="50%" y="50%" text-anchor="middle" font-size="20px" stroke-width="2px" dy=".3em">3</text>
+                        </g>
                     </svg></div>
                     <div className='step-box'>
                         <p>
@@ -108,18 +125,20 @@ function Home() {
                         </p>
                     </div>
                 </div>
-
             </div>
             
-            <h4 className='spacer-caption'>
-                Click <a className='text-hyperl' href='/About'>Here</a> to learn more.
-            </h4>
-            <hr style={{width: '70%', margin:'0px 15%'}}/>
+            <footer className='section_heads_foots'>
+                <h5>Click <a className='hyperl-txt' href='/About'>Here</a> to learn more about DoMAD</h5>
+                <hr className='hr-spacer'/>
+            </footer>
         </article>
 
-        <article className='donations-wrapper'>
-            <h2>Recent Donation Trips</h2>
-            <div className="slides-container">
+        <article id='donations-wrapper'>
+            <header className='section_heads_foots'>
+                <h4>Recent Donation Trips</h4>
+            </header>
+
+            <div id="donations-container">
                 <div className="slide-entry">
                     <div className="top-image">
                         <img src={ dons } alt="boulder" />
@@ -153,10 +172,34 @@ function Home() {
             </div>
         </article>
 
-        <h4 className='spacer-caption'>
-            Something unclear? Checkout our <a className='text-hyperl' href='/faq'>FAQ</a> page
-        </h4>
+        <footer className='section_heads_foots'>
+            <h5>Something unclear? Checkout our <a className='hyperl-txt' href='/faq'>FAQ</a> page.</h5>
+            <br/>
+        </footer>
     </div>
+    )
+}
+
+
+/* Adds a custom event listener for when the window width < 500 to rename a class */
+function ResponsiveHammedDD ({ children, className, ...rest }) {
+    const [isHammed, setIsHammed] = React.useState(false);
+    let ref = React.createRef();
+
+    function updateWidth () {
+        setIsHammed((window.innerWidth < 550 ? true : false));
+    }
+
+    React.useLayoutEffect(() => {
+        window.addEventListener ("resize", updateWidth); // mount
+        updateWidth();
+        return () => window.removeEventListener('resize', updateWidth); // unmount
+    }, [])
+
+    return (
+        <div className={(isHammed ? "hammed" : "nav")} ref={ref} {...rest}> 
+            {children}
+        </div>
     )
 }
 
@@ -168,18 +211,17 @@ function StickyContainer({ children, sticky=false, className, ...rest }){
     // mount observer
     React.useEffect(() => {
         const cachedRef = ref.current, 
-                observer = new IntersectionObserver(
-                    ([e]) => setIsSticky(e.intersectionRatio < 0.1), {
-                        threshold: [0.1]
-                    } 
-                );
+            observer = new IntersectionObserver(
+                ([e]) => setIsSticky(e.intersectionRatio < 0.1), 
+                    { threshold: [0.1] }  
+            );
         observer.observe(cachedRef);
       
         // unmount
         return function(){ observer.unobserve(cachedRef); }
     }, [])
     
-  return (
+    return (
         <div className={className + (isSticky ? " isSticky" : "")} ref={ref} {...rest}>
             {children}
         </div>
