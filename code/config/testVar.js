@@ -10,7 +10,8 @@ testVar = {
     verifyPassword: 'Password'
   },
   password: 'Password',
-  badPassword: 'test',
+  badUsername: 'basUsername',
+  badPassword: 'bad',
   wrongVal: 'WRONG'
 }
 

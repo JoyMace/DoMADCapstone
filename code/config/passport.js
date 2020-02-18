@@ -14,10 +14,10 @@ module.exports = function(passport) {
       user.findOne(query, function(err, user) {
         if (err) { return done(err); }
         if (!user) {
-          return done(null, false, { message: resCode.login.wrongUsername.message });
+          return done(resCode.login.wrongUsername, null);
         }
         if (!user.validatePassword(password)) {
-          return done(null, false, { message: resCode.login.wrongPassword.message });
+          return done(resCode.login.wrongPassword, null);
         }
         return done(null, user);
       });

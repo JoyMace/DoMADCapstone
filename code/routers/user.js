@@ -17,9 +17,21 @@ const resCode = require('../config/resCode');
   redirects user to /success or /failure depending on if the login was successful
 */
 
-router.post('/login',
-  passport.authenticate('local'), function(req, res) {
-    res.redirect('/success');
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user) {
+    if (err) { 
+      if (err.hasOwnProperty('status') && err.hasOwnProperty('message')) {
+        return res.status(err.status).send({message: err.message});
+      } else {
+        return res.status(400).send({message: err});
+      }
+    }
+
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.status(resCode.login.success.status).send({message: resCode.login.success.message});
+    });
+  })(req, res, next);
 });
 
 /*

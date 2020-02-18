@@ -1,6 +1,10 @@
 
 resCode = {
   login:{
+    success:{
+      status:201,
+      message:'User successfully logged in'
+    },
     wrongUsername:{
       status:401,
       message:'Incorrect username' 
@@ -13,7 +17,7 @@ resCode = {
   signup:{
     success:{
       status:201,
-      message:'User added Successfully'
+      message:'User added successfully'
     },
     missingFields:{
       status:400,
