@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/Navbar/Navbar';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop'
-// import Footer from './components/Footer/Footer';
 
 import Home from './components/Pages/Home';
 import About from './components/Pages/About';
@@ -18,16 +17,17 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
+import Donate from './components/Pages/Donate'
 
 import ReactDOM from 'react-dom'; //added to retrive token from url
 import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 
 
 class App extends Component {
-state = {
-    data: null,
-    sideDrawerOpen: false
-  };
+  state = {
+      data: null,
+      sideDrawerOpen: false
+    };
 
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
@@ -39,7 +39,7 @@ state = {
     this.setState({sideDrawerOpen: false});
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
       // Call our fetch function below once the component mounts
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
@@ -50,34 +50,56 @@ state = {
   callBackendAPI = async () => {
     const response = await fetch('/express_backend');
     const body = await response.json();
-
     if (response.status !== 200) {
       throw Error(body.message)
     }
 
     return body;
-  };
+  };*/
+
+  /* determine current path for navbar rendering, other stuff */
+  /*current_path() {
+    let active_path = null
+    const { router } = this.context
+    const { path } = this.props
+    console.log({path})
+    if (path && router) {
+      const { location } = router
+      active_path = this.matchPath(location.pathname, { path }) != null
+    }
+    this.setState({ active_path })
+  }*/
 
 
   render() {
-<<<<<<< HEAD
-
-    return (
-      <Router>
-=======
     let backdrop;
 
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
-      // creating routing to each page
+      // The 'Switch' renders the component for the first matching path
+          // If path is "/" ==> Home page
+          // Else ==> NavBar, SideDrawer, {backdrop}??
       <Router>
         <div style={{height: '100%'}}>
-          <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
-          <SideDrawer show={this.state.sideDrawerOpen} />
+
+          <Switch>
+            location.path
+              <Route exact path ="/"
+                  component={Home}/>
+              <Route path ="/:subpath"
+                  render={props => (
+                      <div>
+                        <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
+                        <SideDrawer show={this.state.sideDrawerOpen} />
+                      </div>
+                  )}
+              />
+              <Route />
+          </Switch>
+
           {backdrop}
-          <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/account" component={Account} />
           <Route path="/blogs" component={Blogs} />
@@ -87,11 +109,12 @@ state = {
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
+          <Route path="/donate" component={Donate} />
         </div>
       </Router>
     );
+<<<<<<< HEAD
     /*return (
->>>>>>> 5ecb70af1848536a36b1d231fbe5b27ed6f926e6
       <div>
         <h1>Signup</h1>
 
@@ -134,12 +157,9 @@ state = {
           <button type="submit">logout</button>
         </form>
       </div>
-<<<<<<< HEAD
-      </Router>
-    );
-=======
     );*/
->>>>>>> 5ecb70af1848536a36b1d231fbe5b27ed6f926e6
+=======
+>>>>>>> 48457dd18c240b3a23e007bee2d816849d91df36
   }
 
 }
