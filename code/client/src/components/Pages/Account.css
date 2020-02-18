@@ -1,0 +1,70 @@
+.account {
+    margin-top: 64px;
+    text-align: center;
+	height: 100%
+}
+	
+.row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;		
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 2;
+}
+
+.left-column {
+	background-color: F4F4F4;
+	justify-content: center;
+	margin-top: 20px;
+	width: 60%;
+	margin-left: 20%;
+	margin-right: 20%;
+	flex: 2;
+}
+
+.right-column {
+	background-color: F4F4F4;
+	justify-content: center;
+	margin-top: 20px;
+	width: 60%;
+	margin-left: 20%;
+	margin-right: 20%;
+	flex: 2;
+}
+
+.map-image {
+	height: 50%;
+	width: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.map-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.member-avatar {
+	justify-content: left;
+}
+
+.member-avatar img {
+	width: 50px;
+	height: 50px;
+}
+.member-name {
+	text-align: left;
+	font-size: xx-large;
+}
+
+.member-info {
+	text-align: left;
+}
