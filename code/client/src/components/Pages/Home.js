@@ -5,7 +5,6 @@ import bg_alt from '../../images/home-filler-inspire.jpg';
 import logo_wh from '../../images/WhiteDOMADlogo.svg';
 import logo_bl from '../../images/DoMADLogoDark.svg';
 
-
 import dons from '../../images/home-filler-volunteers.jpg';
 
 function Home() {
@@ -17,14 +16,14 @@ function Home() {
             <img id='bg_img' src={bg} alt={bg_alt} />
 
             <div id="navbar-wrapper">
-                <ResponsiveHammedDD id='nav-container'>
-                    <a id='ham-btn'>
-                        <b>&nbsp;&#9776;</b>
+                <div id='nav-container'>
+                    <a id='ham-btn' href='javascript:void(0);' onClick={myHamButton}>
+                        <b>&#9776;</b>
                     </a>
                     
                     <div id='left'>
                         <div className='dropdown'>
-                            <a href="javascript:void(0)" className="DD-btn">
+                            <a className="DD-btn" href="javascript:void(0);">
                                 Get Started<i className="down-up-arrow"></i>
                             </a>
                             <div className="dropdown-content">
@@ -37,7 +36,7 @@ function Home() {
 
                     <div id='right'>
                         <div className='dropdown'>
-                            <a href="javascript:void(0)" className="DD-btn">
+                            <a className="DD-btn" href="/about">
                                 Learn More<i className="down-up-arrow"></i>
                             </a>
                             <div className="dropdown-content">
@@ -58,7 +57,7 @@ function Home() {
                         </div>
                     </div>
 
-                </ResponsiveHammedDD>
+                </div>
             </div>
         
             <div id="block-wrapper">
@@ -182,7 +181,7 @@ function Home() {
 
 
 /* Adds a custom event listener for when the window width < 500 to rename a class */
-function ResponsiveHammedDD ({ children, className, ...rest }) {
+/*function ResponsiveHammedDD ({ children, className, ...rest }) {
     const [isHammed, setIsHammed] = React.useState(false);
     let ref = React.createRef();
 
@@ -201,6 +200,14 @@ function ResponsiveHammedDD ({ children, className, ...rest }) {
             {children}
         </div>
     )
+}*/
+function myHamButton() {
+    let x = document.getElementById("nav-container");
+    if (x.className === "") {
+        x.className += "hammed";
+    } else {
+        x.className = "";
+    }
 }
 
 /* Sets an Observer on the  for viewport visibility*/
