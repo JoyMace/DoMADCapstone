@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Account.css';
 import WorldMapImage from '../../images/WorldMap.png';
-//import Avatar from '../../images/Avatar.png';
+//import avatar from '../../images/Avatar.png';
 //import DatePicker from "react-datepicker.css";
 
 function Avatar(props) {
   return (
     <img
       className="Avatar"
-      src={userInfo.avatarUrl}
-      alt={userInfo.name}
+      src={userInfo.avatar}
+      alt={'Picture of ', userInfo.name}
     />
   );
 }
@@ -18,12 +18,12 @@ function Avatar(props) {
 function UserInfo(props) {
   return (
     <div className="UserInfo">
-      <Avatar user={props.userInfo} />
+      <Avatar userInfo={props.userInfo} />
       <div className="UserInfo-name">{userInfo.name}</div>
-	  <div className='UserInfo-memberSince'>{userInfo.memberSince}</div>
-  	  <div className='UserInfo-hometown'>{userInfo.hometown}</div>
-	  <div className='UserInfo-totalDonations'>{userInfo.totalDonations}</div>
-  	  <div className='UserInfo-totalContributions'>{userInfo.totalContributions}</div>
+	  <div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
+  	  <div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
+	  <div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
+  	  <div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
   	  <div className='UserInfo-avatar'>{userInfo.avatar}</div>	  
     </div>
   );
@@ -31,12 +31,12 @@ function UserInfo(props) {
 
 function Post(props) {
 	return (
-	<div className="Post">
-	  <div className="Post-date">{post.date}</div>
-	  <div className="Post-destination">{post.destination}</div>
-	  <div className="Post-donation">{post.donation}</div>
-	  <div className="Post-stars">{post.stars}</div>
-	  <div className="Post-description">{post.description}</div>
+	<div className="Post"> Your Trips
+	  <div className="Post-date"> Date: {post.date}</div>
+	  <div className="Post-destination"> Destination: {post.destination}</div>
+	  <div className="Post-donation"> Items Donated:  {post.donation}</div>
+	  <div className="Post-stars"> How the items were received: {post.stars}</div>
+	  <div className="Post-description">Travel Story: {post.description}</div>
 	  <div className="UserDonationStory">{props.post}</div>
 	</div>
   );
@@ -49,16 +49,17 @@ function Account(props) {
 		<div className='left-column'>
 		  <div className="Account">
 			  <UserInfo/>
-			  <Post/>
+			  <UserDonationStory/>
 		  </div>
 		</div>
 	  </div>
 	<div className='column'>
       <div className='right-column'>	  
           <div className="map-image">
-              <p> Your Travel Map </p>
+              Your Travel Map
               <img src={ WorldMapImage } alt="World Map" />
           </div>
+		  <Post/>
       </div>
     </div>
 	</div>
@@ -67,10 +68,10 @@ function Account(props) {
   );
 }
 const userInfo = {
-	name: 'name',
+	name: 'Joy Mace',
 	memberSince: '1999',
-	hometown: 'Denver',
-	totalDonations: '99',
+	hometown: 'Denver, CO',
+	totalDonations: '105',
 	totalContributions: '99',
 	avatar: null
 };

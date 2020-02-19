@@ -1,10 +1,50 @@
-.account {
-    margin-top: 64px;
-    text-align: center;
+.Account {
+    
+    text-align: left;
 	height: 100%
+}
+.Post {
+	text-align: left;
+	font-size: xx-large;
+}
+.Post-date {
+	text-align: left;
+	font-size: large;
+}
+
+.Post-destination {
+	text-align: left;
+	font-size: large;
+}
+
+.Post-donation {
+	text-align: left;
+	font-size: large;
+}
+
+.Post-stars {
+	text-align: left;
+	font-size: large;
+}
+.Post-description {
+	text-align: left;
+	font-size: large;
+}
+.UserDonationStory {
+	text-align: left;
+	font-size: large;
+}
+
+.Avatar {
+	
+}
+
+.UserInfo {
+	
 }
 	
 .row {
+	margin-top: 200px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -48,19 +88,21 @@
 }
 
 .map-image img {
+	text-align: left;
+	font-size: xx-large;
     width: 100%;
-    height: 100%;
+    height: 75%;
 }
 
 .member-avatar {
 	justify-content: left;
 }
 
-.member-avatar img {
+.Avatar img {
 	width: 50px;
 	height: 50px;
 }
-.member-name {
+.UserInfo-name {
 	text-align: left;
 	font-size: xx-large;
 }
