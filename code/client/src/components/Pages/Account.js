@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Account.css';
 import WorldMapImage from '../../images/WorldMap.png';
-//import avatar from '../../images/Avatar.png';
+import { FaStar } from 'react-icons/fa';
+import { FaStarHalf } from 'react-icons/fa';
+import { IconContext } from "react-icons";
 //import DatePicker from "react-datepicker.css";
-
+ 
 function Avatar(props) {
   return (
     <img
@@ -84,15 +86,46 @@ const post = {
 	description: 'blahblahblah',
 };  
 class UserDonationStory extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			donationRecipient: 'Individual',
+			public_private: 'Public',
+			rating: ''
+		};
+	}
 	render() {
 		const { userInfo } = this.props
 		return (
 		<form>
 			<h1>Share your recent DoMAD travel story! </h1>
 			<p>Where did you go?</p>
-			<input
-				type="text"
-				/>
+			<input type="text" />
+			<p>When did this trip occur?</p>
+			<input type="date" />
+			<p>Did you donate to an Organization or to an individual?</p>
+			<select value={this.state.donationRecipient}>
+			  <option value="Individual">Individual</option>
+			  <option value="Organization">Organization</option>
+			  <option value="Both">Both</option>
+			</select>	  
+			<p>How was the donation received?</p>  
+			  <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                
+                 Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf />
+                                
+              </IconContext.Provider>			
+			<p>What else would you like to share?</p>
+			<input type="text" />
+			<p>Make private?</p>
+			<select value={this.state.donationRecipient}>
+			  <option value="Private">Private</option>
+			  <option value="Public">Public</option>
+			</select>	
+			<p>Upload Pictures?</p>
+			<input type='file' />
+			
+			<p>Submit</p>
 		</form>
 			);
 	}
