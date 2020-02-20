@@ -25,15 +25,7 @@ const userSchema = new mongoose.Schema({
     country: String,
     zipCode: String   
   },
-  donations: [
-    {
-      itemID: String,
-      dateTime: { type: Date, default: Date.now },
-      pictures: String, // Need to find out how to store pictures ( maybe GridFS )
-      description: String,
-      quantity: Number
-    }
-  ]
+  tripIDs: [ String ]
 });
 
 /*

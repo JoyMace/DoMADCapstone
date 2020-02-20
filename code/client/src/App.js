@@ -35,7 +35,7 @@ class App extends Component {
     this.setState({sideDrawerOpen: false});
   }
 
-  /*componentDidMount() {
+  componentDidMount() {
       // Call our fetch function below once the component mounts
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
@@ -49,7 +49,7 @@ class App extends Component {
       throw Error(body.message) 
     }
     return body;
-  };*/
+  };
 
   /* determine current path for navbar rendering, other stuff */
   /*current_path() {

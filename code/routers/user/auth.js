@@ -61,7 +61,7 @@ router.post('/signup', function(req, res) {
   }
 
   // check if user already exists
-  let user_query = {$or: [
+  var user_query = {$or: [
     {username: username},
     {email: username}
   ]}
@@ -73,7 +73,7 @@ router.post('/signup', function(req, res) {
       });
     }else{
       // create user  
-      let newUser = new User();
+      var newUser = new User();
 
       newUser.username = username;
       newUser.firstName = firstName;
@@ -81,13 +81,12 @@ router.post('/signup', function(req, res) {
       newUser.email = email;
       newUser.setPassword(password);
 
-      newUser.save(function(err, user_check) {
+      newUser.save(function(err, user) {
         if(err) {
           return res.status(400).send({
             message: 'Failed to add user'
           });
-        }
-        else {
+        } else {
           return res.status(201).send({
             message: 'User added successfully'
           });
