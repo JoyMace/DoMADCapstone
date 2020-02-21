@@ -9,13 +9,13 @@ function Login() {
 
             <h1>Login</h1>
 
-            <form action="/api/user/login" method="POST" >
+            <form action="/api/user/auth/login" method="POST" >
                 Username: <input type="text" name="username" /><br/>
                 Password: <input type="password" name="password" /><br/>
                 <button type="submit">send</button>
             </form>
 
-            <form action="/api/user/logout" method="POST" >
+            <form action="/api/user/auth/logout" method="POST" >
                 <button type="submit">logout</button>
             </form>
         </div>
