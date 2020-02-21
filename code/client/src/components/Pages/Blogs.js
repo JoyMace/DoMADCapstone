@@ -15,6 +15,16 @@ function Blogs() {
             </div>
             <div className="country-button-container">
                 <IconContext.Provider value={{ className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                    <li className='dropdown'>
+                        <button href="javascript:void(0)" className="country-buttons">
+                            Africa  <FaCaretDown />
+                        </button>
+                        <div className="dropdown-content">
+                            <a href="/about">Country 1</a>
+                            <a href="/account">Country 2</a>
+                            <a href="/blogs">Country 3</a>
+                        </div>
+                    </li>
                     <button className="country-buttons">Africa <FaCaretDown /></button>
                     <button className="country-buttons">Asia <FaCaretDown /></button>
                     <button className="country-buttons">Australia <FaCaretDown /></button>
