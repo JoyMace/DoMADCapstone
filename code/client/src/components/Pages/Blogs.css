@@ -43,6 +43,12 @@
     margin-bottom: 20px;
 }
 
+.dropdown-content a:hover {
+    transition: ease-in 0.4s;
+    background-color: #1e2231;
+    border-left: 2px solid #CBB95A;
+}
+
 .blog-container {
     display: flex;
     flex-direction: row;

@@ -20,9 +20,9 @@ function Blogs() {
                             Africa  <FaCaretDown />
                         </button>
                         <div className="dropdown-content">
-                            <a href="/about">Country 1</a>
-                            <a href="/account">Country 2</a>
-                            <a href="/blogs">Country 3</a>
+                            <a href="/#country1">Country 1</a>
+                            <a href="/#country2">Country 2</a>
+                            <a href="/#country3">Country 3</a>
                         </div>
                     </li>
                     <button className="country-buttons">Africa <FaCaretDown /></button>
