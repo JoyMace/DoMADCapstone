@@ -15,6 +15,8 @@ function Login() {
                 <button type="submit">send</button>
             </form>
 
+            <li><a href="/forgot">Reset Password</a></li>
+
             <form action="/api/user/logout" method="POST" >
                 <button type="submit">logout</button>
             </form>

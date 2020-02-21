@@ -38,6 +38,7 @@ app.use(passport.session());
 // connect routers
 //app.use('/', require('./routers/index'));
 app.use('/api/user', require('./routers/user'));
+app.use('/api/user/reset', require('./routers/user/reset'));
 
 
 app.listen(port, function (){

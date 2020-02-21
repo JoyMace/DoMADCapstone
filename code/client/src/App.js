@@ -17,10 +17,12 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
-import Donate from './components/Pages/Donate'
+import Donate from './components/Pages/Donate';
+import Reset from './components/Pages/Reset';
+import Reset_token from './components/Pages/Reset_token';
 
 import ReactDOM from 'react-dom'; //added to retrive token from url
-import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+//import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 
 
 class App extends Component {
@@ -110,77 +112,31 @@ class App extends Component {
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
           <Route path="/donate" component={Donate} />
+          <Route path="/forgot" component={Reset} />
+          <Switch> <Route path="/reset/:token" children={<Reset_token />} /></Switch>
         </div>
       </Router>
     );
-<<<<<<< HEAD
-    /*return (
-      <div>
-        <h1>Signup</h1>
-
-        <form action="/api/user/signup" method="POST" >
-          Username: <input type="text" name="username" /><br/>
-          First Name: <input type="text" name="firstName" /><br/>
-          Last Name: <input type="text" name="lastName" /><br/>
-          Email: <input type="text" name="email" /><br/>
-          Password: <input type="password" name="password" /><br/>
-          Verify Password: <input type="password" name="verifyPassword" /><br/>
-          <button type="submit">send</button>
-        </form>
-
-        <h1>Login</h1>
-
-        <form action="/api/user/login" method="POST" >
-          Username: <input type="text" name="username" /><br/>
-          Password: <input type="password" name="password" /><br/>
-          <button type="submit">send</button>
-        </form>
-
-        <h1>Reset Password</h1>
-
-        <form action="/api/user/forgot" method="POST" >
-          Email: <input type="text" name="email" /><br/>
-          <button type="submit">reset password</button>
-        </form>
-
-
-        <h1>Enter Reset Password Credentials</h1>
-
-        <div>
-          <Switch>
-            <Route path="/:token" children={<Token />} />
-          </Switch>
-        </div>
-
-
-        <form action="/api/user/logout" method="POST" >
-          <button type="submit">logout</button>
-        </form>
-      </div>
-    );*/
-=======
->>>>>>> 48457dd18c240b3a23e007bee2d816849d91df36
   }
-
 }
 
 
 
 //Function to retrive token from password reset url
-function Token() {
-  // We can use the `useParams` hook here to access
-  // the dynamic pieces of the URL.
-  let { token } = useParams();
-
-  return (
-
-    <form action={"api/user/"+token} method="POST">
-        password: <input type="password" name="password" placeholder="New password" />
-        confirm: <input type="password" name="confirm" placeholder="Confirm password" />
-        <button type="submit" >Update Password</button>
-    </form>
-
-  );
-}
+// function Token() {
+//   // We can use the `useParams` hook here to access
+//   // the dynamic pieces of the URL.
+//   let { token } = useParams();
+//
+//   return (
+//
+//     <form action={"api/user/"+token} method="POST">
+//         password: <input type="password" name="password" placeholder="New password" />
+//         confirm: <input type="password" name="confirm" placeholder="Confirm password" />
+//         <button type="submit" >Update Password</button>
+//     </form>
+//
+//   );
+// }
 
 export default App;

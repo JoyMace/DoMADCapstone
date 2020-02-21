@@ -155,7 +155,7 @@ router.post('/forgot', function(req, res, next) {
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://localhost:' + 3000 + '/' + token + '\n\n' +
+          'http://localhost:' + 3000 + '/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -172,7 +172,7 @@ router.post('/forgot', function(req, res, next) {
 });
 
 
-router.get('/:token', function(req, res) {
+router.get(':token', function(req, res) {
   console.log('hello')
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
@@ -187,7 +187,7 @@ router.get('/:token', function(req, res) {
 });
 
 
-router.post('/:token', function(req, res) {
+router.post(':token', function(req, res) {
   async.waterfall([
     function(done) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
@@ -248,6 +248,54 @@ router.post('/:token', function(req, res) {
   });
 });
 
+
+/*
+  contact us api
+
+  sends contact us message to Domad Gmail
+*/
+
+router.get('/contact', function(req, res) {
+  res.redirect('contact');
+});
+
+router.post('/contact', function(req, res) {
+
+
+  var name = req.body.firstname + " " + req.body.lastname
+  var email = req.body.email
+  var message = req.body.message
+  var content = `name: ${name} \n email: ${email} \n message: ${message} `
+
+  console.log(content)
+  if(req.body.email == "" || req.body.message == "") {
+      console.log("Error: Email & body should not be Blank");
+      return false;
+  }
+
+  var smtpTransport = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    auth: {
+      type: "login",
+      user: "DOMAD24901@gmail.com",
+      pass: "DoMADTemp#2020",
+    }
+  });
+
+  var mailOptions = {
+    to: email,
+    from: name,
+    subject: 'New message from contact us sent by ' + name,
+    text: content
+  };
+
+  smtpTransport.sendMail(mailOptions, function(err) {
+    res.redirect('/contact');
+    done(err, 'done');
+
+  });
+
+})
 
 
 /*
