@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const passport = require('passport');
 
-const User = require('../models/user');
+const User = require('../../models/user');
 
 var async = require("async");
 var nodemailer = require("nodemailer");
@@ -171,7 +171,7 @@ router.post('/forgot', function(req, res, next) {
   });
 });
 
-// :token -> check-token
+
 router.get(':token', function(req, res) {
   console.log('hello')
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
@@ -186,7 +186,7 @@ router.get(':token', function(req, res) {
   });
 });
 
-// :token -> reset-password
+
 router.post(':token', function(req, res) {
   async.waterfall([
     function(done) {
