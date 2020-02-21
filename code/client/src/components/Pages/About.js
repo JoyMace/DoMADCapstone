@@ -1,12 +1,12 @@
 import React from 'react';
 import './About.css';
-import AboutImage from './AboutImage.jpg'
+// import AboutImage from './AboutImage.jpg'
 
 function About() {
     return (
         <div className="about">
             <div class="tinted" >
-                <img src={AboutImage} width="900" alt="Image"/>
+                {/* <img src={AboutImage} width="900" alt="Image"/> */}
             </div>
 
             <div class="centered1">
