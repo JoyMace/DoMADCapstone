@@ -67,7 +67,7 @@ describe('User Routes', function() {
 
     it('login SUCCESS', function(done) {
       request(app)
-        .post('/api/user/login')
+        .post('/api/user/auth/login')
         .send(testVar.userInfo)
         .type('form')
         .end(function(err, res){
@@ -81,7 +81,7 @@ describe('User Routes', function() {
 
     it('login FAILURE - wrong username', function(done) {
       request(app)
-        .post('/api/user/login')
+        .post('/api/user/auth/login')
         .send(testVar.userInfo)
         .type('form')
         .end(function(err, res){
@@ -95,7 +95,7 @@ describe('User Routes', function() {
 
     it('login FAILURE - wrong password', function(done) {
       request(app)
-        .post('/api/user/login')
+        .post('/api/user/auth/login')
         .send(testVar.userInfo)
         .type('form')
         .end(function(err, res){
@@ -136,7 +136,7 @@ describe('User Routes', function() {
 
     it('Signup SUCCESS', function(done) {
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(testVar.userInfo)
         .type('form')
         .end(function(err, res){
@@ -150,7 +150,7 @@ describe('User Routes', function() {
 
     it('Signup FAILURE - failed to add user', function (done) {
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(testVar.userInfo)
         .type('form')
         .end(function(err, res){
@@ -167,7 +167,7 @@ describe('User Routes', function() {
       delete lessFields.email;
 
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(lessFields)
         .type('form')
         .end(function(err, res){
@@ -184,7 +184,7 @@ describe('User Routes', function() {
       missMatchedPass.verifyPassword = testVar.badPassword;
 
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(missMatchedPass)
         .type('form')
         .end(function(err, res){
@@ -202,7 +202,7 @@ describe('User Routes', function() {
       badPassword.verifyPassword = testVar.badPassword;
 
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(badPassword)
         .type('form')
         .end(function(err, res){
@@ -220,7 +220,7 @@ describe('User Routes', function() {
       badPassword.verifyPassword = testVar.badPassword;
 
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(badPassword)
         .type('form')
         .end(function(err, res){
@@ -237,7 +237,7 @@ describe('User Routes', function() {
       userExists.username = usernameExists;
 
       request(app)
-        .post('/api/user/signup')
+        .post('/api/user/auth/signup')
         .send(userExists)
         .type('form')
         .end(function(err, res){

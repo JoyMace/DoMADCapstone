@@ -8,7 +8,7 @@ We are the Donations Make a Difference (DoMAD) Capstone team for the 2019/20 Sen
 - **Shelby Keupp ([@sbkeupp](https://github.com/sbkeupp))**
 - **Duaa Alahmed**
 - **Yuxuan Luo**
-- **Tanner O'Rourke**
+- **Tanner O'Rourke ([@torourke14](https://github.com/torourke14))**** 
 - **Christoph Uhl ([@Christoph98](https://github.com/christoph98))**
 - **Thomas Young ([@thyo9470](https://github.com/thyo9470))** - Backend Lead
 - **Natnael Abraha**
