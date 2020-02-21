@@ -1,23 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import './Account.css';
 import WorldMapImage from '../../images/WorldMap.png';
 import avatar from '../../images/Avatar.png';
 import { FaStar } from 'react-icons/fa';
 import { FaStarHalf } from 'react-icons/fa';
 import { IconContext } from "react-icons";
-//import DatePicker from "react-datepicker.css";
  
-function Avatar(props) {
-  return (
-    <img
-      className="Avatar"
-      src={userInfo.avatar}
-      alt={'Picture of ', userInfo.name}
-    />
-  );
-}
+
 
 function UserInfo(props) {
   return (
@@ -38,7 +28,7 @@ function Post(props) {
 	  <div className="Post-date"> Date: {post.date}</div>
 	  <div className="Post-destination"> Destination: {post.destination}</div>
 	  <div className="Post-donation"> Items Donated:  {post.donation}</div>
-	  <div className="Post-stars"> How the items were received: {post.stars}</div>
+	  <div className="Post-stars"> Donation rating: {post.stars}</div>
 	  <div className="Post-description">Travel Story: {post.description}</div>
 	  
 	</div>
@@ -48,12 +38,13 @@ function Post(props) {
 function Account(props) {
   return (
 	<div className='row'>
+	
       <div className='column'>
 		<div className='left-column'>
 		  <div className="Account">
 			  <UserInfo/>
 			  
-			  Share your recent DoMAD travel story!
+			  <h3>Share your recent DoMAD travel story!</h3>
 			  
 			  <UserDonationStory/>
 		  </div>
@@ -77,7 +68,7 @@ function Account(props) {
   );
 }
 const userInfo = {
-	avatar: <img src={ avatar } alt="Avatar" />,
+	avatar: <img src={ avatar } alt="avatar" height='64px'/>,
 	name: 'Joy Mace',
 	memberSince: '1999',
 	hometown: 'Denver, CO',
@@ -105,7 +96,7 @@ class UserDonationStory extends React.Component {
 		this.setState({[nam]: val});
 	}
 	render() {
-		const { userInfo } = this.props
+		const { post } = this.props
 		return (
 		
 		<form>
