@@ -1,4 +1,309 @@
 .home {
-    margin-top: 64px;
+    font-family: inherit;
+    line-height: inherit;
     text-align: center;
+    height: 100%;
+    margin: 0;
+}
+
+/*===============================*/
+/*==== Top Content Container ====*/
+.top-container {
+    position: relative; 
+    width: 100%;
+    margin: auto;
+    /*height: auto;*/
+}
+    
+#bg_img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 175px;
+    min-width: 650px; max-width: 100%;
+    opacity: 0.85;
+    z-index: 0; /* stack order (last) */
+}
+
+/*===== StickyNavbar Container & Content =====*/
+.navbar-wrapper {
+    position: sticky;
+    display: flex; /* not sure if needed */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4; /* Stacking order (2nd before DD content) */
+    transition: all 0.5s; /* back to top */
+}
+
+/* Navbar Master */
+.nav-list {
+    position: fixed;
+    padding: 0% 3%;
+    width: 100%;
+    min-height: 42px;
+    max-height: 80px;
+    list-style-type: none;
+    overflow: visible;
+    /* Utilities for navbar sticky effect */
+    top: -1px;
+    padding-top: calc(1em + 1px);
+}
+/* sticky transition effects */
+.top-container.isSticky .nav-list {
+    padding: 4px 3%;
+    transition: all 0.4s;
+    background-color: #363D48;
+    /* width: 40%; --Can add for a smaller concatenated nav ribbon */
+}
+        
+
+    /* Dropdown grouping container */
+    .nav-list .dropdown { 
+        position: sticky;
+        margin-right: 20px;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 0.8em;
+    }
+    .nav-list li {
+        float: right;
+    }
+        /* Move rightmost DD grouping to left */
+        .dropdown:first-child { 
+            float: left; 
+        }
+
+        /* Dropdown headers */
+        .DD-btn {
+            font-size: 1.3em;
+        }
+            /* Hovering any DD item => styles header */
+            .nav-list .dropdown:hover .DD-btn {
+                transition: ease-in 0.3s;
+                border-left: 2px solid #CBB95A;
+            }
+            .down-up-arrow {
+                border: solid #CBB95A;
+                display: inline-block;
+                border-width: 3px 3px 0 0;
+                padding: 4px;
+                margin-left: 6px;
+
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+            .dropdown:hover .down-up-arrow {
+                transition: all 0.3s;
+                border-width: 0 3px 3px 0px;
+            }
+
+
+        /*! Navbar Dropdown content (rendered on header hover) !*/
+        .dropdown-content {
+            display: none; /* initial */
+            position: absolute;
+            min-width: 20px;
+            background-color: #010925;
+            box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+            width: calc(100% + 10px);
+            z-index: 8; /* UI Stack order (1st before navbar) */
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+            /* On Sub-Nav item hover */
+            .dropdown-content a:hover {
+                transition: ease-in 0.4s;
+                background-color: #1e2231;
+                border-left: 2px solid #CBB95A;
+            }
+
+
+        /* ALL DD item's inner ref tag */
+        .dropdown a {
+            display: inline-block; /* create vertical navs */
+            padding: 6px 8px;
+            width: 100%;
+            background: none;
+            text-decoration: none;
+            text-emphasis: bold;
+            text-align: left;
+            color: white;
+        }
+        #signup-dd {
+            width: 150%;
+        }
+            
+
+/*====== Centered Top Container content ======*/
+.block-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 3; /* Stacking order (3rd, after navbar) */
+}
+    #block-logo {
+        width: 100%;
+        height: auto;
+        scale: 0.75;
+    }
+    #block-logo-text {
+        font-size: 3vw;
+    }
+
+    #block-content {
+        display: flex;
+        flex-wrap: row wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .block-box {
+            margin: 4px 12px;
+            padding: 8px 10px 4px 10px;
+            border: 2px solid #CBB95A;
+            border-radius: 5px;
+        }
+            .block-box a {
+                color: white;
+            }
+            #exp { float: left; }
+            #blog { float: right; }
+
+            .block-box:hover, .block-box:active {
+                transition: ease-in-out 0.3s;
+                transform:scale(1.1,1.1);
+            }
+
+
+/*================================*/
+/*== Steps to DoMAD Success ==*/
+.steps-wrapper {
+    width: 100%;
+    height: auto;
+}
+    .all-steps-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+
+    .step-container {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        overflow: hidden;
+        width: 22%; min-width: 250px;
+        margin: 16px 8px;
+    }
+        .step-circle {
+            justify-items: center;
+        }
+        .step-box {
+            padding: 6px 10px 12px 10px;
+            background-color: #010925;
+            border: 2px solid #CBB95A;
+            border-radius: 10px;
+            color: white;
+            word-break: normal;
+        }
+            .step-box p {
+                text-align: left;
+            }
+
+
+/*==============================*/
+/*=== Spacers and Text Links ===*/
+.spacer-caption {
+    font-size: 1.2rem;
+    margin: 24px 0px 24px 0px;
+}
+
+.text-hyperl {
+    color: #CBB95A;
+}
+.text-hyperl:hover, .text-hyperl:active {
+    transition: all 0.5s;
+    text-decoration: underline #010925 solid;
+}
+    
+/*==============================*/
+/*=== Donation Slider boxes ===*/
+.donations-wrapper {
+    margin-top: 30px;
+}
+
+.slides-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+    .slide-entry {
+        border-radius: 5px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 384px;
+        width: 338px;
+        margin: 20px;
+    }
+    .slide-entry:hover {
+        border: 5px solid black;
+    }
+
+        .top-image {
+            height: 60%;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+        .top-image img {
+            width: 100%;
+            height: 100%;
+        }
+        .donation-content {
+            height: 40%;
+            text-align: left;
+            padding-left: 25px;
+            padding-top: 25px;
+            background-color: #010925;
+            color: white;
+            line-height: 2em;
+        }
+
+
+/*=====================================*/
+/*======Screen sizing support =========*/
+
+/* For 'Header' => replace nav w/a solid bar at width<700 */
+/* !!!!!!!!!!!!!!!!!!!!!! */
+/*@media (min-width: 650px) {
+    .nav-list li,
+    .nav-list li {
+        float: none;
+        position: relative;
+    }
+}*/
+
+/* For BG-block area => hide logo caption, ?fix logo position? */
+@media screen and (max-width:650px) {
+    /*.block-wrapper { top: 20%; } */
+    .block-wrapper h2{
+        display: none;
+    }
+}
+
+/* For steps => positions wide vertically */
+@media screen and (max-width:700px) {
+    .step-container {
+        width: 70%;
+        align-items: center;
+    }
 }
