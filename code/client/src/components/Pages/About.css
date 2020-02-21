@@ -2,3 +2,119 @@
     margin-top: 64px;
     text-align: center;
 }
+
+body {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 0;
+}
+
+.header{
+    font-family: Cambria, Georgia, serif;
+    font-weight: bold;
+    font-size: 23px;
+    background-color: rgba(255,255,255, 0.5);
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 60px; 
+    text-align: center;
+
+}
+
+p {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 40px;
+    margin-bottom: 40px; 
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+pthick {
+    font-family: Cambria, Georgia, serif;
+    margin-left: 250px;
+    margin-right: 250px; 
+    font-weight: bold;
+}
+
+p.top {
+    margin-top: 10px; 
+}
+
+p.bottom {
+    margin-bottom: 10px; 
+}
+
+.divl {
+    margin-top: 80px;
+    text-align: left;
+    margin-right: 400px;
+}
+
+.divr {
+    margin-top: 80px;
+    text-align: left;
+    margin-left: 400px;
+}
+
+.divl2 {
+    margin-top: 30px;
+    text-align: left;
+    margin-right: 250px;
+}
+
+h1 {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 40px;
+    color: #010925
+}
+
+.centered1 {
+    position: absolute;
+    color: #ffffff;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+  }
+  
+.centered2 {
+    position: absolute;
+    font-family: Cambria, Georgia, serif;
+    color: #ffffff;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+.centered3 {
+    position: absolute;
+    font-family: Cambria, Georgia, serif;
+    color: #ffffff;
+    top: 50%;
+    left: 50%;
+    bottom:45%;
+    transform: translate(-50%, -50%);  
+}
+
+
+.container img{
+    position: relative;
+    width: 100%;
+       
+}
+
+.tinted { filter: brightness(50%); }
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #010925;
+    margin-right: 400px;
+    margin-left: 400px;   
+    padding: 0;
+}
+
+
+
