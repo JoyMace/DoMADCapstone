@@ -6,7 +6,7 @@ function Contact() {
     return (
 
         <div className="contact">
-            <form action="/api/user/contact" method="POST">
+            <form action="/api/user/msg/contact" method="POST">
                   First Name: <input type="text" name="firstname" />
                   Last Name: <input type="text" name="lastname" /><br/>
                   email: <input type="text" name="email" /><br/>

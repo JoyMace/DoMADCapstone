@@ -102,25 +102,30 @@ class App extends Component {
           </Switch>
 
           {backdrop}
-          <Route path="/about" component={About} />
-          <Route path="/account" component={Account} />
-          <Route path="/blogs" component={Blogs} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/disclaimer" component={Disclaimer} />
-          <Route path="/faq" component={Faq} />
-          <Route path="/register" component={Register} />
-          <Route path="/search_locations" component={SearchLocations} />
-          <Route path="/login" component={Login} />
-          <Route path="/donate" component={Donate} />
-          <Route path="/forgot" component={Reset} />
-          <Switch> <Route path="/reset/:token" children={<Reset_token />} /></Switch>
+          <Switch>
+            <Route path="/about" component={About} />
+            <Route path="/account" component={Account} />
+            <Route path="/blogs" component={Blogs} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/disclaimer" component={Disclaimer} />
+            <Route path="/faq" component={Faq} />
+            <Route path="/register" component={Register} />
+            <Route path="/search_locations" component={SearchLocations} />
+            <Route path="/login" component={Login} />
+            <Route path="/donate" component={Donate} />
+            <Route path="/forgot" component={Reset} />
+            <Route path="/:token" component={Reset_token} />
+          </Switch>
+
+
+
         </div>
       </Router>
     );
   }
 }
 
-
+//<Switch> <Route path="/:token" children={<Reset_token />} /></Switch>
 
 //Function to retrive token from password reset url
 // function Token() {

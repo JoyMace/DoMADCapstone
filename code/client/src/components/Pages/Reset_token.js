@@ -13,8 +13,6 @@ function Reset_token() {
 
           <h1>Reset Password</h1>
 
-          <h1>{token}</h1>
-
           <form action={"api/user/reset/"+token} method="POST">
               Password: <input type="password" name="password" placeholder="New password" /><br/>
               Confirm: <input type="password" name="confirm" placeholder="Confirm password" /><br/>

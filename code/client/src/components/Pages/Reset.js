@@ -8,7 +8,7 @@ function Reset() {
 
           <h1>Reset Password</h1>
 
-          <form action="/api/user/forgot" method="POST" >
+          <form action="/api/user/reset/forgot" method="POST" >
                 Email: <input type="text" name="email" /><br/>
                 <button type="submit">reset password</button>
           </form>
