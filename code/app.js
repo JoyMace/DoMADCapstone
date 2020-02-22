@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost/domad', mongoose_input);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('connected!');
+  console.log('Mongoose connected!');
 });
 
 // connect passport
@@ -44,3 +44,5 @@ app.use('/api/user/reset', require('./routers/user/reset'));
 app.listen(port, function (){
   console.log(`Example app listening on port ${port}!`);
 });
+
+module.exports = app

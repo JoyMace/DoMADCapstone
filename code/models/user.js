@@ -6,15 +6,8 @@ const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  resetPasswordToken: String,
-  resetPasswordExpires: Date,
-  hash: String,
-  salt: String,
-  phone: String,
-  dob: String,
-  socialMedia: [
+  lastName: { type: String, required: true }, email: { type: String, required: true }, hash: String, salt: String, phone: String, dob: String, socialMedia: [
+
     {
     website: String, // Facebook, Instagaram, ...
     link: String // Unsure how this works for social media
