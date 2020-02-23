@@ -4,14 +4,16 @@ const router = express.Router();
 const User = require('../../models/user');
 const Trip = require('../../models/trip');
 
+const tripCodes = require('../../config/resCodes').trip;
+
 /*
   report trip api
 
   required form inputs:
-    tripDate: date
+    tripDate: date // figure out how to handle this
     tripLoc: text
-    donations: ?
-    ratings: ?
+    donations: text[] (assumption)
+    ratings: int[] (assumption)
     notes: text
     isPrivate: checkbox (boolean)
 
@@ -20,18 +22,18 @@ const Trip = require('../../models/trip');
   adds new trip to the currently signed in user's trips using new trip id
 */
 router.post('/report-trip', function(req, res) {
-  //const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
-  var notes = 'test notes';
-  var isPrivate = false;
+  const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
 
-  // get user id from passport session
-  var userID = "5e4ea6d8e67ebe0b27e7dab8";
+  var userID;
+  // checks if user is logged in or external request
+  if ('user' in req){
+    userID = req.user._id;
+  } else {
+    userID = req.body._id;
+  }
 
   // get location information from tripLoc
   var locationID = '123';
-
-  // if there is a need convert tripDate to proper format
-  var tripDate = '2002-12-09'
 
   // create donation objects for donations/ratings
   // https://stackoverflow.com/questions/6854431/how-do-i-get-the-objectid-after-i-save-an-object-in-mongoose
@@ -48,26 +50,26 @@ router.post('/report-trip', function(req, res) {
   newTrip.save(function(err, trip) {
     if (err) {
       console.log(err)
-      return res.status(400).send({
-        message: 'Failed to add trip'
+      return res.status(tripCodes.report.addTripFail.status).send({
+        message: tripCodes.report.addTripFail.message
       });
     } else {
 
       User.findById(userID, function(err, user) {
         if (err) {
-          return res.status(400).send({
-            message: 'Failed to find user by ID'
+          return res.status(tripCodes.report.userNotFound.status).send({
+            message: tripCodes.report.userNotFound.message
           });
         }
         user.tripIDs.push(trip._id);
         user.save(function(err, trip) {
           if (err) {
-            return res.status(400).send({
-              message: 'Failed to update user'
+            return res.status(tripCodes.report.userUpdateFail.status).send({
+              message: tripCodes.report.userUpdateFail.message
             });
           } else {
-            return res.status(200).send({
-              message: 'Trip saved successfully'
+            return res.status(tripCodes.report.success.status).send({
+              message: tripCodes.report.success.message
             });
           }
         });
@@ -78,28 +80,26 @@ router.post('/report-trip', function(req, res) {
 
 /*
   toggle a trip's privacy setting
-  
-  TODO: Determine how to properly get trip id
 */
-router.post('/toggle-trip-privacy', function(req, res) {
+router.post('/toggle-privacy', function(req, res) {
   // get trip id somehow
-  tripID = 'test'
+  tripID = req.body._id;
 
-  Trip.findById(tripID, function(er, trip) {
-    if (err) {
-      return res.status(400).send({
-        message: 'Failed to find trip by ID'
+  Trip.findById(tripID, function(err, trip) {
+    if (err || !trip) {
+      return res.status(tripCodes.togglePrivacy.tripNotFound.status).send({
+        message: tripCodes.togglePrivacy.tripNotFound.message
       });
     } else {
       trip.isPrivate = !trip.isPrivate;
       trip.save(function(err, updateTrip) {
         if (err) {
-          return res.status(400).send({
-            message: 'Failed to update trip'
+          return res.status(tripCodes.togglePrivacy.tripUpdateFail.status).send({
+            message: tripCodes.togglePrivacy.tripUpdateFail.message
           }); 
         } else {
-          return res.status(200).send({
-            message: 'Trip privacy successfully toggled'
+          return res.status(tripCodes.togglePrivacy.success.status).send({
+            message: tripCodes.togglePrivacy.success.message
           });
         }
       });
@@ -110,31 +110,30 @@ router.post('/toggle-trip-privacy', function(req, res) {
 /*
   delete trip
   
-  TODO: Determine how to properly get trip id
   checks if this trip exists and then tries to delete it
 */
 router.post('/delete-trip', function(req, res) {
   // get trip id somehow
-  tripID = 'test'
+  tripID = req.body._id;
 
   Trip.count({_id: tripID}, function(err, count) {
     if (err) {
-      return res.status(400).send({
-        message: 'Failed to check if trip exists'
+      return res.status(tripCodes.deleteTrip.checkTripExistFail.status).send({
+        message: tripCodes.deleteTrip.checkTripExistFail.message
       });
     } else if ( count == 0 ) {
-      return res.status(404).send({
-        message: 'No trip with this id was found'
+      return res.status(tripCodes.deleteTrip.tripNotFound.status).send({
+        message: tripCodes.deleteTrip.tripNotFound.message
       });
     } else {
       Trip.deleteOne({ _id: tripID }, function (err) {
         if (err) {
-          return res.status(400).send({
-            message: 'Failed to delete trip by ID'
+          return res.status(tripCodes.deleteTrip.deleteTripFail.status).send({
+            message: tripCodes.deleteTrip.deleteTripFail.message
           });
         } else {
-          return res.status(204).send({
-            message: 'Trip successfully deleted'
+          return res.status(tripCodes.deleteTrip.success.status).send({
+            message: tripCodes.deleteTrip.success.message
           });
         }
       });
@@ -149,16 +148,32 @@ router.post('/delete-trip', function(req, res) {
   TODO: figure out how to get send get request for
 */
 router.get('/trips', function(req, res) {
-  var ID = "5e4ea6d8e67ebe0b27e7dab8"
-  User.findById(ID, function (err, user) { 
+  var userID;
+  
+  // checks if user is logged in or external request
+  if ('user' in req){
+    userID = req.user._id;
+  } else {
+    userID = req.query._id;
+  }
+  User.findById(userID, function (err, user) { 
 
-    if (err) { res.status(404).send({message:"Could not find user by id"}); }
-    console.log('tripIDs' in user);
+    if (err || !user) {
+      return res.status(tripCodes.trips.userNotFound.status).send({
+        message: tripCodes.trips.userNotFound.message
+      });
+    }
+    
     if (!('tripIDs' in user)) {
-      return res.status(200).send({trips: []});
+      return res.status(tripCodes.trips.success.status).send({trips: []});
     } else {
       Trip.find({'_id': { $in: user.tripIDs }}, function(err, trips){
-        return res.status(200).send({trips: trips});
+        if (err) {
+          return res.status(tripCodes.trips.tripsNotFound.status).send({
+            message: tripCodes.trips.tripsNotFound.message
+          });
+        }
+        return res.status(tripCodes.trips.success.status).send({trips: trips});
       });
     }
   });

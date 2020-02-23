@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 const User = require('../../models/user');
-const resCode = require('../../config/resCode');
+const authCode = require('../../config/resCodes').auth;
 
 /*
   login api
@@ -29,7 +29,7 @@ router.post('/login', function(req, res, next) {
 
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.status(resCode.login.success.status).send({message: resCode.login.success.message});
+      return res.status(authCode.login.success.status).send({message: authCode.login.success.message});
     });
   })(req, res, next);
 });
@@ -53,15 +53,15 @@ router.post('/signup', function(req, res) {
   // check if required fields are filled
   // ( check if there is a better way of checking these )
   if (!username || !firstName || !lastName || !email || !password || !verifyPassword) {
-    return res.status(resCode.signup.missingFields.status).send({
-      message: resCode.signup.missingFields.message
+    return res.status(authCode.signup.missingFields.status).send({
+      message: authCode.signup.missingFields.message
     });
   }
 
   // verify password 
   if ( password != verifyPassword ) {
-    return res.status(resCode.signup.verifyPassword.status).send({
-      message: resCode.signup.verifyPassword.message
+    return res.status(authCode.signup.verifyPassword.status).send({
+      message: authCode.signup.verifyPassword.message
     });
   }
 
@@ -70,8 +70,8 @@ router.post('/signup', function(req, res) {
        !/[A-Z]/.test(password) || // check for uppercase letter 
        password.length < 8 ){ // check if password has atleast 8 letters
 
-    return res.status(resCode.signup.passwordReq.status).send({
-      message: resCode.signup.passwordReq.message
+    return res.status(authCode.signup.passwordReq.status).send({
+      message: authCode.signup.passwordReq.message
     });
   }
 
@@ -83,8 +83,8 @@ router.post('/signup', function(req, res) {
 
   User.findOne(userQuery, function(err, user) {
     if (user) {
-      return res.status(resCode.signup.userExists.status).send({
-        message: resCode.signup.userExists.message
+      return res.status(authCode.signup.userExists.status).send({
+        message: authCode.signup.userExists.message
       });
     }else{
       // create user  
@@ -98,12 +98,12 @@ router.post('/signup', function(req, res) {
 
       newUser.save(function(err, user) {
         if(err) {
-          return res.status(resCode.signup.failedToAdd.status).send({
-            message: resCode.signup.failedToAdd.message
+          return res.status(authCode.signup.failedToAdd.status).send({
+            message: authCode.signup.failedToAdd.message
           });
         } else {
-          return res.status(resCode.signup.success.status).send({
-            message: resCode.signup.success.message
+          return res.status(authCode.signup.success.status).send({
+            message: authCode.signup.success.message
           });
         }
       });

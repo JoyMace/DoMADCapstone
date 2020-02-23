@@ -1,8 +1,7 @@
-
 resCode = {
   login:{
     success:{
-      status:201,
+      status:200,
       message:'User successfully logged in'
     },
     wrongUsername:{
@@ -39,7 +38,7 @@ resCode = {
       status:400,
       message:'Failed to add user'
     }
-  }  
+  },
 }
 
 module.exports = resCode
