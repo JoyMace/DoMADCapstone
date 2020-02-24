@@ -17,9 +17,6 @@ var crypto = require("crypto");
   sends contact us message to Domad Gmail
 */
 
-router.get('/contact', function(req, res) {
-  res.redirect('contact');
-});
 
 router.post('/contact', function(req, res) {
 

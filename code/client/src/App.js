@@ -21,8 +21,7 @@ import Donate from './components/Pages/Donate';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
-import ReactDOM from 'react-dom'; //added to retrive token from url
-//import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+import ReactDOM from 'react-dom'; 
 
 
 class App extends Component {
@@ -124,24 +123,5 @@ class App extends Component {
     );
   }
 }
-
-//<Switch> <Route path="/:token" children={<Reset_token />} /></Switch>
-
-//Function to retrive token from password reset url
-// function Token() {
-//   // We can use the `useParams` hook here to access
-//   // the dynamic pieces of the URL.
-//   let { token } = useParams();
-//
-//   return (
-//
-//     <form action={"api/user/"+token} method="POST">
-//         password: <input type="password" name="password" placeholder="New password" />
-//         confirm: <input type="password" name="confirm" placeholder="Confirm password" />
-//         <button type="submit" >Update Password</button>
-//     </form>
-//
-//   );
-// }
 
 export default App;

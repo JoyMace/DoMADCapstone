@@ -17,12 +17,8 @@ var crypto = require("crypto");
   them to the login page
 */
 
-router.get('/forgot', function(req, res) {
-  res.redirect('forgot');
-});
 
 router.post('/forgot', function(req, res, next) {
-  console.log("indise reset/forgot router")
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, function(err, buf) {
@@ -34,7 +30,7 @@ router.post('/forgot', function(req, res, next) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
           //req.flash('error', 'No account with that email address exists.');
-          //return res.redirect('/forgot');
+          return res.redirect('/forgot');
         }
 
         user.resetPasswordToken = token;
@@ -65,9 +61,6 @@ router.post('/forgot', function(req, res, next) {
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
-        console.log('mail sent');
-        console.log('email: ' + user.email)
-        //req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
         done(err, 'done');
       });
     }
@@ -79,7 +72,6 @@ router.post('/forgot', function(req, res, next) {
 
 // :token -> check-token
 router.get('/:token', function(req, res) {
-  console.log('hello')
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
       console.log("Password reset token is invalid or has expired in get method")
@@ -197,7 +189,6 @@ router.post('/contact', function(req, res) {
   });
 
 })
-
 
 
 module.exports = router;
