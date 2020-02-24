@@ -19,6 +19,14 @@ import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
 import Donate from './components/Pages/Donate'
 
+fetch("../../data/country_electricity")
+	.then(function(resp) {
+		return resp.json();
+	})
+	.then(function(data) {
+		console.log(data);
+	})
+
 class App extends Component {
   state = {
       data: null,

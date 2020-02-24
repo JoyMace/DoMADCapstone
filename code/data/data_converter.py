@@ -1,6 +1,6 @@
-from pandas import read_excel, DataFrame, Series
+from pandas import read_csv, DataFrame, Series
 
-df = read_excel("SE4ALLEXCEL.xlsx")
+df = read_csv("origin_data.csv")
 elecDf = df.loc[(df["Indicator Code"] == "1.2_ACCESS.ELECTRICITY.RURAL") | \
                 (df["Indicator Code"] == "1.1_ACCESS.ELECTRICITY.TOT")]
 
