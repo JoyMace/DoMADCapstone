@@ -8,7 +8,6 @@
     padding: 20px;
     margin: 0;
 }
-
 .header{
     font-family: Cambria, Georgia, serif;
     font-weight: bold;
@@ -20,9 +19,7 @@
     margin: 0 auto;
     margin-bottom: 60px; 
     text-align: center;
-
 }
-
 /* add class name */
 p.origin {
     font-family: Cambria, Georgia, serif;
@@ -54,6 +51,7 @@ p.bottom {
     margin-right: 250px;
 }
 
+
 .divl {
     margin-top: 80px;
     text-align: left;
@@ -74,10 +72,11 @@ p.bottom {
 
 /* add class name */
 h1.header1 {
+
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
     color: #010925
-}
+} */
 
 .centered1 {
     position: absolute;
@@ -124,6 +123,3 @@ img.about{
     margin-left: 400px;   
     padding: 0;
 } */
-
-
-
