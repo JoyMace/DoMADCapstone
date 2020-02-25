@@ -3,7 +3,7 @@
     text-align: center;
 }
 
-body {
+/* body {
     background-color: #ffffff;
     padding: 20px;
     margin: 0;
@@ -44,7 +44,7 @@ p.top {
 
 p.bottom {
     margin-bottom: 10px; 
-}
+} */
 
 .divl {
     margin-top: 80px;
@@ -64,11 +64,11 @@ p.bottom {
     margin-right: 250px;
 }
 
-h1 {
+/* h1 {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
     color: #010925
-}
+} */
 
 .centered1 {
     position: absolute;
@@ -106,7 +106,7 @@ h1 {
 
 .tinted { filter: brightness(50%); }
 
-hr {
+/* hr {
     display: block;
     height: 1px;
     border: 0;
@@ -114,7 +114,7 @@ hr {
     margin-right: 400px;
     margin-left: 400px;   
     padding: 0;
-}
+} */
 
 
 
