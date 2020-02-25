@@ -23,7 +23,8 @@ body {
 
 }
 
-p {
+/* add class name */
+p.origin {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
     margin-bottom: 40px; 
@@ -39,11 +40,18 @@ pthick {
 }
 
 p.top {
+    font-family: Cambria, Georgia, serif;
     margin-top: 10px; 
+    margin-left: 250px;
+    margin-right: 250px;
 }
 
 p.bottom {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 10px; 
     margin-bottom: 10px; 
+    margin-left: 250px;
+    margin-right: 250px;
 }
 
 .divl {
@@ -64,7 +72,8 @@ p.bottom {
     margin-right: 250px;
 }
 
-h1 {
+/* add class name */
+h1.header1 {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
     color: #010925
@@ -98,9 +107,9 @@ h1 {
 }
 
 
-.container img{
+img.about{
     position: relative;
-    width: 100%;
+    width: 60%;
        
 }
 
