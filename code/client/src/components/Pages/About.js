@@ -1,12 +1,12 @@
 import React from 'react';
 import './About.css';
-// import AboutImage from './AboutImage.jpg'
+import AboutImage from '../../images/AboutImage.jpg'
 
 function About() {
     return (
         <div className="about">
             <div class="tinted" >
-                {/* <img src={AboutImage} width="900" alt="Image"/> */}
+                <img class="about" src={AboutImage} width="900" alt="Image"/>
             </div>
 
             <div class="centered1">
@@ -24,27 +24,27 @@ function About() {
                 we decided to start this initiative to facilitate “giving back” to the places we visit.
             </div>
 
-            <p>If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
+            <p class="origin">If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
                 destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 
             </p>
 
             <hr></hr>
 
-            <h1> How It Works
+            <h1 class="header1"> How It Works
             </h1>
             < div class="divl">
-                <p>After planning a trip, visit DoMAD.org before traveling to gather information on what items are needed for the area you are visiting.
+                <p class="origin">After planning a trip, visit DoMAD.org before traveling to gather information on what items are needed for the area you are visiting.
                      For example, if you are planning to go trekking in Peru, you would consult DoMAD before departing, enter your trekking location 
                      and learn that tarps and rain ponchos are most needed items in that area.
                 </p>
             </div>
             <div class="divr">
-                <p>
+                <p class="origin">
                 Based on this data, pack a few extra items to be donated to local organizations or directly to the local community when you arrive.
                 </p>
             </div>
             <div class="divl">
-                <p>
+                <p class="origin">
                 Since DoMAD relies heavily on user feedback, visit DoMAD.org after your trip to provide feedback regarding your experience. 
                 This includes providing feedback on whether the donation item was benficial, recommending a different donation item, 
                 or providing other travelers with helpful information!
@@ -53,7 +53,7 @@ function About() {
 
             <hr></hr>
 
-            <h1>
+            <h1 class="header1">
                 About Us
             </h1>
             <p class="top">
@@ -67,7 +67,7 @@ function About() {
                 
                 
                 <p class="top"> Founder & Executive Director, Donations Make A Difference (DoMAD)</p>
-                <p>Jill is a retired federal executive who, during her government career, 
+                <p class="origin">Jill is a retired federal executive who, during her government career, 
                     worked for the US Army Corps of Engineers, Department of the Army, 
                     and Department of Homeland Security. For more than a decade, 
                     Jill worked in international relations and traveled extensively − 
@@ -87,7 +87,7 @@ function About() {
                     </p>
                 <p class="bottom"> Stuart Drury</p>
                 <p class="top"> Co-Founder & Executive Assistant, Donations Make A Difference (DoMAD)</p>
-                <p>
+                <p class="origin">
                 Stu is a retired federal civil servant and retired Army Reserve officer. After eleven years as an active duty Army officer, 
                 Stu became a reservist and a civilian employee of the Department of Defense. He worked for the Army in Europe before being
                  transferred to the Pentagon, where he met Jill. They are approaching 25 years of wedded bliss. After a very brief stint with the legacy 
