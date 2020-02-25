@@ -4,8 +4,6 @@ import './Login.css'
 function Login() {
     return (
         <div className="login">
-            <h1>Login</h1>
-            <p>This is the login page.</p>
 
             <h1>Login</h1>
 
@@ -14,6 +12,8 @@ function Login() {
                 Password: <input type="password" name="password" /><br/>
                 <button type="submit">send</button>
             </form>
+
+            <button><a href="/forgot">Reset Password</a></button>
 
             <form action="/api/user/auth/logout" method="POST" >
                 <button type="submit">logout</button>

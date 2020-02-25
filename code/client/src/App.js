@@ -17,7 +17,12 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
-import Donate from './components/Pages/Donate'
+import Donate from './components/Pages/Donate';
+import Reset from './components/Pages/Reset';
+import Reset_token from './components/Pages/Reset_token';
+
+import ReactDOM from 'react-dom'; 
+
 
 class App extends Component {
   state = {
@@ -40,14 +45,16 @@ class App extends Component {
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
+
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
     const response = await fetch('/express_backend');
     const body = await response.json();
     if (response.status !== 200) {
-      throw Error(body.message) 
+      throw Error(body.message)
     }
+
     return body;
   };*/
 
@@ -64,24 +71,25 @@ class App extends Component {
     this.setState({ active_path })
   }*/
 
+
   render() {
     let backdrop;
-    
+
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
       // The 'Switch' renders the component for the first matching path
-          // If path is "/" ==> Home page 
-          // Else ==> NavBar, SideDrawer, {backdrop}?? 
+          // If path is "/" ==> Home page
+          // Else ==> NavBar, SideDrawer, {backdrop}??
       <Router>
         <div style={{height: '100%'}}>
-          
+
           <Switch>
             location.path
-              <Route exact path ="/" 
+              <Route exact path ="/"
                   component={Home}/>
-              <Route path ="/:subpath" 
+              <Route path ="/:subpath"
                   render={props => (
                       <div>
                         <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
@@ -93,16 +101,23 @@ class App extends Component {
           </Switch>
 
           {backdrop}
-          <Route path="/about" component={About} />
-          <Route path="/account" component={Account} />
-          <Route path="/blogs" component={Blogs} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/disclaimer" component={Disclaimer} />
-          <Route path="/faq" component={Faq} />
-          <Route path="/register" component={Register} />
-          <Route path="/search_locations" component={SearchLocations} />
-          <Route path="/login" component={Login} />
-          <Route path="/donate" component={Donate} />
+          <Switch>
+            <Route path="/about" component={About} />
+            <Route path="/account" component={Account} />
+            <Route path="/blogs" component={Blogs} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/disclaimer" component={Disclaimer} />
+            <Route path="/faq" component={Faq} />
+            <Route path="/register" component={Register} />
+            <Route path="/search_locations" component={SearchLocations} />
+            <Route path="/login" component={Login} />
+            <Route path="/donate" component={Donate} />
+            <Route path="/forgot" component={Reset} />
+            <Route path="/:token" component={Reset_token} />
+          </Switch>
+
+
+
         </div>
       </Router>
     );
