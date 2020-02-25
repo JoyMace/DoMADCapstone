@@ -3,7 +3,7 @@
     text-align: center;
 }
 
-body {
+/* body {
     background-color: #ffffff;
     padding: 20px;
     margin: 0;
@@ -54,6 +54,7 @@ p.bottom {
     margin-right: 250px;
 }
 
+
 .divl {
     margin-top: 80px;
     text-align: left;
@@ -74,10 +75,11 @@ p.bottom {
 
 /* add class name */
 h1.header1 {
+
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
     color: #010925
-}
+} */
 
 .centered1 {
     position: absolute;
@@ -115,7 +117,7 @@ img.about{
 
 .tinted { filter: brightness(50%); }
 
-hr {
+/* hr {
     display: block;
     height: 1px;
     border: 0;
@@ -123,7 +125,7 @@ hr {
     margin-right: 400px;
     margin-left: 400px;   
     padding: 0;
-}
+} */
 
 
 
