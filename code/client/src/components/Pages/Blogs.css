@@ -3,6 +3,7 @@
     text-align: center;
     align-content: center;
     justify-content: center;
+    margin-bottom: 64px;
 }
 
 .page-info {
@@ -42,10 +43,10 @@
     margin-bottom: 20px;
 }
 
-.country-buttons:hover {
-    border: 2px solid black;
-    background-color: white;
-    color: black;
+.dropdown-content a:hover {
+    transition: ease-in 0.4s;
+    background-color: #1e2231;
+    border-left: 2px solid #CBB95A;
 }
 
 .blog-container {
@@ -67,7 +68,7 @@
 }
 
 .blog-entry:hover {
-    border: 5px solid black;
+    border: 5px solid #010925;
 }
 
 .top-image {
@@ -91,4 +92,11 @@
     background-color: #010925;
     color: white;
     line-height: 2em;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
 }

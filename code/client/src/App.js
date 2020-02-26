@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/Navbar/Navbar';
 import SideDrawer from './components/SideDrawer/SideDrawer';
-import Backdrop from './components/Backdrop/Backdrop'
+import Backdrop from './components/Backdrop/Backdrop';
+import Footer from './components/Footer/Footer';
 
 import Home from './components/Pages/Home';
 import About from './components/Pages/About';
@@ -82,6 +83,8 @@ class App extends Component {
       // The 'Switch' renders the component for the first matching path
           // If path is "/" ==> Home page
           // Else ==> NavBar, SideDrawer, {backdrop}??
+          // If path is "/" ==> Home page 
+          // Else ==> NavBar, SideDrawer, {backdrop}
       <Router>
         <div style={{height: '100%'}}>
 
@@ -94,12 +97,12 @@ class App extends Component {
                       <div>
                         <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
                         <SideDrawer show={this.state.sideDrawerOpen} />
+                        {backdrop}
                       </div>
                   )}
               />
               <Route />
           </Switch>
-
           {backdrop}
           <Switch>
             <Route path="/about" component={About} />
@@ -115,9 +118,17 @@ class App extends Component {
             <Route path="/forgot" component={Reset} />
             <Route path="/:token" component={Reset_token} />
           </Switch>
-
-
-
+          <Footer />
+          <Route path="/about" component={About} />
+          <Route path="/account" component={Account} />
+          <Route path="/blogs" component={Blogs} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/disclaimer" component={Disclaimer} />
+          <Route path="/faq" component={Faq} />
+          <Route path="/register" component={Register} />
+          <Route path="/search_locations" component={SearchLocations} />
+          <Route path="/login" component={Login} />
+          <Route path="/donate" component={Donate} />
         </div>
       </Router>
     );
