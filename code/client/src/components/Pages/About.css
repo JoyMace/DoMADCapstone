@@ -3,27 +3,8 @@
     text-align: center;
 }
 
-body {
-    background-color: #ffffff;
-    padding: 20px;
-    margin: 0;
-}
-
-.header{
-    font-family: Cambria, Georgia, serif;
-    font-weight: bold;
-    font-size: 23px;
-    background-color: rgba(255,255,255, 0.5);
-    border-radius: 16px;
-    padding: 20px;
-    width: 300px;
-    margin: 0 auto;
-    margin-bottom: 60px; 
-    text-align: center;
-
-}
-
-p {
+/* add class name */
+p.origin {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
     margin-bottom: 40px; 
@@ -39,12 +20,20 @@ pthick {
 }
 
 p.top {
+    font-family: Cambria, Georgia, serif;
     margin-top: 10px; 
+    margin-left: 250px;
+    margin-right: 250px;
 }
 
 p.bottom {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 10px; 
     margin-bottom: 10px; 
+    margin-left: 250px;
+    margin-right: 250px;
 }
+
 
 .divl {
     margin-top: 80px;
@@ -62,12 +51,6 @@ p.bottom {
     margin-top: 30px;
     text-align: left;
     margin-right: 250px;
-}
-
-h1 {
-    font-family: Cambria, Georgia, serif;
-    margin-top: 40px;
-    color: #010925
 }
 
 .centered1 {
@@ -98,20 +81,10 @@ h1 {
 }
 
 
-.container img{
+img.about{
     position: relative;
-    width: 100%;
+    width: 60%;
        
 }
 
 .tinted { filter: brightness(50%); }
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 2px solid #010925;
-    margin-right: 400px;
-    margin-left: 400px;   
-    padding: 0;
-}
