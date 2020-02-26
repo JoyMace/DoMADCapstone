@@ -24,7 +24,7 @@ function Home() {
                         </a>
                         <div className="dropdown-content">
                             <a href="/about">Explore</a>
-                            <a href="#share">Share A Trip</a>
+                            <a href="/account">Share A Trip</a>
                             <a href="/blogs">Go to Blogs</a>
                         </div>
                     </li>
