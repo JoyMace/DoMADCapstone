@@ -60,7 +60,7 @@ router.post('/report', function(req, res) {
             message: tripCodes.report.userNotFound.message
           });
         }
-        if(!user.hasOwnProperty('tripIDs')){
+        if('tripIDs' in user == false){
           user.tripIDs = [];
         }
         user.tripIDs.push(trip._id);
