@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost/domad', mongoose_input);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('connected!');
+  console.log('Mongoose connected!');
 });
 
 // connect passport
@@ -36,9 +36,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // connect routers
-//app.use('/', require('./routers/index'));
-app.use('/api/user', require('./routers/user'));
+app.use('/api/user/auth', require('./routers/user/auth'));
+app.use('/api/user/reset', require('./routers/user/reset'));
+app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
+
+
 
 app.listen(port, function (){
   console.log(`Example app listening on port ${port}!`);
 });
+
+module.exports = app
