@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true }, 
   email: { type: String, required: true }, 
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   hash: String, 
   salt: String, 
   phone: String, 
@@ -17,7 +19,7 @@ const userSchema = new mongoose.Schema({
     city: String,
     state: String,
     country: String,
-    zipCode: String   
+    zipCode: String
   },
   tripIDs: [ String ]
 });
@@ -26,7 +28,7 @@ const userSchema = new mongoose.Schema({
   Input: password
   Creates a unique salt for each user
   Then hashes the password with given salt
-  The result is then stored in the database 
+  The result is then stored in the database
 */
 
 userSchema.methods.setPassword = function(password) {

@@ -2,3 +2,89 @@
     margin-top: 64px;
     text-align: center;
 }
+
+/* add class name */
+p.origin {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 40px;
+    margin-bottom: 40px; 
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+pthick {
+    font-family: Cambria, Georgia, serif;
+    margin-left: 250px;
+    margin-right: 250px; 
+    font-weight: bold;
+}
+
+p.top {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 10px; 
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+p.bottom {
+    font-family: Cambria, Georgia, serif;
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+
+.divl {
+    margin-top: 80px;
+    text-align: left;
+    margin-right: 400px;
+}
+
+.divr {
+    margin-top: 80px;
+    text-align: left;
+    margin-left: 400px;
+}
+
+.divl2 {
+    margin-top: 30px;
+    text-align: left;
+    margin-right: 250px;
+}
+
+.centered1 {
+    position: absolute;
+    color: #ffffff;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+  }
+  
+.centered2 {
+    position: absolute;
+    font-family: Cambria, Georgia, serif;
+    color: #ffffff;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+.centered3 {
+    position: absolute;
+    font-family: Cambria, Georgia, serif;
+    color: #ffffff;
+    top: 50%;
+    left: 50%;
+    bottom:45%;
+    transform: translate(-50%, -50%);  
+}
+
+
+img.about{
+    position: relative;
+    width: 60%;
+       
+}
+
+.tinted { filter: brightness(50%); }

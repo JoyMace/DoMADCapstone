@@ -6,12 +6,18 @@ const router = express.Router();
 const User = require('../../models/user');
 const authCode = require('../../config/resCodes').auth;
 
+var async = require("async");
+var nodemailer = require("nodemailer");
+var crypto = require("crypto");
+
+
+
 /*
   login api
-  
+
   required form inputs:
       username: text
-      password: text ( password ) 
+      password: text ( password )
 
   logs a user in using passport and creates local session
   redirects user to /success or /failure depending on if the login was successful
@@ -19,7 +25,7 @@ const authCode = require('../../config/resCodes').auth;
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
-    if (err) { 
+    if (err) {
       if (err.hasOwnProperty('status') && err.hasOwnProperty('message')) {
         return res.status(err.status).send({message: err.message});
       } else {
@@ -36,13 +42,13 @@ router.post('/login', function(req, res, next) {
 
 /*
   signup api
-  
+
   required form inputs:
       username: text
       firstName: text
       lastName: text
       email: text
-      password: text ( password ) 
+      password: text ( password )
       verifyPassword: text ( password )
 
   checks given information and creates a new user
@@ -58,7 +64,7 @@ router.post('/signup', function(req, res) {
     });
   }
 
-  // verify password 
+  // verify password
   if ( password != verifyPassword ) {
     return res.status(authCode.signup.verifyPassword.status).send({
       message: authCode.signup.verifyPassword.message
@@ -67,7 +73,7 @@ router.post('/signup', function(req, res) {
 
   // password requirements
   if ( !/[a-z]/.test(password) || // check for lowercase letter
-       !/[A-Z]/.test(password) || // check for uppercase letter 
+       !/[A-Z]/.test(password) || // check for uppercase letter
        password.length < 8 ){ // check if password has atleast 8 letters
 
     return res.status(authCode.signup.passwordReq.status).send({
@@ -112,6 +118,7 @@ router.post('/signup', function(req, res) {
 
 });
 
+
 /*
   logout api
 
@@ -123,4 +130,4 @@ router.post('/logout', function(req, res){
   res.redirect('/loggedout');
 });
 
-module.exports = router; 
+module.exports = router;
