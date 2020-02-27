@@ -4,7 +4,6 @@ df = read_csv("origin_data.csv")
 elecDf = df.loc[(df["Indicator Code"] == "1.2_ACCESS.ELECTRICITY.RURAL") | \
                 (df["Indicator Code"] == "1.1_ACCESS.ELECTRICITY.TOT")]
 
-print(elecDf.head())
 total_lists_nums = []
 rural_lists_nums = []
 
@@ -21,4 +20,4 @@ for i, vals in elecDf.iterrows():
 finalDf = DataFrame({"COUNTRY.CODE": elecDf["Country Code"].unique()}) #note that pandas.unique doesn't sort the values unlike np.unique
 finalDf["ACCESS.ELECTRICITY.RURAL"] = rural_lists_nums
 finalDf["ACCESS.ELECTRICITY.TOTAL"] = total_lists_nums
-finalDf.to_json(path_or_buf = "country_electricity.json", orient = 'records', lines = True)
+finalDf.to_json(path_or_buf = "country_electricity.json", orient = 'records')
