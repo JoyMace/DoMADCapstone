@@ -395,6 +395,42 @@ describe('User Trip Routers', function() {
       sandbox.restore();
       done();
     });
+  });
 
+  describe('get all trips', function(){
+ 
+    before( function(done) {
+
+      var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
+      findTripsDBStump.yields(null, ['trip']);
+      findTripsDBStump.onCall(1).yields(true, null);
+  
+      done();
+    });
+
+    it('get all trips SUCCESS', function(done) {
+      request(app)
+        .get('/api/user/trip/all-trips')
+        .then(function(res) {
+          statusCode = res.statusCode;
+          expect(statusCode).to.equal(tripCode.allTrips.success.status);
+        });
+      done();
+    });
+
+    it('get all trips FAILURE - trips not found', function(done) {
+      request(app)
+        .get('/api/user/trip/all-trips')
+        .then(function(res) {
+          statusCode = res.statusCode;
+          expect(statusCode).to.equal(tripCode.allTrips.tripsNotFound.status);
+        });
+      done();
+    });
+
+    after( function(done) {
+      sandbox.restore();
+      done();
+    });
   });
 });

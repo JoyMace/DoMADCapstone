@@ -41,8 +41,7 @@ router.post('/report', function(req, res) {
 
   var newTrip = new Trip();
 
-  newTrip.locationID = locationID;
-  newTrip.tripDate = tripDate;
+  newTrip.locationID = locationID; newTrip.tripDate = tripDate;
   newTrip.donationIDs = donationIDs;
   newTrip.notes = notes;
   newTrip.isPrivate = isPrivate;
@@ -147,16 +146,16 @@ router.post('/delete-trip', function(req, res) {
   trips
 
   gets all the trips for a given user
-  TODO: figure out how to get send get request for
+    - Will get the trips of a logged in user or given user  
 */
 router.get('/trips', function(req, res) {
   var userID;
   
   // checks if user is logged in or external request
-  if ('user' in req){
-    userID = req.user._id;
-  } else {
+  if ('user' in req == false){
     userID = req.query._id;
+  } else {
+    userID = req.user._id;
   }
   User.findById(userID, function (err, user) { 
 
@@ -169,7 +168,7 @@ router.get('/trips', function(req, res) {
     if (!('tripIDs' in user)) {
       return res.status(tripCodes.trips.success.status).send({trips: []});
     } else {
-      Trip.find({'_id': { $in: user.tripIDs }}, function(err, trips){
+      Trip.find({'_id': { $in: user.tripIDs }}, function(err, trips) {
         if (err) {
           return res.status(tripCodes.trips.tripsNotFound.status).send({
             message: tripCodes.trips.tripsNotFound.message
@@ -178,6 +177,20 @@ router.get('/trips', function(req, res) {
         return res.status(tripCodes.trips.success.status).send({trips: trips});
       });
     }
+  });
+});
+
+/*
+  gets all the trips in the database 
+*/
+router.get('/all-trips', function(req,res) {
+  Trip.find({}, function(err, trips) {
+    if(err) {
+      return res.status(tripCodes.trips.tripsNotFound.status).send({
+        message: tripCodes.allTrips.tripsNotFound.message
+      });
+    }
+    return res.status(tripCodes.allTrips.success.status).send({trips: trips});
   });
 });
 

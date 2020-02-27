@@ -61,6 +61,15 @@ resCode = {
       status:404,
       message:'Could not find one or more trips by ID' 
     }
+  },
+  allTrips:{
+    success:{
+      status:200
+    },
+    tripsNotFound:{
+      status:404,
+      message:'Could not find one or more trips by ID' 
+    }
   }
 }
 
