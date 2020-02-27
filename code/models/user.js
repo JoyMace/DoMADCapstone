@@ -6,12 +6,12 @@ const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true }, email: { type: String, required: true }, hash: String, salt: String, phone: String, dob: String, socialMedia: [
-    {
-    website: String, // Facebook, Instagaram, ...
-    link: String // Unsure how this works for social media
-    }
-  ] ,
+  lastName: { type: String, required: true }, 
+  email: { type: String, required: true }, 
+  hash: String, 
+  salt: String, 
+  phone: String, 
+  dob: String, 
   address: {
     street: String,
     city: String,
@@ -45,6 +45,6 @@ userSchema.methods.validatePassword = function(password) {
   return this.hash == hash;
 };
 
-const user = mongoose.model('user', userSchema);
+const user = mongoose.model('User', userSchema);
 
 module.exports = user

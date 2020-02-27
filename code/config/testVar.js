@@ -8,7 +8,7 @@ testVar = {
     lastName: 'TEST',
     email: 'TEST@TEST.COM',
     password: 'Password',
-    verifyPassword: 'Password'
+    verifyPassword: 'Password',
   },
   password: 'Password',
   badUsername: 'basUsername',
@@ -16,7 +16,7 @@ testVar = {
   wrongVal: 'WRONG',
   tripInfo: {
     _id: 'TEST',
-    isPrivate: true
+    isPrivate: true,
   }
 }
 

@@ -10,8 +10,146 @@ const app = require('../app');
 const tripCode = require('../config/resCodes').trip;
 const testVar = require('../config/testVar');
 const Trip = require('../models/trip');
+const User = require('../models/user');
 
 describe('User Trip Routers', function() {
+
+  describe('report trip', function(){
+    
+    before(function(done) {
+
+      //TODO: When location added create stub for location lookup/creation
+
+      //TODO When donation added create stub for donation creation
+
+      // When it comes time to implement unit test for these in this test I (thomas) can do this. This test is kinda messy and I might try to refactor it
+
+      var fakeTrip = new Trip(testVar.tripInfo);
+
+      var withTripIDs = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      withTripIDs.tripIDs = [testVar.filler];
+      var fakeUser = new User(withTripIDs);
+      var fakeUserNoTripIDs = new User(testVar.userInfo);
+
+      var saveTripDBStub = sandbox.stub(mongoose.models.Trip.prototype, 'save')
+      saveTripDBStub.yields(null, fakeTrip);
+      saveTripDBStub.onCall(1).yields(null, fakeUserNoTripIDs);
+      saveTripDBStub.onCall(2).yields(true, null);
+
+      var findUser = sandbox.stub(mongoose.Model, 'findById');
+      findUser.yields(null,  fakeUser);
+      findUser.onCall(2).yields(true, null);
+      findUser.onCall(3).yields(null, null);
+
+      var saveUserDBStub = sandbox.stub(mongoose.models.User.prototype, 'save')
+      saveUserDBStub.yields(null, fakeUser);
+      saveUserDBStub.onCall(2).yields(true, null);
+
+      done();
+    });
+
+    it('report trip SUCCESS', function(done) {
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.success.status);
+          expect(message).to.equal(tripCode.report.success.message)
+        });
+      done();
+
+    });
+
+    it('report trip SUCCESS - user with no preivous trips', function(done) {
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.success.status);
+          expect(message).to.equal(tripCode.report.success.message)
+        });
+      done();
+
+    });
+
+    it('report trip FAILURE - add trip fail', function(done) {
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.addTripFail.status);
+          expect(message).to.equal(tripCode.report.addTripFail.message)
+        });
+      done();
+
+    });
+
+    it('report trip FAILURE - user not found (err)', function(done) {
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.userNotFound.status);
+          expect(message).to.equal(tripCode.report.userNotFound.message)
+        });
+      done();
+
+    });
+
+    it('report trip FAILURE - user not found (user == null)', function(done) {
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.userNotFound.status);
+          expect(message).to.equal(tripCode.report.userNotFound.message)
+        });
+      done();
+
+    });
+
+    it('report trip FAILURE - user update fail', function(done) {
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.userUpdateFail.status);
+          expect(message).to.equal(tripCode.report.userUpdateFail.message)
+        });
+      done();
+
+    });
+
+    after(function(done){
+      sandbox.restore();
+      done();
+    });
+
+  });
 
   describe('toggle trip privacy', function() {
     
@@ -175,7 +313,7 @@ describe('User Trip Routers', function() {
 
     before( function(done) {
 
-      withTripIDs = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      var withTripIDs = JSON.parse(JSON.stringify(testVar.userInfo)); 
       withTripIDs.tripIDs = [testVar.filler];
 
       var findUserDBStump = sandbox.stub(mongoose.Model, 'findById');

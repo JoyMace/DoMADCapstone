@@ -21,7 +21,7 @@ const tripCodes = require('../../config/resCodes').trip;
   creates a new trip entry using new donation id
   adds new trip to the currently signed in user's trips using new trip id
 */
-router.post('/report-trip', function(req, res) {
+router.post('/report', function(req, res) {
   const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
 
   var userID;
@@ -32,10 +32,10 @@ router.post('/report-trip', function(req, res) {
     userID = req.body._id;
   }
 
-  // get location information from tripLoc
+  // TODO: When locations implemented change this value
   var locationID = '123';
 
-  // create donation objects for donations/ratings
+  // TODO: Integrate donations when created
   // https://stackoverflow.com/questions/6854431/how-do-i-get-the-objectid-after-i-save-an-object-in-mongoose
   var donationIDs = ['456'];
 
@@ -49,20 +49,22 @@ router.post('/report-trip', function(req, res) {
 
   newTrip.save(function(err, trip) {
     if (err) {
-      console.log(err)
       return res.status(tripCodes.report.addTripFail.status).send({
         message: tripCodes.report.addTripFail.message
       });
     } else {
 
       User.findById(userID, function(err, user) {
-        if (err) {
+        if (err || !user) {
           return res.status(tripCodes.report.userNotFound.status).send({
             message: tripCodes.report.userNotFound.message
           });
         }
+        if(!user.hasOwnProperty('tripIDs')){
+          user.tripIDs = [];
+        }
         user.tripIDs.push(trip._id);
-        user.save(function(err, trip) {
+        user.save(function(err, user) {
           if (err) {
             return res.status(tripCodes.report.userUpdateFail.status).send({
               message: tripCodes.report.userUpdateFail.message
