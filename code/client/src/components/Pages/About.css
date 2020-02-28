@@ -3,7 +3,6 @@
     text-align: center;
 }
 
-/* add class name */
 p.origin {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
@@ -80,11 +79,17 @@ p.bottom {
     transform: translate(-50%, -50%);  
 }
 
-
 img.about{
     position: relative;
     width: 60%;
        
+}
+
+hr.about{
+    margin-right: 350px;
+    margin-left: 350px;
+    
+    
 }
 
 .tinted { filter: brightness(50%); }

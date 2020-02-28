@@ -18,7 +18,7 @@ import Faq from './components/Pages/Faq';
 import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
-import Donate from './components/Pages/Donate';
+import HowItWorks from './components/Pages/HowItWorks';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
@@ -113,7 +113,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
-          <Route path="/donate" component={Donate} />
+          <Route path="/how_it_works" component={HowItWorks} />
           <Footer />
         </div>
       </Router>

@@ -15,7 +15,7 @@ const navbar = props => (
                 <ul>
                     <li><a href="/search_locations">Explore</a></li>
                     <div className="separator" />
-                    <li><a href="/donate">Donate</a></li>
+                    <li><a href="/how_it_works">How It works</a></li>
                     <div className="separator" />
                     <li><a href="/blogs">Blogs</a></li>
                     <div className="spacer" />
