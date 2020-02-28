@@ -1,5 +1,6 @@
 .Register {
   margin-top: 56px;
+  padding-top: 50px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -15,7 +16,7 @@ form {
   display: flex;
   flex-wrap: wrap;
 }
-h1 {
+.createaccount {
   text-align: center;
   width: 100%;
   color: #111;
@@ -23,11 +24,13 @@ h1 {
 }
 
 .firstname {
-  margin-right: 15%;
+  margin-right: 2%;
+  width: 48%;
 }
 
 .lastname {
-  margin-left: 15%;
+  margin-left: 2%;
+  width: 48%;
 }
 
 .firstName,
@@ -48,7 +51,7 @@ h1 {
 .emailaddress,
 .homecountry,
 .password {
-  width: 90%;
+  width: 100%;
 }
 
 .createAccount {
