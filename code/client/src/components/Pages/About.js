@@ -28,7 +28,7 @@ function About() {
                 destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 
             </p>
 
-            <hr></hr>
+            <hr className="about"></hr>
 
             <h1 class="header1"> How It Works
             </h1>
@@ -51,7 +51,7 @@ function About() {
                 </p>
             </div>
 
-            <hr></hr>
+            <hr className="about"></hr>
 
             <h1 class="header1">
                 About Us
