@@ -4,7 +4,6 @@ const router = express.Router();
 
 
 const User = require('../../models/user');
-const resCode = require('../../config/resCode');
 
 var async = require("async");
 var nodemailer = require("nodemailer");
@@ -70,7 +69,6 @@ router.post('/forgot', function(req, res, next) {
   });
 });
 
-// :token -> check-token
 router.get('/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
@@ -82,7 +80,6 @@ router.get('/:token', function(req, res) {
   });
 });
 
-// :token -> reset-password
 router.post('/:token', function(req, res) {
   async.waterfall([
     function(done) {
@@ -147,10 +144,6 @@ router.post('/:token', function(req, res) {
 
   sends contact us message to Domad Gmail
 */
-
-router.get('/contact', function(req, res) {
-  res.redirect('contact');
-});
 
 router.post('/contact', function(req, res) {
 

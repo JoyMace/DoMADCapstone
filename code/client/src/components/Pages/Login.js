@@ -1,25 +1,71 @@
-import React from 'react';
-import './Login.css'
+import React from "react";
+import './Login.css';
 
-function Login() {
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      submitted: false
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+  handleSubmit(e) {
+        e.preventDefault();
+        this.setState({ submitted: true });
+        const { username, password } = this.state;
+        if (username && password) {
+            this.props.login(username, password);
+        }
+    }
+
+  render() {
+    const { loggingIn} = this.props;
+    const { email, password, submitted } = this.state;
     return (
-        <div className="login">
+      <div className = "Login">
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input name="email" type="text" placeholder="Enter your email" value={email} onChange={this.handleChange}
+          />
+          {submitted && !email &&
+            <div className="help-block">Email is required</div>
+          }
 
-            <h1>Login</h1>
+          <label htmlFor="password">Password</label>
+          <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}
+          />
+          {submitted && !password &&
+            <div className="help-block">Password is required</div>
+          }
 
-            <form action="/api/user/auth/login" method="POST" >
-                Username: <input type="text" name="username" /><br/>
-                Password: <input type="password" name="password" /><br/>
-                <button type="submit">send</button>
-            </form>
+          <button type="submit">Sign In</button>
+          <p> Don't Have Account? </p>
+          <p> Forgot Password? </p>
+          <p> Need More Help? </p>
+        </form>
+      </div>
+      );
+    }
 
-            <button><a href="/forgot">Reset Password</a></button>
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
-            <form action="/api/user/auth/logout" method="POST" >
-                <button type="submit">logout</button>
-            </form>
-        </div>
-    )
+  handleSubmit = event => {
+    console.log("Submitting");
+    console.log(this.state);
+  };
 }
 
 export default Login;

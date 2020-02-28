@@ -7,12 +7,12 @@ const sinon = require('sinon');
 const sandbox = sinon.createSandbox();
 
 const app = require('../app');
-const resCode = require('../config/resCode');
+const authCode = require('../config/resCodes').auth;
 const testVar = require('../config/testVar');
 const User = require('../models/user');
 
 
-describe('User Routes', function() {
+describe('User Auth Routers', function() {
 
   /*
     Uses Supertest package to test login API requests
@@ -26,7 +26,7 @@ describe('User Routes', function() {
       Creates stub of passport's authenticate function
       which is in charge of logging the user in
     */
-    before(function(done) {
+    before( function(done) {
       stub = sandbox.stub(passport, 'authenticate').returns((req, res, next) => next());
       callCount = 0
       done();
@@ -44,11 +44,11 @@ describe('User Routes', function() {
       switch(callCount) {
         case 1:
           // wrong username
-          stub.yields(resCode.login.wrongUsername, null);
+          stub.yields(authCode.login.wrongUsername, null);
           break;
         case 2:
           // wrong password
-          stub.yields(resCode.login.wrongPassword, null);
+          stub.yields(authCode.login.wrongPassword, null);
           break;
         default:
           // success and other
@@ -73,8 +73,8 @@ describe('User Routes', function() {
         .end(function(err, res){
         statusCode = res.statusCode;
         message = JSON.parse(res.res.text).message
-        expect(statusCode).to.equal(resCode.login.success.status);
-        expect(message).to.equal(resCode.login.success.message)
+        expect(statusCode).to.equal(authCode.login.success.status);
+        expect(message).to.equal(authCode.login.success.message)
         });
       done(); 
     });
@@ -87,8 +87,8 @@ describe('User Routes', function() {
         .end(function(err, res){
         statusCode = res.statusCode;
         message = JSON.parse(res.res.text).message
-        expect(statusCode).to.equal(resCode.login.wrongUsername.status);
-        expect(message).to.equal(resCode.login.wrongUsername.message)
+        expect(statusCode).to.equal(authCode.login.wrongUsername.status);
+        expect(message).to.equal(authCode.login.wrongUsername.message)
         });
       done(); 
     });
@@ -101,8 +101,8 @@ describe('User Routes', function() {
         .end(function(err, res){
         statusCode = res.statusCode;
         message = JSON.parse(res.res.text).message
-        expect(statusCode).to.equal(resCode.login.wrongPassword.status);
-        expect(message).to.equal(resCode.login.wrongPassword.message)
+        expect(statusCode).to.equal(authCode.login.wrongPassword.status);
+        expect(message).to.equal(authCode.login.wrongPassword.message)
         });
       done(); 
     });
@@ -117,7 +117,7 @@ describe('User Routes', function() {
     // used for user already exists
    var usernameExists = 'exists'; 
 
-    before(function () {
+    before(function (done) {
 
         var userQuery = {$or: [
           {username: usernameExists},
@@ -132,6 +132,8 @@ describe('User Routes', function() {
         saveDBStub.yields(null, null);
         // make sure this corresponds with failed to add user
         saveDBStub.onCall(1).yields(true, null);
+
+        done()
     });
 
     it('Signup SUCCESS', function(done) {
@@ -142,8 +144,8 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(resCode.signup.success.status);
-          expect(message).to.equal(resCode.signup.success.message)
+          expect(statusCode).to.equal(authCode.signup.success.status);
+          expect(message).to.equal(authCode.signup.success.message)
         });
       done(); 
     });
@@ -156,8 +158,8 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(resCode.signup.failedToAdd.status);
-          expect(message).to.equal(resCode.signup.failedToAdd.message);
+          expect(statusCode).to.equal(authCode.signup.failedToAdd.status);
+          expect(message).to.equal(authCode.signup.failedToAdd.message);
         });
       done();
     });
@@ -173,8 +175,8 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(resCode.signup.missingFields.status);
-          expect(message).to.equal(resCode.signup.missingFields.message);
+          expect(statusCode).to.equal(authCode.signup.missingFields.status);
+          expect(message).to.equal(authCode.signup.missingFields.message);
         });
       done();
     });
@@ -190,8 +192,8 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(resCode.signup.verifyPassword.status);
-          expect(message).to.equal(resCode.signup.verifyPassword.message);
+          expect(statusCode).to.equal(authCode.signup.verifyPassword.status);
+          expect(message).to.equal(authCode.signup.verifyPassword.message);
         });
       done();
     });
@@ -208,8 +210,8 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(resCode.signup.passwordReq.status);
-          expect(message).to.equal(resCode.signup.passwordReq.message);
+          expect(statusCode).to.equal(authCode.signup.passwordReq.status);
+          expect(message).to.equal(authCode.signup.passwordReq.message);
         });
       done();
     });
@@ -226,8 +228,8 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(resCode.signup.passwordReq.status);
-          expect(message).to.equal(resCode.signup.passwordReq.message);
+          expect(statusCode).to.equal(authCode.signup.passwordReq.status);
+          expect(message).to.equal(authCode.signup.passwordReq.message);
         });
       done();
     });
@@ -243,14 +245,15 @@ describe('User Routes', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(resCode.signup.userExists.status);
-          expect(message).to.equal(resCode.signup.userExists.message);
+          expect(statusCode).to.equal(authCode.signup.userExists.status);
+          expect(message).to.equal(authCode.signup.userExists.message);
         });
       done();
     });
 
-    after( function() {
+    after( function(done) {
       sandbox.restore();
+      done()
     });
   });
 });
