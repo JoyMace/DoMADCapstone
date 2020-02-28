@@ -3,9 +3,9 @@
     display: flex;
     width: 100%;
     height: 140px;
-    margin: 20px 0px 0px 0px;
+    margin: 0px;
     background-color: #010925;
-    color: white; 
+    color: white;
     font-family: inherit;
     line-height: inherit;
 }
@@ -33,12 +33,12 @@
             list-style-type: none;
         }
             /* footer list attribute styling */
-            .foot-items li { 
+            .foot-items li {
                 margin: 0px;
                 text-align: left;
                 text-decoration: none;
             }
-            .foot-items li a { 
+            .foot-items li a {
                 color: white;
                 text-decoration: none;
                 font-size: 12px;

@@ -47,8 +47,8 @@ class Register extends React.Component {
         const { user, submitted } = this.state;
         return (
             <div className="Register">
-                <h1>Create Account</h1>
-                <form onSubmit={this.handleSubmit}>
+                <h1 className="createaccount">Create Account</h1>
+                <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="firstname">
                         <label htmlFor="firstName">First Name</label>
                         <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
