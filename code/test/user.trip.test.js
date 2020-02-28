@@ -49,10 +49,12 @@ describe('User Trip Routers', function() {
     });
 
     it('report trip SUCCESS', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
-        .send(testVar.tripInfo)
+        .send(trip)
         .type('form')
         .end(function(err, res){
           statusCode = res.statusCode;
@@ -65,10 +67,12 @@ describe('User Trip Routers', function() {
     });
 
     it('report trip SUCCESS - user with no preivous trips', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
-        .send(testVar.tripInfo)
+        .send(trip)
         .type('form')
         .end(function(err, res){
           statusCode = res.statusCode;
@@ -80,11 +84,28 @@ describe('User Trip Routers', function() {
 
     });
 
-    it('report trip FAILURE - add trip fail', function(done) {
+    it('report trip FAILURE - no user given', function(done) {
 
       request(app)
         .post('/api/user/trip/report')
-        .send(testVar.tripInfo)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.report.userNotGiven.status);
+          expect(message).to.equal(tripCode.report.userNotGiven.message)
+        });
+      done();
+
+    });
+
+    it('report trip FAILURE - add trip fail', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      trip.userID = testVar._id;
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(trip)
         .type('form')
         .end(function(err, res){
           statusCode = res.statusCode;
@@ -97,10 +118,12 @@ describe('User Trip Routers', function() {
     });
 
     it('report trip FAILURE - user not found (err)', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
-        .send(testVar.tripInfo)
+        .send(trip)
         .type('form')
         .end(function(err, res){
           statusCode = res.statusCode;
@@ -113,10 +136,12 @@ describe('User Trip Routers', function() {
     });
 
     it('report trip FAILURE - user not found (user == null)', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
-        .send(testVar.tripInfo)
+        .send(trip)
         .type('form')
         .end(function(err, res){
           statusCode = res.statusCode;
@@ -129,10 +154,12 @@ describe('User Trip Routers', function() {
     });
 
     it('report trip FAILURE - user update fail', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
-        .send(testVar.tripInfo)
+        .send(trip)
         .type('form')
         .end(function(err, res){
           statusCode = res.statusCode;
@@ -332,11 +359,11 @@ describe('User Trip Routers', function() {
 
     it('get trips SUCCESS - no tripIDs', function(done) {
       request(app)
-        .get('/api/user/trip/trips')
-        .query({_id:testVar._id})
+        .get('/api/user/trip/user-trips')
+        .query({userID:testVar._id})
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.trips.success.status);
+          expect(statusCode).to.equal(tripCode.userTrips.success.status);
         });
 
       done();
@@ -345,11 +372,24 @@ describe('User Trip Routers', function() {
     it('get trips SUCCESS - with tripIDs', function(done) {
 
       request(app)
-        .get('/api/user/trip/trips')
-        .query({_id:testVar._id})
+        .get('/api/user/trip/user-trips')
+        .query({userID:testVar._id})
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.trips.success.status);
+          expect(statusCode).to.equal(tripCode.userTrips.success.status);
+        });
+
+      done();
+    });
+
+    it('get trips FAILTURE - user not given', function(done) {
+      request(app)
+        .get('/api/user/trip/user-trips')
+        .then(function(res) {
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.userTrips.userNotGiven.status);
+          expect(message).to.equal(tripCode.userTrips.userNotGiven.message);
         });
 
       done();
@@ -357,11 +397,13 @@ describe('User Trip Routers', function() {
 
     it('get trips FAILTURE - user not found (err)', function(done) {
       request(app)
-        .get('/api/user/trip/trips')
-        .query({_id:testVar._id})
+        .get('/api/user/trip/user-trips')
+        .query({userID:testVar._id})
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.trips.userNotFound.status);
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.userTrips.userNotFound.status);
+          expect(message).to.equal(tripCode.userTrips.userNotFound.message);
         });
 
       done();
@@ -369,11 +411,13 @@ describe('User Trip Routers', function() {
 
     it('get trips FAILTURE - user not found (user == null)', function(done) {
       request(app)
-        .get('/api/user/trip/trips')
-        .query({_id:testVar._id})
+        .get('/api/user/trip/user-trips')
+        .query({userID:testVar._id})
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.trips.userNotFound.status);
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.userTrips.userNotFound.status);
+          expect(message).to.equal(tripCode.userTrips.userNotFound.message);
         });
 
       done();
@@ -381,11 +425,13 @@ describe('User Trip Routers', function() {
 
     it('get trips FAILTURE - trips not found', function(done) {
       request(app)
-        .get('/api/user/trip/trips')
-        .query({_id:testVar._id})
+        .get('/api/user/trip/user-trips')
+        .query({userID:testVar._id})
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.trips.tripsNotFound.status);
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(tripCode.userTrips.tripsNotFound.status);
+          expect(message).to.equal(tripCode.userTrips.tripsNotFound.message);
         });
 
       done();

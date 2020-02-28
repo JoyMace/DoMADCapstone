@@ -3,6 +3,7 @@ testVar = {
   _id: 'TEST',
   filler: 'TEST',
   userInfo: {
+    _id: 'TEST',
     username: 'TEST',
     firstName: 'TEST',
     lastName: 'TEST',

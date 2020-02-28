@@ -26,10 +26,13 @@ router.post('/report', function(req, res) {
 
   var userID;
   // checks if user is logged in or external request
-  if ('user' in req){
+  if ('userID' in req.body){
+    userID = req.body.userID;
+  } else if ('user' in req) {
     userID = req.user._id;
   } else {
-    userID = req.body._id;
+    return res.status(tripCodes.report.userNotGiven.status).send({
+      message: tripCodes.report.userNotGiven.message});
   }
 
   // TODO: When locations implemented change this value
@@ -115,7 +118,7 @@ router.post('/toggle-privacy', function(req, res) {
 */
 router.post('/delete-trip', function(req, res) {
   // get trip id somehow
-  tripID = req.body._id;
+  tripID = req.body.tripID;
 
   Trip.count({_id: tripID}, function(err, count) {
     if (err) {
@@ -148,33 +151,36 @@ router.post('/delete-trip', function(req, res) {
   gets all the trips for a given user
     - Will get the trips of a logged in user or given user  
 */
-router.get('/trips', function(req, res) {
+router.get('/user-trips', function(req, res) {
   var userID;
   
   // checks if user is logged in or external request
-  if ('user' in req == false){
-    userID = req.query._id;
-  } else {
+  if ('userID' in req.query){
+    userID = req.query.userID;
+  } else if ( 'user' in req ) {
     userID = req.user._id;
+  } else {
+    return res.status(tripCodes.userTrips.userNotGiven.status).send({
+      message: tripCodes.userTrips.userNotGiven.message});
   }
   User.findById(userID, function (err, user) { 
 
     if (err || !user) {
-      return res.status(tripCodes.trips.userNotFound.status).send({
-        message: tripCodes.trips.userNotFound.message
+      return res.status(tripCodes.userTrips.userNotFound.status).send({
+        message: tripCodes.userTrips.userNotFound.message
       });
     }
     
-    if (!('tripIDs' in user)) {
-      return res.status(tripCodes.trips.success.status).send({trips: []});
+    if ('tripIDs' in user == false) {
+      return res.status(tripCodes.userTrips.success.status).send({trips: []});
     } else {
-      Trip.find({'_id': { $in: user.tripIDs }}, function(err, trips) {
+      Trip.find({'_id': { $in: user.tripIDs }}, null, {sort: {reportingDate: -1}}, function(err, trips) {
         if (err) {
-          return res.status(tripCodes.trips.tripsNotFound.status).send({
-            message: tripCodes.trips.tripsNotFound.message
+          return res.status(tripCodes.userTrips.tripsNotFound.status).send({
+            message: tripCodes.userTrips.tripsNotFound.message
           });
         }
-        return res.status(tripCodes.trips.success.status).send({trips: trips});
+        return res.status(tripCodes.userTrips.success.status).send({trips: trips});
       });
     }
   });
@@ -186,7 +192,7 @@ router.get('/trips', function(req, res) {
 router.get('/all-trips', function(req,res) {
   Trip.find({}, function(err, trips) {
     if(err) {
-      return res.status(tripCodes.trips.tripsNotFound.status).send({
+      return res.status(tripCodes.allTrips.tripsNotFound.status).send({
         message: tripCodes.allTrips.tripsNotFound.message
       });
     }

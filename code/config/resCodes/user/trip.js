@@ -15,6 +15,10 @@ resCode = {
     userUpdateFail:{
       status:400,
       message:'Failed to update user'
+    },
+    userNotGiven:{
+      status:400,
+      message:'No user id was given'
     }
   },
   togglePrivacy:{
@@ -49,7 +53,7 @@ resCode = {
       message:'Failed to delete trip by ID',
     }
   },
-  trips:{
+  userTrips:{
     success:{
       status:200
     },
@@ -60,6 +64,10 @@ resCode = {
     tripsNotFound:{
       status:404,
       message:'Could not find one or more trips by ID' 
+    },
+    userNotGiven:{
+      status:400,
+      message:'No user id was given'
     }
   },
   allTrips:{
