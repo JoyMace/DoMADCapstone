@@ -1,4 +1,59 @@
-.register {
-    margin-top: 64px;
-    text-align: center;
+.Register {
+  margin-top: 56px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #363D48;
+  color: #FFFFFF;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+h1 {
+  text-align: center;
+  width: 100%;
+  color: #111;
+  font-weight: lighter;
+}
+
+.firstname {
+  margin-right: 15%;
+}
+
+.lastname {
+  margin-left: 15%;
+}
+
+.firstName,
+.lastName,
+.emailaddress,
+.homecountry
+.password {
+  display: flex;
+  flex-direction: column;
+  /*margin-bottom: 15px;*/
+}
+
+.firstName,
+.lastName {
+  width: 50%;
+}
+
+.emailaddress,
+.homecountry,
+.password {
+  width: 90%;
+}
+
+.createAccount {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
