@@ -5,7 +5,6 @@ const crypto = require('crypto');
 const countrySchema = new mongoose.Schema({
   name: { type: String, required: true },
   abbreviation: { type: String, required: true },
-  donations: [ String ],
   generalInformation: {
     officialLanguages: [ String ],
     flag: String, // For now this is just a file location. Looking GridFS
