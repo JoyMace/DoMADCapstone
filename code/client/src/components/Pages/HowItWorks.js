@@ -1,13 +1,13 @@
 import React from 'react';
-import './Donate.css';
+import './HowItWorks.css';
 
-function Donate() {
+function HowItWorks() {
     return (
-        <div className="donate">
+        <div className="how">
             <h1>Donate</h1>
             <p>This is the Donate page.</p>
         </div>
     )
 }
 
-export default Donate;
+export default HowItWorks;
