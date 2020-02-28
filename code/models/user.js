@@ -6,35 +6,29 @@ const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true }, email: { type: String, required: true }, hash: String, salt: String, phone: String, dob: String, socialMedia: [
-    {
-    website: String, // Facebook, Instagaram, ...
-    link: String // Unsure how this works for social media
-    }
-  ] ,
+  lastName: { type: String, required: true }, 
+  email: { type: String, required: true }, 
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
+  hash: String, 
+  salt: String, 
+  phone: String, 
+  dob: String, 
   address: {
     street: String,
     city: String,
     state: String,
     country: String,
-    zipCode: String   
+    zipCode: String
   },
-  donations: [
-    {
-      itemID: String,
-      dateTime: { type: Date, default: Date.now },
-      pictures: String, // Need to find out how to store pictures ( maybe GridFS )
-      description: String,
-      quantity: Number
-    }
-  ]
+  tripIDs: [ String ]
 });
 
 /*
   Input: password
   Creates a unique salt for each user
   Then hashes the password with given salt
-  The result is then stored in the database 
+  The result is then stored in the database
 */
 
 userSchema.methods.setPassword = function(password) {
@@ -53,6 +47,6 @@ userSchema.methods.validatePassword = function(password) {
   return this.hash == hash;
 };
 
-const user = mongoose.model('user', userSchema);
+const user = mongoose.model('User', userSchema);
 
 module.exports = user
