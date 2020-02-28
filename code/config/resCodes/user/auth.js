@@ -38,7 +38,7 @@ resCode = {
       status:400,
       message:'Failed to add user'
     }
-  },
+  }
 }
 
 module.exports = resCode
