@@ -1,25 +1,25 @@
 .countryinfo {
-    margin-top: 144px;
+    margin-top: 130px;
     display: flex;
     flex-direction: row;
     padding-top: 50px;
     padding-bottom: 50px;
-    height: 80vh;
+    height: 85vh;
 }
 
 .country-column1 {
     display: flex;
     flex-direction: column;
-    width: 30%;
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 25%;
+    margin-left: 1%;
+    margin-right: 1%;
     align-content: center;
 }
 
 .map_image {
     border-radius: 10px;
     border: 1px solid #363D48;
-    width: 90%;
+    width: 100%;
     margin-bottom: 30px;
 }
 
@@ -35,7 +35,7 @@
 .country-column2 {
     display: flex;
     flex-direction: row;
-    width: 70%;
+    width: 75%;
     margin-right: 2%;
 }
 
@@ -43,7 +43,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 25%;
+    width: 30%;
     height: 100%;
     border: 1px solid #363D48;
     border-radius: 5px;
