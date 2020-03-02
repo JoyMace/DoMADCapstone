@@ -37,27 +37,34 @@ function Post(props) {
 
 function Account(props) {
   return (
-	<div className='row'>
-	
+	<div className='row'>	
       <div className='column'>
 		<div className='left-column'>
 		  <div className="Account">
 			  <UserInfo/>
+			  <div className="map-image">
+				<h1>Your Travel Map</h1>
+				<img src={ WorldMapImage } alt="World Map" />
+					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+
+			  </div>
+			  <h1> Your Trips </h1>
+		  <Post/>
 			  
-			  <h3>Share your recent DoMAD travel story!</h3>
-			  
-			  <UserDonationStory/>
 		  </div>
 		</div>
 	  </div>
 	<div className='column'>
       <div className='right-column'>	  
-          <div className="map-image">
-              <h1>Your Travel Map</h1>
-              <img src={ WorldMapImage } alt="World Map" />
-          </div>
-		  <h1> Your Trips </h1>
-		  <Post/>
+        <h3>Share your recent DoMAD travel story!</h3>
+			  
+			  <UserDonationStory 
+				style={{
+				backgroundColor: 'blue',
+				width: '100px',
+				height: '100px'
+				}}
+				/>
   		  
 
       </div>
@@ -80,8 +87,8 @@ class UserDonationStory extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			destination: '',
 			date: '',
+			destination: '',			
 			donationRecipient: 'Individual',
 			donationItem: 'None',
 			rating: '',
@@ -100,17 +107,33 @@ class UserDonationStory extends React.Component {
 		return (
 		
 		<form>
-			<p>Where did you go?</p>
+		<div className='sub-entry'>
+			<p style={{lineHeight:2}}>When did this trip occur?</p>
+			<p style={{lineHeight:2}}>Where did you go?</p>
+			<p style={{lineHeight:2}}>What did you donate?</p>
+			<p style={{lineHeight:2}}>How was the donation received?</p>
+			<p style={{lineHeight:2}}>What else would you like to share?</p>
+			<p style={{lineHeight:2}}>Make private?</p>
+			<select name='public_private' value={this.state.public_private} onChange={this.accountChangeHandler}>
+			  <option value="Private">Private</option>
+			  <option value="Public">Public</option>
+			</select>	
+			<p style={{lineHeight:2}}>Upload Pictures?</p>
+			<input type='file' />
+		</div>
+		
+		<div className='sub-entry'>
+			<input name='date' type="date" onChange={this.accountChangeHandler } />
+				
 			<input type="text" />
-			<p>When did this trip occur?</p>
-			<input name='date' type="date" onChange={this.accountChangeHandler} />
-			<p>Did you donate to an Organization or to an individual?</p>
+			
+			
 			<select name= 'donationRecipient' value={this.state.donationRecipient} onChange={this.accountChangeHandler}>
 			  <option value="Individual">Individual</option>
 			  <option value="Organization">Organization</option>
 			  <option value="Both">Both</option>
-			</select>	  
-			<p>What did you donate?</p>
+			</select>	
+			
 			<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
 			  <option value="Tarp">Tarp</option>
 			  <option value="Medical Supplies">Medical Supplies</option>
@@ -120,22 +143,22 @@ class UserDonationStory extends React.Component {
 			  <option value="Books">Books</option>
 			  <option value="Toiletries">Toiletries</option>
 			  <option value="Water Purification">Water Purification</option>
-			</select>	  
-			<p>How was the donation received?</p>  
-			  <IconContext.Provider name='rating' value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }} onChange={this.accountChangeHandler}>
-                                
-                 Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf />
-                                
-              </IconContext.Provider>			
-			<p>What else would you like to share?</p>
-			<input name='description' type="text" onChange={this.accountChangeHandler} />
-			<p>Make private?</p>
-			<select name='public_private' value={this.state.public_private} onChange={this.accountChangeHandler}>
-			  <option value="Private">Private</option>
-			  <option value="Public">Public</option>
-			</select>	
-			<p>Upload Pictures?</p>
-			<input type='file' />			
+			</select>
+			
+			<select name= 'donationRecipient' value={this.state.donationRecipient} onChange={this.accountChangeHandler}>
+			  <option value="Individual">Individual</option>
+			  <option value="Organization">Organization</option>
+			  <option value="Both">Both</option>
+			</select>
+			
+			<IconContext.Provider name='rating' value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }} onChange={this.accountChangeHandler}>
+							
+			 <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf />
+							
+			</IconContext.Provider>
+			
+			<input name='description' type="text" onChange={this.accountChangeHandler}/>
+		</div>	
 			<p><button className="SubmitButton">Submit</button></p>
 		</form>
 			);

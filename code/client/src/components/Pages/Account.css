@@ -37,7 +37,14 @@
 	font-size: small;
 	position: absolute;	
 }
-	
+.sub-entry {
+    width: 50%;
+    float: left;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
 .row {
 	margin-top: 50px;
 	display: flex;
@@ -67,9 +74,9 @@
 .right-column {
 	background-color: F4F4F4;
 	justify-content: center;
-	margin-top: 20px;
+	margin-top: 10%;
 	width: 80%;
-	margin-left: 0%;
+	margin-left: 10%;
 	margin-right: 20%;
 	flex: 2;
 }
