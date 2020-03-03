@@ -22,7 +22,7 @@ import Donate from './components/Pages/Donate';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
-import ReactDOM from 'react-dom'; 
+import ReactDOM from 'react-dom';
 
 
 class App extends Component {
@@ -83,7 +83,7 @@ class App extends Component {
       // The 'Switch' renders the component for the first matching path
           // If path is "/" ==> Home page
           // Else ==> NavBar, SideDrawer, {backdrop}??
-          // If path is "/" ==> Home page 
+          // If path is "/" ==> Home page
           // Else ==> NavBar, SideDrawer, {backdrop}
       <Router>
         <div style={{height: '100%'}}>
@@ -114,6 +114,7 @@ class App extends Component {
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
           <Route path="/donate" component={Donate} />
+          <Route path="/forgot" component={Reset} />
           <Footer />
         </div>
       </Router>
