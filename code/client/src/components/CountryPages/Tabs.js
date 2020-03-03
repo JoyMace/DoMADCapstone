@@ -20,10 +20,10 @@ const TabComponent = props => (
                         <Tab disabled className="country-name-block">
                             <h3 className="country-name-text">Country Name</h3>
                         </Tab>
-                        <Tab>Country Info</Tab>
-                        <Tab>Donation Items</Tab>
-                        <Tab>Organizations</Tab>
-                        <Tab>Blog Posts</Tab>
+                        <Tab className="regular-tabs">Country Info</Tab>
+                        <Tab className="regular-tabs">Donation Items</Tab>
+                        <Tab className="regular-tabs">Organizations</Tab>
+                        <Tab className="regular-tabs">Blog Posts</Tab>
                     </div>
                 </TabList>
                 <TabPanel>
