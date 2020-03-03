@@ -19,12 +19,18 @@ router.get('/profile', (req, res) => {
   } else {
     return res.status(profileCodes.report.userNotGiven.status).send({
       message: profileCodes.report.userNotGiven.message});
+    //return profileCodes.report.userNotGiven.message
   }
 
 
   User.findById(userID, function(err, user) {
 
-    return userID.firstName
+    if(err) {
+      return res.status(profileCodes.profileReport.profileNotFound.status).send({
+        message: profileCodes.profileReport.profileNotFound.message
+      });
+    }
+    return res.status(profileCodes.profileReport.success.status).send({user: user.firstName});
 
   });
 });

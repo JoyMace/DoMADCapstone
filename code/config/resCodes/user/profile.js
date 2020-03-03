@@ -13,6 +13,15 @@ resCode = {
         message:'No user id was given'
       }
     },
+    profileReport:{
+      success:{
+        status:200
+      },
+      profileNotFound:{
+        status:404,
+        message:'Could not find user profile'
+      }
+    }
   }
 }
 
