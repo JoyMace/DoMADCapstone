@@ -3,9 +3,6 @@ const router = express.Router();
 
 const User = require('../../models/user');
 
-//Maybe I need to create a proifle mongoose module
-//const Profile = require('../../models/profile');
-
 const profileCodes = require('../../config/resCodes').profile;
 
 
