@@ -1,7 +1,9 @@
 
 testVar = {
+  _id: 'TEST',
   filler: 'TEST',
   userInfo: {
+    _id: 'TEST',
     username: 'TEST',
     firstName: 'TEST',
     lastName: 'TEST',
@@ -12,7 +14,11 @@ testVar = {
   password: 'Password',
   badUsername: 'basUsername',
   badPassword: 'bad',
-  wrongVal: 'WRONG'
+  wrongVal: 'WRONG',
+  tripInfo: {
+    _id: 'TEST',
+    isPrivate: true
+  }
 }
 
 module.exports = testVar
