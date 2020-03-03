@@ -15,22 +15,58 @@ function Blogs() {
             </div>
             <div className="country-button-container">
                 <IconContext.Provider value={{ className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                    {/*<li className='dropdown'>
-                        <button href="javascript:void(0)" className="country-buttons">
-                            Africa  <FaCaretDown />
-                        </button>
-                        <div className="dropdown-content">
-                            <a href="/#country1">Country 1</a>
-                            <a href="/#country2">Country 2</a>
-                            <a href="/#country3">Country 3</a>
-                        </div>
-                    </li>*/}
-                    <button className="country-buttons">Africa <FaCaretDown /></button>
-                    <button className="country-buttons">Asia <FaCaretDown /></button>
-                    <button className="country-buttons">Australia <FaCaretDown /></button>
-                    <button className="country-buttons">North America <FaCaretDown /></button>
-                    <button className="country-buttons">South America <FaCaretDown /></button>
-                    <button className="country-buttons">Europe <FaCaretDown /></button>
+                    <div className="top-buttons-blog">
+                        <li className="dropdown-africa">
+                            <button href="javascript:void(0)" className="country-buttons">Africa<FaCaretDown /></button>
+                            <div className="dropdown-content-africa">
+                                <a href="/#country1">Country 1</a>
+                                <a href="/#country2">Country 2</a>
+                                <a href="/#country3">Country 3</a>
+                            </div>
+                        </li>
+                        <li className="dropdown-asia">
+                            <button href="javascript:void(0)" className="country-buttons">Asia<FaCaretDown /></button>
+                            <div className="dropdown-content-asia">
+                                <a href="/#country1">Country 1</a>
+                                <a href="/#country2">Country 2</a>
+                                <a href="/#country3">Country 3</a>
+                            </div>
+                        </li>
+                        <li className="dropdown-australia">
+                            <button href="javascript:void(0)" className="country-buttons">Australia<FaCaretDown /></button>
+                            <div className="dropdown-content-australia">
+                                <a href="/#country1">Country 1</a>
+                                <a href="/#country2">Country 2</a>
+                                <a href="/#country3">Country 3</a>
+                            </div>
+                        </li>
+                    </div>
+                    <div className="bottom-buttons-blog">
+                        <li className="dropdown-europe">
+                            <button href="javascript:void(0)" className="country-buttons">Europe<FaCaretDown /></button>
+                            <div className="dropdown-content-europe">
+                                <a href="/#country1">Country 1</a>
+                                <a href="/#country2">Country 2</a>
+                                <a href="/#country3">Country 3</a>
+                            </div>
+                        </li>
+                        <li className="dropdown-north">
+                            <button href="javascript:void(0)" className="country-buttons">North America<FaCaretDown /></button>
+                            <div className="dropdown-content-north">
+                                <a href="/#country1">Country 1</a>
+                                <a href="/#country2">Country 2</a>
+                                <a href="/#country3">Country 3</a>
+                            </div>
+                        </li>
+                        <li className="dropdown-south">
+                            <button href="javascript:void(0)" className="country-buttons">South America<FaCaretDown /></button>
+                            <div className="dropdown-content-south">
+                                <a href="/#country1">Country 1</a>
+                                <a href="/#country2">Country 2</a>
+                                <a href="/#country3">Country 3</a>
+                            </div>
+                        </li>
+                    </div>
                 </IconContext.Provider>
             </div>
             <div className="blog-container">
