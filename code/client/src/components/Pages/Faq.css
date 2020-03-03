@@ -1,4 +1,15 @@
 .faq {
+	
+	
     margin-top: 64px;
-    text-align: center;
+    text-align: left;
+	padding-left: 10%;
+	padding-right: 10%;
+	border: 5%;
+	width: 1300px;	
+	font-family: Roboto Slab;
+	font-style: normal;
+	font-size: 18px;
+	line-height: 26px;
+
 }
