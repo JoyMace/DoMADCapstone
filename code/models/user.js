@@ -14,14 +14,7 @@ const userSchema = new mongoose.Schema({
   salt: String, 
   phone: String, 
   dob: String, 
-  address: {
-    street: String,
-    city: String,
-    state: String,
-    country: String,
-    zipCode: String
-  },
-  tripIDs: [ String ]
+  locationID: String
 });
 
 /*
