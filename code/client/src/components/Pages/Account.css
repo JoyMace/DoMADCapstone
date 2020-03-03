@@ -1,62 +1,136 @@
 .Account {
-    text-align: left;
-	height: 100%;
-}
-.Post {
-	text-align: center;
-	position: absolute;
-	font-size: 12px;
-	margin: 10px;	
-}
-
-.Post-date {
-	text-align: left;
-	font-size: large;
-}
-
-.Post-destination {
-	text-align: left;
-	font-size: large;
-}
-
-.Post-donation {
-	text-align: left;
-	font-size: large;
-}
-
-.Post-stars {
-	text-align: left;
-	font-size: large;
-}
-.Post-description {
-	text-align: left;
-	font-size: large;
-}
-.UserDonationStory {
-	text-align: left;
-	font-size: small;
-	position: absolute;	
-}
 	
+}
+
+.Post {
+	
+	
+}
+
+/* NewTravelStory */
+.container {
+	
+	color: #FFFFFF;
+	width: 569px;
+	height: 900px;
+	left: 725px;
+	top: 213px;
+	padding-left: 5%;
+	padding-right: 5%;
+	background: #363D48;
+	border: 1px solid #FFFFFF;
+	box-sizing: border-box;
+	border-radius: 5px;
+	
+	
+}
+
+/* Form Formatting */
+.flex-outer,
+.flex-inner {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex-outer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li,
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-inner {
+  padding: 0 8px;
+  justify-content: space-between;  
+}
+
+.flex-outer > li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+  padding: 5px;
+  font-weight: 300; 
+  
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 400px;
+}
+
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 200px;
+}
+
+.flex-outer li p {
+  margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+  padding: 2%;
+  border: none;
+}
+
+.flex-outer li button {
+	margin-left: auto;
+	padding: 8px 16px;
+	border: none;
+	background: #428FBE;
+	border-radius: 5px;
+	text-transform: uppercase;
+	letter-spacing: .09em;
+	border-radius: 5px;
+	color: #FFFFFF;
+}
+
+.flex-inner li {
+  width: 150px;
+  
+}
+
+.star-rating {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between 1px;
+    vertical-align: middle;	
+}
+/*end form formatting*/
+
+
+
 .row {
 	margin-top: 50px;
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
-	width: 100%;		
-	flex: 2;
+	flex-flow: column-wrap;
+	width: 100%;	
+	justify-content: space-evenly;
+	align-items: stretch;
+
+	
 }
 
 .column {
 	display: flex;
 	flex-direction: column;
 	flex-basis: 100%;
+	background-color: F4F4F4;
 	flex: 2;
 }
 
 .left-column {
-	background-color: F4F4F4;
-	justify-content: center;
+	flex-direction: column;
+
 	margin-top: 20px;
 	width: 80%;
 	margin-left: 20%;
@@ -65,11 +139,11 @@
 }
 
 .right-column {
-	background-color: F4F4F4;
-	justify-content: center;
-	margin-top: 20px;
+	
+	flex-direction: column;
+	margin-top: 10%;
 	width: 80%;
-	margin-left: 0%;
+	margin-left: 10%;
 	margin-right: 20%;
 	flex: 2;
 }
@@ -93,7 +167,7 @@
 }
 
 .UserInfo-avatar {
-	justify-content: left;
+	
 	
 }
 
@@ -103,7 +177,7 @@
 }
 
 .UserInfo {
-	border-radius: 25px;
+	
 	text-align: left;
 	font-size: 10px;
 }
