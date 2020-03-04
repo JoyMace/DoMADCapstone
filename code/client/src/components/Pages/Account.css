@@ -6,6 +6,18 @@
 	
 	
 }
+/* Post Container */
+.post-container {
+	width: 337px;
+	height: 547px;
+	background: #363D48;
+	border: 1px solid #FFFFFF;
+	border-radius: 5px;
+	color: #FFFFFF;
+	padding-left: 5%;
+	padding-top: 5%;
+	
+}
 
 /* NewTravelStory */
 .container {
@@ -101,7 +113,7 @@
 .star-rating {
 	display: flex;
     flex-direction: row;
-    justify-content: space-between 1px;
+    justify-content: flex-start;
     vertical-align: middle;	
 }
 /*end form formatting*/
@@ -150,10 +162,7 @@
 
 .map-image {
 	
-    top: 25%;
-    bottom: 60%;
-    left: 20%;
-    right: 55%;
+    
 }
 
 .map-image img {
@@ -161,21 +170,32 @@
 	border-radius: 5px;
 	text-align: left;
 	font-size: xx-large;
-    width: 100%;
-    height: 75%;
+    width: 600px;
+	height: 400px;
 	
 }
 
 .UserInfo-avatar {
 	
-	
+	position: absolute;
+	width: 164.3px;
+	height: 176px;
+	left: 150px;
+	top: 150px;
 }
 
 .UserInfo-name {
 	text-align: left;
 	font-size: xx-large;
 }
-
+/*User Info Container*/
+.user-info-container {
+	
+	width: 517px;
+	height: 176px;
+	left: 150px;
+	top: 204px;
+}
 .UserInfo {
 	
 	text-align: left;

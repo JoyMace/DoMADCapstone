@@ -178,7 +178,9 @@ function Account(props) {
 		<div className='column'>
 		<div className='left-column'>
 		  <div className="Account">
+		  <div className='user-info-container'>
 			<UserInfo/>
+		  </div>
 			  <div className="map-image">
 				<h1>Your Travel Map</h1>
 				<img src={ WorldMapImage } alt="World Map" />
@@ -186,7 +188,9 @@ function Account(props) {
 
 			  </div>
 			  <h1> Your Trips </h1>
+			  <div className='post-container'>
 				<Post/>
+			  </div>
 			  
 		  </div>
 		</div>
