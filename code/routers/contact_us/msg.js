@@ -4,7 +4,6 @@ const router = express.Router();
 
 
 const User = require('../../models/user');
-const resCode = require('../../config/resCode');
 
 var async = require("async");
 var nodemailer = require("nodemailer");
