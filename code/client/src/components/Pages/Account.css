@@ -1,3 +1,6 @@
+
+
+
 .Account {
 	
 }
@@ -26,7 +29,7 @@
 	width: 569px;
 	height: 900px;
 	left: 725px;
-	top: 213px;
+	top: 200px;
 	padding-left: 5%;
 	padding-right: 5%;
 	background: #363D48;
@@ -121,7 +124,7 @@
 
 
 .row {
-	margin-top: 50px;
+	margin-top: 100px;
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
@@ -153,7 +156,7 @@
 .right-column {
 	
 	flex-direction: column;
-	margin-top: 10%;
+	margin-top: 20px;
 	width: 80%;
 	margin-left: 10%;
 	margin-right: 20%;
@@ -177,24 +180,28 @@
 
 .UserInfo-avatar {
 	
-	position: absolute;
-	width: 164.3px;
-	height: 176px;
-	left: 150px;
-	top: 150px;
+	width: 64px;
+	height: 64px;
+	
 }
 
 .UserInfo-name {
 	text-align: left;
-	font-size: xx-large;
+	font-size: 18px;
+	
 }
 /*User Info Container*/
 .user-info-container {
 	
-	width: 517px;
+	width: 600px;
 	height: 176px;
 	left: 150px;
-	top: 204px;
+	top: 200px;
+	background-color: #F4F4F4;
+	border-radius: 5px;
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 10px;
 }
 .UserInfo {
 	
@@ -203,10 +210,10 @@
 }
 
 
-.Avatar img {
+/* .Avatar img {
 	border-radius: 50px;
 	width: 100px;
 	height: 100px;
 	left: 200px;
 	top: 200px;
-}
+} */

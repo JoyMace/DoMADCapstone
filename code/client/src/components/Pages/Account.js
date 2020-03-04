@@ -36,6 +36,7 @@ class UserDonationStory extends React.Component {
 			destination: '',			
 			donationRecipient: 'Individual',
 			donationItem: 'None',
+			donationCategory: 'None',
 			rating: '',
 			description: '',
 			public_private: 'Public',			
@@ -59,8 +60,8 @@ class UserDonationStory extends React.Component {
 				</li>
 				
 				<li>
-					<label name="location" className="location">Where did you go?</label>
-					<input name="location" type="text" placeholder="Enter city, country" value={this.state.location} onchange={this.accountChangeHandler}/>
+					<label name="destination" className="destination">Where did you go?</label>
+					<input name="destination" type="text" placeholder="Enter city, country" value={this.state.destination} onchange={this.accountChangeHandler}/>
 				</li>
 				
 				<li>
@@ -86,7 +87,7 @@ class UserDonationStory extends React.Component {
 							</li>
 							<li>
 							<label for="donationRecipient" name="donationRecipient">Organization</label>
-							<input type="checkbox" id="ORganization"/>
+							<input type="checkbox" id="Organization"/>
 							
 							</li>
 						
@@ -113,14 +114,21 @@ class UserDonationStory extends React.Component {
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
 					  <option selected="selected">Select the Donation Category</option>
-					  <option value="Medical">Medical</option>
+					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="Art">Art</option>
+					  <option value="Clothing">Clothing</option>
 					  <option value="Education">Education</option>
-					  <option value="WaterPurification">Water Purification</option>
+					  <option value="Environment">Environment</option>
+					  <option value="Food">Food</option>
+					  <option value="Health">Health</option>
+					  <option value="Household">Household</option>
+					  <option value="Miscellaneous">Miscellaneous</option>
+					  <option value="Sports">Sports</option>
 					</select>
 				</li>
 				<li>
 					<label name="donationReason" className="donationReason"></label>
-					<input name="location" type="text" placeholder="Enter Reason for Future Donation" value={this.state.location} onchange={this.accountChangeHandler}/>
+					<input name="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onchange={this.accountChangeHandler}/>
 				</li>
 				<li>
 					<label name="description" className="description" >What else would you like to share?</label>
@@ -159,6 +167,25 @@ const post = {
 	description: UserDonationStory.description,
 };
 
+class PostContainer extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = { post }
+	}
+	render() {
+		return <Post post={this.state.post} />
+	}
+	/* componentDidMount() {
+		.ajax({
+			url: "/",
+			dataType: "json",
+			success: post =>
+				this.setState({post: post}),
+		})
+	} */
+	
+}
+
 function Post(props) {
 	return (
 	<div className="Post"> 
@@ -174,6 +201,7 @@ function Post(props) {
 
 function Account(props) {
   return (
+  <div className='body'>
 	<div className='row'>
 		<div className='column'>
 		<div className='left-column'>
@@ -181,12 +209,13 @@ function Account(props) {
 		  <div className='user-info-container'>
 			<UserInfo/>
 		  </div>
-			  <div className="map-image">
-				<h1>Your Travel Map</h1>
-				<img src={ WorldMapImage } alt="World Map" />
-					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+		  <br></br>
+		  <div className="map-image">
+			<h1>Your Travel Map</h1>
+			<img src={ WorldMapImage } alt="World Map" />
+				<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
 
-			  </div>
+		  </div>
 			  <h1> Your Trips </h1>
 			  <div className='post-container'>
 				<Post/>
@@ -206,7 +235,7 @@ function Account(props) {
     </div>
 	</div>
 
-    
+    </div>
   );
 }
 
