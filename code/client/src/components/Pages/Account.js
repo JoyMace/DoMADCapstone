@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 const userInfo = {
-	avatar: <img src={ avatar } alt="avatar" height='64px'/>,
+	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
 	name: 'Joy Mace',
 	memberSince: '1999',
 	hometown: 'Denver, CO',
@@ -18,12 +18,22 @@ const userInfo = {
 function UserInfo(props) {
   return (
     <div className="UserInfo">
-	  <div className='UserInfo-avatar'>{userInfo.avatar}</div>	 
-      <div className="UserInfo-name">{userInfo.name}</div>
-	  <div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
-  	  <div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
-	  <div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
-  	  <div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>  	   
+	<div className="row">
+		<div className="column">
+			<div className="avatar-column">				
+				<div className='UserInfo-avatar'>{userInfo.avatar}</div>
+			</div>
+		</div>
+		<div className="column">
+			<div className="user-info-column">
+				<div className="UserInfo-name">{userInfo.name}</div>
+				<div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
+				<div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
+				<div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
+				<div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
+			</div>
+		</div>
+	</div>
     </div>
   );
 }
@@ -212,7 +222,7 @@ function Post(props) {
 
 function Account(props) {
   return (
-  <div className='body'>
+  
 	<div className='row'>
 		<div className='column'>
 		<div className='left-column'>
@@ -246,7 +256,7 @@ function Account(props) {
     </div>
 	</div>
 
-    </div>
+    
   );
 }
 

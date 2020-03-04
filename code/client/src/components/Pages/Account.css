@@ -1,6 +1,3 @@
-
-
-
 .Account {
 	
 }
@@ -26,8 +23,8 @@
 .container {
 	
 	color: #FFFFFF;
-	width: 569px;
-	height: 900px;
+	width: 600px;
+	height: 930px;
 	left: 725px;
 	top: 200px;
 	padding-left: 5%;
@@ -104,7 +101,6 @@
 	border-radius: 5px;
 	text-transform: uppercase;
 	letter-spacing: .09em;
-	border-radius: 5px;
 	color: #FFFFFF;
 }
 
@@ -121,18 +117,13 @@
 }
 /*end form formatting*/
 
-
-
 .row {
-	margin-top: 100px;
+	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
 	width: 100%;	
-	justify-content: space-evenly;
-	align-items: stretch;
-
-	
+	align-items: stretch;	
 }
 
 .column {
@@ -140,14 +131,16 @@
 	flex-direction: column;
 	flex-basis: 100%;
 	background-color: F4F4F4;
-	flex: 2;
+	flex: 2;	
+	vertical-align: center;
 }
 
 .left-column {
+	
+	padding-top: 100px;
 	flex-direction: column;
-
 	margin-top: 20px;
-	width: 80%;
+	width: 90%;
 	margin-left: 20%;
 	margin-right: 0%;
 	flex: 2;
@@ -155,11 +148,12 @@
 
 .right-column {
 	
+	padding-top: 100px;
 	flex-direction: column;
 	margin-top: 20px;
-	width: 80%;
+	width: 90%;
 	margin-left: 10%;
-	margin-right: 20%;
+	margin-right: 0%;
 	flex: 2;
 }
 
@@ -180,40 +174,51 @@
 
 .UserInfo-avatar {
 	
-	width: 64px;
-	height: 64px;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
 	
 }
 
+.avatar-column {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;	
+	width: 120px;
+	padding-left: 5px
+}
+
+.user-info-column {
+	
+	display: flex;
+	flex-direction: column;
+	width: 100%;	
+	align-items: left;
+	flex: 0 1 auto;
+	padding-top: 5%;
+}
+
+
 .UserInfo-name {
 	text-align: left;
-	font-size: 18px;
+	font-size: 24px;
 	
 }
 /*User Info Container*/
 .user-info-container {
 	
-	width: 600px;
-	height: 176px;
-	left: 150px;
-	top: 200px;
+	
+	width: 400px;
+	height: 120px;	
 	background-color: #F4F4F4;
 	border-radius: 5px;
-	padding-left: 15px;
-	padding-top: 15px;
-	padding-bottom: 10px;
+	padding-left: 5px;
+	
+	
 }
 .UserInfo {
+	display: flex;
+	font-size: 12px;
 	
-	text-align: left;
-	font-size: 10px;
 }
-
-
-/* .Avatar img {
-	border-radius: 50px;
-	width: 100px;
-	height: 100px;
-	left: 200px;
-	top: 200px;
-} */
