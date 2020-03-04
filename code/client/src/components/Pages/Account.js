@@ -112,6 +112,10 @@ class UserDonationStory extends React.Component {
 						</div>
 					
 				</li>
+				<li>
+					<button>Add Item</button>
+					
+				</li>
 				
 				<li>
 					<label name="donationItem" className="donationItem">Suggest Future Donation Item?</label>
