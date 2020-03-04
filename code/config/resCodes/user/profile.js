@@ -1,6 +1,5 @@
 resCode = {
   report:{
-    userProfile:{
       success:{
         status:200
       },
@@ -12,8 +11,8 @@ resCode = {
         status:400,
         message:'No user id was given'
       }
-    },
-    profileReport:{
+  },
+  profileReport:{
       success:{
         status:200
       },
@@ -22,7 +21,6 @@ resCode = {
         message:'Could not find user profile'
       }
     }
-  }
 }
 
 module.exports = resCode

@@ -19,7 +19,6 @@ router.get('/profile', (req, res) => {
   } else {
     return res.status(profileCodes.report.userNotGiven.status).send({
       message: profileCodes.report.userNotGiven.message});
-    //return profileCodes.report.userNotGiven.message
   }
 
 
@@ -30,7 +29,14 @@ router.get('/profile', (req, res) => {
         message: profileCodes.profileReport.profileNotFound.message
       });
     }
-    return res.status(profileCodes.profileReport.success.status).send({user: user.firstName});
+
+    var data = {
+      user: user.firstName,
+      signupDate: user.signupDate,
+      locationID: user.locationID
+    };
+
+    return res.status(profileCodes.profileReport.success.status).send({data});
 
   });
 });
