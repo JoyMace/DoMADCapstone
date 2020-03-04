@@ -1,5 +1,6 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
+const badwords = require('badwords-list').regex;
 
 const User = require('../../models/user');
 const Trip = require('../../models/trip');
@@ -30,6 +31,14 @@ const tripCodes = require('../../config/resCodes').trip;
 router.post('/report', function(req, res) {
   // TODO: figure out how donations are being passed to backend
   const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
+
+  // check for inappropriate words in 
+  var requestString = JSON.stringify(req.body);
+  var badCheck = [...requestString.matchAll(badwords)]
+  if( badCheck.length ){
+    return res.status(tripCodes.report.badWordsFound.status).send({
+      message: tripCodes.report.badWordsFound.message});
+  }
 
   var userID;
   // checks if user is logged in or external request
@@ -172,6 +181,7 @@ router.get('/user-trips', function(req, res) {
   if('onlyPublic' in req.query){
     if(req.query.onlyPublic){
       query['isPrivate'] = false;
+      query['adminHide'] = false;
     }
   }
 
@@ -219,6 +229,7 @@ router.get('/all-trips', function(req,res) {
   if('onlyPublic' in req.query){
     if(req.query.onlyPublic){
       query['isPrivate'] = false;
+      query['adminHide'] = false;
     }
   }
 

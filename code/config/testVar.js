@@ -17,6 +17,7 @@ testVar = {
   wrongVal: 'WRONG',
   tripInfo: {
     _id: 'TEST',
+    userID: 'TEST',
     isPrivate: true
   }
 }

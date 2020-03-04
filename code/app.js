@@ -39,7 +39,10 @@ app.use(passport.session());
 app.use('/api/user/auth', require('./routers/user/auth'));
 app.use('/api/user/trip', require('./routers/user/trip'));
 app.use('/api/user/reset', require('./routers/user/reset'));
+
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
+
+app.use('/api/admin', require('./routers/admin'));
 
 app.listen(port, function (){
   console.log(`Example app listening on port ${port}!`);

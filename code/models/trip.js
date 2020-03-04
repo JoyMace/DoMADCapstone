@@ -10,7 +10,8 @@ const tripSchema = new mongoose.Schema({
   tripDate: Date,
   pictures: String, // this will need to change. Setting to string temporarily
   notes: String,
-  isPrivate: Boolean
+  isPrivate: Boolean,
+  adminHide: Boolean
 
 });
 
