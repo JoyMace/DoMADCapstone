@@ -70,11 +70,18 @@ class UserDonationStory extends React.Component {
 				</li>
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
-					<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
+					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option selected="selected">Select the Donation Category</option>
-					  <option value="Medical">Medical</option>
+					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="Art">Art</option>
+					  <option value="Clothing">Clothing</option>
 					  <option value="Education">Education</option>
-					  <option value="WaterPurification">Water Purification</option>
+					  <option value="Environment">Environment</option>
+					  <option value="Food">Food</option>
+					  <option value="Health">Health</option>
+					  <option value="Household">Household</option>
+					  <option value="Miscellaneous">Miscellaneous</option>
+					  <option value="Sports">Sports</option>
 					</select>
 				</li>
 				<li>
@@ -112,7 +119,7 @@ class UserDonationStory extends React.Component {
 				</li>
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
-					<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
+					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option selected="selected">Select the Donation Category</option>
 					  <option value="AnimalWelfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
