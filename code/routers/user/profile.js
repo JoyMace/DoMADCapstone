@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const User = require('../../models/user');
+const Trip = require('../../models/trip');
 
 const profileCodes = require('../../config/resCodes').profile;
 
@@ -21,6 +22,7 @@ router.get('/profile', (req, res) => {
       message: profileCodes.report.userNotGiven.message});
   }
 
+  var data = [];
 
   User.findById(userID, function(err, user) {
 
@@ -29,16 +31,27 @@ router.get('/profile', (req, res) => {
         message: profileCodes.profileReport.profileNotFound.message
       });
     }
+    else{
+      data.push({user: user.firstName, signupDate: user.signupDate, locationID: user.locationID});
+    }
 
-    var data = {
-      user: user.firstName,
-      signupDate: user.signupDate,
-      locationID: user.locationID
-    };
 
-    return res.status(profileCodes.profileReport.success.status).send({data});
 
   });
+
+  Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {
+
+    if(err) {
+      return res.status(profileCodes.profileReport.tripcountNotFound.status).send({
+        message: profileCodes.profileReport.tripcountNotFound.message
+      });
+    }
+    else{
+      data.push({tripCount: user[0].count});
+      return res.status(profileCodes.profileReport.success.status).send({data: data});
+    }
+  });
+
 });
 
 module.exports = router;

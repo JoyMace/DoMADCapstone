@@ -19,6 +19,10 @@ resCode = {
       profileNotFound:{
         status:404,
         message:'Could not find user profile'
+      },
+      tripcountNotFound:{
+        status:400,
+        message:'Could not find user trip count'
       }
     }
 }
