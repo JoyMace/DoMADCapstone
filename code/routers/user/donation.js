@@ -34,7 +34,7 @@ const donationCodes = require('../../config/resCodes').donation;
 
 
 // CREATE DONATION
-router.post('./createDonation', function(req, res) {
+router.post('./createDonation', function(req, res) { //change this to a normal js function and find a way to export and import into trip.js
 	//FUNCTION ASSUMES complete donation json including all possible attributes of a donation.
 
 	const {donationInformation, tripID, cbFun} = req.body; 
@@ -65,8 +65,7 @@ router.post('./createDonation', function(req, res) {
 
 	newDo.tripID = tripID;
 
-
-	return newDo.save(cbfun(err, donation); //this will return nothing, since it will execute the callback function.
+	return newDo.save(cbfun(err, newDo); //this will return nothing, since it will execute the callback function.
 })
 
 

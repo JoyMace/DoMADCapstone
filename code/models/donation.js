@@ -11,15 +11,14 @@ const donationSchema = new mongoose.Schema({
     rating: {type: Number, required: true},
     locationID: {type: LocationSchema, required: true},
     tripID: {type:String, required:true},
-    Category: {type:String, enum:['Health', 'Household', 'Clothing', 'Education', 'Art', 'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food']},  
+    category: {type:String, enum:['Health', 'Household', 'Clothing', 'Education', 'Art', 'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food']},  
     donationDateTime: Date,
     reportingDateTime: {type: Date, default: Date.now},
     itemDescr: String,
     pictures: String, //String for now, maybe use gridfs?
-    Organization: Boolean, //could there be a better way to do this?
-    Suggestion: Boolean //could there be a better way to do this?
+    organization: Boolean, //could there be a better way to do this?
+    suggestion: Boolean //could there be a better way to do this?
 });
-
 
 const donation = mongoose.model('Donation', donationSchema);
 
