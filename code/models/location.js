@@ -10,3 +10,7 @@ const locationSchema = new mongoose.Schema({
   zipCode: String
 
 });
+
+const location = mongoose.model('Location', locationSchema);
+
+module.exports = location
