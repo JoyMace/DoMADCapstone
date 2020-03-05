@@ -7,9 +7,16 @@ const Trip = require('../../models/trip');
 const profileCodes = require('../../config/resCodes').profile;
 
 
+/*
+  User profile api
+  gets user info and returns it
+
+  TODO:
+    - get Total Donations count
+*/
+
 
 router.get('/profile', (req, res) => {
-
 
   var userID;
   // checks if user is logged in or external request
@@ -22,7 +29,7 @@ router.get('/profile', (req, res) => {
       message: profileCodes.report.userNotGiven.message});
   }
 
-  var data = [];
+  var userData = [];
 
   User.findById(userID, function(err, user) {
 
@@ -32,7 +39,8 @@ router.get('/profile', (req, res) => {
       });
     }
     else{
-      data.push({user: user.firstName, signupDate: user.signupDate, locationID: user.locationID});
+      userData.push({firstName: user.firstName, lastName: user.lastName,
+                signupDate: user.signupDate, locationID: user.locationID});
     }
 
 
@@ -47,10 +55,11 @@ router.get('/profile', (req, res) => {
       });
     }
     else{
-      data.push({tripCount: user[0].count});
-      return res.status(profileCodes.profileReport.success.status).send({data: data});
+      userData.push({tripsCount: user[0].count});
+      return res.status(profileCodes.profileReport.success.status).send({userData: userData});
     }
   });
+
 
 });
 
