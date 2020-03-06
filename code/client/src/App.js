@@ -127,7 +127,6 @@ class App extends Component {
           <Route path="/organizations" component={Organizations} />
           <Route path="/tabs" component={Tabs} />
           <Route path="/country_pages" component={CountryPages} />
-          <Route path="/donate" component={Donate} />
           <Route path="/forgot" component={Reset} />
           <Route path="/individual_blogs" component={IndividualBlogs} />
           <Footer />
