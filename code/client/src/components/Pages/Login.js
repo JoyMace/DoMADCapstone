@@ -33,6 +33,7 @@ class Login extends React.Component {
     const { email, password, submitted } = this.state;
     return (
       <div className = "Login">
+       <div className = "form-wrapper">
         <h1 className="title">Log In To DoMAD</h1>
         <form className="LoginForm" onSubmit={this.handleSubmit}>
           <div className="email">
@@ -58,6 +59,7 @@ class Login extends React.Component {
             <ul>Need More Help?</ul>
           </div>
         </form>
+       </div>
       </div>
       );
     }

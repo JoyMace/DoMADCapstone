@@ -113,7 +113,6 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
-          <Route path="/donate" component={Donate} />
           <Route path="/forgot" component={Reset} />
           <Footer />
         </div>
