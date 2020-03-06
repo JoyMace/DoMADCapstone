@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Register.css';
 
 
@@ -47,7 +48,7 @@ class Register extends React.Component {
         const { user, submitted } = this.state;
         return (
             <div className="Register">
-                <h1 className="createaccount">Create Account</h1>
+                <h1 className="title">Create Account</h1>
                 <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="firstname">
                         <label htmlFor="firstName">First Name</label>
@@ -86,7 +87,9 @@ class Register extends React.Component {
                     </div>
                     <div className="createAccount">
                       <button type="submit">Create Account</button>
-                      <small>Already Have an Account?</small>
+                      <small>
+                        <Link to="/login" className="accountlink">Already Have an Account?</Link>
+                      </small>
                     </div>
                 </form>
             </div>

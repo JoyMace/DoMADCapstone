@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 class Login extends React.Component {
@@ -32,25 +33,36 @@ class Login extends React.Component {
     const { email, password, submitted } = this.state;
     return (
       <div className = "Login">
-        <form className="email" onSubmit={this.handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input name="email" type="text" placeholder="Enter your email" value={email} onChange={this.handleChange}
-          />
-          {submitted && !email &&
-            <div className="help-block">Email is required</div>
-          }
+        <h1 className="title">Log In To DoMAD</h1>
+        <form className="LoginForm" onSubmit={this.handleSubmit}>
+          <div className="email">
+              <label htmlFor="email">Email</label>
+              <input name="email" type="text" placeholder="Enter your email" value={email} onChange={this.handleChange}/>
+              {submitted && !email &&
+                <div className="help-block">Email is required</div>
+            }
+          </div>
 
-          <label htmlFor="password">Password</label>
-          <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}
-          />
-          {submitted && !password &&
-            <div className="help-block">Password is required</div>
+          <div className="password">
+              <label htmlFor="password">Password</label>
+              <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}/>
+              {submitted && !password &&
+                <div className="help-block">Password is required</div>
           }
+          </div>
+          <div className="signinbutton">
+            <button type="submit">Sign In</button>
+          </div>
+          <ul>
+            <li><Link to="/register" className="accountlink">Don't Have Account?</Link></li>
+          </ul>
+          <ul>
+            <li><Link to="/forgot" className="accountlink"> Forgot Password? </Link></li>
+          </ul>
+          <ul>
+             Need More Help?
+          </ul>
 
-          <button type="submit">Sign In</button>
-          <p> Don't Have Account? </p>
-          <p> Forgot Password? </p>
-          <p> Need More Help? </p>
         </form>
       </div>
       );
