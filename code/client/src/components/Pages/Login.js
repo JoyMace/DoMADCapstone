@@ -23,7 +23,7 @@ class Login extends React.Component {
         e.preventDefault();
         this.setState({ submitted: true });
         const { username, password } = this.state;
-        if (username && password) {
+        if (!(username && password)) {
             this.props.login(username, password);
         }
     }
@@ -52,17 +52,11 @@ class Login extends React.Component {
           </div>
           <div className="signinbutton">
             <button type="submit">Sign In</button>
-          </div>
-          <ul>
-            <li><Link to="/register" className="accountlink">Don't Have Account?</Link></li>
-          </ul>
-          <ul>
-            <li><Link to="/forgot" className="accountlink"> Forgot Password? </Link></li>
-          </ul>
-          <ul>
-             Need More Help?
-          </ul>
+            <ul><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
+            <ul><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
 
+            <ul>Need More Help?</ul>
+          </div>
         </form>
       </div>
       );

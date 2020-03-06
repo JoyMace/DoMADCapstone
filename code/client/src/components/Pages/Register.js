@@ -48,6 +48,7 @@ class Register extends React.Component {
         const { user, submitted } = this.state;
         return (
             <div className="Register">
+              <div className="register-left">
                 <h1 className="title">Create Account</h1>
                 <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="firstname">
@@ -92,6 +93,12 @@ class Register extends React.Component {
                       </small>
                     </div>
                 </form>
+              </div>
+              <div className="register-right-info">
+                  <h2>Register Now – It’s quick & easy!</h2>
+                  <h2>By registering you’ll be able to log your trips, add photos, share your travel experiences, rate your donations and view other traveler blogs.</h2>
+                  <h2>DoMAD will never sell your personal information.</h2>
+              </div>
             </div>
         );
     }
