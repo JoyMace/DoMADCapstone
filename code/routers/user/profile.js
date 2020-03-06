@@ -41,24 +41,26 @@ router.get('/profile', (req, res) => {
     else{
       userData.push({firstName: user.firstName, lastName: user.lastName,
                 signupDate: user.signupDate, locationID: user.locationID});
-    }
 
+      //Move this inside the User.findById call
+      Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {
 
-
-  });
-
-  Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {
-
-    if(err) {
-      return res.status(profileCodes.profileReport.tripcountNotFound.status).send({
-        message: profileCodes.profileReport.tripcountNotFound.message
+        if(err) {
+          return res.status(profileCodes.profileReport.tripcountNotFound.status).send({
+            message: profileCodes.profileReport.tripcountNotFound.message
+          });
+        }
+        else{
+          userData.push({tripsCount: user[0].count});
+          return res.status(profileCodes.profileReport.success.status).send({userData: userData});
+        }
       });
     }
-    else{
-      userData.push({tripsCount: user[0].count});
-      return res.status(profileCodes.profileReport.success.status).send({userData: userData});
-    }
+
+
   });
+
+
 
 
 });

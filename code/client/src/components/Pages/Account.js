@@ -222,6 +222,7 @@ class PostContainer extends React.Component {
 
 }
 
+
 function Post(props) {
 	return (
 	<div className="Post">
@@ -239,15 +240,14 @@ function Account(props) {
   return (
 
 	<div className='row'>
+	<div className='column'>
+	<div className='left-column'>
+	<div className="Account">
+			<UserInfo/>
 
-      <div className='column'>
-		<div className='left-column'>
-		  <div className="Account">
-			  <UserInfo/>
+			<h3>Share your recent DoMAD travel story!</h3>
 
-			  <h3>Share your recent DoMAD travel story!</h3>
-
-			  <UserDonationStory/>
+			<UserDonationStory/>
 
 		<div className='column'>
 		<div className='left-column'>
@@ -292,8 +292,10 @@ function Account(props) {
 	</div>
 
 
-  );
-};
+	);
+
+}
+
 
 const userInfo = {
 	avatar: <img src={ avatar } alt="avatar" height='64px'/>,
@@ -303,6 +305,7 @@ const userInfo = {
 	totalDonations: '105',
 	totalContributions: '99',
 };
+
 
 class UserDonationStory extends React.Component {
 	constructor(props) {
