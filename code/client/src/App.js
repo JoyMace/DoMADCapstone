@@ -1,48 +1,134 @@
-const express = require('express');
-const session = require('express-session');
-const mongoose = require('mongoose');
-const passport = require('passport');
-require('./config/passport')(passport);
-const path = require('path');
+import React, { Component } from 'react';
 
-const port = 5000
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// express setup
-const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+import './App.css';
+import NavBar from './components/Navbar/Navbar';
+import SideDrawer from './components/SideDrawer/SideDrawer';
+import Backdrop from './components/Backdrop/Backdrop';
+import Footer from './components/Footer/Footer';
 
-// connect to mongodb
-mongoose_input = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+import Home from './components/Pages/Home';
+import About from './components/Pages/About';
+import Account from './components/Pages/Account';
+import Blogs from './components/Pages/Blogs';
+import Contact from './components/Pages/Contact';
+import Disclaimer from './components/Pages/Disclaimer';
+import Faq from './components/Pages/Faq';
+import Register from './components/Pages/Register';
+import SearchLocations from './components/Pages/SearchLocations';
+import Login from './components/Pages/Login';
+import HowItWorks from './components/Pages/HowItWorks';
+import CountryInfo from './components/CountryPages/CountryInfo';
+import BlogPosts from './components/CountryPages/BlogPosts';
+import DonationItems from './components/CountryPages/DonationItems';
+import Organizations from './components/CountryPages/Organizations';
+import Tabs from './components/CountryPages/Tabs';
+import CountryPages from './components/CountryPages/CountryPages';
+import Reset from './components/Pages/Reset';
+import Reset_token from './components/Pages/Reset_token';
+
+import ReactDOM from 'react-dom'; 
+
+
+class App extends Component {
+  state = {
+      data: null,
+      sideDrawerOpen: false
+    };
+
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return{sideDrawerOpen: !prevState.sideDrawerOpen};
+    })
+  };
+
+  backdropClickHandler = () => {
+    this.setState({sideDrawerOpen: false});
+  }
+
+  /*componentDidMount() {
+      // Call our fetch function below once the component mounts
+    this.callBackendAPI()
+      .then(res => this.setState({ data: res.express }))
+      .catch(err => console.log(err));
+  }
+    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  callBackendAPI = async () => {
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body;
+  };*/
+
+  /* determine current path for navbar rendering, other stuff */
+  /*current_path() {
+    let active_path = null
+    const { router } = this.context
+    const { path } = this.props
+    console.log({path})
+    if (path && router) {
+      const { location } = router
+      active_path = this.matchPath(location.pathname, { path }) != null
+    }
+    this.setState({ active_path })
+  }*/
+
+
+  render() {
+    let backdrop;
+
+    if(this.state.sideDrawerOpen) {
+      backdrop = <Backdrop click={this.backdropClickHandler} />
+    }
+    return (
+      // The 'Switch' renders the component for the first matching path
+          // If path is "/" ==> Home page
+          // Else ==> NavBar, SideDrawer, {backdrop}??
+          // If path is "/" ==> Home page 
+          // Else ==> NavBar, SideDrawer, {backdrop}
+      <Router>
+        <div style={{height: '100%'}}>
+
+          <Switch>
+            location.path
+              <Route exact path ="/"
+                  component={Home}/>
+              <Route path ="/:subpath"
+                  render={props => (
+                      <div>
+                        <NavBar drawerClickHandler={this.drawerToggleClickHandler} />
+                        <SideDrawer show={this.state.sideDrawerOpen} />
+                        {backdrop}
+                      </div>
+                  )}
+              />
+              <Route />
+          </Switch>
+          {backdrop}
+          <Route path="/about" component={About} />
+          <Route path="/account" component={Account} />
+          <Route path="/blogs" component={Blogs} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/disclaimer" component={Disclaimer} />
+          <Route path="/faq" component={Faq} />
+          <Route path="/register" component={Register} />
+          <Route path="/search_locations" component={SearchLocations} />
+          <Route path="/login" component={Login} />
+          <Route path="/how_it_works" component={HowItWorks} />
+          <Route path="/country_info" component={CountryInfo} />
+          <Route path="/blog_posts" component={BlogPosts} />
+          <Route path="/donation_items" component={DonationItems} />
+          <Route path="/organizations" component={Organizations} />
+          <Route path="/tabs" component={Tabs} />
+          <Route path="/country_pages" component={CountryPages} />
+          <Footer />
+        </div>
+      </Router>
+    );
+  }
 }
-mongoose.connect('mongodb://localhost/domad', mongoose_input);
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Mongoose connected!');
-});
-
-// connect passport
-session_input = {
-  secret: 'fighting mongoose',
-  resave: true,
-  saveUninitialized: false
-}
-app.use(session(session_input));
-app.use(passport.initialize());
-app.use(passport.session());
-
-// connect routers
-app.use('/api/user/auth', require('./routers/user/auth'));
-app.use('/api/user/trip', require('./routers/user/trip'));
-app.use('/api/user/reset', require('./routers/user/reset'));
-app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
-
-app.listen(port, function (){
-  console.log(`Example app listening on port ${port}!`);
-});
-
-module.exports = app
+export default App;

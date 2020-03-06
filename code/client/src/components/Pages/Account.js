@@ -5,6 +5,7 @@ import WorldMapImage from '../../images/WorldMap.png';
 import avatar from '../../images/Avatar.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import KenyaImage from '../../images/KenyaSavannah.jfif';
 
 const userInfo = {
 	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
@@ -209,51 +210,97 @@ class PostContainer extends React.Component {
 
 function Post(props) {
 	return (
-	<div className="Post"> 
-	  <div className="Post-date"> Date: {post.date}</div>
-	  <div className="Post-destination"> Destination: {post.destination}</div>
-	  <div className="Post-donation"> Items Donated:  {post.donation}</div>
-	  <div className="Post-stars"> Donation rating: {post.stars}</div>
-	  <div className="Post-description">Travel Story: {post.description}</div>
-	  
+	<div className="Post">
+		<div className="post-top-row">
+				
+			<div className="post-destination-column">
+				<div className="Post-destination">Kenya {post.destination}</div>
+			</div>
+			
+			<div className="post-date-column">
+				<div className="Post-date"> 2/20/2020 {post.date}</div>
+			</div>
+			
+		</div>
+		<div className="post-middle-row">
+			<div className="Post-image"> 
+			<img src={ KenyaImage } alt="Kenya Savannah" height='175px'/>
+			</div>
+		</div>
+		<br></br>
+		<div className="post-description-row">
+			Lorem ipsum dolor sit amet, 
+			consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+			ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+			quis nostrud exercitation ullamco laboris nisi ut aliquip
+		</div>
+		<br></br>
+			<div className="Post-donation-row"> Items Donated:  {post.donation}</div>
+		<br></br>
+
+			<div className="Post-stars"> Donation rating: {post.stars}
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />		
+			</div>
+		<br></br>
+		<div className="Post-donation-row"> Suggested Donations:  {post.donation}</div>
+		<br></br>
 	</div>
   );
 }
 
 function Account(props) {
   return (
-  
-	<div className='row'>
-		<div className='column'>
-		<div className='left-column'>
-		  <div className="Account">
-		  <div className='user-info-container'>
-			<UserInfo/>
-		  </div>
-		  <br></br>
-		  <div className="map-image">
-			<h1>Your Travel Map</h1>
-			<img src={ WorldMapImage } alt="World Map" />
-				<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
-
-		  </div>
-			  <h1> Your Trips </h1>
-			  <div className='post-container'>
-				<Post/>
-			  </div>
-			  
-		  </div>
+	<div className="Account">
+		<div className='main-top-row'>
+			<div className='left-column'>
+				<div className='user-info-container'>
+					<UserInfo/>
+				</div>
+					<br></br>
+				<div className="map-image">
+					<h1>Your Travel Map</h1>
+					<img src={ WorldMapImage } alt="World Map" />
+					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+				</div>
+						  
+			</div>
+			<div className='right-column'>	  
+				  <div className='container'>
+					<h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
+						Share your recent DoMAD travel story!
+					</h3>
+					<UserDonationStory />
+				  </div>
+			</div>
 		</div>
-	  </div>
-	<div className='column'>
-      <div className='right-column'>	  
-			  <div className='container'>
-			  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>Share your recent DoMAD travel story!</h3>
-			  <UserDonationStory />
-			  </div>
-
-      </div>
-    </div>
+		<h1> Your Trips </h1>
+		<div className="main-bottom-row">
+			
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			
+			
+		</div>
 	</div>
 
     

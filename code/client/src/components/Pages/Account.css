@@ -8,14 +8,96 @@
 }
 /* Post Container */
 .post-container {
+	
+	display:flex;
 	width: 337px;
 	height: 547px;
 	background: #363D48;
 	border: 1px solid #FFFFFF;
 	border-radius: 5px;
 	color: #FFFFFF;
-	padding-left: 5%;
-	padding-top: 5%;
+	padding: 10px;
+	margin-left: 100px;
+	margin-top: 20px;
+	align-content: center;
+	
+}
+/* Post Top Row*/
+.post-top-row {
+	display: flex;
+	flex-direction: row;
+	width: 100%;	
+	align-content: center;
+	align-content: space-evenly;
+	flex-basis: 0
+	
+}
+.post-date-column {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;	
+	font-size: 12px;
+	flex-basis: 0;
+	width: 25%;
+	
+}
+
+.post-destination-column {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;
+	width: 75%;
+	
+
+}
+/* Post Middle Picture */
+.post-middle-row {
+	
+	display: flex;
+	flex-direction: row;
+	flex-flow: column-wrap;
+	width: 100%;	
+}
+/* Post Details */
+.post-detail-row {
+	
+	display: flex;
+	flex-direction: row;
+	flex-flow: column-wrap;
+	width: 100%;	
+	flex-basis: 0;
+	flex-grow: 1;	
+}
+
+.post-description {
+	display: flex;
+	flex-direction: row;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;
+	
+}
+
+.post-donation {
+	
+	display: flex;
+	flex-direction: row;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;	
+}
+
+.post-stars {
+	
+	display: flex;
+	flex-direction: row;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;
 	
 }
 
@@ -110,6 +192,7 @@
 }
 
 .star-rating {
+	
 	display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -117,7 +200,7 @@
 }
 /*end form formatting*/
 
-.row {
+.main-top-row {
 	
 	display: flex;
 	flex-direction: row;
@@ -125,14 +208,12 @@
 	width: 100%;	
 	align-items: stretch;	
 }
-
-.column {
+.main-bottom-row {
 	display: flex;
-	flex-direction: column;
-	flex-basis: 100%;
-	background-color: F4F4F4;
-	flex: 2;	
-	vertical-align: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 90%;	
+		
 }
 
 .left-column {
@@ -140,8 +221,7 @@
 	padding-top: 100px;
 	flex-direction: column;
 	margin-top: 20px;
-	width: 90%;
-	margin-left: 20%;
+	margin-left: 10%;
 	margin-right: 0%;
 	flex: 2;
 }
@@ -150,9 +230,8 @@
 	
 	padding-top: 100px;
 	flex-direction: column;
-	margin-top: 20px;
-	width: 90%;
-	margin-left: 10%;
+	margin-top: 20px;	
+	margin-left: 0%;
 	margin-right: 0%;
 	flex: 2;
 }
@@ -168,8 +247,7 @@
 	text-align: left;
 	font-size: xx-large;
     width: 600px;
-	height: 400px;
-	
+	height: 400px;	
 }
 
 .UserInfo-avatar {
@@ -208,13 +286,13 @@
 /*User Info Container*/
 .user-info-container {
 	
-	
+	display: flex;
 	width: 400px;
 	height: 120px;	
 	background-color: #F4F4F4;
 	border-radius: 5px;
 	padding-left: 5px;
-	
+	flex-direction: row;
 	
 }
 .UserInfo {
