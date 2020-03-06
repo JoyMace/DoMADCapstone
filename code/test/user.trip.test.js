@@ -26,47 +26,14 @@ describe('User Trip Routers', function() {
 
       var fakeTrip = new Trip(testVar.tripInfo);
 
-      var withTripIDs = JSON.parse(JSON.stringify(testVar.userInfo)); 
-      withTripIDs.tripIDs = [testVar.filler];
-      var fakeUser = new User(withTripIDs);
-      var fakeUserNoTripIDs = new User(testVar.userInfo);
-
-      var saveTripDBStub = sandbox.stub(mongoose.models.Trip.prototype, 'save')
+      var saveTripDBStub = sandbox.stub(Trip.prototype, 'save')
       saveTripDBStub.yields(null, fakeTrip);
-      saveTripDBStub.onCall(1).yields(null, fakeUserNoTripIDs);
-      saveTripDBStub.onCall(2).yields(true, null);
-
-      var findUser = sandbox.stub(mongoose.Model, 'findById');
-      findUser.yields(null,  fakeUser);
-      findUser.onCall(2).yields(true, null);
-      findUser.onCall(3).yields(null, null);
-
-      var saveUserDBStub = sandbox.stub(mongoose.models.User.prototype, 'save')
-      saveUserDBStub.yields(null, fakeUser);
-      saveUserDBStub.onCall(2).yields(true, null);
+      saveTripDBStub.onCall(1).yields(true, null);
 
       done();
     });
 
     it('report trip SUCCESS', function(done) {
-      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
-      trip.userID = testVar._id;
-
-      request(app)
-        .post('/api/user/trip/report')
-        .send(trip)
-        .type('form')
-        .end(function(err, res){
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.success.status);
-          expect(message).to.equal(tripCode.report.success.message)
-        });
-      done();
-
-    });
-
-    it('report trip SUCCESS - user with no preivous trips', function(done) {
       var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
       trip.userID = testVar._id;
 
@@ -112,60 +79,6 @@ describe('User Trip Routers', function() {
           message = JSON.parse(res.res.text).message
           expect(statusCode).to.equal(tripCode.report.addTripFail.status);
           expect(message).to.equal(tripCode.report.addTripFail.message)
-        });
-      done();
-
-    });
-
-    it('report trip FAILURE - user not found (err)', function(done) {
-      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
-      trip.userID = testVar._id;
-
-      request(app)
-        .post('/api/user/trip/report')
-        .send(trip)
-        .type('form')
-        .end(function(err, res){
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.userNotFound.status);
-          expect(message).to.equal(tripCode.report.userNotFound.message)
-        });
-      done();
-
-    });
-
-    it('report trip FAILURE - user not found (user == null)', function(done) {
-      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
-      trip.userID = testVar._id;
-
-      request(app)
-        .post('/api/user/trip/report')
-        .send(trip)
-        .type('form')
-        .end(function(err, res){
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.userNotFound.status);
-          expect(message).to.equal(tripCode.report.userNotFound.message)
-        });
-      done();
-
-    });
-
-    it('report trip FAILURE - user update fail', function(done) {
-      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
-      trip.userID = testVar._id;
-
-      request(app)
-        .post('/api/user/trip/report')
-        .send(trip)
-        .type('form')
-        .end(function(err, res){
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.userUpdateFail.status);
-          expect(message).to.equal(tripCode.report.userUpdateFail.message)
         });
       done();
 
@@ -276,7 +189,7 @@ describe('User Trip Routers', function() {
 
     it('delete trip SUCCESS', function(done) {
       request(app)
-        .post('/api/user/trip/delete-trip')
+        .post('/api/user/trip/delete')
         .send(testVar.tripInfo)
         .type('form')
         .end(function(err, res){
@@ -290,7 +203,7 @@ describe('User Trip Routers', function() {
 
     it('delete trip FAILURE - check trip exist fail', function(done) {
       request(app)
-        .post('/api/user/trip/delete-trip')
+        .post('/api/user/trip/delete')
         .send(testVar.tripInfo)
         .type('form')
         .end(function(err, res){
@@ -304,7 +217,7 @@ describe('User Trip Routers', function() {
 
     it('delete trip FAILURE - trip not found', function(done) {
       request(app)
-        .post('/api/user/trip/delete-trip')
+        .post('/api/user/trip/delete')
         .send(testVar.tripInfo)
         .type('form')
         .end(function(err, res){
@@ -318,7 +231,7 @@ describe('User Trip Routers', function() {
 
     it('delete trip FAILURE - delete trip failed', function(done) {
       request(app)
-        .post('/api/user/trip/delete-trip')
+        .post('/api/user/trip/delete')
         .send(testVar.tripInfo)
         .type('form')
         .end(function(err, res){
@@ -338,47 +251,78 @@ describe('User Trip Routers', function() {
 
   describe('get trips', function() {
 
+    var checkSkip = () => {};
+    var checkLimit = () => {};
+
     before( function(done) {
 
-      var withTripIDs = JSON.parse(JSON.stringify(testVar.userInfo)); 
-      withTripIDs.tripIDs = [testVar.filler];
+      var mockFind = {
+        skip: function (offset) {
+          checkSkip(offset);
+          return this;
+        },
+        limit: function (limit) {
+          checkLimit(limit);
+          return this;
+        },
+        sort: function (query) {
+          return this;
+        },
+        exec: function (callback) {
+          callback(null, ['trip']);
+        }
+      };
 
-      var findUserDBStump = sandbox.stub(mongoose.Model, 'findById');
-      findUserDBStump.yields(null, testVar.userInfo);
-      findUserDBStump.onCall(1).yields(null, withTripIDs);
-      findUserDBStump.onCall(2).yields(true, null);
-      findUserDBStump.onCall(3).yields(true, null);
-      findUserDBStump.onCall(4).yields(null, withTripIDs);
-
+      var mockFindFail = { ...mockFind };
+      mockFindFail['exec'] = function(callback) { callback(true, null); }
+  
       var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
-      findTripsDBStump.yields(null, ['trip']);
-      findTripsDBStump.onCall(1).yields(true, null);
-
+      findTripsDBStump.returns(mockFind);
+      findTripsDBStump.onCall(2).returns(mockFindFail);
+  
       done();
     });
 
-    it('get trips SUCCESS - no tripIDs', function(done) {
+    it('get all trips SUCCESS', function(done) {
       request(app)
-        .get('/api/user/trip/user-trips')
-        .query({userID:testVar._id})
+        .get('/api/user/trip/all-trips')
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.userTrips.success.status);
+          expect(statusCode).to.equal(tripCode.allTrips.success.status);
         });
-
       done();
     });
 
-    it('get trips SUCCESS - with tripIDs', function(done) {
+    it('get all trips SUCCESS - with extra parameters', function(done) {
+
+      var testLimit = 20;
+      var testOffset = 30;
+
+      query = {
+          'onlyPublic': true,
+          'limit': testLimit,
+          'offset': testOffset
+        }
+
+      var actualLimit = -1;  
+      checkLimit = function(limit){
+        actualLimit = limit;
+      }
+
+      var actualOffset = -1;
+      checkSkip = function(offset){
+        actualOffset = offset;
+      }
 
       request(app)
-        .get('/api/user/trip/user-trips')
-        .query({userID:testVar._id})
+        .get('/api/user/trip/all-trips')
+        .query(query)
         .then(function(res) {
           statusCode = res.statusCode;
-          expect(statusCode).to.equal(tripCode.userTrips.success.status);
+          expect(actualLimit).to.equal(testLimit);
+          expect(actualOffset).to.equal(testOffset);
+          expect(statusCode).to.equal(tripCode.allTrips.success.status);
         });
-
       done();
     });
 
@@ -395,48 +339,17 @@ describe('User Trip Routers', function() {
       done();
     });
 
-    it('get trips FAILTURE - user not found (err)', function(done) {
+    it('get all trips FAILURE - trips not found', function(done) {
       request(app)
-        .get('/api/user/trip/user-trips')
+        .get('/api/user/trip/all-trips')
         .query({userID:testVar._id})
         .then(function(res) {
           statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.userTrips.userNotFound.status);
-          expect(message).to.equal(tripCode.userTrips.userNotFound.message);
+          expect(statusCode).to.equal(tripCode.allTrips.tripsNotFound.status);
         });
-
       done();
     });
 
-    it('get trips FAILTURE - user not found (user == null)', function(done) {
-      request(app)
-        .get('/api/user/trip/user-trips')
-        .query({userID:testVar._id})
-        .then(function(res) {
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.userTrips.userNotFound.status);
-          expect(message).to.equal(tripCode.userTrips.userNotFound.message);
-        });
-
-      done();
-    });
-
-    it('get trips FAILTURE - trips not found', function(done) {
-      request(app)
-        .get('/api/user/trip/user-trips')
-        .query({userID:testVar._id})
-        .then(function(res) {
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.userTrips.tripsNotFound.status);
-          expect(message).to.equal(tripCode.userTrips.tripsNotFound.message);
-        });
-
-      done();
-    });
-    
     after( function(done) {
       sandbox.restore();
       done();
@@ -444,12 +357,35 @@ describe('User Trip Routers', function() {
   });
 
   describe('get all trips', function(){
- 
+
+    var checkSkip = () => {};
+    var checkLimit = () => {};
+
     before( function(done) {
 
+      var mockFind = {
+        skip: function (offset) {
+          checkSkip(offset);
+          return this;
+        },
+        limit: function (limit) {
+          checkLimit(limit);
+          return this;
+        },
+        sort: function (query) {
+          return this;
+        },
+        exec: function (callback) {
+          callback(null, ['trip']);
+        }
+      };
+
+      var mockFindFail = { ...mockFind };
+      mockFindFail['exec'] = function(callback) { callback(true, null); }
+  
       var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
-      findTripsDBStump.yields(null, ['trip']);
-      findTripsDBStump.onCall(1).yields(true, null);
+      findTripsDBStump.returns(mockFind);
+      findTripsDBStump.onCall(2).returns(mockFindFail);
   
       done();
     });
@@ -459,6 +395,39 @@ describe('User Trip Routers', function() {
         .get('/api/user/trip/all-trips')
         .then(function(res) {
           statusCode = res.statusCode;
+          expect(statusCode).to.equal(tripCode.allTrips.success.status);
+        });
+      done();
+    });
+
+    it('get all trips SUCCESS - with extra parameters', function(done) {
+
+      var testLimit = 20;
+      var testOffset = 30;
+
+      query = {
+          'onlyPublic': true,
+          'limit': testLimit,
+          'offset': testOffset
+        }
+
+      var actualLimit = -1;  
+      checkLimit = function(limit){
+        actualLimit = parseInt(limit);
+      }
+
+      var actualOffset = -1;
+      checkSkip = function(offset){
+        actualOffset = parseInt(offset);
+      }
+
+      request(app)
+        .get('/api/user/trip/all-trips')
+        .query(query)
+        .then(function(res) {
+          statusCode = res.statusCode;
+          expect(actualLimit).to.equal(testLimit);
+          expect(actualOffset).to.equal(testOffset);
           expect(statusCode).to.equal(tripCode.allTrips.success.status);
         });
       done();
