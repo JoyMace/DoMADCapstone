@@ -117,7 +117,6 @@ p.bottom {
     transform: translate(-50%, -50%);  
 }
 
-/* edited picture size to look like figma */
 img.about{
     position: relative;
     margin: auto;
@@ -127,9 +126,7 @@ img.about{
 
 hr.about{
     margin-right: 350px;
-    margin-left: 350px;
-    
-    
+    margin-left: 350px;   
 }
 
 .tinted { filter: brightness(50%); }

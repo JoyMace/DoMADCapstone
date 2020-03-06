@@ -8,9 +8,27 @@ h.how {
     text-align: center;
 }
 
+h1.leftHeader {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    text-align: left;
+    margin-left: 300px;
+}
+
+.divLeft {
+    /* margin-top: 0px; */
+    text-align: left;
+    margin-right: 450px;
+}
+
 img.howMap {
     position: relative;
-    margin: auto;
-    width: 60%;
-       
+    margin: 0;
+    width: 35%;      
 }
+
+.rightImg {
+    position: absolute;
+    transform: translate(15%, 1%);
+}
+

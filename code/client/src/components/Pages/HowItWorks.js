@@ -9,11 +9,13 @@ function HowItWorks() {
 
             <h1 class="header1"> How It Works</h1>
 
-            <div class="divr">
+            <div class="rightImg">
                 <img class="howMap" src={Map} width="450" alt="Image"/>
             </div>
 
-            < div class="divl">
+            <h1 className="leftHeader">Gather Info </h1>
+
+            < div class="divLeft">
                 <p class="origin"> &emsp; &emsp; &emsp; After planning a trip, visit DoMAD.org before traveling to gather information on what 
                 items are needed for the area you are visiting. For example, if you are planning to go trekking in Peru, 
                 you would consult DoMAD before departing, enter your trekking location and learn that tarps and rain 
