@@ -89,7 +89,7 @@ class Register extends React.Component {
                     <div className="createAccount">
                       <button type="submit">Create Account</button>
                       <small>
-                        <Link to="/login" className="accountlink">Already Have an Account?</Link>
+                        <Link to="/login" className="Accountlink">Already Have an Account?</Link>
                       </small>
                     </div>
                 </form>

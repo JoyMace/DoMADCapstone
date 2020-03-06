@@ -55,8 +55,7 @@ class Login extends React.Component {
             <button type="submit">Sign In</button>
             <ul><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
             <ul><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
-
-            <ul>Need More Help?</ul>
+            <ul><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
           </div>
         </form>
        </div>

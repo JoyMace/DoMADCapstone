@@ -119,6 +119,7 @@
 }
 
 
-.accountlink {
+.Accountlink {
+  text-decoration: underline;
   color: #FFFFFF;
 }
