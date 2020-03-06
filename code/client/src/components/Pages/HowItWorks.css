@@ -7,3 +7,10 @@ h.how {
     margin-top: 64px;
     text-align: center;
 }
+
+img.howMap {
+    position: relative;
+    margin: auto;
+    width: 60%;
+       
+}
