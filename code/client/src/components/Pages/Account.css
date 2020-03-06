@@ -1,85 +1,165 @@
 .Account {
-    text-align: left;
-	height: 100%;
-}
-.Post {
-	text-align: center;
-	position: absolute;
-	font-size: 12px;
-	margin: 10px;	
-}
-
-.Post-date {
-	text-align: left;
-	font-size: large;
-}
-
-.Post-destination {
-	text-align: left;
-	font-size: large;
-}
-
-.Post-donation {
-	text-align: left;
-	font-size: large;
-}
-
-.Post-stars {
-	text-align: left;
-	font-size: large;
-}
-.Post-description {
-	text-align: left;
-	font-size: large;
-}
-.UserDonationStory {
-	text-align: left;
-	font-size: small;
-	position: absolute;	
-}
 	
+}
+
+.Post {
+	
+	
+}
+/* Post Container */
+.post-container {
+	width: 337px;
+	height: 547px;
+	background: #363D48;
+	border: 1px solid #FFFFFF;
+	border-radius: 5px;
+	color: #FFFFFF;
+	padding-left: 5%;
+	padding-top: 5%;
+	
+}
+
+/* NewTravelStory */
+.container {
+	
+	color: #FFFFFF;
+	width: 600px;
+	height: 930px;
+	left: 725px;
+	top: 200px;
+	padding-left: 5%;
+	padding-right: 5%;
+	background: #363D48;
+	border: 1px solid #FFFFFF;
+	box-sizing: border-box;
+	border-radius: 5px;
+	
+	
+}
+
+/* Form Formatting */
+.flex-outer,
+.flex-inner {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex-outer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li,
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-inner {
+  padding: 0 8px;
+  justify-content: space-between;  
+}
+
+.flex-outer > li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+  padding: 5px;
+  font-weight: 300; 
+  
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 400px;
+}
+
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 200px;
+}
+
+.flex-outer li p {
+  margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+  padding: 2%;
+  border: none;
+}
+
+.flex-outer li button {
+	margin-left: auto;
+	padding: 8px 16px;
+	border: none;
+	background: #428FBE;
+	border-radius: 5px;
+	text-transform: uppercase;
+	letter-spacing: .09em;
+	color: #FFFFFF;
+}
+
+.flex-inner li {
+  width: 150px;
+  
+}
+
+.star-rating {
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    vertical-align: middle;	
+}
+/*end form formatting*/
+
 .row {
-	margin-top: 50px;
+	
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
-	width: 100%;		
-	flex: 2;
+	flex-flow: column-wrap;
+	width: 100%;	
+	align-items: stretch;	
 }
 
 .column {
 	display: flex;
 	flex-direction: column;
 	flex-basis: 100%;
-	flex: 2;
+	background-color: F4F4F4;
+	flex: 2;	
+	vertical-align: center;
 }
 
 .left-column {
-	background-color: F4F4F4;
-	justify-content: center;
+	
+	padding-top: 100px;
+	flex-direction: column;
 	margin-top: 20px;
-	width: 80%;
+	width: 90%;
 	margin-left: 20%;
 	margin-right: 0%;
 	flex: 2;
 }
 
 .right-column {
-	background-color: F4F4F4;
-	justify-content: center;
+	
+	padding-top: 100px;
+	flex-direction: column;
 	margin-top: 20px;
-	width: 80%;
-	margin-left: 0%;
-	margin-right: 20%;
+	width: 90%;
+	margin-left: 10%;
+	margin-right: 0%;
 	flex: 2;
 }
 
 .map-image {
 	
-    top: 25%;
-    bottom: 60%;
-    left: 20%;
-    right: 55%;
+    
 }
 
 .map-image img {
@@ -87,32 +167,58 @@
 	border-radius: 5px;
 	text-align: left;
 	font-size: xx-large;
-    width: 100%;
-    height: 75%;
+    width: 600px;
+	height: 400px;
 	
 }
 
 .UserInfo-avatar {
-	justify-content: left;
+	
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
 	
 }
 
+.avatar-column {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;	
+	width: 120px;
+	padding-left: 5px
+}
+
+.user-info-column {
+	
+	display: flex;
+	flex-direction: column;
+	width: 100%;	
+	align-items: left;
+	flex: 0 1 auto;
+	padding-top: 5%;
+}
+
+
 .UserInfo-name {
 	text-align: left;
-	font-size: xx-large;
+	font-size: 24px;
+	
 }
-
+/*User Info Container*/
+.user-info-container {
+	
+	
+	width: 400px;
+	height: 120px;	
+	background-color: #F4F4F4;
+	border-radius: 5px;
+	padding-left: 5px;
+	
+	
+}
 .UserInfo {
-	border-radius: 25px;
-	text-align: left;
-	font-size: 10px;
-}
-
-
-.Avatar img {
-	border-radius: 50px;
-	width: 100px;
-	height: 100px;
-	left: 200px;
-	top: 200px;
+	display: flex;
+	font-size: 12px;
+	
 }

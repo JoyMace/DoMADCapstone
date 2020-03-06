@@ -1,0 +1,86 @@
+.donationitems {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 50px;
+    height: 85vh;
+}
+
+.column1-donations {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 20%;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 100%;
+    border: 1px solid #363D48;
+    border-radius: 5px;
+    text-align: center;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.category-header {
+    text-decoration: underline;
+}
+
+.column2-donations {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #363D48;
+    border-radius: 5px;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.donations-header {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+/*.donation-items-list {
+    overflow-y: scroll;
+}*/
+
+.donation-item-line {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    justify-content: space-between;
+}
+
+.donation-item-rating {
+    text-align: left;
+    width: 100px;
+}
+
+.column3-donations {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #363D48;
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 5px;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.suggestions-header {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+/*.suggested-items-list {
+    overflow-y: scroll;
+}*/
+
+.single-suggested-item {
+    padding-bottom: 2%;
+}

@@ -9,19 +9,26 @@ const tripCodes = require('../../config/resCodes').trip;
 /*
   report trip api
 
-  required form inputs:
-    tripDate: date // figure out how to handle this
-    tripLoc: text
-    donations: text[] (assumption)
-    ratings: int[] (assumption)
-    notes: text
-    isPrivate: checkbox (boolean)
+  inputs:
+    userID: String
+    tripDate: Date
+    tripLoc: String
+    donations: String[] TODO: confirm how this is passed in
+    ratings: String[] TODO: same as above
+    notes: String
+    isPrivate: boolean
 
-  creates a new donation entry
-  creates a new trip entry using new donation id
-  adds new trip to the currently signed in user's trips using new trip id
+  creates new trip entry
+  calls function to create new donations with reference to the new trip
+
+  TODO:
+    - see how donation information is passed from front end
+    - get trip id information
+    - add picture support
+    - integrate donation creation
 */
 router.post('/report', function(req, res) {
+  // TODO: figure out how donations are being passed to backend
   const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
 
   var userID;
@@ -35,17 +42,15 @@ router.post('/report', function(req, res) {
       message: tripCodes.report.userNotGiven.message});
   }
 
-  // TODO: When locations implemented change this value
-  var locationID = '123';
-
-  // TODO: Integrate donations when created
-  // https://stackoverflow.com/questions/6854431/how-do-i-get-the-objectid-after-i-save-an-object-in-mongoose
-  var donationIDs = ['456'];
+  // TODO: get trip location ID ( check if location already exists, if so reference that, else create new location )
+  var locationID = '123'
 
   var newTrip = new Trip();
 
-  newTrip.locationID = locationID; newTrip.tripDate = tripDate;
-  newTrip.donationIDs = donationIDs;
+  newTrip.locationID = locationID; 
+  newTrip.userID = userID;
+  newTrip.tripDate = tripDate;
+  // TODO: add picture support
   newTrip.notes = notes;
   newTrip.isPrivate = isPrivate;
 
@@ -55,28 +60,11 @@ router.post('/report', function(req, res) {
         message: tripCodes.report.addTripFail.message
       });
     } else {
-
-      User.findById(userID, function(err, user) {
-        if (err || !user) {
-          return res.status(tripCodes.report.userNotFound.status).send({
-            message: tripCodes.report.userNotFound.message
-          });
-        }
-        if('tripIDs' in user == false){
-          user.tripIDs = [];
-        }
-        user.tripIDs.push(trip._id);
-        user.save(function(err, user) {
-          if (err) {
-            return res.status(tripCodes.report.userUpdateFail.status).send({
-              message: tripCodes.report.userUpdateFail.message
-            });
-          } else {
-            return res.status(tripCodes.report.success.status).send({
-              message: tripCodes.report.success.message
-            });
-          }
-        });
+      // TODO: Integrate donations when created
+      //      - Call function passing it tripID and a callback function
+      
+      return res.status(tripCodes.report.success.status).send({
+        message: tripCodes.report.success.message
       });
     }
   });
@@ -84,10 +72,13 @@ router.post('/report', function(req, res) {
 
 /*
   toggle a trip's privacy setting
+
+  input:
+    tripID: String
 */
 router.post('/toggle-privacy', function(req, res) {
-  // get trip id somehow
-  tripID = req.body._id;
+  
+  tripID = req.body.tripID;
 
   Trip.findById(tripID, function(err, trip) {
     if (err || !trip) {
@@ -113,10 +104,13 @@ router.post('/toggle-privacy', function(req, res) {
 
 /*
   delete trip
+
+  input: 
+    tripID: String
   
   checks if this trip exists and then tries to delete it
 */
-router.post('/delete-trip', function(req, res) {
+router.post('/delete', function(req, res) {
   // get trip id somehow
   tripID = req.body.tripID;
 
@@ -146,58 +140,108 @@ router.post('/delete-trip', function(req, res) {
 });
 
 /*
-  trips
+  user trips
+
+  input:
+    userID: String (optional if user is logged in with passport session)
+    onlyPublic: boolean (optional)
+    limit: Int (optional default=50)
+    offset: Int (optional default=0)
 
   gets all the trips for a given user
-    - Will get the trips of a logged in user or given user  
+    - will get the trips of a logged in user or given user  
+    - if set, will only return public trips 
 */
 router.get('/user-trips', function(req, res) {
-  var userID;
+
+  // default values
+  query = {};
+  limit = 50;
+  offset = 0;
   
   // checks if user is logged in or external request
   if ('userID' in req.query){
-    userID = req.query.userID;
+    query['userID'] = req.query.userID;
   } else if ( 'user' in req ) {
-    userID = req.user._id;
+    query['userID'] = req.user._id;
   } else {
     return res.status(tripCodes.userTrips.userNotGiven.status).send({
       message: tripCodes.userTrips.userNotGiven.message});
   }
-  User.findById(userID, function (err, user) { 
 
-    if (err || !user) {
-      return res.status(tripCodes.userTrips.userNotFound.status).send({
-        message: tripCodes.userTrips.userNotFound.message
-      });
+  if('onlyPublic' in req.query){
+    if(req.query.onlyPublic){
+      query['isPrivate'] = false;
     }
-    
-    if ('tripIDs' in user == false) {
-      return res.status(tripCodes.userTrips.success.status).send({trips: []});
-    } else {
-      Trip.find({'_id': { $in: user.tripIDs }}, null, {sort: {reportingDate: -1}}, function(err, trips) {
-        if (err) {
-          return res.status(tripCodes.userTrips.tripsNotFound.status).send({
-            message: tripCodes.userTrips.tripsNotFound.message
+  }
+
+  if('limit' in req.query){
+    limit = req.query.limit;
+  }
+
+  if('offset' in req.query){
+    offset = req.query.offset;
+  }
+
+  Trip.find(query)
+      .skip(offset)
+      .limit(limit)
+      .sort({reportDate: -1})
+      .exec(function(err, trips) {
+        if(err) {
+          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+            message: tripCodes.allTrips.tripsNotFound.message
           });
         }
-        return res.status(tripCodes.userTrips.success.status).send({trips: trips});
+        return res.status(tripCodes.allTrips.success.status).send({trips: trips});
       });
-    }
-  });
+
 });
 
 /*
-  gets all the trips in the database 
+  all trips
+
+  inputs:
+    onlyPublic: boolean (optional)
+    limit: Int (optional default=50)
+    offset: Int (optional default=0)
+  
+  returns all trips from the trip database
+    - if set, will only return public trips
+  
 */
 router.get('/all-trips', function(req,res) {
-  Trip.find({}, function(err, trips) {
-    if(err) {
-      return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-        message: tripCodes.allTrips.tripsNotFound.message
-      });
+
+  query = {};
+  limit = 50;
+  offset = 0;
+
+  if('onlyPublic' in req.query){
+    if(req.query.onlyPublic){
+      query['isPrivate'] = false;
     }
-    return res.status(tripCodes.allTrips.success.status).send({trips: trips});
-  });
+  }
+
+  if('limit' in req.query){
+    limit = parseInt(req.query.limit);
+  }
+
+  if('offset' in req.query){
+    offset = parseInt(req.query.offset);
+  }
+
+  Trip.find(query)
+      .skip(offset)
+      .limit(limit)
+      .sort({reportDate: -1})
+      .exec(function(err, trips) {
+        if(err) {
+          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+            message: tripCodes.allTrips.tripsNotFound.message
+          });
+        }
+        return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+      });
 });
 
 module.exports = router;
