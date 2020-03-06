@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.css'
 import bg from '../../images/home-filler-girl_running.jpg';
 import bg_alt from '../../images/home-filler-inspire.jpg';
-import logo_wh from '../../images/WhiteDOMADlogo.svg';
+import logo_wh from '../../images/CompleteDoMADLogo.svg';
 import logo_bl from '../../images/DoMADLogoDark.svg';
 
 import dons from '../../images/home-filler-volunteers.jpg';
@@ -63,8 +63,6 @@ function Home() {
             <div id="block-wrapper">
                 <div>
                     <img id='block-logo' src={logo_wh} alt={logo_bl} />
-                    <h3 id='block-logo-text'>Donations Make a Difference</h3>
-                    <br/>
                 </div>
                 <div id='block-content'>
                     <div className='block-box'>
