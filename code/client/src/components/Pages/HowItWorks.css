@@ -3,22 +3,14 @@
     text-align: center;
 }
 
-h.how {
-    margin-top: 64px;
-    text-align: center;
-}
-
-h1.leftHeader {
-    margin-top: 30px;
-    margin-bottom: 0px;
-    text-align: left;
-    margin-left: 300px;
+h1.how {
+    font-family: Cambria, Georgia, serif;
 }
 
 .divLeft {
-    /* margin-top: 0px; */
+    position: relative;
     text-align: left;
-    margin-right: 450px;
+    margin-right: 410px;
 }
 
 img.howMap {
@@ -29,6 +21,65 @@ img.howMap {
 
 .rightImg {
     position: absolute;
-    transform: translate(15%, 1%);
+    transform: translate(15%, 10%);
 }
 
+img.howSearchBar{
+    position: relative;
+    margin: 0;
+    width: 65%;  
+}
+
+.rightImg2 {
+    position: absolute;
+    transform: translate(95%, 650%);
+}
+
+img.step1 {
+    position: relative;
+    margin: 0;
+    width: 55%;      
+}
+
+.leftStep1 {
+    position: absolute;
+    transform: translate(205%, 50%);
+}
+
+img.step2 {
+    position: relative;
+    margin: 0;
+    width: 55%;      
+}
+
+.rightStep2 {
+    position: absolute;
+    transform: translate(567%, 50%);
+}
+
+img.step3 {
+    position: relative;
+    margin: 0;
+    width: 55%;      
+}
+
+.leftStep3 {
+    position: absolute;
+    transform: translate(205%, 50%);
+}
+
+.bluePadding {
+    background-color: #010925;
+    border-radius: 5px;
+    width: 850px;
+    height: 80px;
+    padding: 15px;
+    margin-bottom: 50px;
+    text-align: center;
+    transform: translate(30%, 10%);
+}
+
+p.downCenter{
+    font-family: Cambria, Georgia, serif;
+    color: white;
+}
