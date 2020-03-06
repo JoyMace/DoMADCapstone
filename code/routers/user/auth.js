@@ -15,9 +15,9 @@ var crypto = require("crypto");
 /*
   login api
 
-  required form inputs:
-      username: text
-      password: text ( password )
+  inputs:
+    username: String
+    password: String 
 
   logs a user in using passport and creates local session
   redirects user to /success or /failure depending on if the login was successful
@@ -43,13 +43,13 @@ router.post('/login', function(req, res, next) {
 /*
   signup api
 
-  required form inputs:
-      username: text
-      firstName: text
-      lastName: text
-      email: text
-      password: text ( password )
-      verifyPassword: text ( password )
+  inputs:
+    username: String
+    firstName: String
+    lastName: String
+    email: String
+    password: String 
+    verifyPassword: String 
 
   checks given information and creates a new user
 */

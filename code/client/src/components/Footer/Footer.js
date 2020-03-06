@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.css'
-import logo from '../../images/WhiteDOMADlogo.svg';
+import logo from '../../images/CompleteDoMADLogo.svg';
+
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -8,28 +10,19 @@ const Footer = () => {
             <div className='footer-wrapper'>
                 <div className='wrapper-column'>
                     <ul className='foot-items'>
-                        <li><h4>Discover</h4></li>
-                        <li><a href="/search_locations">Explore Locations</a></li>
-                        <li><a href="/blogs">Country Blogs</a></li>
+                        <li><Link to="/search_locations">Explore</Link></li>
+                        <li><Link to="/faq">FAQ</Link></li>
+                        <li><Link to="/about">About Us</Link></li>
                     </ul>
                 </div>
-                <div className="wrapper-logo">
-                    <a href="/"><img id="link-logo" src={logo} alt="" /></a>
+                <div className="logo-wrapper-column">
+                    <Link to="/"><img id="link-logo" src={logo} alt="DoMAD Logo" /></Link>
                 </div>
                 <div className="wrapper-column">
                     <ul className='foot-items'>
-                        <li><h4>Community</h4></li>
-                        <li><a href="/account">Share A Trip</a></li>
-                        <li><a href="/account">DoMAD Account</a></li>
-                        <li><a href="/Faq">FAQ</a></li>
-                    </ul>
-                </div>
-                <div className="wrapper-column">
-                    <ul className='foot-items'>
-                        <li><h4>Company</h4></li>
-                        <li><a href="/About">About</a></li>
-                        <li><a href="/Contact">Contact Us</a></li>
-                        <li><a href="/Disclaimer">Disclaimer</a></li>
+                        <li><Link to="/contact">Contact Us</Link></li>
+                        <li><Link to="/blogs">Blogs</Link></li>
+                        <li><Link to="/disclaimer">Disclaimer</Link></li>
                     </ul>
                 </div>
             </div>
