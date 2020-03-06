@@ -1,3 +1,24 @@
 .individual-blogs {
     margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.blog-country-name {
+    text-align: center;
+    width: 70%;
+    background-color: #010925;
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 0.5%;
+}
+
+.blog-info-container {
+    background-color: #F4F4F4;
 }
