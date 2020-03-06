@@ -3,6 +3,35 @@
     text-align: center;
 }
 
+header.about{
+    font-family: Cambria, Georgia, serif;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    color: #ffffff;
+    top: 15%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    
+}
+
+padding.aboutPad{
+    background-color: rgb(255,255,255);
+    border-radius: 10px;
+    position: absolute;
+    width: 350px;
+    height: 60px;
+    top: 23.5%;
+    opacity: 35%;
+    transform: translate(-50%, -50%);
+}
+
+padding.content{
+    padding: 20px;
+    
+}
+
 p.origin {
     font-family: Cambria, Georgia, serif;
     margin-top: 40px;
@@ -52,13 +81,13 @@ p.bottom {
     margin-right: 250px;
 }
 
-.centered1 {
+/* .centered1 {
     position: absolute;
     color: #ffffff;
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);  
-  }
+  } */
   
 .centered2 {
     position: absolute;
@@ -75,12 +104,24 @@ p.bottom {
     color: #ffffff;
     top: 50%;
     left: 50%;
-    bottom:45%;
+    bottom:50%;
     transform: translate(-50%, -50%);  
 }
 
+.centered4 {
+    position: absolute;
+    font-family: Cambria, Georgia, serif;
+    color: #ffffff;
+    top: 65%;
+    left: 50%;
+    bottom:35%;
+    transform: translate(-50%, -50%);  
+}
+
+/* edited picture size to look like figma */
 img.about{
     position: relative;
+    margin: auto;
     width: 60%;
        
 }
