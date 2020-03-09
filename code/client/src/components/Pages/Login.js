@@ -5,9 +5,10 @@ import './Login.css';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       submitted: false
     };
 
@@ -22,10 +23,11 @@ class Login extends React.Component {
   handleSubmit(e) {
         e.preventDefault();
         this.setState({ submitted: true });
-        const { username, password } = this.state;
-        if (!(username && password)) {
-            this.props.login(username, password);
+        const { email, password } = this.state;
+        if ((email && password)) {
+            this.props.login(email, password);
         }
+
     }
 
   render() {
