@@ -32,45 +32,30 @@ const donationCodes = require('../../config/resCodes').donation;
 		callbackFunction
 */
 
-
 // CREATE DONATION
-router.post('./createDonation', function(req, res) { //change this to a normal js function and find a way to export and import into trip.js
+function createDonation(donationInformation, tripID, done) { //change this to a normal js function and find a way to export and import into trip.js
 	//FUNCTION ASSUMES complete donation json including all possible attributes of a donation.
 
-	const {donationInformation, tripID, cbFun} = req.body; 
-
-	var userID;
-	// checks if user is logged in or external request
-	if ('userID' in req.body){
-		userID = req.body.userID;
-	} else if ('user' in req) {
-		userID = req.user._id;
-	} else {
-		return res.status(donationCodes.report.userNotGiven.status).send({
-			message: donationCodes.report.userNotGiven.message});
-	}
-
-	const newDo = new Donation();
-
-	newDo.itemName = donationInformation.itemName;
-	newDo.rating = donationInformation.rating;
-	newDo.locationID = donationInformation.locationID;
-	newDo.category = donationInformation.category;
-	newDo.donationDateTime = donationInformation.donationDateTime;
-	newDo.reportingDateTime = donationInformation.reportingDateTime;
-	newDo.itemDescr = donationInformation.itemDescr;
-	newDo.pictures = donationInformation.pictures;
-	newDo.organization = donationInformation.organization;
-	newDo.suggestion = donationInformation.suggestion;
-
+	const newDo = new Donation(donationInformation);
 	newDo.tripID = tripID;
 
-	return newDo.save(cbfun(err, newDo); //this will return nothing, since it will execute the callback function.
-})
+	newDo.save(function(err, donation) {
+		if (err) {
+			//send json error message, normally we would do this with res, but since this is an internal function just make json manuall
+			done(true, {statusCode: donationCodes.report.addDonationFail.status,
+				message: donationCodes.report.addDonationFail.message});
+		} else {
+			done(false, {statusCode: donationCodes.report.success.status,
+				message: donationCodes.report.success.message});
+		}
+	}); //this will return nothing, since it will execute the callback function.
+}
 
 
 
 // DELETE
-router.delete('./deleteDonation', function(req, res) {
+function deleteDonation(donationID, done) {
 	//given donationID, find the donation and delete it.
-});
+}
+
+module.exports = {'createDonation': createDonation, 'deleteDonation': deleteDonation};
