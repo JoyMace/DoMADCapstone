@@ -25,6 +25,7 @@ import DonationItems from './components/CountryPages/DonationItems';
 import Organizations from './components/CountryPages/Organizations';
 import Tabs from './components/CountryPages/Tabs';
 import CountryPages from './components/CountryPages/CountryPages';
+import IndividualBlogs from './components/Pages/IndividualBlogs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
@@ -124,6 +125,11 @@ class App extends Component {
           <Route path="/organizations" component={Organizations} />
           <Route path="/tabs" component={Tabs} />
           <Route path="/country_pages" component={CountryPages} />
+<<<<<<< HEAD
+=======
+          <Route path="/forgot" component={Reset} />
+          <Route path="/individual_blogs" component={IndividualBlogs} />
+>>>>>>> d839dbca0da01730e8b3f00e2c5a44350a98d7a9
           <Footer />
         </div>
       </Router>

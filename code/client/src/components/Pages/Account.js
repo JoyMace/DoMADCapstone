@@ -19,7 +19,7 @@ const userInfo = {
 function UserInfo(props) {
   return (
     <div className="UserInfo">
-	<div className="row">
+	<div className="user-info-row">
 		<div className="column">
 			<div className="avatar-column">				
 				<div className='UserInfo-avatar'>{userInfo.avatar}</div>
@@ -45,18 +45,19 @@ class UserDonationStory extends React.Component {
 		this.state = {
 			date: '',
 			destination: '',			
-			donationRecipient: 'Individual',
-			donationItem: 'None',
-			donationCategory: 'None',
+			donationRecipient: '',
+			donationItem: '',
+			donationCategory: '',
 			rating: '',
 			description: '',
 			public_private: 'Public',			
-			
+			suggestedDonationItem: ""
 		};
 	}
 	accountChangeHandler = (event) => {
 		let nam = event.target.name;
 		let val = event.target.value;
+		console.log(nam, val);
 		this.setState({[nam]: val});
 	}
 	render() {
@@ -65,6 +66,7 @@ class UserDonationStory extends React.Component {
 		
 		<form action="/api/user/trip/report" method="POST">
 			<ul class="flex-outer">
+				<input id="userID" value="123"/>
 				<li>
 					<label for="date">When did this trip occur?</label>
 					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />	
@@ -72,12 +74,12 @@ class UserDonationStory extends React.Component {
 				
 				<li>
 					<label name="destination" className="destination">Where did you go?</label>
-					<input name="destination" type="text" placeholder="Enter city, country" value={this.state.destination} onchange={this.accountChangeHandler}/>
+					<input name="destination" type="text" placeholder="Enter city, country" value={this.state.destination} onChange={this.accountChangeHandler}/>
 				</li>
 				
 				<li>
 					<label name="donationItem" className="donationItem">What did you donate?</label>
-					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item"/>
+					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
@@ -100,13 +102,12 @@ class UserDonationStory extends React.Component {
 						<ul class="flex-inner">
 							<li>
 							<label for="donationRecipient" name="donationRecipient">Individual</label>
-							<input type="checkbox" id="Individual" name="donationRecipient" value={this.state.donationRecipient}/>
-							
+							<input type="checkbox" id="Individual" name="donationRecipient" value={this.state.donationRecipient}/>							
 							</li>
+							
 							<li>
 							<label for="donationRecipient" name="donationRecipient">Organization</label>
-							<input type="checkbox" id="Organization"/>
-							
+							<input type="checkbox" id="Organization"/>							
 							</li>
 						
 						</ul>
@@ -129,8 +130,8 @@ class UserDonationStory extends React.Component {
 				</li>
 				
 				<li>
-					<label name="donationItem" className="donationItem">Suggest Future Donation Item?</label>
-					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item"/>
+					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
+					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
 				</li>
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
@@ -197,14 +198,27 @@ class PostContainer extends React.Component {
 	render() {
 		return <Post post={this.state.post} />
 	}
-	/* componentDidMount() {
-		.ajax({
-			url: "/",
-			dataType: "json",
-			success: post =>
-				this.setState({post: post}),
-		})
-	} */
+	componentDidMount() {
+		fetch("/api/user/trip/user-trips")
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  this.setState({
+				isLoaded: true,
+				items: result.items
+			  });
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			(error) => {
+			  this.setState({
+				isLoaded: true,
+				error
+			  });
+			}
+		  )
+	  }
 	
 }
 
