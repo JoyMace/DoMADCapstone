@@ -17,6 +17,7 @@ mongoose_input = {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost/domad', mongoose_input);
 
 const db = mongoose.connection;

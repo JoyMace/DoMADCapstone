@@ -10,6 +10,7 @@ const app = require('../app');
 const authCode = require('../config/resCodes').auth;
 const testVar = require('../config/testVar');
 const User = require('../models/user');
+const Location = require('../models/location');
 
 
 describe('User Auth Routers', function() {
@@ -128,10 +129,14 @@ describe('User Auth Routers', function() {
         findOneDBStub.withArgs(userQuery).yields(null, true);
         findOneDBStub.yields(null, null);
 
-        var saveDBStub = sandbox.stub(User.prototype, 'save')
+        var saveDBStub = sandbox.stub(User.prototype, 'save');
         saveDBStub.yields(null, null);
         // make sure this corresponds with failed to add user
         saveDBStub.onCall(1).yields(true, null);
+
+        // TODO: mock this stub
+        //var SaveLocationStub = sandbox.stub(Location.prototype, 'findOneOrCreate');
+        //saveLocationStub.yields(null, null);
 
         done()
     });

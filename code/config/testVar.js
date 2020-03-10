@@ -19,6 +19,11 @@ testVar = {
     _id: 'TEST',
     userID: 'TEST',
     isPrivate: true
+  },
+  locationInfo: {
+    _id: 'TEST',
+    country: 'TEST',
+    city: 'TEST'
   }
 }
 

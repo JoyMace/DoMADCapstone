@@ -1,7 +1,6 @@
 
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
-const passport = require('passport');
 const request = require('supertest');
 const sinon = require('sinon');
 const sandbox = sinon.createSandbox();
@@ -11,14 +10,13 @@ const tripCode = require('../config/resCodes').trip;
 const testVar = require('../config/testVar');
 const Trip = require('../models/trip');
 const User = require('../models/user');
+const Location = require('../models/location');
 
 describe('User Trip Routers', function() {
 
   describe('report trip', function(){
     
     before(function(done) {
-
-      //TODO: When location added create stub for location lookup/creation
 
       //TODO When donation added create stub for donation creation
 
@@ -29,6 +27,11 @@ describe('User Trip Routers', function() {
       var saveTripDBStub = sandbox.stub(Trip.prototype, 'save')
       saveTripDBStub.yields(null, fakeTrip);
       saveTripDBStub.onCall(1).yields(true, null);
+
+      var fakeLocation = new Location(testVar.locationInfo);
+
+      var locationStub = sandbox.stub(Location, 'findOneOrCreate');
+      locationStub.yields(null, fakeLocation);
 
       done();
     });
@@ -277,6 +280,9 @@ describe('User Trip Routers', function() {
           checkSkip(offset);
           return this;
         },
+        populate: function(query) {
+          return this; 
+        },
         limit: function (limit) {
           checkLimit(limit);
           return this;
@@ -384,6 +390,9 @@ describe('User Trip Routers', function() {
           checkSkip(offset);
           return this;
         },
+        populate: function(query) {
+          return this; 
+        },
         limit: function (limit) {
           checkLimit(limit);
           return this;
@@ -402,7 +411,7 @@ describe('User Trip Routers', function() {
       var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
       findTripsDBStump.returns(mockFind);
       findTripsDBStump.onCall(2).returns(mockFindFail);
-  
+
       done();
     });
 

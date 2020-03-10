@@ -9,7 +9,7 @@ const countrySchema = new mongoose.Schema({
     officialLanguages: [ String ],
     flag: String, // For now this is just a file location. Looking GridFS
     map: String, // Same as above 
-    locationID: String
+    locationID: { type:mongoose.Schema.Type.ObjectId, ref: 'Location' }
   },
   statistics: {
     totalElectricity: mongoose.Types.Decimal128,

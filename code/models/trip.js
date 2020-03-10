@@ -4,7 +4,7 @@ const crypto = require('crypto');
 
 const tripSchema = new mongoose.Schema({
 
-  locationID: {type: String, required: true},
+  locationID: {type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true},
   userID: {type: String, required: true},
   reportingDate: {type: Date, default: Date.now},
   tripDate: Date,

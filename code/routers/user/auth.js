@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 const User = require('../../models/user');
+const Location = require('../../models/location');
 const authCode = require('../../config/resCodes').auth;
 
 var async = require("async");
@@ -50,11 +51,13 @@ router.post('/login', function(req, res, next) {
     email: String
     password: String 
     verifyPassword: String 
+    country: String
+    city: String
 
   checks given information and creates a new user
 */
 router.post('/signup', function(req, res) {
-  const { username, firstName, lastName, email, password, verifyPassword } = req.body;
+  const { username, firstName, lastName, email, password, verifyPassword, country, city } = req.body;
 
   // check if required fields are filled
   // ( check if there is a better way of checking these )
@@ -102,16 +105,26 @@ router.post('/signup', function(req, res) {
       newUser.email = email;
       newUser.setPassword(password);
 
-      newUser.save(function(err, user) {
-        if(err) {
-          return res.status(authCode.signup.failedToAdd.status).send({
-            message: authCode.signup.failedToAdd.message
-          });
-        } else {
-          return res.status(authCode.signup.success.status).send({
-            message: authCode.signup.success.message
-          });
-        }
+      locationQuery = {
+        country:'brazil',
+        city:'scooby doo'
+      }
+
+      // Get a location id for new user
+      Location.findOneOrCreate(locationQuery, function(err, loc) {
+        newUser.locationID = loc._id;
+
+        newUser.save(function(err, user) {
+          if(err) {
+            return res.status(authCode.signup.failedToAdd.status).send({
+              message: authCode.signup.failedToAdd.message
+            });
+          } else {
+            return res.status(authCode.signup.success.status).send({
+              message: authCode.signup.success.message
+            });
+          }
+        });
       });
     }
   });

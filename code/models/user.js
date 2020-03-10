@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
   salt: String, 
   phone: String, 
   dob: String, 
-  locationID: String
+  locationID: { type:mongoose.Schema.Types.ObjectId, ref: 'Location' },
+  banned: Boolean
 });
 
 /*
