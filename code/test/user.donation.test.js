@@ -62,8 +62,6 @@ describe('Donation functions', function() {
       */
 
       donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, donation, res){
-        console.log(donation);
-        console.log(res);
         statusCode = res.status;
         message = res.message;
         expect(statusCode).to.equal(donationCodes.report.success.status);
@@ -91,19 +89,64 @@ describe('Donation functions', function() {
       after is called at the end of a set of unit tests to clean up the testing environemnt
     */
     after(function(done) {
-      
-      /*
-        This is where you restore all stubs created and delete any variables that need to be deleted
-
-        If you did create a stub you will need to run:
-        sandbox.restore();
-      */
       sandbox.restore();
       done();
     });
-
-    //  Note there is an afterEach function that is called after each test and not only at the end
-
   }); 
 
+
+
+  describe('Delete Donation Test', function() {
+
+    before(function(done) {
+      var fakeDonation = new Donation(testVar.donationInformation);
+      var mongooseDeleteStub = sandbox.stub(mongoose.Model, 'findOneAndDelete');
+      //successful
+      mongooseDeleteStub.yields(null, fakeDonation);
+      
+      //mongoose find fail
+      mongooseDeleteStub.onCall(1).yields(true, null);
+
+      //mongoose delete fail
+      mongooseDeleteStub.onCall(2).yields(true, fakeDonation);
+      done();
+    });
+
+    it('deleteDonation - SUCCESS', function(done){
+      donationFunctions.deleteDonation(testVar.donationInfo._id, function(err, donation, res){
+        statusCode = res.status;
+        message = res.message;
+        expect(statusCode).to.equal(donationCodes.deleteDonation.success.status);
+        expect(message).to.equal(donationCodes.deleteDonation.success.message);
+        // expect(donation._id).to.equal(testVar.donationInformation._id);
+      });
+
+      done();
+    }); 
+
+    it('deleteDonation - FAILURE 404, donation not found', function(done){
+      donationFunctions.deleteDonation(testVar.donationInfo._id, function(err, donation, res){
+        statusCode = res.status;
+        message = res.message;
+        expect(statusCode).to.equal(donationCodes.deleteDonation.donationNotFound.status);
+        expect(message).to.equal(donationCodes.deleteDonation.donationNotFound.message);
+      })
+      done();
+    });
+
+    it('deleteDonation - FAILURE 400, deletion failed', function(done){
+      donationFunctions.deleteDonation(testVar.donationInfo._id, function(err, donation, res){
+        statusCode = res.status;
+        message = res.message;
+        expect(statusCode).to.equal(donationCodes.deleteDonation.deleteDonationFail.status);
+        expect(message).to.equal(donationCodes.deleteDonation.deleteDonationFail.message);
+      })
+      done();
+    });
+
+    after(function(done) {
+      sandbox.restore();
+      done();
+    });
+  });
 });

@@ -53,12 +53,15 @@ function createDonation(donationInformation, tripID, done) { //change this to a 
 // DELETE FUNCTION
 function deleteDonation(donationID, done) {
 	//given donationID, find the donation and delete it.
-	Donation.findById(donationID, function(err, donation) {
+	Donation.findOneAndDelete({_id: donationID}, function(err, donation) { //will not return donation if no document has been found
 		if(err){
-			done(err, donation, donationCodes.deleteDonation.checkDonationExistFail);
+			if(donation){ //if donation isn't undefined, then that means the deletion failed
+				done(err, donation, donationCodes.deleteDonation.deleteDonationFail);
+			}else{ //if donation IS undefined, that means mongoose couldn't find the donation
+				done(err, donation, donationCodes.deleteDonation.donationNotFound);	
+			}
 		} else {
-			//found the donation, now delete it
-			// done(err, donation, donationCodes.deleteDonation.checkDonationExistFail);
+			done(err, donation, donationCodes.deleteDonation.success);
 		}
 	})
 }
