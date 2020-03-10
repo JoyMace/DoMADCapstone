@@ -33,9 +33,10 @@ describe('Donation functions', function() {
 
       var fakeDonation = new Donation(testVar.donationInformation);
       var mongooseSaveStub = sandbox.stub(Donation.prototype, 'save');
+      //successful
       mongooseSaveStub.yields(null, fakeDonation);
-      mongooseSaveStub.onCall(1).yields(true, null);
-      // mongooseSaveStub.onCall(2).yields(true, null);
+      //mongoose save fail
+      mongooseSaveStub.onCall(1).yields(true, fakeDonation); //not sure if on a failed save mongoose returns the donation to the callback function or if it does undefined.
       done();
     });
 
@@ -60,22 +61,27 @@ describe('Donation functions', function() {
           expect([output]).to.equal([expected output]) - check chai documentation for other asserts
       */
 
-      donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, res){
-        statusCode = res.statusCode;
+      donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, donation, res){
+        console.log(donation);
+        console.log(res);
+        statusCode = res.status;
         message = res.message;
         expect(statusCode).to.equal(donationCodes.report.success.status);
         expect(message).to.equal(donationCodes.report.success.message);
+        // expect(donation._id).to.equal(testVar.donationInformation._id);
       });
 
       done();
     }); 
 
     it('saveDonation - FAILURE 400, mongoose save error', function(done){
-      donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, res){
-        statusCode = res.statusCode;
+      donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, donation, res){
+        statusCode = res.status;
         message = res.message;
         expect(statusCode).to.equal(donationCodes.report.addDonationFail.status);
         expect(message).to.equal(donationCodes.report.addDonationFail.message);
+        // cant really check the donation is right, since we are creating a new donation, with a new id.
+        // expect(donation._id).to.equal(testVar.donationInformation._id);  
       });
 
       done();

@@ -42,20 +42,25 @@ function createDonation(donationInformation, tripID, done) { //change this to a 
 	newDo.save(function(err, donation) {
 		if (err) {
 			//send json error message, normally we would do this with res, but since this is an internal function just make json manuall
-			done(true, {statusCode: donationCodes.report.addDonationFail.status,
-				message: donationCodes.report.addDonationFail.message});
+			done(err, donation, donationCodes.report.addDonationFail);
 		} else {
-			done(false, {statusCode: donationCodes.report.success.status,
-				message: donationCodes.report.success.message});
+			done(err, donation, donationCodes.report.success);
 		}
 	}); //this will return nothing, since it will execute the callback function.
 }
 
-
-
-// DELETE
+// *** IN PROGRESS *** //
+// DELETE FUNCTION
 function deleteDonation(donationID, done) {
 	//given donationID, find the donation and delete it.
+	Donation.findById(donationID, function(err, donation) {
+		if(err){
+			done(err, donation, donationCodes.deleteDonation.checkDonationExistFail);
+		} else {
+			//found the donation, now delete it
+			// done(err, donation, donationCodes.deleteDonation.checkDonationExistFail);
+		}
+	})
 }
 
 module.exports = {'createDonation': createDonation, 'deleteDonation': deleteDonation};
