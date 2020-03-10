@@ -126,7 +126,7 @@ function Home() {
             
             <footer className='section_heads_foots'>
                 <h5>Click <a className='hyperl-txt' href='/About'>Here</a> to learn more about DoMAD</h5>
-                <hr className='hr-spacer'/>
+                <hr />
             </footer>
         </article>
 

@@ -24,12 +24,10 @@ import BlogPosts from './components/CountryPages/BlogPosts';
 import DonationItems from './components/CountryPages/DonationItems';
 import Organizations from './components/CountryPages/Organizations';
 import Tabs from './components/CountryPages/Tabs';
-import CountryPages from './components/CountryPages/CountryPages';
 import IndividualBlogs from './components/Pages/IndividualBlogs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
-
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 
 
 class App extends Component {
@@ -126,7 +124,6 @@ class App extends Component {
           <Route path="/donation_items" component={DonationItems} />
           <Route path="/organizations" component={Organizations} />
           <Route path="/tabs" component={Tabs} />
-          <Route path="/country_pages" component={CountryPages} />
           <Route path="/forgot" component={Reset} />
           <Route path="/individual_blogs" component={IndividualBlogs} />
           <Footer />

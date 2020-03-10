@@ -261,12 +261,14 @@
 /*=== Section Header/Footers, & Text Links ===*/
 .section_heads_foots {
     font-size: 1.4em;
-    margin: 24px 5%;
+    margin: 24px 5% 0 5%;
     line-height: inherit;
+    
 }
-    .hr-spacer {
-        width: 80%;
-        margin: 40px 15%;
+    .section_heads_foots hr {
+        width: 100%;
+        margin: 40px 0 40px 0;
+        background-color: transparent;
     }
 
 .hyperl-txt {

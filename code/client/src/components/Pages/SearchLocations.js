@@ -1,6 +1,6 @@
 import React from 'react';
 import './SearchLocations.css';
-//import ReactDOM from 'react-dom';
+import CountryDataTabs from '../CountryPages/Tabs.js';
 
 // Map package, DON'T use react-simple-maps
 import WorldMap from 'react-world-map';
@@ -21,7 +21,8 @@ function SearchLocations() {
                 </div>
 
                 <div id="description-box">
-                    <p>Filter your search by clicking the world map, searching by name, or a combination of the two!</p>
+                    <h5>Choose your location by clicking the world map, searching by name, or a combination of the two!</h5>
+                    <h5>Select a country to view tabular donation and country information.</h5>
                 </div>
 
                 <div id='map-content-wrap'>
@@ -35,11 +36,17 @@ function SearchLocations() {
 
                 <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
 
+                <footer id='explore-spacer'>
+                    <hr/>
+                </footer>
             </div>
 
-            <div id='master-content-root'></div>
+            <div id='master-content-root'>
+                <div className="country-pages">
+                    <CountryDataTabs />
+                </div>
+            </div>
         </div>
-            
     )
 }
 
@@ -360,11 +367,13 @@ class FilteringSearchBar extends React.Component {
         this.handleOnSelect = this.handleOnSelect.bind(this);
     }
 
-    componentDidMount() {
-        //this.setState({filteredCountries: this.countries});
-    }
-    componentDidUpdate() { // Should the component re-render?
-        //
+    /* componentDidMount() {} */
+    componentDidUpdate(prevProps, prevState) { // Should the component re-render?
+    // if input is nominal, don't update state
+        if (prevState.queryText !== this.state.queryText.trim()) {
+            //console.log("state has changed.")
+            return
+        }
     }
 
     handleQueryChange(event) {
@@ -395,9 +404,9 @@ class FilteringSearchBar extends React.Component {
     handleOnSelect(event) {
         alert("Country Selection is: " + event.target.value);
         event.preventDefault(); /* DELETE later, prevents default form submit */
+        //CountryDataTabs.call
     }
     
-    /*-- <input type="reset" /> --*/
     render() {
         return (
             <React.Fragment>
@@ -418,8 +427,6 @@ class FilteringSearchBar extends React.Component {
                         </ul>
                     </div>
                 </div>
-                
-                
             </React.Fragment>
         )
     }
@@ -479,11 +486,10 @@ class ToTopBtn extends React.Component {
     render () {
         let defaultStyles = {
             position: "fixed", 
-            bottom: "20px", right: "25px",
+            bottom: "80px", right: "10px",
             padding: "12px",
             zIndex: "98", /*--make sure theres no overlap */
             outline: "none",
-
             border: "none", borderRadius: "6px",
             backgroundColor: "#CBB95A",
             fontSize: "0.9em", 
@@ -501,12 +507,11 @@ class ToTopBtn extends React.Component {
         return (
             <div>
                 <button id='toTopBtn' style={defaultStyles}
-                    onClick={ () => {this.scrollToTop()}} >To Top</button>
+                    onClick={ () => {this.scrollToTop()}}>To Top</button>
             </div>
         )
     }
 }
-
 
 /*****== Extra stuff ==*********/
 /*

@@ -1,69 +1,81 @@
-.tabs-component {
+#tabs-component {
     display: flex;
-    margin-top: 10px;
-    height: 50px;
     width: 100vw;
-}
-
-.regular-tabs {
-    height: 40px;
-    display: inline-block;
-    border-bottom: none;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin: auto;
-}
-
-.country-flag-block {
-    width: 160px;
-    overflow: hidden;
     margin-right: 1%;
-    border-radius: 5px;
-    height: 80px;
-}
-
-.flag-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #363D48;
-    object-position: center;
-}
-
-.country-name-block {
-    display: flex;
-    width: 20%;
     margin-left: 1%;
-    background-color: #010925;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.5em;
-    text-align: center;
-    height: 50px;
-    margin: auto;
 }
 
-.country-name-text {
-    margin: auto;
-}
+    /*=== <TabList> ===*/
+    .tab-style {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-evenly;
+        align-items: flex-end;
+        height: 100px;
+        margin: 0 5px 15px 5px;
+        text-align: center;
+    }
 
-.category-tabs {
-    width: 100%;
-    margin-right: 1%;
-}
+      .country-flag-block {
+          width: 160px;
+          height: auto;
+          flex-basis: 1;
+          overflow: hidden;
+          display: inline-block;
+      }
+        .flag-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-position: center;
+        }
 
-.tab-style {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    height: auto;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
+      .country-name-block {
+          flex-basis: 1;
+          display: inline-block;
+          padding: 6px 8px;
 
+          border: none;          
+          background-color: white;
+          color: #010925;
+          font-size: 1.5em;
+          word-wrap: break-word;
+      }
+      
+      .regular-tabs {
+          display: inline-block;
+          position: relative;
+          flex-basis: 1;
+          padding: 10px 14px;
+          margin-bottom: 10px;
+
+          border-bottom: none;
+          border-radius: 5px;
+          list-style: none;
+          cursor: pointer;
+      }
+    
+    /*--- From react-tabs ---*/
+    .regular-tabs:hover {
+      background-color: #777;
+    }
+    .react-tabs__tab--disabled {
+      color: white;
+    }
+    .react-tabs__tab--selected {
+      background-color: #010925;
+      color: white;
+    }
+
+    .react-tabs__tab-panel {
+      display: none;
+    }
+    .react-tabs__tab-panel--selected {
+      display: block;
+    }
+    /*=== END -- <TabList> styling ===*/
+
+/* ??????? */
 .tablink {
     background-color: #555;
     color: white;
@@ -74,42 +86,4 @@
     font-size: 17px;
     width: 25%;
 }
-
-/* Change background color of buttons on hover */
-.tablink:hover {
-    background-color: #777;
-}
-
-/* Set default styles for tab content */
-.tabcontent {
-    color: white;
-    display: none;
-    text-align: center;
-}
   
-  .react-tabs__tab {
-    display: inline-block;
-    border-bottom: none;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
-  .react-tabs__tab--disabled {
-    color: white;
-  }
-  
-  .react-tabs__tab--selected {
-    background-color: #010925;
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .react-tabs__tab-panel {
-    display: none;
-  }
-  
-  .react-tabs__tab-panel--selected {
-    display: block;
-  }

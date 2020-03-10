@@ -8,45 +8,50 @@ import BlogPostsComponent from '../CountryPages/BlogPosts';
 
 import countryflag from '../../images/peruflag.png';
 
-const TabComponent = props => (
-    <Tabs>
-        <div className="tabs-component">
-            <div className="category-tabs">
-                <TabList>
-                    <div className="tab-style">
-                        <Tab disabled className="country-flag-block">
-                            <img src={ countryflag } alt="peru flag" className="flag_image"/>
-                        </Tab>
-                        <Tab disabled className="country-name-block">
-                            <h3 className="country-name-text">Country Name</h3>
-                        </Tab>
-                        <Tab className="regular-tabs">Country Info</Tab>
+class CountryTabs extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            active: false, 
+            refCountry: "Country Name"
+        };
+    }
+
+    //componentDidMount() { /**/ }
+
+    render() {
+        return (
+            <div id="tabs-component">
+                <Tabs>
+                    <TabList className="tab-style">
+                        <li className="country-flag-block">
+                            <img src={countryflag} alt="peru flag" className="flag_image"/>
+                        </li>
+                        <li className="country-name-block">
+                            <h3>{this.state.refCountry}</h3>
+                        </li>
+                        <Tab active className="regular-tabs">Country Info</Tab>
                         <Tab className="regular-tabs">Donation Items</Tab>
                         <Tab className="regular-tabs">Organizations</Tab>
                         <Tab className="regular-tabs">Blog Posts</Tab>
-                    </div>
-                </TabList>
-                <TabPanel>
-                    <CountryInfoComponent />
-                </TabPanel>
-                <TabPanel>
-                    <CountryInfoComponent />
-                </TabPanel>
-                <TabPanel>
-                    <CountryInfoComponent />
-                </TabPanel>
-                <TabPanel>
-                    <DonationItemsComponent />
-                </TabPanel>
-                <TabPanel>
-                    <OrganizationsComponent />
-                </TabPanel>
-                <TabPanel>
-                    <BlogPostsComponent />
-                </TabPanel>
-            </div>
-        </div>
-    </Tabs>
-);
+                    </TabList>
 
-export default TabComponent;
+                    <TabPanel tabIndex={0}>
+                        <CountryInfoComponent />
+                    </TabPanel>
+                    <TabPanel tabIndex={1}>
+                        <DonationItemsComponent />
+                    </TabPanel>
+                    <TabPanel tabIndex={2}>
+                        <OrganizationsComponent />
+                    </TabPanel>
+                    <TabPanel tabIndex={3}>
+                        <BlogPostsComponent />
+                    </TabPanel>
+            </Tabs>
+        </div>
+        )
+    }
+}
+
+export default CountryTabs;

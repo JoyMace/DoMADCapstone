@@ -1,10 +1,14 @@
 import React from 'react';
 import './Organizations.css';
 
-const Organizations = props => (
-    <div className="organizations">
-        
-    </div>
-);
+class Organizations extends React.Component {
+    
+    render() {
+        return (
+            <div className="organizations"></div>
+        )
+    }
+    
+}
 
 export default Organizations;
