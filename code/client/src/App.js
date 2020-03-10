@@ -125,11 +125,8 @@ class App extends Component {
           <Route path="/organizations" component={Organizations} />
           <Route path="/tabs" component={Tabs} />
           <Route path="/country_pages" component={CountryPages} />
-<<<<<<< HEAD
-=======
           <Route path="/forgot" component={Reset} />
           <Route path="/individual_blogs" component={IndividualBlogs} />
->>>>>>> d839dbca0da01730e8b3f00e2c5a44350a98d7a9
           <Footer />
         </div>
       </Router>
