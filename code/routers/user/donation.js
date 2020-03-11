@@ -6,33 +6,20 @@ const Donation = require('../../models/donation');
 const donationCodes = require('../../config/resCodes').donation;
 
 /* 
-	Donation API:
+	Donation Functions:
 		Create new donation:
-			- Input: donation info, newTripID, and a callback function
+			- Input: donation info, newTripID, and a callback function with 3 parameters: error, donation, donationResCode
 			- Create new mongoose donation object with given info
 			- Save to database
 			- Call callback with either success or fail information
 
-	A Donation follows the following schema:
-		itemName: {type: String, required: true},
-	    rating: {type: Number, required: true},
-	    locationID: {type: LocationSchema, required: true},
-	    tripID: {type:String, required:true},
-	    Category: {type:String, enum:['Health', 'Household', 'Clothing', 'Education', 'Art', 'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food']},  
-	    donationDateTime: Date,
-	    reportingDateTime: {type: Date, default: Date.now},
-	    itemDescr: String,
-	    pictures: String, //String for now, maybe use gridfs?
-	    Organization: Boolean, //could there be a better way to do this?
-	    Suggestion: Boolean //could there be a better way to do this?
-
-	What we will actually send to this function is: 
-		donationInformation (what will be stored in db),
-		tripID,
-		callbackFunction
+		Delete give donation:
+			- Input: donationID, callback function with 3 parameter: error, donation, donationResCode
+			- Find and delte mongoose donation object based on donationID
+			- Call callback with either success or fail 
 */
 
-// CREATE DONATION
+
 function createDonation(donationInformation, tripID, done) { //change this to a normal js function and find a way to export and import into trip.js
 	//FUNCTION ASSUMES complete donation json including all possible attributes of a donation.
 
@@ -49,8 +36,6 @@ function createDonation(donationInformation, tripID, done) { //change this to a 
 	}); //this will return nothing, since it will execute the callback function.
 }
 
-// *** IN PROGRESS *** //
-// DELETE FUNCTION
 function deleteDonation(donationID, done) {
 	//given donationID, find the donation and delete it.
 	Donation.findOneAndDelete({_id: donationID}, function(err, donation) { //will not return donation if no document has been found
