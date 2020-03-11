@@ -32,14 +32,6 @@ import Reset_token from './components/Pages/Reset_token';
 import ReactDOM from 'react-dom'; 
 
 
-fetch("../../data/country_electricity")
-	.then(function(resp) {
-		return resp.json();
-	})
-	.then(function(data) {
-		console.log(data);
-	})
-
 class App extends Component {
   state = {
       data: null,
