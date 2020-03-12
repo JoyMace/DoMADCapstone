@@ -26,7 +26,6 @@ const userInfo = {
 function UserInfo(props) {
   return (
     <div className="UserInfo">
-<<<<<<< HEAD
 	  <div className='UserInfo-avatar'>{userInfo.avatar}</div>
       <div className="UserInfo-name">{userInfo.name}</div>
 	  <div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
@@ -34,9 +33,7 @@ function UserInfo(props) {
 	  <div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
   	  <div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
 	<div className="row">
-=======
 	<div className="user-info-row">
->>>>>>> master
 		<div className="column">
 			<div className="avatar-column">
 				<div className='UserInfo-avatar'>{userInfo.avatar}</div>
