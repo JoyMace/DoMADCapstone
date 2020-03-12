@@ -1,5 +1,5 @@
 resCode = {
-  report:{
+  profile:{
       success:{
         status:200
       },
@@ -10,11 +10,6 @@ resCode = {
       userNotGiven:{
         status:400,
         message:'No user id was given'
-      }
-  },
-  profileReport:{
-      success:{
-        status:200
       },
       profileNotFound:{
         status:404,

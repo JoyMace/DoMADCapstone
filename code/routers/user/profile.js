@@ -25,8 +25,8 @@ router.get('/profile', (req, res) => {
   } else if ('user' in req) {
     userID = req.user._id;
   } else {
-    return res.status(profileCodes.report.userNotGiven.status).send({
-      message: profileCodes.report.userNotGiven.message});
+    return res.status(profileCodes.profile.userNotGiven.status).send({
+      message: profileCodes.profile.userNotGiven.message});
   }
 
   var userData = [];
@@ -34,8 +34,8 @@ router.get('/profile', (req, res) => {
   User.findById(userID, function(err, user) {
 
     if(err) {
-      return res.status(profileCodes.profileReport.profileNotFound.status).send({
-        message: profileCodes.profileReport.profileNotFound.message
+      return res.status(profileCodes.profile.profileNotFound.status).send({
+        message: profileCodes.profile.profileNotFound.message
       });
     }
     else{
@@ -46,13 +46,13 @@ router.get('/profile', (req, res) => {
       Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {
 
         if(err) {
-          return res.status(profileCodes.profileReport.tripcountNotFound.status).send({
-            message: profileCodes.profileReport.tripcountNotFound.message
+          return res.status(profileCodes.profile.tripcountNotFound.status).send({
+            message: profileCodes.profile.tripcountNotFound.message
           });
         }
         else{
           userData.push({tripsCount: user[0].count});
-          return res.status(profileCodes.profileReport.success.status).send({userData: userData});
+          return res.status(profileCodes.profile.success.status).send({userData: userData});
         }
       });
     }
