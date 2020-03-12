@@ -28,6 +28,7 @@ const tripCodes = require('../../config/resCodes').trip;
     - integrate donation creation
 */
 router.post('/report', function(req, res) {
+	console.log(req.body);
   // TODO: figure out how donations are being passed to backend
   const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
 
@@ -35,7 +36,7 @@ router.post('/report', function(req, res) {
   // checks if user is logged in or external request
   if ('userID' in req.body){
     userID = req.body.userID;
-  } else if ('user' in req) {
+  } else if ('userID' in req) {
     userID = req.user._id;
   } else {
     return res.status(tripCodes.report.userNotGiven.status).send({

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 class Login extends React.Component {
@@ -22,7 +23,7 @@ class Login extends React.Component {
         e.preventDefault();
         this.setState({ submitted: true });
         const { username, password } = this.state;
-        if (username && password) {
+        if (!(username && password)) {
             this.props.login(username, password);
         }
     }
@@ -32,26 +33,32 @@ class Login extends React.Component {
     const { email, password, submitted } = this.state;
     return (
       <div className = "Login">
-        <form className="email" onSubmit={this.handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input name="email" type="text" placeholder="Enter your email" value={email} onChange={this.handleChange}
-          />
-          {submitted && !email &&
-            <div className="help-block">Email is required</div>
-          }
+       <div className = "form-wrapper">
+        <h1 className="title">Log In To DoMAD</h1>
+        <form className="LoginForm" onSubmit={this.handleSubmit}>
+          <div className="email">
+              <label htmlFor="email">Email</label>
+              <input name="email" type="text" placeholder="Enter your email" value={email} onChange={this.handleChange}/>
+              {submitted && !email &&
+                <div className="help-block">Email is required</div>
+            }
+          </div>
 
-          <label htmlFor="password">Password</label>
-          <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}
-          />
-          {submitted && !password &&
-            <div className="help-block">Password is required</div>
+          <div className="password">
+              <label htmlFor="password">Password</label>
+              <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}/>
+              {submitted && !password &&
+                <div className="help-block">Password is required</div>
           }
-
-          <button type="submit">Sign In</button>
-          <p> Don't Have Account? </p>
-          <p> Forgot Password? </p>
-          <p> Need More Help? </p>
+          </div>
+          <div className="signinbutton">
+            <button type="submit">Sign In</button>
+            <ul><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
+            <ul><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
+            <ul><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
+          </div>
         </form>
+       </div>
       </div>
       );
     }

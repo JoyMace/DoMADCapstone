@@ -9,26 +9,44 @@ function About() {
                 <img class="about" src={AboutImage} width="900" alt="Image"/>
             </div>
 
-            <div class="centered1">
-                <div class="header">Our Mission</div>
-            </div>   
+            <header className="about">Our Mission</header>
+
+            <padding className="aboutPad">
+                <padding className="content">
+                </padding>
+            
+            </padding>
+            
+            
+
+            
+            
+  
+            
+             
             
             <div class="centered2">
-                Donations Make a Difference (DoMAD) is an initiative that encourages international travelers to 
-                positively affect the less developed communities they visit by donating needed items.
+                Donations Make a Difference (DoMAD) is a website to inform international travelers
+                about items they can contribute to address local needs in communities they will visit on
+                their travels. This enables travelers to bring from home, or buy locally, needed items
+                and contribute them directly to individuals, to families, schools, hospitals, orphanages,
+                animal shelters and/or to other organizations.
             </div>
             <div class="centered3">
-                International travelers often focus on their own needs rather than those of the communities through which they travel.  
-                Although items like soap, bandages, and mosquito nets are relatively inexpensive for most international travelers, 
-                they are not readily available or affordable to locals in many parts of the world. Recognizing this during our own travels, 
-                we decided to start this initiative to facilitate “giving back” to the places we visit.
+                After traveling, DoMAD users are asked to post what they learned about local needs
+                during their travels. Users are encouraged to rate their experience donating specific
+                items and to recommend new items to help inform future travelers.
+            </div>
+
+            <div class="centered4">
+                As a non-profit organization, DoMAD is dedicated to inspiring and facilitating travelers to
+                give back to the communities they visit, thus improving the quality of life for those less
+                fortunate.
             </div>
 
             <p class="origin">If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
                 destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 
-            </p>
-
-            
+            </p>    
 
             <hr className="about"></hr>
 
