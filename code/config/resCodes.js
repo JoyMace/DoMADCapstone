@@ -1,5 +1,7 @@
 const authCodes = require('./resCodes/user/auth')
 const tripCodes = require('./resCodes/user/trip')
+const profileCodes = require('./resCodes/user/profile')
+
 
 
 /*
@@ -7,7 +9,8 @@ const tripCodes = require('./resCodes/user/trip')
 */
 resObjs = {
   auth: authCodes,
-  trip: tripCodes
+  trip: tripCodes,
+  profile: profileCodes
 }
 
 module.exports = resObjs;
