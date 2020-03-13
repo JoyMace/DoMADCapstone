@@ -6,8 +6,9 @@ const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true }, 
-  email: { type: String, required: true }, 
+  lastName: { type: String, required: true },
+  email: { type: String, required: true },
+  signupDate: { type: Date, default: Date.now },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   hash: String, 

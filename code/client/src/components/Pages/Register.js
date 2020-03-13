@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Register.css';
 
 
@@ -47,7 +48,8 @@ class Register extends React.Component {
         const { user, submitted } = this.state;
         return (
             <div className="Register">
-                <h1 className="createaccount">Create Account</h1>
+              <div className="register-left">
+                <h1 className="title">Create Account</h1>
                 <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="firstname">
                         <label htmlFor="firstName">First Name</label>
@@ -86,9 +88,17 @@ class Register extends React.Component {
                     </div>
                     <div className="createAccount">
                       <button type="submit">Create Account</button>
-                      <small>Already Have an Account?</small>
+                      <small>
+                        <Link to="/login" className="Accountlink">Already Have an Account?</Link>
+                      </small>
                     </div>
                 </form>
+              </div>
+              <div className="register-right-info">
+                  <h2>Register Now – It’s quick & easy!</h2>
+                  <h2>By registering you’ll be able to log your trips, add photos, share your travel experiences, rate your donations and view other traveler blogs.</h2>
+                  <h2>DoMAD will never sell your personal information.</h2>
+              </div>
             </div>
         );
     }

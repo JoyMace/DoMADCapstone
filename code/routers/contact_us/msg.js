@@ -41,7 +41,7 @@ router.post('/contact', function(req, res) {
   });
 
   var mailOptions = {
-    to: email,
+    to: "DOMAD24901@gmail.com",
     from: name,
     subject: 'New message from contact us sent by ' + name,
     text: content

@@ -3,27 +3,52 @@ import ReactDOM from 'react-dom';
 import './Account.css';
 import WorldMapImage from '../../images/WorldMap.png';
 import avatar from '../../images/Avatar.png';
+
+import { FaStar } from 'react-icons/fa';
+import { FaStarHalf } from 'react-icons/fa';
+import { IconContext } from "react-icons";
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import KenyaImage from '../../images/KenyaSavannah.jfif';
+
 
 const userInfo = {
-	avatar: <img src={ avatar } alt="avatar" height='64px'/>,
+	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
 	name: 'Joy Mace',
 	memberSince: '1999',
 	hometown: 'Denver, CO',
 	totalDonations: '105',
-	totalContributions: '99',	
+	totalContributions: '99',
 };
 
 function UserInfo(props) {
   return (
     <div className="UserInfo">
-	  <div className='UserInfo-avatar'>{userInfo.avatar}</div>	 
+	  <div className='UserInfo-avatar'>{userInfo.avatar}</div>
       <div className="UserInfo-name">{userInfo.name}</div>
 	  <div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
   	  <div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
 	  <div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
-  	  <div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>  	   
+  	  <div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
+	<div className="row">
+	<div className="user-info-row">
+		<div className="column">
+			<div className="avatar-column">
+				<div className='UserInfo-avatar'>{userInfo.avatar}</div>
+			</div>
+		</div>
+		<div className="column">
+			<div className="user-info-column">
+				<div className="UserInfo-name">{userInfo.name}</div>
+				<div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
+				<div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
+				<div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
+				<div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
+			</div>
+		</div>
+	</div>
     </div>
   );
 }
@@ -33,13 +58,311 @@ class UserDonationStory extends React.Component {
 		super(props);
 		this.state = {
 			date: '',
-			destination: '',			
+			destination: '',
+			donationRecipient: '',
+			donationItem: '',
+			donationCategory: '',
+			rating: '',
+			description: '',
+			public_private: 'Public',
+			suggestedDonationItem: ""
+		};
+	}
+	accountChangeHandler = (event) => {
+		let nam = event.target.name;
+		let val = event.target.value;
+		console.log(nam, val);
+		this.setState({[nam]: val});
+	}
+	render() {
+		const { post } = this.props
+		return (
+
+		<form action="/api/user/trip/report" method="POST">
+			<ul class="flex-outer">
+				<input id="userID" value="123"/>
+				<li>
+					<label for="date">When did this trip occur?</label>
+					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />
+				</li>
+
+				<li>
+					<label name="destination" className="destination">Where did you go?</label>
+					<input name="destination" type="text" placeholder="Enter city, country" value={this.state.destination} onChange={this.accountChangeHandler}/>
+				</li>
+
+				<li>
+					<label name="donationItem" className="donationItem">What did you donate?</label>
+					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
+				</li>
+				<li>
+					<label name="donationCategory" className="donationCategory"></label>
+					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
+					  <option selected="selected">Select the Donation Category</option>
+					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="Art">Art</option>
+					  <option value="Clothing">Clothing</option>
+					  <option value="Education">Education</option>
+					  <option value="Environment">Environment</option>
+					  <option value="Food">Food</option>
+					  <option value="Health">Health</option>
+					  <option value="Household">Household</option>
+					  <option value="Miscellaneous">Miscellaneous</option>
+					  <option value="Sports">Sports</option>
+					</select>
+				</li>
+				<li>
+					<p>Did you donate to an Individual or Organization?</p>
+						<ul class="flex-inner">
+							<li>
+							<label for="donationRecipient" name="donationRecipient">Individual</label>
+							<input type="checkbox" id="Individual" name="donationRecipient" value={this.state.donationRecipient}/>
+							</li>
+
+							<li>
+							<label for="donationRecipient" name="donationRecipient">Organization</label>
+							<input type="checkbox" id="Organization"/>
+							</li>
+
+						</ul>
+				</li>
+
+				<li>
+					<label name="rating" className="rating">How was the donation received?</label>
+						<div className='star-rating'>
+							<FontAwesomeIcon icon={faStar} />
+							<FontAwesomeIcon icon={faStar} />
+							<FontAwesomeIcon icon={faStar} />
+							<FontAwesomeIcon icon={faStar} />
+							<FontAwesomeIcon icon={faStar} />
+						</div>
+
+				</li>
+
+				<li>
+					<button>Add Item</button>
+
+				</li>
+
+				<li>
+					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
+					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
+				</li>
+				<li>
+					<label name="donationCategory" className="donationCategory"></label>
+					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
+					  <option selected="selected">Select the Donation Category</option>
+					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="Art">Art</option>
+					  <option value="Clothing">Clothing</option>
+					  <option value="Education">Education</option>
+					  <option value="Environment">Environment</option>
+					  <option value="Food">Food</option>
+					  <option value="Health">Health</option>
+					  <option value="Household">Household</option>
+					  <option value="Miscellaneous">Miscellaneous</option>
+					  <option value="Sports">Sports</option>
+					</select>
+				</li>
+				<li>
+					<label name="donationReason" className="donationReason"></label>
+					<input name="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onchange={this.accountChangeHandler}/>
+				</li>
+				<li>
+					<label name="description" className="description" >What else would you like to share?</label>
+					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
+				</li>
+
+				<li>
+					<p>Make Private?</p>
+						<ul class="flex-inner">
+						<li>
+						<label for="private" name="public_private" className="public_private">Private</label>
+						<input type="checkbox" id="private"/>
+						</li>
+						</ul>
+				</li>
+
+				<li>
+					<label name="pictures" className="pictures">Upload Pictures?</label>
+					<input type='file' size="100"/>
+				</li>
+
+				<li>
+					<button type="submit">Submit</button>
+				</li>
+			</ul>
+		</form>
+		);
+	}
+}
+
+const post = {
+	date: UserDonationStory.date,
+	destination: UserDonationStory.destination,
+	donation: UserDonationStory.donationItem,
+	stars: UserDonationStory.rating,
+	description: UserDonationStory.description,
+};
+
+class PostContainer extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = { post }
+	}
+	render() {
+		return <Post post={this.state.post} />
+	}
+
+	componentDidMount() {
+		fetch("/api/user/trip/user-trips")
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  this.setState({
+				isLoaded: true,
+				items: result.items
+			  });
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			(error) => {
+			  this.setState({
+				isLoaded: true,
+				error
+			  });
+			}
+		  )
+	  }
+
+}
+
+
+function Post(props) {
+	return (
+	<div className="Post">
+
+		<div className="post-top-row">
+
+			<div className="post-destination-column">
+				<div className="Post-destination">Kenya {post.destination}</div>
+			</div>
+
+			<div className="post-date-column">
+				<div className="Post-date"> 2/20/2020 {post.date}</div>
+			</div>
+
+		</div>
+		<div className="post-middle-row">
+			<div className="Post-image">
+			<img src={ KenyaImage } alt="Kenya Savannah" height='175px'/>
+			</div>
+		</div>
+		<br></br>
+		<div className="post-description-row">
+			Lorem ipsum dolor sit amet,
+			consectetur adipiscing elit, sed do eiusmod tempor incididunt
+			ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip
+		</div>
+		<br></br>
+			<div className="Post-donation-row"> Items Donated:  {post.donation}</div>
+		<br></br>
+
+			<div className="Post-stars"> Donation rating: {post.stars}
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+				<FontAwesomeIcon icon={faStar} />
+			</div>
+		<br></br>
+		<div className="Post-donation-row"> Suggested Donations:  {post.donation}</div>
+		<br></br>
+	</div>
+  );
+}
+
+function Account(props) {
+  return (
+	<div className="Account">
+		<div className='main-top-row'>
+			<div className='left-column'>
+				<div className='user-info-container'>
+					<UserInfo/>
+				</div>
+					<br></br>
+				<div className="map-image">
+					<h1>Your Travel Map</h1>
+					<img src={ WorldMapImage } alt="World Map" />
+					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+				</div>
+
+			</div>
+			<div className='right-column'>
+				  <div className='container'>
+					<h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
+						Share your recent DoMAD travel story!
+					</h3>
+					<UserDonationStory />
+				  </div>
+			</div>
+		</div>
+		<h1> Your Trips </h1>
+		<div className="main-bottom-row">
+
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+			<div className='post-container'>
+				<Post/>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	);
+
+}
+
+
+const userInfo = {
+	avatar: <img src={ avatar } alt="avatar" height='64px'/>,
+	name: 'Joy Mace',
+	memberSince: '1999',
+	hometown: 'Denver, CO',
+	totalDonations: '105',
+	totalContributions: '99',
+};
+
+
+class UserDonationStory extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			destination: '',
+			date: '',
 			donationRecipient: 'Individual',
 			donationItem: 'None',
 			rating: '',
 			description: '',
-			public_private: 'Public',			
-			
+			public_private: 'Public',
+
 		};
 	}
 	accountChangeHandler = (event) => {
@@ -50,165 +373,61 @@ class UserDonationStory extends React.Component {
 	render() {
 		const { post } = this.props
 		return (
-		
-		<form action="/api/user/trip/report" method="POST">
-			<ul class="flex-outer">
-				<li>
-					<label for="date">When did this trip occur?</label>
-					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />	
-				</li>
-				
-				<li>
-					<label name="location" className="location">Where did you go?</label>
-					<input name="location" type="text" placeholder="Enter city, country" value={this.state.location} onchange={this.accountChangeHandler}/>
-				</li>
-				
-				<li>
-					<label name="donationItem" className="donationItem">What did you donate?</label>
-					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item"/>
-				</li>
-				<li>
-					<label name="donationCategory" className="donationCategory"></label>
-					<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
-					  <option selected="selected">Select the Donation Category</option>
-					  <option value="Medical">Medical</option>
-					  <option value="Education">Education</option>
-					  <option value="WaterPurification">Water Purification</option>
-					</select>
-				</li>
-				<li>
-					<p>Did you donate to an Individual or Organization?</p>
-						<ul class="flex-inner">
-							<li>
-							<label for="donationRecipient" name="donationRecipient">Individual</label>
-							<input type="checkbox" id="Individual" name="donationRecipient" value={this.state.donationRecipient}/>
-							
-							</li>
-							<li>
-							<label for="donationRecipient" name="donationRecipient">Organization</label>
-							<input type="checkbox" id="ORganization"/>
-							
-							</li>
-						
-						</ul>
-				</li>
-					
-				<li>	
-					<label name="rating" className="rating">How was the donation received?</label>
-						<div className='star-rating'>
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-						</div>
-					
-				</li>
-				
-				<li>
-					<label name="donationItem" className="donationItem">Suggest Future Donation Item?</label>
-					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item"/>
-				</li>
-				<li>
-					<label name="donationCategory" className="donationCategory"></label>
-					<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
-					  <option selected="selected">Select the Donation Category</option>
-					  <option value="Medical">Medical</option>
-					  <option value="Education">Education</option>
-					  <option value="WaterPurification">Water Purification</option>
-					</select>
-				</li>
-				<li>
-					<label name="donationReason" className="donationReason"></label>
-					<input name="location" type="text" placeholder="Enter Reason for Future Donation" value={this.state.location} onchange={this.accountChangeHandler}/>
-				</li>
-				<li>
-					<label name="description" className="description" >What else would you like to share?</label>
-					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
-				</li>
-				
-				<li>
-					<p>Make Private?</p>
-						<ul class="flex-inner">
-						<li>
-						<label for="private" name="public_private" className="public_private">Private</label>
-						<input type="checkbox" id="private"/>
-						</li>
-						</ul>
-				</li>
-				
-				<li>
-					<label name="pictures" className="pictures">Upload Pictures?</label>
-					<input type='file' size="100"/>
-				</li>
-			
-				<li>
-					<button type="submit">Submit</button>
-				</li>
-			</ul>			
+
+		<form>
+			<p>Where did you go?</p>
+			<input type="text" />
+			<p>When did this trip occur?</p>
+			<input name='date' type="date" onChange={this.accountChangeHandler} />
+			<p>Did you donate to an Organization or to an individual?</p>
+			<select name= 'donationRecipient' value={this.state.donationRecipient} onChange={this.accountChangeHandler}>
+			  <option value="Individual">Individual</option>
+			  <option value="Organization">Organization</option>
+			  <option value="Both">Both</option>
+			</select>
+			<p>What did you donate?</p>
+			<select name='donationItem' value={this.state.donationItem} onChange={this.accountChangeHandler}>
+			  <option value="Tarp">Tarp</option>
+			  <option value="Medical Supplies">Medical Supplies</option>
+			  <option value="Toothbrush">Toothbrush</option>
+			  <option value="Solar Light">Solar Light</option>
+			  <option value="Supplements">Supplements</option>
+			  <option value="Books">Books</option>
+			  <option value="Toiletries">Toiletries</option>
+			  <option value="Water Purification">Water Purification</option>
+			</select>
+			<p>How was the donation received?</p>
+			  <IconContext.Provider name='rating' value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }} onChange={this.accountChangeHandler}>
+
+                 Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf />
+
+              </IconContext.Provider>
+			<p>What else would you like to share?</p>
+			<input name='description' type="text" onChange={this.accountChangeHandler} />
+			<p>Make private?</p>
+			<select name='public_private' value={this.state.public_private} onChange={this.accountChangeHandler}>
+			  <option value="Private">Private</option>
+			  <option value="Public">Public</option>
+			</select>
+			<p>Upload Pictures?</p>
+			<input type='file' />
+			<p><button className="SubmitButton">Submit</button></p>
 		</form>
-		);
+			);
 	}
 }
-
 const post = {
-	date: UserDonationStory.date, 
+	date: UserDonationStory.date,
 	destination: UserDonationStory.destination,
 	donation: UserDonationStory.donationItem,
 	stars: UserDonationStory.rating,
 	description: UserDonationStory.description,
 };
 
-function Post(props) {
-	return (
-	<div className="Post"> 
-	  <div className="Post-date"> Date: {post.date}</div>
-	  <div className="Post-destination"> Destination: {post.destination}</div>
-	  <div className="Post-donation"> Items Donated:  {post.donation}</div>
-	  <div className="Post-stars"> Donation rating: {post.stars}</div>
-	  <div className="Post-description">Travel Story: {post.description}</div>
-	  
-	</div>
-  );
-}
-
-function Account(props) {
-  return (
-	<div className='row'>
-		<div className='column'>
-		<div className='left-column'>
-		  <div className="Account">
-			<UserInfo/>
-			  <div className="map-image">
-				<h1>Your Travel Map</h1>
-				<img src={ WorldMapImage } alt="World Map" />
-					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
-
-			  </div>
-			  <h1> Your Trips </h1>
-				<Post/>
-			  
-		  </div>
-		</div>
-	  </div>
-	<div className='column'>
-      <div className='right-column'>	  
-			  <div className='container'>
-			  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>Share your recent DoMAD travel story!</h3>
-			  <UserDonationStory />
-			  </div>
-
-      </div>
-    </div>
-	</div>
-
-    
-  );
-}
 
 
- 
-  
+
+
 ReactDOM.render(
   <Account  />,
   document.getElementById('root')
