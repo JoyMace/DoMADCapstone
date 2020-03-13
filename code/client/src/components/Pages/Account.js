@@ -67,7 +67,7 @@ class UserDonationStory extends React.Component {
 		
 		<form action="/api/user/trip/report" method="POST">
 			<ul class="flex-outer">
-				<input name="userID" value="123"/>
+				<input name="userID" value="123" type="hidden"/>
 				<li>
 					<label for="date">When did this trip occur?</label>
 					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />	
