@@ -39,6 +39,7 @@ app.use(passport.session());
 app.use('/api/user/auth', require('./routers/user/auth'));
 app.use('/api/user/trip', require('./routers/user/trip'));
 app.use('/api/user/reset', require('./routers/user/reset'));
+app.use('/api/user/profile', require('./routers/user/profile'));
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
 
 app.listen(port, function (){
