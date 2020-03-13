@@ -29,7 +29,7 @@ import IndividualBlogs from './components/Pages/IndividualBlogs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
-import ReactDOM from 'react-dom'; 
+import ReactDOM from 'react-dom';
 
 
 class App extends Component {
@@ -88,7 +88,7 @@ class App extends Component {
       // The 'Switch' renders the component for the first matching path
           // If path is "/" ==> Home page
           // Else ==> NavBar, SideDrawer, {backdrop}??
-          // If path is "/" ==> Home page 
+          // If path is "/" ==> Home page
           // Else ==> NavBar, SideDrawer, {backdrop}
       <Router>
         <div style={{height: '100%'}}>

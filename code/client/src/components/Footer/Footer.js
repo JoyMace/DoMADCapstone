@@ -11,7 +11,7 @@ const Footer = () => {
                 <div className='wrapper-column'>
                     <ul className='foot-items'>
                         <li><Link to="/search_locations">Explore</Link></li>
-                        <li><Link to="/faq">FAQ</Link></li>
+                        <li><Link to="/how_it_works">How It Works</Link></li>
                         <li><Link to="/about">About Us</Link></li>
                     </ul>
                 </div>
@@ -21,7 +21,7 @@ const Footer = () => {
                 <div className="wrapper-column">
                     <ul className='foot-items'>
                         <li><Link to="/contact">Contact Us</Link></li>
-                        <li><Link to="/blogs">Blogs</Link></li>
+                        <li><Link to="/faq">FAQ</Link></li>
                         <li><Link to="/disclaimer">Disclaimer</Link></li>
                     </ul>
                 </div>

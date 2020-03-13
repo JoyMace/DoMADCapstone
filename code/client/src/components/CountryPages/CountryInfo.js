@@ -19,10 +19,10 @@ const CountryInfo = props => (
             <div className="info-column">
                 <div className="info-row">Languages</div>
                 <div className="info-row">Population</div>
+                <div className="info-row">Human Development Index (HDI)</div>
                 <div className="info-row">% Pop Below Poverty Level</div>
                 <div className="info-row">% Pop in Urban Areas</div>
                 <div className="info-row">% Pop in Rural Areas</div>
-                <div className="info-row">Human Development Index (HDI)</div>
                 <div className="info-row">Air Quality</div>
                 <div className="info-row">Access to Clean Water</div>
                 <div className="info-row">Access to Electricity</div>
@@ -30,10 +30,10 @@ const CountryInfo = props => (
             <div className="info-results-column">
                 <div className="info-results-row">Languages Info</div>
                 <div className="info-results-row">Population Info</div>
+                <div className="info-results-row">Human Development Index (HDI) Info</div>
                 <div className="info-results-row">% Pop Below Poverty Level Info</div>
                 <div className="info-results-row">% Pop in Urban Areas Info</div>
                 <div className="info-results-row">% Pop in Rural Areas Info</div>
-                <div className="info-results-row">Human Development Index (HDI) Info</div>
                 <div className="info-results-row">Air Quality Info</div>
                 <div className="info-results-row">Access to Clean Water</div>
                 <div className="info-results-row">Access to Electricity</div>
