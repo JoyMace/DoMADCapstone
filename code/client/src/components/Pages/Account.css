@@ -1,7 +1,6 @@
 .Account {
 	
 }
-
 .Post {
 	
 	
@@ -240,18 +239,15 @@
 	flex: 2;
 }
 
-.map-image {
-	
-    
+
+.leaflet-container {
+
+	width: 100%;
+	height: 400px;
 }
 
-.map-image img {
-	
-	border-radius: 5px;
-	text-align: left;
-	font-size: xx-large;
-    width: 600px;
-	height: 400px;	
+.map-image {
+    	
 }
 
 .user-info-row {
