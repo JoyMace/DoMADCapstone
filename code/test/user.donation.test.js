@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const sandbox = sinon.createSandbox();
 
 const donationCodes = require('../config/resCodes/user/donation');
-const testVar = require('../config/testVar'); // generic test donation
+const testVar = require('../config/testVar');
 const Donation = require('../models/donation');
 
 const donationFunctions = require('../routers/user/donation');
@@ -17,10 +17,8 @@ describe('Donation functions', function() {
     before(function(done) {
       var fakeDonation = new Donation(testVar.donationInformation);
       var mongooseSaveStub = sandbox.stub(Donation.prototype, 'save');
-      //successful
       mongooseSaveStub.yields(null, fakeDonation);
-      //mongoose save fail
-      mongooseSaveStub.onCall(1).yields(true, fakeDonation); //not sure if on a failed save mongoose returns the donation to the callback function or if it does undefined.
+      mongooseSaveStub.onCall(1).yields(true, fakeDonation); 
       done();
     });
 
@@ -30,7 +28,6 @@ describe('Donation functions', function() {
         message = res.message;
         expect(statusCode).to.equal(donationCodes.report.success.status);
         expect(message).to.equal(donationCodes.report.success.message);
-        // expect(donation._id).to.equal(testVar.donationInformation._id);
       });
 
       done();
@@ -42,8 +39,6 @@ describe('Donation functions', function() {
         message = res.message;
         expect(statusCode).to.equal(donationCodes.report.addDonationFail.status);
         expect(message).to.equal(donationCodes.report.addDonationFail.message);
-        // cant really check the donation is right, since we are creating a new donation, with a new id.
-        // expect(donation._id).to.equal(testVar.donationInformation._id);  
       });
 
       done();
@@ -62,13 +57,8 @@ describe('Donation functions', function() {
     before(function(done) {
       var fakeDonation = new Donation(testVar.donationInformation);
       var mongooseDeleteStub = sandbox.stub(mongoose.Model, 'findOneAndDelete');
-      //successful
       mongooseDeleteStub.yields(null, fakeDonation);
-      
-      //mongoose find fail
       mongooseDeleteStub.onCall(1).yields(true, null);
-
-      //mongoose delete fail
       mongooseDeleteStub.onCall(2).yields(true, fakeDonation);
       done();
     });
@@ -79,7 +69,6 @@ describe('Donation functions', function() {
         message = res.message;
         expect(statusCode).to.equal(donationCodes.deleteDonation.success.status);
         expect(message).to.equal(donationCodes.deleteDonation.success.message);
-        // expect(donation._id).to.equal(testVar.donationInformation._id);
       });
 
       done();

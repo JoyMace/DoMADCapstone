@@ -20,25 +20,21 @@ const donationCodes = require('../../config/resCodes').donation;
 */
 
 
-function createDonation(donationInformation, tripID, done) { //change this to a normal js function and find a way to export and import into trip.js
-	//FUNCTION ASSUMES complete donation json including all possible attributes of a donation.
-
+function createDonation(donationInformation, tripID, done) {
 	const newDo = new Donation(donationInformation);
 	newDo.tripID = tripID;
-
 	newDo.save(function(err, donation) {
 		if (err) {
-			//send json error message, normally we would do this with res, but since this is an internal function just make json manuall
 			done(err, donation, donationCodes.report.addDonationFail);
 		} else {
 			done(err, donation, donationCodes.report.success);
 		}
-	}); //this will return nothing, since it will execute the callback function.
+	});
+	return
 }
 
 function deleteDonation(donationID, done) {
-	//given donationID, find the donation and delete it.
-	Donation.findOneAndDelete({_id: donationID}, function(err, donation) { //will not return donation if no document has been found
+	Donation.findOneAndDelete({_id: donationID}, function(err, donation) {
 		if(err){
 			if(donation){ //if donation isn't undefined, then that means the deletion failed
 				done(err, donation, donationCodes.deleteDonation.deleteDonationFail);
@@ -48,7 +44,8 @@ function deleteDonation(donationID, done) {
 		} else {
 			done(err, donation, donationCodes.deleteDonation.success);
 		}
-	})
+	});
+	return
 }
 
 module.exports = {'createDonation': createDonation, 'deleteDonation': deleteDonation};

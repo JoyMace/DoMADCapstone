@@ -7,17 +7,17 @@ const Location = require('./location');
 const LocationSchema = mongoose.model('Location').schema;
 
 const donationSchema = new mongoose.Schema({
-    itemName: {type: String, required: true},
-    rating: {type: Number, required: true},
-    locationID: {type: LocationSchema, required: true},
-    tripID: {type:String, required:true},
-    category: {type:String, enum:['Health', 'Household', 'Clothing', 'Education', 'Art', 'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food']},  
-    donationDateTime: Date,
-    reportingDateTime: {type: Date, default: Date.now},
-    itemDescr: String,
-    pictures: String, //String for now, maybe use gridfs?
-    organization: Boolean, //could there be a better way to do this?
-    suggestion: Boolean //could there be a better way to do this?
+  itemName: {type: String, required: true},
+  rating: {type: Number, required: true},
+  locationID: {type: LocationSchema, required: true},
+  tripID: {type:String, required:true},
+  category: {type:String, enum:['Health', 'Household', 'Clothing', 'Education', 'Art', 'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food']},  
+  donationDateTime: Date,
+  reportingDateTime: {type: Date, default: Date.now},
+  itemDescr: String,
+  pictures: String, //String for now, maybe use gridfs?
+  organization: Boolean, //could there be a better way to do this?
+  suggestion: Boolean //could there be a better way to do this?
 });
 
 const donation = mongoose.model('Donation', donationSchema);
