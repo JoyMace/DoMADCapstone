@@ -1,4 +1,20 @@
 .disclaimer {
-    margin-top: 64px;
     text-align: center;
+    width: 60%;
+    margin: auto;
+    padding-top: 75px;
+    padding-bottom: 40px;
+}
+
+.disclaimer-header {
+    margin-bottom: 1%;
+}
+
+.disclaimer-paragraphs {
+    padding-bottom: 10px;
+}
+
+.contact-us-link {
+    text-decoration: underline;
+    color: blue;
 }
