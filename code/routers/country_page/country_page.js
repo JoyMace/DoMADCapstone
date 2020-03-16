@@ -11,15 +11,28 @@ const Country = require('../../models/country');
 // - Where is the data? Needs to be updated.
 // - Are we inserting the country data thorough and API? Make an api to post/insert
 //   country data into database.
-// - Populate info to database 
+// - Populate info to database
 
 /*
   Insert country info api:
   Inserts the country information into the country database schema
+  This is just a temporary post api to insert data into the country model
 */
 
 
+router.post('/insert_country_info', (req, res) => {
 
+  var userID;
+  // checks if user is logged in or external request
+  if ('userID' in req.body){
+    userID = req.body.userID;
+  } else if ('user' in req) {
+    userID = req.user._id;
+  } else {
+    return res.status(profileCodes.country.userNotGiven.status).send({
+      message: profileCodes.country.userNotGiven.message});
+  }
+}
 /*
   Country info api:
 
