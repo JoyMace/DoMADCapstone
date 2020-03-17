@@ -6,7 +6,7 @@ function About() {
     return (
         <div className="about">
             <div class="tinted" >
-                <img class="about" src={AboutImage} width="900" alt="Image"/>
+                <img class="about" src={AboutImage} width="900" alt="person in peru"/>
             </div>
 
             <header className="about">Our Mission</header>

@@ -2,5 +2,51 @@
     display: flex;
     flex-direction: row;
     padding-bottom: 50px;
-    height: 100vh;
+    height: 80vh;
+}
+
+.organizations-column1 {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin-left: 1%;
+    margin-right: 1%;
+    align-content: center;
+}
+
+.map_image {
+    border-radius: 10px;
+    border: 1px solid #363D48;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.below-map-row {
+    width: 90%;
+}
+
+.shareaccountlink {
+    color: blue;
+    text-decoration: underline;
+}
+
+.organization-links {
+    color: blue;
+    text-decoration: underline;
+    padding: 1%;
+}
+
+.organizations-column2 {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin-right: 2%;
+    border: 1px solid #363D48;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.country-organizations-header {
+    padding-top: 10px;
+    text-align: center;
 }

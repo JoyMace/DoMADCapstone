@@ -1,4 +1,71 @@
 .contact {
-    margin-top: 64px;
     text-align: center;
+    margin-top: 65px;
+    margin-bottom: 40px;
+}
+
+.contact-style {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.contact-us-header {
+    padding: 15px;
+}
+
+.contact-form-container {
+    background-color: #363D48;
+    width: 40%;
+    color: white;
+    padding: 35px;
+    border-radius: 15px;
+}
+
+.first-last-name-contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.first-name-contact {
+    text-align: left;
+    width: 47%;
+}
+
+.email-contact {
+    text-align: left;
+}
+
+.last-name-contact {
+    text-align: left;
+    width: 47%;
+}
+
+.input-contact {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.feedback-contact {
+    text-align: left;
+}
+
+.feedback-box-contact {
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.submit-contact-button {
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color: #428FBE;
+    width: 40%;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: white;
+    font-size: 1.2em;
 }
