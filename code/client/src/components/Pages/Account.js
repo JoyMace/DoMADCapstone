@@ -27,8 +27,7 @@ class TravelMap extends React.Component {
 		<Map center={position} zoom={this.state.zoom}>
 		  <TileLayer
 			attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
-			tms='true'
+			url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'			
 		  />
 		  <Marker position={position}>
 			<Popup>
@@ -467,22 +466,22 @@ class UserDonationStory extends React.Component {
 	}
 }
 
-const post = {
-	date: UserDonationStory.date,
-	city: UserDonationStory.city,
-	country: UserDonationStory.country,
-	donationItem: UserDonationStory.donationItem,
-	rating: UserDonationStory.rating,
-	description: UserDonationStory.description,
-};
+
 
 class PostContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = { post }
+		this.state = { 
+			date: "",
+			city: "",
+			country: "",
+			donationItem: "",
+			rating: "",
+			description: "",
+		 }
 	}
 	render() {
-		return <Post post={this.state.post} />
+		return <Post post={this.state} />
 	}
 
 	componentDidMount() {
@@ -517,11 +516,11 @@ function Post(props) {
 		<div className="post-top-row">
 
 			<div className="post-destination-column">
-				<div className="Post-destination">Kenya {post.destination}</div>
+				<div className="Post-destination">Kenya {PostContainer.destination}</div>
 			</div>
 
 			<div className="post-date-column">
-				<div className="Post-date"> 2/20/2020 {post.date}</div>
+				<div className="Post-date"> 2/20/2020 {PostContainer.date}</div>
 			</div>
 
 		</div>
@@ -538,10 +537,10 @@ function Post(props) {
 			quis nostrud exercitation ullamco laboris nisi ut aliquip
 		</div>
 		<br></br>
-			<div className="Post-donation-row"> Items Donated:  {post.donation}</div>
+			<div className="Post-donation-row"> Items Donated:  {PostContainer.donation}</div>
 		<br></br>
 
-			<div className="Post-stars"> Donation rating: {post.stars}
+			<div className="Post-stars"> Donation rating: {PostContainer.stars}
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />
@@ -549,7 +548,7 @@ function Post(props) {
 				<FontAwesomeIcon icon={faStar} />
 			</div>
 		<br></br>
-		<div className="Post-donation-row"> Suggested Donations:  {post.donation}</div>
+		<div className="Post-donation-row"> Suggested Donations:  {PostContainer.donation}</div>
 		<br></br>
 	</div>
   );
