@@ -1,0 +1,20 @@
+{
+  "name": "domadcapstone",
+  "version": "1.0.0",
+  "description": "New Repo for DoMAD Capstone 2019/2020 ## Who are we?",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "cd code && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoyMace/DoMADCapstone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoyMace/DoMADCapstone/issues"
+  },
+  "homepage": "https://github.com/JoyMace/DoMADCapstone#readme"
+}
