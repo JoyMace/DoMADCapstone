@@ -4,8 +4,9 @@
   "description": "New Repo for DoMAD Capstone 2019/2020 ## Who are we?",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd code && npm install",
-    "start": "cd code && npm start",
+    "postinstall": "(cd code && npm install) && (cd code && cd client && npm install)",
+    "build": "cd code && cd client && npm run build",
+    "start": "concurrently \"cd code && npm start\" \"cd code && cd client && PORT=3000 npm start\"",
     "heroku-postbuild": "cd code && cd client && npm install && npm run build && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
