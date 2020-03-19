@@ -25,9 +25,9 @@ function createDonation(donationInformation, tripID, done) {
 	newDo.tripID = tripID;
 	newDo.save(function(err, donation) {
 		if (err) {
-			done(err, donation, donationCodes.report.addDonationFail);
+			done(err, donation, donationCodes.saveDonation.addDonationFail);
 		} else {
-			done(err, donation, donationCodes.report.success);
+			done(err, donation, donationCodes.saveDonation.success);
 		}
 	});
 	return
@@ -47,5 +47,6 @@ function deleteDonation(donationID, done) {
 	});
 	return
 }
+
 
 module.exports = {'createDonation': createDonation, 'deleteDonation': deleteDonation};

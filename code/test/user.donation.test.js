@@ -26,8 +26,8 @@ describe('Donation functions', function() {
       donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, donation, res){
         statusCode = res.status;
         message = res.message;
-        expect(statusCode).to.equal(donationCodes.report.success.status);
-        expect(message).to.equal(donationCodes.report.success.message);
+        expect(statusCode).to.equal(donationCodes.saveDonation.success.status);
+        expect(message).to.equal(donationCodes.saveDonation.success.message);
       });
 
       done();
@@ -37,8 +37,8 @@ describe('Donation functions', function() {
       donationFunctions.createDonation(testVar.donationInformation, testVar.tripInfo._id, function(err, donation, res){
         statusCode = res.status;
         message = res.message;
-        expect(statusCode).to.equal(donationCodes.report.addDonationFail.status);
-        expect(message).to.equal(donationCodes.report.addDonationFail.message);
+        expect(statusCode).to.equal(donationCodes.saveDonation.addDonationFail.status);
+        expect(message).to.equal(donationCodes.saveDonation.addDonationFail.message);
       });
 
       done();

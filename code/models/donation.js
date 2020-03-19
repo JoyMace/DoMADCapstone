@@ -6,12 +6,15 @@ const mongoose = require('mongoose');
 const Location = require('./location');
 const LocationSchema = mongoose.model('Location').schema;
 
+const donationCategories = ['Health', 'Household', 'Clothing', 'Education', 'Art', 
+  'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food'];
+
 const donationSchema = new mongoose.Schema({
   itemName: {type: String, required: true},
   rating: {type: Number, required: true},
   locationID: {type: LocationSchema, required: true},
-  tripID: {type:String, required:true},
-  category: {type:String, enum:['Health', 'Household', 'Clothing', 'Education', 'Art', 'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food']},  
+  tripID: {type: String, required:true},
+  category: {type: String, enum: donationCategories},  
   donationDateTime: Date,
   reportingDateTime: {type: Date, default: Date.now},
   itemDescr: String,
