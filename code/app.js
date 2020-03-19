@@ -5,7 +5,7 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const path = require('path');
 
-const port = 5000
+const port = process.env.PORT || 5000
 
 // express setup
 const app = express();
