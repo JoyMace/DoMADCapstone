@@ -9,7 +9,7 @@ import BlogPostsComponent from '../CountryPages/BlogPosts';
 import countryflag from '../../images/peruflag.png';
 
 const TabComponent = props => (
-    <Tabs>
+    <Tabs defaultIndex={2}>
         <div className="tabs-component">
             <div className="category-tabs">
                 <TabList>
@@ -20,7 +20,7 @@ const TabComponent = props => (
                         <Tab disabled className="country-name-block">
                             <h3 className="country-name-text">Country Name</h3>
                         </Tab>
-                        <Tab className="regular-tabs">Country Info</Tab>
+                        <Tab default className="regular-tabs">Country Info</Tab>
                         <Tab className="regular-tabs">Donation Items</Tab>
                         <Tab className="regular-tabs">Organizations</Tab>
                         <Tab className="regular-tabs">Blog Posts</Tab>

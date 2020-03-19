@@ -11,7 +11,7 @@
 }
 
 .spacer {
-    width: 500px;
+    width: 30vw;
 }
 
 .navbar_navigation {
@@ -125,7 +125,7 @@
     display: block;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 725px) {
     .navbar_navigation_items {
         display: none;
     }
