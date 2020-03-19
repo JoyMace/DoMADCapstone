@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "cd code && npm install",
     "start": "cd code && npm start",
+    "heroku-postbuild": "cd code && cd client && npm install && npm run build && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

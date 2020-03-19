@@ -42,7 +42,7 @@ app.use('/api/user/reset', require('./routers/user/reset'));
 app.use('/api/user/profile', require('./routers/user/profile'));
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
 
-app.listen(process.env.PORT || port, function (){
+app.listen(port, function (){
   console.log(`Example app listening on port ${port}!`);
 });
 
