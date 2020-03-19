@@ -1,5 +1,5 @@
 resCode = {
-  report:{
+  saveDonation:{
     success:{
       status:201,
       message:'Donation added successfully'
