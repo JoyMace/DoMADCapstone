@@ -7,7 +7,7 @@
     "postinstall": "(cd code && npm install) && (cd code && cd client && npm install)",
     "build": "cd code && cd client && npm run build",
     "start": "concurrently \"cd code && npm start\" \"cd code && cd client && PORT=3000 npm start\"",
-    "heroku-postbuild": "cd code && cd client && npm install && npm run build && npm start",
+    "ttheroku-postbuild": "cd code && cd client && npm install && npm run build && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
