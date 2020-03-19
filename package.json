@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/JoyMace/DoMADCapstone/issues"
   },
-  "homepage": "https://github.com/JoyMace/DoMADCapstone#readme"
+  "homepage": "https://github.com/JoyMace/DoMADCapstone#readme",
+  "dependencies": {
+    "mongodb": "^3.5.5"
+  }
 }

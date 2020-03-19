@@ -13,15 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // connect to mongodb
-mongoose_input = {
+mongooseInput = {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }
-mongoose.connect('mongodb://localhost/domad', mongoose_input);
+const connectionString = 'mongodb+srv://Thomas:D0MAD123@domad-hbe1i.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(connectionString, mongooseInput);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('connected', function() {
   console.log('Mongoose connected!');
 });
 
