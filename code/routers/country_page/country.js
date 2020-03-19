@@ -33,8 +33,8 @@ router.post('/insert_country_info', (req, res) => {
   } else if ('user' in req) {
     userID = req.user._id;
   } else {
-    return res.status(profileCodes.insertCountry.userNotGiven.status).send({
-      message: profileCodes.insertCountry.userNotGiven.message});
+    return res.status(countryCodes.insertCountry.userNotGiven.status).send({
+      message: countryCodes.insertCountry.userNotGiven.message});
   }
 
 
@@ -73,8 +73,10 @@ router.get('/get_country_info', (req, res) => {
   var country_info_data = [];
 
   name = req.body.name;
+  
+  var query = { name: name };
 
-  Country.findById(name, function(err, country) {
+  Country.find(query, function(err, country) {
 
     if(err) {
       return res.status(countryCodes.countryInfo.countryNotFound.status).send({
@@ -82,8 +84,8 @@ router.get('/get_country_info', (req, res) => {
       });
     }
     else{
-      country_info_data.push({countryName: country.name, abbreviation: country.abbreviation,
-            generalInformation: country.generalInformation, statistics: country.statistics});
+      country_info_data.push({countryName: country[0].name, abbreviation: country[0].abbreviation,
+            generalInformation: country[0].generalInformation, statistics: country[0].statistics});
       return res.status(countryCodes.countryInfo.success.status).send({country_info_data: country_info_data});
     }
 
