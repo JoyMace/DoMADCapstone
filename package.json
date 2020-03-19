@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/JoyMace/DoMADCapstone#readme",
   "dependencies": {
+    "concurrently": "^5.1.0",
     "mongodb": "^3.5.5"
   }
 }
