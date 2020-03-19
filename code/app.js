@@ -14,8 +14,7 @@ app.use(express.json());
 
 // connect to mongodb
 mongooseInput = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+  useNewUrlParser: true
 }
 const connectionString = 'mongodb+srv://Thomas:D0MAD123@domad-hbe1i.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(connectionString, mongooseInput);
