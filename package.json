@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "cd code && cd client && npm install",
-    "start": "cd code && cd client && npm start",
-    "build": "cd code && cd client && npm run build",
+    "start": "cd code && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
