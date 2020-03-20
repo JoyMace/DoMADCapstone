@@ -1,25 +1,6 @@
 #tabs-component {
     display: flex;
     width: 100vw;
-}
-
-.regular-tabs {
-    height: 40px;
-    display: inline-block;
-    border-bottom: none;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin: auto;
-    background-color: gray;
-    color: white;
-    border-radius: 5px;
-}
-
-.country-flag-block {
-    width: 160px;
-    overflow: hidden;
     margin-right: 1%;
     margin-left: 1%;
 }
@@ -93,55 +74,3 @@
       display: block;
     }
     /*=== END -- <TabList> styling ===*/
-
-/* ??????? */
-.tablink {
-    background-color: #555;
-    color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
-    width: 25%;
-}
-<<<<<<< HEAD
-=======
-
-/* Change background color of buttons on hover */
-.tablink:hover {
-    background-color: #777;
-}
-
-/* Set default styles for tab content */
-.tabcontent {
-    color: white;
-    display: none;
-    text-align: center;
-}
-  
-  .react-tabs__tab {
-    display: inline-block;
-    border-bottom: none;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
-  .react-tabs__tab--disabled {
-    color: white;
-  }
-  
-  .react-tabs__tab--selected {
-    background-color: #010925;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1em;
-  }
-  
-  .react-tabs__tab-panel {
-    display: none;
-  }
->>>>>>> 0c592a21dea525da50b68656f689344135fd0013
-  
