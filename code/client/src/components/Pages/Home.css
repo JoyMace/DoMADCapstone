@@ -20,40 +20,42 @@
     min-height: 175px;
     min-width: 650px; max-width: 100%;
     opacity: 0.8;
-    z-index: 0; /* stack order (last) */
+    z-index: 0; /* stack order = 1st */
 }
 
 
 /*===== StickyNavbar Basic Styling =====*/
-    /*-- We need a wrapper AND container so it
-    can be BOTH a fixed AND a sticky flexbox --*/
+    /*-- Uses a wrapper AND a container to 
+    allow for a both FIXED & STICKY flexbox --*/
+
 #navbar-wrapper {
-    position: fixed; /* Render fixed initially */
+    position: fixed; /* initially */
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    min-height: 42px;
-    max-height: 80px;
-    z-index: 4; /* Stacking order (2nd before DD content) */
-    transition: all 0.5s; /* unstick navbar */
+    min-height: 42px; max-height: 80px;
+    z-index: 5; /* stack order = 3rd, after logo block */
+    transition: all 0.5s; 
 }
 
 /* Navbar Master */
 #nav-container {
-    position: sticky; /* Fixed at any scroll position */
+    position: sticky;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     list-style-type: none;
-    overflow: visible; /* crucial! */
+    overflow: visible;
+    transition: all 0.4s;
+    padding: 0 5% 0 2%;
     /* Utility for navbar sticky effect */
     top: -1px;
     padding-top: calc(1em + 1px);
-    transition: all 0.4s;
+    
 }
 
-    /* Dropdown grouping container */
+    /* Dropdown group's container */
     #nav-container .dropdown { 
         display: inline-block;
         position: sticky;
@@ -64,29 +66,15 @@
         /* Dropdown headers */
         .DD-btn {
             font-size: 1.3em;
-        }      
-            /* Hovering any DD item => border on header */
-            #nav-container .dropdown:hover .DD-btn {
-                transition: ease-in 0.3s;
-                border-bottom: 2px solid #CBB95A;
-            }
+            z-index: 7; /* Stack order = 4th */
+        }  
+        #signup-dd { width: 175%; }   
 
-            /* Arrows for DD dropdown's */
-            .down-up-arrow {
-                border: solid #CBB95A;
-                display: inline-block;
-                border-width: 2px 2px 0 0;
-                padding: 4px;
-                margin-left: 6px;
-                transition: all 0.3s;
-                transform: rotate(45deg);
-                -webkit-transform: rotate(45deg);
-            }
-            .dropdown:hover .down-up-arrow {
-                transition: all 0.3s;
-                border-width: 0 2px 2px 0px;
-            }
-
+        /* Active hovering any DD item -> border on header */
+        #nav-container .dropdown:hover .DD-btn {
+            transition: ease-in 0.3s;
+            border-bottom: 2px solid #CBB95A;
+        }
 
         /*! Dropdown content (rendered on header hover) !*/
         .dropdown-content {
@@ -96,32 +84,31 @@
             min-width: 20px;
             background-color: #363D48;
             box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-            z-index: 8; /* UI Stack order (1st before navbar) */
+            z-index: 8; /* Stack order = 5th, after head btn styles */
         }
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-            /* ALL DD item <a> ref tags */
-            .dropdown a {
-                display: block; /* create vertical navs */
-                padding: 6px 8px;
-                width: 100%;
-                background: none;
-                text-decoration: none;
-                text-emphasis: bold;
-                text-align: left;
-                color: white;
-            }
+        /* ALL DD item <a> ref tags (incl. header) */
+        .dropdown a {
+            display: block; /* create vertical navs */
+            padding: 6px 8px;
+            width: 100%;
+            background: none;
+            text-decoration: none;
+            text-emphasis: bold;
+            text-align: left;
+            color: white;
+        }
             /* On Sub-Nav item hover */
             .dropdown-content a:hover {
                 transition: ease-in 0.4s;
                 background-color: #1e2231;
                 border-left: 2px solid #CBB95A;
             }
-            #signup-dd {
-                width: 150%;
-            }
+
+        
         
 /*================================*/
 /*=== Hamburger Navbar Styling ===*/
@@ -129,7 +116,10 @@
     display: none; /* default state */
 }
 
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 575px) {
+
+    /*-- Change default Navbar props --*/
     #nav-container #ham-btn {
         display: inline-block; /* initial: none */
         background-color: #363D48;
@@ -138,28 +128,26 @@
         color: #CBB95A; 
         font-size: 1.3em;
     }
-    #nav-container .dropdown .DD-btn { 
+    #nav-container .dropdown .DD-btn {
         display: none; 
         white-space: nowrap;
         background-color: #363D48;
         font-size: 0.7em; /* initial: 0.9em */
     }
-}
     
-@media screen and (max-width: 600px) {
+    /*-- Introduce hammed Navbar props --*/
     #nav-container.hammed {
-        padding-top: 0px;
-        width: 18%;
-        min-width: 80px; /*--deprecate to left-side */
-        
         flex-flow: column wrap; /* initial: row wrap */
         justify-content: flex-start; /* initial: space-between */
+        width: 20%;
+        min-width: 80px; /*--deprecate to left-side */
+        padding-top: 0px;
         overflow: hidden;
     }
-
     #nav-container.hammed .dropdown {
         display: block;
         width: 100%;
+        cursor: pointer;
     }
         #nav-container.hammed .DD-btn {
             width: 100%;
@@ -173,23 +161,23 @@
         }    
 }
 
-/*============================================*/
-/*=== Sticky Scrolling Navbar Styling ===*/
+/*================================*/
+/*=== Sticky-Scrolling Navbar ===*/
 
 #top-container.isSticky #nav-container { 
     transition: all 0.4s;
     background-color: #363D48;
 }
 
-/*============================================*/
-/*=== Centered Top Container content ===*/
+/*=============================*/
+/*=== Top Homepage Content ===*/
 #block-wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    z-index: 3; /* Stacking order (3rd, after navbar) */
+    z-index: 3; /* Stack order = 2nd, after bg image */
 }
     #block-logo {
         width: 100%;
@@ -212,9 +200,9 @@
             border: 2px solid #CBB95A;
             border-radius: 5px;
         }
-            .block-box a {
-                color: white;
-            }
+        .block-box a {
+            color: white;
+        }
             
             .block-box:hover, .block-box:active {
                 transition: ease-in-out 0.3s;
@@ -243,44 +231,55 @@
         width: 22%; min-width: 250px;
         margin: 16px 8px;
     }
-        .step-svg {
+        .step-head {
+            display: flex;
+            flex-wrap: column wrap;
+            justify-content: center;
+        }
+        .step-head svg {
             width: 100px;
             height: 100px;
         }
+        .step-head p {
+            align-self: flex-end;
+            margin-bottom: 25px; /* push text to bottom + 1/4 svg height */
+            font-size: 1.4em;
+        }
         .step-box {
-            padding: 6px 10px 12px 10px;
+            padding: 6px 6px 16px 16px;
             background-color: #010925;
-            border: 2px solid #CBB95A;
-            border-radius: 10px;
+            border: 3px solid #1b3086; border-radius: 10px;
             color: white;
             word-break: normal;
             text-align: left;
         }
 
-/*==============================*/
-/*=== Section Header/Footers, & Text Links ===*/
-.section_heads_foots {
-    font-size: 1.4em;
-    margin: 24px 5% 0 5%;
-    line-height: inherit;
-    
-}
-    .section_heads_foots hr {
-        width: 100%;
-        margin: 40px 0 40px 0;
-        background-color: transparent;
+    /* === Link Buttons after steps === */
+    #post-steps-links {
+        display: flex;
+        flex-wrap: row wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-top: 20px;
     }
+    #post-steps-links > div {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+        #post-steps-links p {
+            color: black;
+            font-size: 0.8em;
+        }
+        .post-steps-box {
+            margin: 14px 10px;
+            padding: 10px 12px 10px 12px;
+            border: 3px solid #CBB95A;
+            border-radius: 6px;
+        }
 
-.hyperl-txt {
-    color: #CBB95A;
-}
-.hyperl-txt:hover, .hyperl-txt:active {
-    transition: all 0.5s;
-    text-decoration: underline #010925 solid;
-}
-    
-/*==============================*/
-/*=== Donation Slider boxes ===*/
+/*========================*/
+/*=== Recent Donations ===*/
 #donations-wrapper {
     margin-top: 30px;
 }
@@ -324,3 +323,41 @@
             color: white;
             line-height: 2em;
         }
+
+
+/*======================================*/
+/* === Utility / Independent Styles === */
+
+/* Arrows for DD dropdown's */
+.down-up-arrow {
+    border: solid #CBB95A;
+    display: inline-block;
+    border-width: 0 0px 2px 2px;
+    padding: 4px;
+    margin-left: 6px;
+    transition: all 0.3s;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.dropdown:hover .down-up-arrow {
+    transition: all 0.3s;
+    border-width: 0 2px 2px 0px;
+}
+
+/*=== Section Header/Footers, & Text Links ===*/
+.section_heads_foots {
+    font-size: 1.4em;
+    margin: 24px 5% 0 5%;
+}
+    .section_heads_foots hr {
+        width: 100%;
+        margin: 40px 0 40px 0;
+        background-color: transparent;
+    }
+.hyperl-txt {
+    color: #CBB95A;
+}
+.hyperl-txt:hover, .hyperl-txt:active {
+    transition: all 0.5s;
+    text-decoration: underline #010925 solid;
+}

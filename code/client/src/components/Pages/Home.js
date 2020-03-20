@@ -12,38 +12,38 @@ function Home() {
 
     <div className="home">
 
-        <StickyContainer id='top-container'>
+        <StickyHeadContainer id='top-container'>
             <img id='bg_img' src={bg} alt={bg_alt} />
 
             <div id="navbar-wrapper">
                 <div id='nav-container'>
-                    <a id='ham-btn' href='javascript:void(0);' onClick={myHamButton}>
+                    <a id='ham-btn' onClick={myHamButton}>
                         <b>&#9776;</b>
                     </a>
                     
                     <div id='left'>
                         <div className='dropdown'>
-                            <a className="DD-btn" href="javascript:void(0);">
+                            <a className="DD-btn">
                                 Get Started<i className="down-up-arrow"></i>
                             </a>
                             <div className="dropdown-content">
-                                <a href="/about">Explore</a>
-                                <a href="#share">Share A Trip</a>
-                                <a href="/blogs">Go to Blogs</a>
+                                <a href="/search_locations">Explore</a>
+                                <a href="#====================================================">Share A Trip</a>
+                                <a href="/blogs">Community Blogs</a>
                             </div>
                         </div>
                     </div>
 
                     <div id='right'>
                         <div className='dropdown'>
-                            <a className="DD-btn" href="/about">
+                            <a className="DD-btn">
                                 Learn More<i className="down-up-arrow"></i>
                             </a>
                             <div className="dropdown-content">
                                 <a href="/about">Our Mission</a>
-                                <a href="/contact">Contact Us</a>
+                                <a href="/how_it_works">How It Works</a>
                                 <a href="/faq">FAQ</a>
-                                <a href="/disclaimer">Disclaimer</a>
+                                <a href="/contact">Contact Us</a>
                             </div>
                         </div>
 
@@ -52,7 +52,7 @@ function Home() {
                                 Log in
                             </a>
                             <div id='signup-dd' className="dropdown-content">
-                                <a  href="/register">No account? Create one!</a>
+                                <a  href="/register">Or click to join our community now!</a>
                             </div>
                         </div>
                     </div>
@@ -73,59 +73,64 @@ function Home() {
                     </div>
                 </div>
             </div>
-        </StickyContainer>
+        </StickyHeadContainer>
 
         <article id='steps-wrapper'>
             <header className='section_heads_foots'>
-                <h4>Empowering Global Travelers To Make A Difference Locally</h4>
+                <h4>A Community that Empowers Global Travelers To Make A Difference Locally</h4>
                 <hr className='hr-spacer'/>
+                <h5><i>How does DoMAD work?</i></h5>
             </header>
 
             <div id='all-steps-container'>
                 <div className="step-container">
-                    <div><svg className='step-svg'>
-                        <g>
-                            <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
-                            <text x="50%" y="50%" text-anchor="middle" fill="black" font-size="20px" stroke-width="2px" dy=".3em">1</text>
-                        </g>
-                    </svg></div>
+                    <div className="step-head">
+                        <svg><g>
+                            <circle cx="50" cy="50" r="35" stroke="#CBB95A" stroke-width="4" fill="whitesmoke" />
+                            <text x="50%" y="50%" text-anchor="middle" fill="black" font-size="28px" stroke-width="2px" dy=".3em">1</text>
+                        </g></svg>
+                        <p><b>Collect</b></p>
+                    </div>
                     <div className='step-box'>
-                        <p>
-                            Reference our interactive and localized database to 
-                            gather information about your destination.
-                            Discover <i>what, how, and where </i> to make your donation.
+                        <p>Our interactive database of information provides extensive 
+                            data of locales around the world, their specific and comprehensive 
+                            donations needs, tips for how to donate, partnering organizations, and donation
+                            stories from peers in the DoMAD community.
                         </p>
                     </div>
                 </div>
                 <div className="step-container">
-                    <div><svg className='step-svg'>
-                        <g>
-                            <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
-                            <text x="50%" y="50%" text-anchor="middle" font-size="20px" stroke-width="2px" dy=".3em">2</text>
-                        </g>
-                    </svg></div>
+                    <div className="step-head">
+                        <svg><g>
+                            <circle cx="50" cy="50" r="35" stroke="#CBB95A" stroke-width="4" fill="whitesmoke" />
+                            <text x="50%" y="50%" text-anchor="middle" font-size="28px" stroke-width="2px" dy=".3em">2</text>
+                        </g></svg>
+                        <p><b>Pack</b></p>
+                    </div>
                     <div className='step-box'>
-                        <p>Pack a few items to be donated, then DONATE!</p>
+                        <p>Donating should not only be easy but painless, so we provide tips for preparing, 
+                            packing, and delivering your items on your own terms. We make sure your items 
+                            ends up in the right recipient's hands, hassle free. Its that easy!</p>
                     </div>
                 </div>
                 <div className="step-container">
-                    <div><svg className='step-svg'>
-                        <g>
-                            <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
-                            <text x="50%" y="50%" text-anchor="middle" font-size="20px" stroke-width="2px" dy=".3em">3</text>
-                        </g>
-                    </svg></div>
+                    <div className="step-head">
+                        <svg><g>
+                            <circle cx="50" cy="50" r="35" stroke="#CBB95A" stroke-width="4" fill="whitesmoke"/>
+                            <text x="50%" y="50%" text-anchor="middle" font-size="28px" stroke-width="2px" dy=".3em">3</text>
+                        </g></svg>
+                        <p><b>Share and Inspire</b></p>
+                    </div>
                     <div className='step-box'>
-                        <p>
-                            Inspire others by sharing content and experiences, commending
-                            other's <i>NoMAD's</i>, and providing useful information
+                        <p>The DoMAD community is the best source for authentic donation stories. 
+                            Share your donation stories to inspire other <i>NoMad's</i>, commend
+                            your peer's efforts, and find inspiration for your next donation.
                         </p>
                     </div>
                 </div>
             </div>
             
             <footer className='section_heads_foots'>
-                <h5>Click <a className='hyperl-txt' href='/About'>Here</a> to learn more about DoMAD</h5>
                 <hr />
             </footer>
         </article>
@@ -170,35 +175,28 @@ function Home() {
         </article>
 
         <footer className='section_heads_foots'>
-            <h5>Something unclear? Checkout our <a className='hyperl-txt' href='/faq'>FAQ</a> page.</h5>
+            <div id="post-steps-links">
+                <div>
+                    <p><b>Want to learn more?</b></p>
+                    <div className="post-steps-box">
+                        <a className="hyperl-text" href="/About">Read our Mission</a>
+                    </div>
+                </div>
+                <div>
+                    <p><b>Ready to find your donation?</b></p>
+                    <div className="post-steps-box">
+                        <a className="hyperl-text">Go to Explore</a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <h5>Still have questions? Check out our <a className='hyperl-txt' href='/faq'>FAQ</a> page.</h5>
             <br/>
         </footer>
     </div>
     )
 }
 
-
-/* Adds a custom event listener for when the window width < 500 to rename a class */
-/*function ResponsiveHammedDD ({ children, className, ...rest }) {
-    const [isHammed, setIsHammed] = React.useState(false);
-    let ref = React.createRef();
-
-    function updateWidth () {
-        setIsHammed((window.innerWidth < 550 ? true : false));
-    }
-
-    React.useLayoutEffect(() => {
-        window.addEventListener ("resize", updateWidth); // mount
-        updateWidth();
-        return () => window.removeEventListener('resize', updateWidth); // unmount
-    }, [])
-
-    return (
-        <div className={(isHammed ? "hammed" : "nav")} ref={ref} {...rest}> 
-            {children}
-        </div>
-    )
-}*/
 function myHamButton() {
     let x = document.getElementById("nav-container");
     if (x.className === "") {
@@ -209,11 +207,11 @@ function myHamButton() {
 }
 
 /* Sets an Observer on the  for viewport visibility*/
-function StickyContainer({ children, sticky=false, className, ...rest }){
+function StickyHeadContainer({ children, sticky=false, className, ...rest }){
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
     
-    // mount observer
+    // mount viewport observer
     React.useEffect(() => {
         const cachedRef = ref.current, 
             observer = new IntersectionObserver(
@@ -223,7 +221,9 @@ function StickyContainer({ children, sticky=false, className, ...rest }){
         observer.observe(cachedRef);
       
         // unmount
-        return function(){ observer.unobserve(cachedRef); }
+        return function() { 
+            observer.unobserve(cachedRef); 
+        }
     }, [])
     
     return (

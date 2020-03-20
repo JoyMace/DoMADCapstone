@@ -4,9 +4,9 @@ import mapfiller from '../../images/map_filler.PNG';
 import { Link } from 'react-router-dom';
 
 class CountryInfo extends React.Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
-    }
+    }*/
 
     render() {
         return (
