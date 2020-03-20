@@ -27,8 +27,8 @@ function Home() {
                             Log In  <i className="down-up-arrow"></i>
                         </a>
                         <div className="dropdown-content">
-                            <a href="/how_it_works">Log In</a>
-                            <a href="/about">Register</a>
+                            <a href="/login">Log In</a>
+                            <a href="/register">Register</a>
                         </div>
                     </li>
                     <li className='dropdown'>
