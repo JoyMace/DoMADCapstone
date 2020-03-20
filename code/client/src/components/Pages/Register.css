@@ -1,7 +1,7 @@
 .Register {
   margin-top: 56px;
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 200px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -80,20 +80,21 @@
   font-weight: lighter;
 }
 
-.firstname {
+.firstName {
   margin-right: 2%;
   width: 48%;
 }
 
-.lastname {
+.lastName {
   margin-left: 2%;
   width: 48%;
 }
 
+.username,
 .firstName,
 .lastName,
-.emailaddress,
-.homecountry
+.email,
+.verifyPassword
 .password {
   display: flex;
   flex-direction: column;
@@ -105,8 +106,9 @@
   width: 50%;
 }
 
-.emailaddress,
-.homecountry,
+.username,
+.email,
+.verifyPassword,
 .password {
   width: 100%;
 }
