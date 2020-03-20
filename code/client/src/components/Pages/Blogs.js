@@ -7,6 +7,44 @@ import { IconContext } from "react-icons";
 import { FaCaretDown } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa';
 
+/*const blog = {
+	destination: country,
+	donation: donations,
+	stars: ratings
+};
+
+
+class BlogContainer extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = { blog }
+	}
+	render() {
+		return <Blogs blog={this.state.blog} />
+	}
+	componentDidMount() {
+		fetch("/api/user/trip/all-trips")
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  this.setState({
+				isLoaded: true,
+				items: result.items
+			  });
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			(error) => {
+			  this.setState({
+				isLoaded: true,
+				error
+			  });
+			}
+	    )
+	}
+}*/
+
 function Blogs() {
     return (
         <div className="blogs">
