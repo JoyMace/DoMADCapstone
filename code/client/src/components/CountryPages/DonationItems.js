@@ -1,5 +1,6 @@
 import React from 'react';
 import './DonationItems.css';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { FaStar } from 'react-icons/fa';
 import { FaStarHalf } from 'react-icons/fa';

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Faq.css';
+import { Link } from 'react-router-dom';
 
 function Faq() {
     return (
@@ -9,11 +10,9 @@ function Faq() {
             <h1>Frequently Asked Questions</h1>	
 			<br></br>
 			<section>
-            <p>Can’t find what you’re looking for? Contact us now..</p>
+            <p>Can’t find what you’re looking for? <Link to="/contact" className="contact-us-link">Contact us now.</Link></p>
 			<br></br>
 			</section>
-			
-			<br></br>
 			
 			<section>			
 			<h2>What is DoMAD? </h2>

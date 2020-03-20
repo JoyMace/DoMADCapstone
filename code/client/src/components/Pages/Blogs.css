@@ -66,6 +66,7 @@
     margin-right: 20px;
     cursor: pointer;
     display: inline-block;
+    z-index: 99;
 }
 
 .dropdown-content-africa {
@@ -74,17 +75,17 @@
     min-width: 20px;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    width: calc(100% + 5px);
     margin-left: 10%;
+    color: white;
 }
 
-.dropdown-content-africa a:hover {
+.dropdown-content-africa option:hover {
     transition: ease-in 0.4s;
     background-color: #1e2231;
     border-left: 2px solid white;
 }
 
-.dropdown-africa a {
+.dropdown-africa option {
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
@@ -112,6 +113,7 @@
     margin-right: 20px;
     cursor: pointer;
     display: inline-block;
+    z-index: 99;
 }
 
 .dropdown-content-asia {
@@ -120,17 +122,17 @@
     min-width: 20px;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    width: calc(100% + 5px);
     margin-left: 10%;
+    color: white;
 }
 
-.dropdown-content-asia a:hover {
+.dropdown-content-asia option:hover {
     transition: ease-in 0.4s;
     background-color: #1e2231;
     border-left: 2px solid white;
 }
 
-.dropdown-asia a {
+.dropdown-asia option {
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
@@ -159,6 +161,7 @@
     margin-right: 20px;
     cursor: pointer;
     display: inline-block;
+    z-index: 99;
 }
 
 .dropdown-content-australia {
@@ -167,17 +170,17 @@
     min-width: 20px;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    width: calc(100% + 5px);
     margin-left: 10%;
+    color: white;
 }
 
-.dropdown-content-australia a:hover {
+.dropdown-content-australia option:hover {
     transition: ease-in 0.4s;
     background-color: #1e2231;
     border-left: 2px solid white;
 }
 
-.dropdown-australia a {
+.dropdown-australia option {
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
@@ -214,17 +217,17 @@
     min-width: 20px;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    width: calc(100% + 5px);
     margin-left: 10%;
+    color: white;
 }
 
-.dropdown-content-europe a:hover {
+.dropdown-content-europe option:hover {
     transition: ease-in 0.4s;
     background-color: #1e2231;
     border-left: 2px solid white;
 }
 
-.dropdown-europe a {
+.dropdown-europe option {
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
@@ -261,17 +264,17 @@
     min-width: 20px;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    width: calc(100% + 5px);
     margin-left: 10%;
+    color: white;
 }
 
-.dropdown-content-north a:hover {
+.dropdown-content-north option:hover {
     transition: ease-in 0.4s;
     background-color: #1e2231;
     border-left: 2px solid white;
 }
 
-.dropdown-north a {
+.dropdown-north option {
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
@@ -308,17 +311,17 @@
     min-width: 20px;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    width: calc(100% + 5px);
     margin-left: 10%;
+    color: white;
 }
 
-.dropdown-content-south a:hover {
+.dropdown-content-south option:hover {
     transition: ease-in 0.4s;
     background-color: #1e2231;
     border-left: 2px solid white;
 }
 
-.dropdown-south a {
+.dropdown-south option {
     display: inline-block;
     padding: 6px 8px;
     width: 100%;

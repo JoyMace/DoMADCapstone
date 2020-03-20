@@ -51,7 +51,6 @@ class App extends Component {
     this.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
-
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
@@ -60,7 +59,6 @@ class App extends Component {
     if (response.status !== 200) {
       throw Error(body.message)
     }
-
     return body;
   };*/
 
