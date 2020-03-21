@@ -28,7 +28,6 @@ const tripCodes = require('../../config/resCodes').trip;
     - integrate donation creation
 */
 router.post('/report', function(req, res) {
-	console.log(req.body);
   // TODO: figure out how donations are being passed to backend
   const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
 

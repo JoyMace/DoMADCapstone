@@ -43,21 +43,61 @@ class App extends Component {
     this.setState({sideDrawerOpen: false});
   }
 
-  /*componentDidMount() {
-      // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
+  componentDidMount() {
+    // Call our fetch function below once the component mounts
+    this.getExample()
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+
+    this.postExample()
+      .then(res => console.log(res))
       .catch(err => console.log(err));
   }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
+
+  // example GET request
+  getExample = async () => {
+
+    const response = await fetch('http://localhost:5000/api/user/trip/all-trips');
+    const data = await response.json();
     if (response.status !== 200) {
-      throw Error(body.message)
+      console.log('this:' + data.message)
+      throw Error(response.message)
     }
-    return body;
-  };*/
+    
+    return data;
+  };
+
+  // example POST request
+  postExample = async () => {
+
+    const reqBody = {
+      "username": "tbone",
+      "firstName": "thomas",
+      "lastName": "young",
+      "email": "thomas@me.com",
+      "password": "Password",
+      "verifyPassword": "Password",
+      "country": "brazil",
+      "city": "scooby dooooooo"
+    }
+    
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reqBody)
+    };
+
+    const response = await fetch('http://localhost:5000/api/user/auth/signup', requestOptions);
+    const data = await response.json();
+    console.log(data)
+    if (response.status !== 200) {
+      throw Error(data.message)
+    }
+
+    console.log(data)
+    return requestOptions;
+
+  };
 
   /* determine current path for navbar rendering, other stuff */
   /*current_path() {
@@ -75,10 +115,11 @@ class App extends Component {
 
   render() {
     let backdrop;
-
+  
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
+
     return (
       // The 'Switch' renders the component for the first matching path
           // If path is "/" ==> Home page

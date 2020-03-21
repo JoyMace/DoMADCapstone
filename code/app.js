@@ -5,12 +5,18 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const path = require('path');
 
+const cors = require('cors');
+
 const port = 5000
 
 // express setup
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Allows only the local react server to make calls to the backend
+const corsOptions = {origin: 'http://localhost:' + process.env.PORT}
+app.use(cors(corsOptions));
 
 // connect to mongodb
 mongooseInput = {

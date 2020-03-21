@@ -22,7 +22,8 @@
     "serve": "^10.1.1"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start",
+    "deploy": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,6 +42,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
