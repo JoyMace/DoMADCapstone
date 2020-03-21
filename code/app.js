@@ -16,6 +16,7 @@ app.use(express.json());
 
 // Allows only the local react server to make calls to the backend
 const corsOptions = {origin: 'http://localhost:' + process.env.PORT}
+console.log(corsOptions);
 app.use(cors(corsOptions));
 
 // connect to mongodb
