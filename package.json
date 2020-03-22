@@ -6,8 +6,8 @@
   "scripts": {
     "postinstall": "(cd code && npm install) && (cd code && cd client && npm install)",
     "build": "cd code && cd client && npm run build",
-    "start": "concurrently \"cd code && npm start\" \"cd code && cd client && PORT=$PORT npm run deploy\"",
-    "local-start": "concurrently \"cd code && npm start\" \"cd code && cd client && npm start\"",
+    "start-old": "concurrently \"cd code && npm start\" \"cd code && cd client && PORT=$PORT npm run deploy\"",
+    "start": "concurrently \"cd code && npm start\" \"cd code && cd client && npm start\"",
     "ttheroku-postbuild": "cd code && cd client && npm install && npm run build && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

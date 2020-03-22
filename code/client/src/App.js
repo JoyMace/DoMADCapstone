@@ -59,7 +59,7 @@ class App extends Component {
   getExample = async () => {
 
     console.log(reqLoc)
-    const response = await fetch(reqLoc + '/api/user/trip/all-trips');
+    const response = await fetch('/api/user/trip/all-trips');
     console.log(response)
     const data = await response.json();
     console.log(data)
@@ -91,7 +91,7 @@ class App extends Component {
       body: JSON.stringify(reqBody)
     };
 
-    const response = await fetch(reqLoc + '/api/user/auth/signup', requestOptions);
+    const response = await fetch('/api/user/auth/signup', requestOptions);
     const data = await response.json();
     console.log(data)
     if (response.status !== 200) {
