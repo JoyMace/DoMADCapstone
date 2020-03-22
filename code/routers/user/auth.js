@@ -106,8 +106,8 @@ router.post('/signup', function(req, res) {
       newUser.setPassword(password);
 
       locationQuery = {
-        country:'brazil',
-        city:'scooby doo'
+        country: country,
+        city: city
       }
 
       // Get a location id for new user
