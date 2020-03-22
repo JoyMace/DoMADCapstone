@@ -42,59 +42,6 @@ class App extends Component {
     this.setState({sideDrawerOpen: false});
   }
 
-  componentDidMount() {
-    // Call our fetch function below once the component mounts
-    this.getExample()
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-
-    this.postExample()
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  }
-
-  // example GET request
-  getExample = async () => {
-
-    const response = await fetch('/api/user/trip/all-trips');
-    const data = await response.json();
-    if (response.status !== 200) {
-      throw Error(response.message)
-    }
-    
-    return data;
-  };
-
-  // example POST request
-  postExample = async () => {
-
-    const reqBody = {
-      "username": "tbone",
-      "firstName": "thomas",
-      "lastName": "young",
-      "email": "thomas@me.com",
-      "password": "Password",
-      "verifyPassword": "Password",
-      "country": "brazil",
-      "city": "scooby dooooooo"
-    }
-    
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(reqBody)
-    };
-
-    const response = await fetch('/api/user/auth/signup', requestOptions);
-    const data = await response.json();
-    if (response.status !== 200) {
-      throw Error(data.message)
-    }
-
-    return requestOptions;
-
-  };
-
   /* determine current path for navbar rendering, other stuff */
   /*current_path() {
     let active_path = null

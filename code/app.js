@@ -17,9 +17,6 @@ mongooseInput = {
   useNewUrlParser: true
 }
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, mongooseInput);
-console.log(process.env.MONGODB_CONNECTION_STRING)
-console.log(process.env.EMAIL_USERNAME)
-console.log(process.env.EMAIL_PASSWORD)
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
