@@ -60,7 +60,9 @@ class App extends Component {
 
     console.log(reqLoc)
     const response = await fetch(reqLoc + '/api/user/trip/all-trips');
+    console.log(response)
     const data = await response.json();
+    console.log(data)
     if (response.status !== 200) {
       console.log('this:' + data.message)
       throw Error(response.message)
