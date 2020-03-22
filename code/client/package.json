@@ -18,12 +18,10 @@
     "react-leaflet": "^2.6.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "react-tabs": "^3.1.0",
-    "serve": "^10.1.1"
+    "react-tabs": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

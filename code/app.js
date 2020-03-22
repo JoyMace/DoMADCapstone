@@ -5,7 +5,6 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const path = require('path');
 
-// comment this out when deploying to 
 if(process.env.CHECK_HEROKU == null){
   console.log('running developement environment');
   require('custom-env').env('dev');
@@ -49,7 +48,7 @@ app.use('/api/user/reset', require('./routers/user/reset'));
 app.use('/api/user/profile', require('./routers/user/profile'));
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
 
-// This reroutes everything that is not a get request to react
+// This routes all client side requests to REACT
 const root = require('path').join(__dirname, 'client', 'build')
 app.use(express.static(root));
 app.get("*", (req, res) => {

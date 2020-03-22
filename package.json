@@ -1,7 +1,7 @@
 {
   "name": "domadcapstone",
   "version": "1.0.0",
-  "description": "New Repo for DoMAD Capstone 2019/2020 ## Who are we?",
+  "description": "Donations Make a Difference senior capstone project",
   "main": "index.js",
   "scripts": {
     "postinstall": "(cd code && npm install) && (cd code && cd client && npm install)",
