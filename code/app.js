@@ -5,8 +5,6 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const path = require('path');
 
-const cors = require('cors');
-
 const port = process.env.PORT || 5000
 
 // express setup
@@ -14,30 +12,11 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Allows only the local react server to make calls to the backend
-/*const whitelist = [ 'http://localhost:' + process.env.PORT, 'https://localhost:' + process.env.PORT ]
-const corsOptions = {
-  origin: function(origin, callback) {
-    console.log('CORS');
-    console.log(origin);
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}
-app.use(cors(corsOptions));*/
-app.use((req, res, next) => {
-  console.log(req.headers.origin)
-  next();
-});
-
 // connect to mongodb
 mongooseInput = {
   useNewUrlParser: true
 }
-const connectionString = 'mongodb+srv://Thomas:D0MAD123@domad-hbe1i.mongodb.net/test?retryWrites=true&w=majority';
+const connectionString = 'mongodb+srv://domad:DoMADTemp%232020@domad-spnir.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(connectionString, mongooseInput);
 
 const db = mongoose.connection;
