@@ -6,19 +6,17 @@ const Country = require('../../models/country');
 const countryCodes = require('../../config/resCodes').country;
 
 
-// List of Apis needed
-
-//Question:
-// - Do we want to have apis for every tab or combine all of them in one?
-// - Where is the data? Needs to be updated.
-// - Are we inserting the country data thorough and API? Make an api to post/insert
-//   country data into database.
-// - Populate info to database
-
 /*
-  Insert country info api:
+  Insert country info api
+
+  inputs:
+    name: String
+    abbreviation: String
+    generalInformation: Collection
+    statistics: Collection
+
   Inserts the country information into the country database schema
-  This is just a temporary post api to insert data into the country model
+  This is just a temporary api to insert data into the country schema
 */
 
 
@@ -63,7 +61,10 @@ router.post('/insert_country_info', (req, res) => {
 
 });
 /*
-  Country info api:
+  Country info api
+
+  inputs:
+    countryName: String
 
   Gets the country info
 */
@@ -73,7 +74,7 @@ router.get('/get_country_info', (req, res) => {
   var country_info_data = [];
 
   name = req.body.name;
-  
+
   var query = { name: name };
 
   Country.find(query, function(err, country) {
@@ -95,22 +96,10 @@ router.get('/get_country_info', (req, res) => {
 });
 
 
-/*
-  Might not need to create get Donations api and just call the one that
-  already exists. (This will be called from the donations api)
-*/
-
 
 /*
-  Country organization info api: gets the country organizations api
+    TODO: Country organization info api
 */
-
-
-/*
-  Blog post Api???? Call the trip api
-*/
-
-
 
 
 
