@@ -5,10 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "(cd code && npm install) && (cd code && cd client && npm install)",
-    "build": "cd code && cd client && npm run build",
-    "start-old": "concurrently \"cd code && npm start\" \"cd code && cd client && PORT=$PORT npm run deploy\"",
-    "start": "concurrently \"cd code && npm start\" \"cd code && cd client && npm start\"",
-    "ttheroku-postbuild": "cd code && cd client && npm install && npm run build && npm start",
+    "start": "cd code && npm start",
+    "heroku-postbuild": "cd code && cd client && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +20,6 @@
   },
   "homepage": "https://github.com/JoyMace/DoMADCapstone#readme",
   "dependencies": {
-    "concurrently": "^5.1.0",
     "mongodb": "^3.5.5"
   }
 }

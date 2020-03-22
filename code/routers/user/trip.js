@@ -211,7 +211,6 @@ router.get('/user-trips', function(req, res) {
   
 */
 router.get('/all-trips', function(req,res) {
-  console.log(req)
 
   query = {};
   limit = 50;
