@@ -15,7 +15,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Allows only the local react server to make calls to the backend
-const corsOptions = {origin: 'http://localhost:' + process.env.PORT}
+const whitelist = [ 'http://localhost:' + process.env.PORT, 'https://localhost:' + process.env.PORT ]
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}
 console.log(corsOptions);
 app.use(cors(corsOptions));
 
