@@ -26,6 +26,7 @@ import Reset_token from './components/Pages/Reset_token';
 
 import ReactDOM from 'react-dom';
 
+const reqLoc = 'https://localhost:5000';
 
 class App extends Component {
   state = {
@@ -57,7 +58,8 @@ class App extends Component {
   // example GET request
   getExample = async () => {
 
-    const response = await fetch('http://localhost:5000/api/user/trip/all-trips');
+    console.log(reqLoc)
+    const response = await fetch(reqLoc + '/api/user/trip/all-trips');
     const data = await response.json();
     if (response.status !== 200) {
       console.log('this:' + data.message)
@@ -87,7 +89,7 @@ class App extends Component {
       body: JSON.stringify(reqBody)
     };
 
-    const response = await fetch('http://localhost:5000/api/user/auth/signup', requestOptions);
+    const response = await fetch(reqLoc + '/api/user/auth/signup', requestOptions);
     const data = await response.json();
     console.log(data)
     if (response.status !== 200) {
