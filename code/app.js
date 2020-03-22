@@ -7,7 +7,7 @@ const path = require('path');
 
 const cors = require('cors');
 
-const port = 5000
+const port = process.env.PORT || 5000
 
 // express setup
 const app = express();
