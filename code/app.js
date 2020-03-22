@@ -15,9 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Allows only the local react server to make calls to the backend
-const whitelist = [ 'http://localhost:' + process.env.PORT, 'https://localhost:' + process.env.PORT ]
+/*const whitelist = [ 'http://localhost:' + process.env.PORT, 'https://localhost:' + process.env.PORT ]
 const corsOptions = {
   origin: function(origin, callback) {
+    console.log('CORS');
     console.log(origin);
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
@@ -26,7 +27,11 @@ const corsOptions = {
     }
   }
 }
-app.use(cors());
+app.use(cors(corsOptions));*/
+app.use((req, res, next) => {
+  console.log(req.headers.origin)
+  next();
+});
 
 // connect to mongodb
 mongooseInput = {
