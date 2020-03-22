@@ -26,7 +26,7 @@ import Reset_token from './components/Pages/Reset_token';
 
 import ReactDOM from 'react-dom';
 
-const reqLoc = 'https://localhost:5000';
+const reqLoc = 'http://localhost:5000';
 
 class App extends Component {
   state = {

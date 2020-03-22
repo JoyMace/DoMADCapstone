@@ -26,8 +26,7 @@ const corsOptions = {
     }
   }
 }
-console.log(corsOptions);
-app.use(cors(corsOptions));
+app.use(cors());
 
 // connect to mongodb
 mongooseInput = {
