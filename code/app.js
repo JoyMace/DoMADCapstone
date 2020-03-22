@@ -5,6 +5,14 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const path = require('path');
 
+// comment this out when deploying to 
+if(process.env.CHECK_HEROKU == null){
+  console.log('running developement environment');
+  require('custom-env').env('dev');
+} else {
+  console.log('running heroku environment');
+}
+
 const port = process.env.PORT || 5000
 
 // express setup
