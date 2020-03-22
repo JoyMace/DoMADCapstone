@@ -26,8 +26,6 @@ import Reset_token from './components/Pages/Reset_token';
 
 import ReactDOM from 'react-dom';
 
-const reqLoc = 'https://domad.herokuapp.com:5000';
-
 class App extends Component {
   state = {
       data: null,
@@ -58,13 +56,9 @@ class App extends Component {
   // example GET request
   getExample = async () => {
 
-    console.log(reqLoc)
     const response = await fetch('/api/user/trip/all-trips');
-    console.log(response)
     const data = await response.json();
-    console.log(data)
     if (response.status !== 200) {
-      console.log('this:' + data.message)
       throw Error(response.message)
     }
     
@@ -93,12 +87,10 @@ class App extends Component {
 
     const response = await fetch('/api/user/auth/signup', requestOptions);
     const data = await response.json();
-    console.log(data)
     if (response.status !== 200) {
       throw Error(data.message)
     }
 
-    console.log(data)
     return requestOptions;
 
   };
