@@ -16,8 +16,8 @@ app.use(express.json());
 mongooseInput = {
   useNewUrlParser: true
 }
-const connectionString = 'mongodb+srv://domad:DoMADTemp%232020@domad-spnir.mongodb.net/test?retryWrites=true&w=majority';
-mongoose.connect(connectionString, mongooseInput);
+//const connectionString = 'mongodb+srv://domad:DoMADTemp%232020@domad-spnir.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING, mongooseInput);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
