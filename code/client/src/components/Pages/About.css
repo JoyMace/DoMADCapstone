@@ -11,9 +11,8 @@ header.about{
     color: #ffffff;
     top: -90%;
     left: 25%;
-    text-align: center;
-    /* transform: translate(-50%, -50%); */
-    
+    /* text-align: center; */
+    /* transform: translate(-50%, -50%); */   
 }
 
 div.aboutPad{
@@ -22,12 +21,9 @@ div.aboutPad{
     position: absolute;
     width: 350px;
     height: 60px;
-    padding: 20px; 
+    padding: 20px;
     top: 17%;
     left: 37%;
-}
-
-padding.content{ 
 }
 
 p.origin {
