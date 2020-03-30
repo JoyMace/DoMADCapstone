@@ -84,18 +84,17 @@
                 border-left: 2px solid #CBB95A;
             }
             .down-up-arrow {
-                border: solid #CBB95A;
+                border: solid white;
                 display: inline-block;
                 border-width: 3px 3px 0 0;
                 padding: 4px;
                 margin-left: 6px;
 
-                transform: rotate(45deg);
-                -webkit-transform: rotate(45deg);
+                transform: rotate(135deg);
+                -webkit-transform: rotate(135deg);
             }
             .dropdown:hover .down-up-arrow {
                 transition: all 0.3s;
-                border-width: 0 3px 3px 0px;
             }
 
 
@@ -106,7 +105,7 @@
             min-width: 20px;
             background-color: #010925;
             box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-            width: calc(100% + 10px);
+            width: calc(100% + 30px);
             z-index: 8; /* UI Stack order (1st before navbar) */
         }
         .dropdown:hover .dropdown-content {
@@ -147,7 +146,7 @@
     z-index: 3; /* Stacking order (3rd, after navbar) */
 }
     #block-logo {
-        width: 100%;
+        width: 90%;
         height: auto;
         scale: 0.75;
     }
@@ -160,13 +159,18 @@
         flex-wrap: row wrap;
         justify-content: space-between;
         align-items: center;
+        width: 70%;
+        margin: auto;
+        padding-top: 2%;
     }
 
         .block-box {
             margin: 4px 12px;
-            padding: 8px 10px 4px 10px;
+            padding-top: 15px;
+            padding-bottom: 15px;
             border: 2px solid #CBB95A;
             border-radius: 5px;
+            width: 28%;
         }
             .block-box a {
                 color: white;
@@ -187,10 +191,14 @@
     height: auto;
 }
     .all-steps-container {
+        align-items: center;
+    }
+
+    .steps-graphic {
         display: flex;
-        flex-flow: row wrap;
-        justify-content: space-evenly;
-        align-items: flex-start;
+        margin: auto;
+        height: auto;
+        width: 70%;
     }
 
     .step-container {
@@ -226,6 +234,7 @@
 
 .text-hyperl {
     color: #CBB95A;
+    text-decoration: underline;
 }
 .text-hyperl:hover, .text-hyperl:active {
     transition: all 0.5s;
@@ -254,7 +263,7 @@
         margin: 20px;
     }
     .slide-entry:hover {
-        border: 5px solid black;
+        border: 5px solid #010925;
     }
 
         .top-image {
