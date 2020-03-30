@@ -17,7 +17,9 @@ testVar = {
   wrongVal: 'WRONG',
   tripInfo: {
     _id: 'TEST',
-    isPrivate: true
+    isPrivate: true,
+    donations: [ 'TEST1', 'TEST2' ],
+    ratings: [ 3, 4 ]
   },
   donationInfo: {
     _id: 'TEST',
@@ -31,10 +33,8 @@ testVar = {
       zipCode: null
     },
     category: 'Miscellaneous', 
-    donationDateTime: null, 
-    reportingDateTime: null, 
-    itemDescr: null, 
-    pictures: null, 
+    donationDate: null, 
+    itemDescription: null, 
     organization: true, 
     suggestion: false
   }

@@ -5,6 +5,7 @@ const User = require('../../models/user');
 const Trip = require('../../models/trip');
 
 const tripCodes = require('../../config/resCodes').trip;
+const donationFunc = require('./donation');
 
 /*
   report trip api
@@ -62,10 +63,35 @@ router.post('/report', function(req, res) {
     } else {
       // TODO: Integrate donations when created
       //      - Call function passing it tripID and a callback function
-      
-      return res.status(tripCodes.report.success.status).send({
-        message: tripCodes.report.success.message
+      var donationArr = [];
+      for (var i = 0; i < donations.length; i++) {
+        var donationInformation = {
+          itemName: donations[i],
+          rating: ratings[i],
+          locationID: locationID, // this will be changed
+          // country: country,
+          // city: city,
+          // category: categories[i],
+          donationDate: tripDate,
+          // itemDescription: itemDescriptions[i]
+          // organization: figure this out
+          suggestion: false
+        };
+        donationArr.push(donationInformation);
+      }
+  
+      donationFunc.createMultipleDonations(donationArr, trip._id, function(err, info) {
+        if (err) {
+          return res.status(tripCodes.report.addTripFail.status).send({
+            message: tripCodes.report.addTripFail.message
+          });
+        } else {
+          return res.status(tripCodes.report.success.status).send({
+            message: tripCodes.report.success.message
+          });
+        }
       });
+
     }
   });
 });

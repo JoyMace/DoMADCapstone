@@ -12,12 +12,12 @@ const donationCategories = ['Health', 'Household', 'Clothing', 'Education', 'Art
 const donationSchema = new mongoose.Schema({
   itemName: {type: String, required: true},
   rating: {type: Number, required: true},
-  locationID: {type: LocationSchema, required: true},
+  locationID: {type: String, required: true},
   tripID: {type: String, required:true},
   category: {type: String, enum: donationCategories},  
-  donationDateTime: Date,
-  reportingDateTime: {type: Date, default: Date.now},
-  itemDescr: String,
+  donationDate: Date,
+  reportingDate: {type: Date, default: Date.now},
+  itemDescription: String,
   pictures: String, //String for now, maybe use gridfs?
   organization: Boolean, //could there be a better way to do this?
   suggestion: Boolean //could there be a better way to do this?

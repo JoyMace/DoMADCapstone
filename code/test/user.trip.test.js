@@ -11,6 +11,7 @@ const tripCode = require('../config/resCodes').trip;
 const testVar = require('../config/testVar');
 const Trip = require('../models/trip');
 const User = require('../models/user');
+const Donation = require('../models/donation');
 
 describe('User Trip Routers', function() {
 
@@ -30,11 +31,15 @@ describe('User Trip Routers', function() {
       saveTripDBStub.yields(null, fakeTrip);
       saveTripDBStub.onCall(1).yields(true, null);
 
+      var fakeDonation = new Donation(testVar.donationInformation);
+      var mongooseSaveStub = sandbox.stub(Donation.prototype, 'save');
+      mongooseSaveStub.yields(null, fakeDonation);
+
       done();
     });
 
     it('report trip SUCCESS', function(done) {
-      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      var trip = JSON.parse(JSON.stringify(testVar.tripInfo)); 
       trip.userID = testVar._id;
 
       request(app)
@@ -67,7 +72,7 @@ describe('User Trip Routers', function() {
     });
 
     it('report trip FAILURE - add trip fail', function(done) {
-      var trip = JSON.parse(JSON.stringify(testVar.userInfo)); 
+      var trip = JSON.parse(JSON.stringify(testVar.tripInfo)); 
       trip.userID = testVar._id;
 
       request(app)
