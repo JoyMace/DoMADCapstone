@@ -20,7 +20,7 @@ const countryCodes = require('../../config/resCodes').country;
 */
 
 
-router.post('/insert_country_info', (req, res) => {
+router.post('/insert-country-info', (req, res) => {
 
   const {name, abbreviation, generalInformation, statistics} = req.body
 
@@ -69,9 +69,7 @@ router.post('/insert_country_info', (req, res) => {
   Gets the country info
 */
 
-router.get('/get_country_info', (req, res) => {
-
-  var country_info_data = [];
+router.get('/get-country-info', (req, res) => {
 
   name = req.body.name;
 
@@ -85,9 +83,9 @@ router.get('/get_country_info', (req, res) => {
       });
     }
     else{
-      country_info_data.push({countryName: country[0].name, abbreviation: country[0].abbreviation,
-            generalInformation: country[0].generalInformation, statistics: country[0].statistics});
-      return res.status(countryCodes.countryInfo.success.status).send({country_info_data: country_info_data});
+      countryInfoData = {countryName: country[0].name, abbreviation: country[0].abbreviation,
+            generalInformation: country[0].generalInformation, statistics: country[0].statistics};
+      return res.status(countryCodes.countryInfo.success.status).send({countryInfoData: countryInfoData});
     }
 
 
