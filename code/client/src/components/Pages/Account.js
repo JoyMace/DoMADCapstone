@@ -455,15 +455,16 @@ class PostContainer extends React.Component {
 		  .then(res => res.json())
 		  .then(
 			(result) => {
+				console.log("this is a string");
 			  this.setState({
 				date: result.date,
 				city: result.city,
 				country: result.country,
 				donationItem: result.donationItem,
-
-
+				rating: result.rating,
+				description: result.description,
 				isLoaded: true,
-				items: result.items
+				
 			  });
 			},
 			// Note: it's important to handle errors here
