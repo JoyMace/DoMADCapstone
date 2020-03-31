@@ -135,8 +135,11 @@ describe('User Auth Routers', function() {
         saveDBStub.onCall(1).yields(true, null);
 
         // TODO: mock this stub
-        //var SaveLocationStub = sandbox.stub(Location.prototype, 'findOneOrCreate');
-        //saveLocationStub.yields(null, null);
+
+        var fakeLocation = new Location(testVar.locationInfo);
+
+        var saveLocationStub = sandbox.stub(Location, 'findOneOrCreate');
+        saveLocationStub.yields(null, fakeLocation);
 
         done()
     });

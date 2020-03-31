@@ -24,6 +24,25 @@ testVar = {
     _id: 'TEST',
     country: 'TEST',
     city: 'TEST'
+  },
+  donationInfo: {
+    _id: 'TEST',
+    itemName: 'TEST', 
+    rating: 4, 
+    locationID: {
+      _id: 'TEST',
+      country: 'TEST', 
+      city: 'TEST', 
+      state: 'TEST', 
+      zipCode: null
+    },
+    category: 'Miscellaneous', 
+    donationDateTime: null, 
+    reportingDateTime: null, 
+    itemDescr: null, 
+    pictures: null, 
+    organization: true, 
+    suggestion: false
   }
 }
 

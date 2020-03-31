@@ -19,6 +19,6 @@ locationSchema.statics.findOneOrCreate = function findOneOrCreate(condition, cal
   });
 }
 
-const Location = mongoose.model('Location', locationSchema)
+const location = mongoose.model('Location', locationSchema)
 
-module.exports = Location
+module.exports = location

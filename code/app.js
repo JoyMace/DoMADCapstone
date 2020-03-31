@@ -43,6 +43,7 @@ app.use('/api/user/reset', require('./routers/user/reset'));
 app.use('/api/user/profile', require('./routers/user/profile'));
 
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
+app.use('/api/country-page/country', require('./routers/country_page/country'));
 
 app.use('/api/admin', require('./routers/admin'));
 
