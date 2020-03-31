@@ -17,24 +17,24 @@ class BlogContainer extends React.Component {
     }
     
     componentDidMount() {
-		fetch("/api/user/trip/all-trips")
-		  .then(results => {
-              return results.json();
-          })
-		  .then((data) => {
-                /*let blank = data.results.map
-			  this.setState({
-				isLoaded: true,
-                items: result.items*/
-                return console.log('Success')
-			});
-			// Note: it's important to handle errors here
-			// instead of a catch() block so that we don't swallow
-			// exceptions from actual bugs in components.
-	}
+        console.log('test');
+        // Call our fetch function below once the component mounts
+        this.getExample()
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+    }
+
+    getExample = async () => {
+        const response = await fetch('/api/user/trip/all-trips');
+        const data = await response.json();
+        if (response.status !== 200) {
+          throw Error(response.message)
+        }
+        return data;
+    };
 
 	render() {
-		return <Blogs blog={this.state.blog} />
+		return <Blogs blog={this.state} />
 	}
 }
 
@@ -336,4 +336,4 @@ function Blogs() {
     )
 }
 
-export default Blogs;
+export default BlogContainer;
