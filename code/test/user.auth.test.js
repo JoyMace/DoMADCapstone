@@ -10,6 +10,7 @@ const app = require('../app');
 const authCode = require('../config/resCodes').auth;
 const testVar = require('../config/testVar');
 const User = require('../models/user');
+const Location = require('../models/location');
 
 
 describe('User Auth Routers', function() {
@@ -73,8 +74,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
         statusCode = res.statusCode;
         message = JSON.parse(res.res.text).message
-        expect(statusCode).to.equal(authCode.login.success.status);
         expect(message).to.equal(authCode.login.success.message)
+        expect(statusCode).to.equal(authCode.login.success.status);
         });
       done(); 
     });
@@ -87,8 +88,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
         statusCode = res.statusCode;
         message = JSON.parse(res.res.text).message
-        expect(statusCode).to.equal(authCode.login.wrongUsername.status);
         expect(message).to.equal(authCode.login.wrongUsername.message)
+        expect(statusCode).to.equal(authCode.login.wrongUsername.status);
         });
       done(); 
     });
@@ -101,8 +102,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
         statusCode = res.statusCode;
         message = JSON.parse(res.res.text).message
-        expect(statusCode).to.equal(authCode.login.wrongPassword.status);
         expect(message).to.equal(authCode.login.wrongPassword.message)
+        expect(statusCode).to.equal(authCode.login.wrongPassword.status);
         });
       done(); 
     });
@@ -128,10 +129,17 @@ describe('User Auth Routers', function() {
         findOneDBStub.withArgs(userQuery).yields(null, true);
         findOneDBStub.yields(null, null);
 
-        var saveDBStub = sandbox.stub(User.prototype, 'save')
+        var saveDBStub = sandbox.stub(User.prototype, 'save');
         saveDBStub.yields(null, null);
         // make sure this corresponds with failed to add user
         saveDBStub.onCall(1).yields(true, null);
+
+        // TODO: mock this stub
+
+        var fakeLocation = new Location(testVar.locationInfo);
+
+        var saveLocationStub = sandbox.stub(Location, 'findOneOrCreate');
+        saveLocationStub.yields(null, fakeLocation);
 
         done()
     });
@@ -144,8 +152,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(authCode.signup.success.status);
           expect(message).to.equal(authCode.signup.success.message)
+          expect(statusCode).to.equal(authCode.signup.success.status);
         });
       done(); 
     });
@@ -158,8 +166,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(authCode.signup.failedToAdd.status);
           expect(message).to.equal(authCode.signup.failedToAdd.message);
+          expect(statusCode).to.equal(authCode.signup.failedToAdd.status);
         });
       done();
     });
@@ -175,8 +183,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(authCode.signup.missingFields.status);
           expect(message).to.equal(authCode.signup.missingFields.message);
+          expect(statusCode).to.equal(authCode.signup.missingFields.status);
         });
       done();
     });
@@ -192,8 +200,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(authCode.signup.verifyPassword.status);
           expect(message).to.equal(authCode.signup.verifyPassword.message);
+          expect(statusCode).to.equal(authCode.signup.verifyPassword.status);
         });
       done();
     });
@@ -210,8 +218,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(authCode.signup.passwordReq.status);
           expect(message).to.equal(authCode.signup.passwordReq.message);
+          expect(statusCode).to.equal(authCode.signup.passwordReq.status);
         });
       done();
     });
@@ -228,8 +236,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(authCode.signup.passwordReq.status);
           expect(message).to.equal(authCode.signup.passwordReq.message);
+          expect(statusCode).to.equal(authCode.signup.passwordReq.status);
         });
       done();
     });
@@ -245,8 +253,8 @@ describe('User Auth Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.text).message;
-          expect(statusCode).to.equal(authCode.signup.userExists.status);
           expect(message).to.equal(authCode.signup.userExists.message);
+          expect(statusCode).to.equal(authCode.signup.userExists.status);
         });
       done();
     });
