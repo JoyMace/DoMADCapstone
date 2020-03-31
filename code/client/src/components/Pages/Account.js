@@ -7,38 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
 
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
-
-
-class TravelMap extends React.Component {
-	constructor() {
-	  super()
-	  this.state = {
-		lat: 51.505,
-		lng: -0.09,
-		zoom: 13
-	  }
-	}
-  
-	render() {
-	  const position = [this.state.lat, this.state.lng];
-	  return (
-		<Map center={position} zoom={this.state.zoom}>
-		  <TileLayer
-			attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'			
-		  />
-		  <Marker position={position}>
-			<Popup>
-			  A pretty CSS3 popup. <br/> Easily customizable.
-			</Popup>
-		  </Marker>
-		</Map>
-	  );
-	}
-  } 
-	
 
 const userInfo = {
 	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
@@ -95,10 +64,10 @@ class UserDonationStory extends React.Component {
 		return (
 
 		<form action="/api/user/trip/report" method="POST">
-			<ul class="flex-outer">
+			<ul className="flex-outer">
 				<input name="userID" value="123" type="hidden"/>
 				<li>
-					<label for="date">When did this trip occur?</label>
+					<label name="date">When did this trip occur?</label>
 					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />
 				</li>
 
@@ -367,7 +336,7 @@ class UserDonationStory extends React.Component {
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
-					  <option selected="selected">Select the Donation Category</option>
+					  <option value="selected">Select the Donation Category</option>
 					  <option value="AnimalWelfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
@@ -382,14 +351,14 @@ class UserDonationStory extends React.Component {
 				</li>
 				<li>
 					<p>Did you donate to an Individual or Organization?</p>
-						<ul class="flex-inner">
+						<ul className="flex-inner">
 							<li>
-							<label for="donationRecipient" name="donationRecipient">Individual</label>
+							<label name="donationRecipient">Individual</label>
 							<input type="checkbox" id="Individual" name="donationRecipient" value={this.state.donationRecipient}/>
 							</li>
 
 							<li>
-							<label for="donationRecipient" name="donationRecipient">Organization</label>
+							<label  name="donationRecipient">Organization</label>
 							<input type="checkbox" id="Organization"/>
 							</li>
 
@@ -420,7 +389,7 @@ class UserDonationStory extends React.Component {
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
-					  <option selected="selected">Select the Donation Category</option>
+					  <option value="selected">Select the Donation Category</option>
 					  <option value="AnimalWelfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
@@ -434,8 +403,8 @@ class UserDonationStory extends React.Component {
 					</select>
 				</li>
 				<li>
-					<label name="donationReason" className="donationReason"></label>
-					<input name="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onchange={this.accountChangeHandler}/>
+				<label name="donationReason" className="donationReason"></label>
+				<input name="donationReason" className="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
 				</li>
 				<li>
 					<label name="description" className="description" >What else would you like to share?</label>
@@ -444,9 +413,9 @@ class UserDonationStory extends React.Component {
 
 				<li>
 					<p>Make Private?</p>
-						<ul class="flex-inner">
+						<ul className="flex-inner">
 						<li>
-						<label for="private" name="public_private" className="public_private">Private</label>
+						<label name="public_private" className="public_private">Private</label>
 						<input type="checkbox" id="private"/>
 						</li>
 						</ul>
@@ -480,16 +449,19 @@ class PostContainer extends React.Component {
 			description: "",
 		 }
 	}
-	render() {
-		return <Post post={this.state} />
-	}
-
+	
 	componentDidMount() {
 		fetch("/api/user/trip/user-trips")
 		  .then(res => res.json())
 		  .then(
 			(result) => {
 			  this.setState({
+				date: result.date,
+				city: result.city,
+				country: result.country,
+				donationItem: result.donationItem,
+
+
 				isLoaded: true,
 				items: result.items
 			  });
@@ -505,6 +477,9 @@ class PostContainer extends React.Component {
 			}
 		  )
 	  }
+	  render() {
+		return <Post post={this.state} />
+	}
 
 }
 
@@ -566,7 +541,7 @@ function Account(props) {
 					<div id="mapid">
 					<h1>Your Travel Map</h1>
 					<div className='map' >
-						<TravelMap/>
+						
 					</div>
 					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
 				</div>
