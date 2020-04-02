@@ -12,17 +12,27 @@ resCode = {
         status:400,
         message:'Failed to add country'
       }
+  },
+  countryInfo:{
+    success:{
+      status:200,
+      message:'Country info returned successfully'
     },
-    countryInfo:{
-      success:{
-        status:200,
-        message:'Country info returned successfully'
-      },
-      countryNotFound:{
-        status:404,
-        message:'Could not find country'
-      }
+    countryNotFound:{
+      status:404,
+      message:'Could not find country'
     }
+  }
+  getOrganizations:{
+    success:{
+      status:200,
+      message:'List of organizations returned successfully'
+    },
+    countryNotFound:{
+      status:404,
+      message:'Could not find country'
+    }
+  }
 }
 
 module.exports = resCode

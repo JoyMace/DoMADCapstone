@@ -1,6 +1,8 @@
 
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const Organization = require('./organization');
+const OrganizationSchema = mongoose.model('Organization').schema;
 
 const countrySchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -11,6 +13,7 @@ const countrySchema = new mongoose.Schema({
     map: String, // Same as above 
     locationID: { type:mongoose.Schema.Types.ObjectId, ref: 'Location' }
   },
+  organizations: [OrganizationSchema]
   statistics: {
     totalElectricity: mongoose.Types.Decimal128,
     ruralElectriity: mongoose.Types.Decimal128
