@@ -23,6 +23,8 @@ app.use(express.json());
 mongooseInput = {
   useNewUrlParser: true
 }
+
+mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, mongooseInput);
 
 const db = mongoose.connection;
@@ -46,6 +48,9 @@ app.use('/api/user/auth', require('./routers/user/auth'));
 app.use('/api/user/trip', require('./routers/user/trip'));
 app.use('/api/user/reset', require('./routers/user/reset'));
 app.use('/api/user/profile', require('./routers/user/profile'));
+
+app.use('/api/admin', require('./routers/admin'));
+
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
 app.use('/api/country-page/country', require('./routers/country_page/country'));
 

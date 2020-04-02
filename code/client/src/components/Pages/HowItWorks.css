@@ -15,19 +15,9 @@ h1.how {
 
 img.howMap {
     position: relative;
-    margin: 0;
+    float: right;
+    margin-right: 18%;
     width: 35%;      
-}
-
-.rightImg {
-    position: absolute;
-    transform: translate(15%, 10%);
-}
-
-img.howSearchBar{
-    position: relative;
-    margin: 0;
-    width: 65%;  
 }
 
 .rightImg2 {
@@ -37,25 +27,20 @@ img.howSearchBar{
 
 img.howPacking {
     position: relative;
-    margin: 0; 
-    width: 65%;      
-}
-
-.leftImg {
-    position: absolute;
-    transform: translate(22%, 20%);
+    float: left;
+    margin-left: 19%;
+    margin-top: 4%; 
+    width: 29%;      
 }
 
 img.howTravel {
     position: relative;
-    margin: 0; 
-    width: 65%;      
+    float: right;
+    margin-top: 2%;
+    margin-right: 19%;
+    width: 31%;      
 }
 
-.rightImg3 {
-    position: absolute;
-    transform: translate(95%, 10%);
-}
 
 img.step1 {
     position: relative;

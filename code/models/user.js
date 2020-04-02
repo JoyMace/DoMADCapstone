@@ -11,11 +11,12 @@ const userSchema = new mongoose.Schema({
   signupDate: { type: Date, default: Date.now },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  hash: String,
-  salt: String,
-  phone: String,
-  dob: String,
-  locationID: String
+  hash: String, 
+  salt: String, 
+  phone: String, 
+  dob: String, 
+  locationID: { type:mongoose.Schema.Types.ObjectId, ref: 'Location' },
+  banned: Boolean
 });
 
 /*

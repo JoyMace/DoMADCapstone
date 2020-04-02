@@ -5,55 +5,39 @@ import AboutImage from '../../images/AboutImage.jpg'
 function About() {
     return (
         <div className="about">
-            <div class="tinted" >
-                <img class="about" src={AboutImage} width="900" alt="person in peru"/>
+            <div className="tinted" >
+                <img className="about" src={AboutImage} width="900" alt="person in peru"/>
             </div>
 
-            <header className="about">Our Mission</header>
 
-            <padding className="aboutPad">
-                <padding className="content">
-                </padding>
-            
-            </padding>
-            
-            
-
-            
-            
-  
-            
-             
-            
-            <div class="centered2">
+            <div className="aboutPad">
+                <header className="about">Our Mission</header>
+            </div>             
+                       
+            <div className="centered">
                 Donations Make a Difference (DoMAD) is a website to inform international travelers
                 about items they can contribute to address local needs in communities they will visit on
                 their travels. This enables travelers to bring from home, or buy locally, needed items
                 and contribute them directly to individuals, to families, schools, hospitals, orphanages,
                 animal shelters and/or to other organizations.
-            </div>
-            <div class="centered3">
-                After traveling, DoMAD users are asked to post what they learned about local needs
+                <p className="white">After traveling, DoMAD users are asked to post what they learned about local needs
                 during their travels. Users are encouraged to rate their experience donating specific
-                items and to recommend new items to help inform future travelers.
-            </div>
-
-            <div class="centered4">
-                As a non-profit organization, DoMAD is dedicated to inspiring and facilitating travelers to
+                items and to recommend new items to help inform future travelers.</p>
+                <p className="white">As a non-profit organization, DoMAD is dedicated to inspiring and facilitating travelers to
                 give back to the communities they visit, thus improving the quality of life for those less
-                fortunate.
+                fortunate.</p>
             </div>
 
-            <p class="origin">If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
+            <p className="origin">If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
                 destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 
             </p>    
 
             <hr className="about"></hr>
 
-            <h1 class="header1">
+            <h1 className="header1">
                 About Us
             </h1>
-            <p class="top">
+            <p className="top">
                 Learn more about DoMAD, our mission and our team.
             </p>
             <div class="divl2">

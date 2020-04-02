@@ -19,9 +19,9 @@ function HowItWorks() {
                 <img className="howMap" src={Map} width="450" alt="Image"/>
             </div>
 
-            <div className="rightImg2">
+            {/* <div className="rightImg2">
                 <img class="howSearchBar" src={HowItWorksSearchBar} width="450" alt="Image"/>
-            </div>
+            </div> */}
 
             <div className="leftStep1">
                 <img className="step1" src={Step1} width="450" alt="Image"/>
