@@ -47,6 +47,7 @@ app.use('/api/user/trip', require('./routers/user/trip'));
 app.use('/api/user/reset', require('./routers/user/reset'));
 app.use('/api/user/profile', require('./routers/user/profile'));
 app.use('/api/contact-us/msg', require('./routers/contact_us/msg'));
+app.use('/api/country-page/country', require('./routers/country_page/country'));
 
 // This routes all client side requests to REACT
 const root = require('path').join(__dirname, 'client', 'build')

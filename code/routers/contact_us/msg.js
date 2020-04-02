@@ -19,13 +19,11 @@ var crypto = require("crypto");
 
 router.post('/contact', function(req, res) {
 
-  console.log("inside msg router")
   var name = req.body.firstname + " " + req.body.lastname
   var email = req.body.email
   var message = req.body.message
-  var content = `name: ${name} \n email: ${email} \n message: ${message} `
+  var content = `Name: ${name} \nEmail: ${email} \nMessage: ${message} `
 
-  console.log(content)
   if(req.body.email == "" || req.body.message == "") {
       console.log("Error: Email & body should not be Blank");
       return false;
@@ -54,8 +52,6 @@ router.post('/contact', function(req, res) {
   });
 
 })
-
-
 
 
 module.exports = router;

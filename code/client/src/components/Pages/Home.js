@@ -4,6 +4,7 @@ import bg from '../../images/home-filler-girl_running.jpg';
 import bg_alt from '../../images/home-filler-inspire.jpg';
 import logo_wh from '../../images/CompleteDoMADLogo.svg';
 import logo_bl from '../../images/DoMADLogoDark.svg';
+import StepsGraphic from '../../images/123DoMADGraphic.png';
 
 
 import dons from '../../images/home-filler-volunteers.jpg';
@@ -19,32 +20,26 @@ function Home() {
             <div className="navbar-wrapper">
                 <ul className='nav-list'>
                     <li className='dropdown'>
-                        <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
-                            Get Started  <i className="down-up-arrow"></i>
-                        </a>
-                        <div className="dropdown-content">
-                            <a href="/about">Explore</a>
-                            <a href="/account">Share A Trip</a>
-                            <a href="/blogs">Go to Blogs</a>
-                        </div>
+                        
                     </li>
                     <li className='dropdown'>
-                        <a className='DD-btn' href="/login">
-                            Log in
+                        <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                            Log In  <i className="down-up-arrow"></i>
                         </a>
-                        <div id='signup-dd' className="dropdown-content">
-                            <a  href="/register">No account? Create one!</a>
+                        <div className="dropdown-content">
+                            <a href="/login">Log In</a>
+                            <a href="/register">Register</a>
                         </div>
                     </li>
                     <li className='dropdown'>
                         <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
-                            Learn More  <i className="down-up-arrow"></i>
+                            Info  <i className="down-up-arrow"></i>
                         </a>
                         <div className="dropdown-content">
-                            <a href="/about">Our Mission</a>
-                            <a href="/contact">Contact Us</a>
+                            <a href="/how_it_works">How It Works</a>
+                            <a href="/about">About Us</a>
                             <a href="/faq">FAQ</a>
-                            <a href="/disclaimer">Disclaimer</a>
+                            <a href="/contact">Contact Us</a>
                         </div>
                     </li>
                 </ul>
@@ -71,52 +66,17 @@ function Home() {
             </h4>
 
             <div className='all-steps-container'>
-                <div className="step-container">
-                    <div><svg className='step-circle' width="100" height="100">
-                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
-                    </svg></div>
-
-                    <div className='step-box'>
-                        <p>
-                            Reference our interactive and localized database to 
-                            gather information about your destination as we.
-                            Discover <i>what, how, and where </i> to make your donation.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="step-container">
-                    <div><svg className='step-circle' width="100" height="100">
-                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
-                    </svg></div>
-
-                    <div className='step-box'>
-                        <p>Pack a few items to be donated, then DONATE!</p>
-                    </div>
-                </div>
-
-                <div className="step-container">
-                    <div><svg className='step-circle' width="100" height="100">
-                        <circle cx="50" cy="50" r="35" stroke="#010925" stroke-width="3" fill="lightgray" />
-                    </svg></div>
-                    <div className='step-box'>
-                        <p>
-                            Inspire others by sharing content and experiences, commending
-                            other's <i>NoMAD's</i>, and providing useful information
-                        </p>
-                    </div>
-                </div>
-
+                <img className='steps-graphic' src={StepsGraphic} alt="Steps to donate" />
             </div>
             
             <h4 className='spacer-caption'>
-                Click <a className='text-hyperl' href='/About'>Here</a> to learn more.
+                Click <a className='text-hyperl' href='/how_it_works'>here</a> to learn more.
             </h4>
             <hr style={{width: '70%', margin:'0px 15%'}}/>
         </article>
 
         <article className='donations-wrapper'>
-            <h2>Recent Donation Trips</h2>
+            <h2>Recent Donations</h2>
             <div className="slides-container">
                 <div className="slide-entry">
                     <div className="top-image">
@@ -150,10 +110,6 @@ function Home() {
                 </div>
             </div>
         </article>
-
-        <h4 className='spacer-caption'>
-            Something unclear? Checkout our <a className='text-hyperl' href='/faq'>FAQ</a> page
-        </h4>
     </div>
     )
 }

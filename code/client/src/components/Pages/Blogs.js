@@ -339,12 +339,6 @@ function Blogs() {
                     </div>
                 </div>
             </div>
-            <div className="bottom-buttons">
-                <IconContext.Provider value={{ className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                    <button className="country-buttons">Next Page <FaArrowRight /></button>
-                </IconContext.Provider>
-                <p>Page 1/15</p>
-            </div>
         </div>
     )
 }
