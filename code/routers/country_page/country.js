@@ -116,7 +116,7 @@ router.get('/get-organizations', (req, res) => {
       return res.status(countryCodes.getOrganizations.success.status).send({
         organizations: country[0].organizations,
         message: countryCodes.getOrganizations.success.message
-      }); 
+      });
     }
   })
 })
