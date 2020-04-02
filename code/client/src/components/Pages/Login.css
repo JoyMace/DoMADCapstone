@@ -1,7 +1,7 @@
 .Login {
     margin-top: 56px;
     padding-top: 60px;
-    padding-bottom: 75px;
+    padding-bottom: 120px;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -41,7 +41,7 @@
     background-color: 250ms;
   }
 
-  .email,
+  .username,
   .password{
     width: 100%;
   }

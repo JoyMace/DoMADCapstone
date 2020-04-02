@@ -5,9 +5,10 @@ import './Login.css';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      email: "",
-      password: "",
+      username: '',
+      password: '',
       submitted: false
     };
 
@@ -23,24 +24,26 @@ class Login extends React.Component {
         e.preventDefault();
         this.setState({ submitted: true });
         const { username, password } = this.state;
-        if (!(username && password)) {
+        if ((username && password)) {
             this.props.login(username, password);
         }
+
     }
 
   render() {
     const { loggingIn} = this.props;
-    const { email, password, submitted } = this.state;
+    const { username, password, submitted } = this.state;
     return (
       <div className = "Login">
        <div className = "form-wrapper">
         <h1 className="title">Log In To DoMAD</h1>
-        <form className="LoginForm" onSubmit={this.handleSubmit}>
-          <div className="email">
-              <label htmlFor="email">Email</label>
-              <input name="email" type="text" placeholder="Enter your email" value={email} onChange={this.handleChange}/>
-              {submitted && !email &&
-                <div className="help-block">Email is required</div>
+        <form className="LoginForm" onSubmit={this.handleSubmit} action="/api/user/auth/login" method="POST">
+
+          <div className="username">
+              <label htmlFor="username">Username</label>
+              <input name="username" type="text" placeholder="Enter your username" value={username} onChange={this.handleChange}/>
+              {submitted && !username &&
+                <div className="help-block">username is required</div>
             }
           </div>
 
