@@ -17,7 +17,13 @@ testVar = {
   wrongVal: 'WRONG',
   tripInfo: {
     _id: 'TEST',
+    userID: 'TEST',
     isPrivate: true
+  },
+  locationInfo: {
+    _id: 'TEST',
+    country: 'TEST',
+    city: 'TEST'
   },
   donationInfo: {
     _id: 'TEST',

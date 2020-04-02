@@ -1,5 +1,7 @@
 const authCodes = require('./resCodes/user/auth')
 const tripCodes = require('./resCodes/user/trip')
+
+const adminCodes = require('./resCodes/admin')
 const donationCodes = require('./resCodes/user/donation')
 const profileCodes = require('./resCodes/user/profile')
 const countryCodes = require('./resCodes/countryPage/country')
@@ -10,6 +12,7 @@ const countryCodes = require('./resCodes/countryPage/country')
 resObjs = {
   auth: authCodes,
   trip: tripCodes,
+  admin: adminCodes,
   donation: donationCodes,
   profile: profileCodes,
   country: countryCodes

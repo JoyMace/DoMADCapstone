@@ -9,26 +9,21 @@ header.about{
     font-weight: bold;
     position: absolute;
     color: #ffffff;
-    top: 15%;
-    left: 50%;
-    text-align: center;
-    transform: translate(-50%, -50%);
-    
+    top: -90%;
+    left: 25%;
+    /* text-align: center; */
+    /* transform: translate(-50%, -50%); */   
 }
 
-padding.aboutPad{
-    background-color: rgb(255,255,255);
+div.aboutPad{
+    background-color: rgb(255,255,255,0.3);
     border-radius: 10px;
     position: absolute;
     width: 350px;
     height: 60px;
-    top: 23.5%;
-    opacity: 35%;
-    transform: translate(-50%, -50%);
-}
-
-padding.content{
-    padding: 20px;    
+    padding: 20px;
+    top: 17%;
+    left: 37%;
 }
 
 p.origin {
@@ -37,6 +32,12 @@ p.origin {
     margin-bottom: 40px; 
     margin-left: 250px;
     margin-right: 250px;
+}
+
+p.white {
+    font-family: Cambria, Georgia, serif;
+    color: white;
+    margin-top: 20px;
 }
 
 pthick {
@@ -51,6 +52,7 @@ p.top {
     margin-top: 10px; 
     margin-left: 250px;
     margin-right: 250px;
+   
 }
 
 p.bottom {
@@ -60,7 +62,6 @@ p.bottom {
     margin-left: 250px;
     margin-right: 250px;
 }
-
 
 .divl {
     margin-top: 80px;
@@ -79,48 +80,24 @@ p.bottom {
     text-align: left;
     margin-right: 250px;
 }
-
-/* .centered1 {
-    position: absolute;
-    color: #ffffff;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);  
-  } */
   
-.centered2 {
+.centered {
     position: absolute;
     font-family: Cambria, Georgia, serif;
     color: #ffffff;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);  
+    top: 35%;
+    left: 20%;
+    right: 20%;
+    /* transform: translate(-50%, -20%);   */
 }
 
-.centered3 {
-    position: absolute;
-    font-family: Cambria, Georgia, serif;
-    color: #ffffff;
-    top: 50%;
-    left: 50%;
-    bottom:50%;
-    transform: translate(-50%, -50%);  
-}
-
-.centered4 {
-    position: absolute;
-    font-family: Cambria, Georgia, serif;
-    color: #ffffff;
-    top: 65%;
-    left: 50%;
-    bottom:35%;
-    transform: translate(-50%, -50%);  
-}
 
 img.about{
     position: relative;
     margin: auto;
-    width: 60%;
+    max-width: 100%;
+    height: auto;
+    width: auto\9;
        
 }
 
