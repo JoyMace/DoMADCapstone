@@ -21,16 +21,16 @@ const donationCodes = require('../../config/resCodes').donation;
 
 
 function createDonation(donationInformation, tripID, done) {
-  const newDo = new Donation(donationInformation);
-  newDo.tripID = tripID;
-  newDo.save(function(err, donation) {
-    if (err) {
-      done(err, donation, donationCodes.saveDonation.addDonationFail);
-    } else {
-      done(err, donation, donationCodes.saveDonation.success);
-    }
-  });
-  return
+	const newDo = new Donation(donationInformation);
+	newDo.tripID = tripID;
+	newDo.save(function(err, donation) {
+		if (err) {
+			done(err, donation, donationCodes.saveDonation.addDonationFail);
+		} else {
+			done(err, donation, donationCodes.saveDonation.success);
+		}
+	});
+	return
 }
 
 function deleteDonation(donationID, done) {
