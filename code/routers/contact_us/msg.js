@@ -33,13 +33,13 @@ router.post('/contact', function(req, res) {
     host: "smtp.gmail.com",
     auth: {
       type: "login",
-      user: "DOMAD24901@gmail.com",
-      pass: "DoMADTemp#2020",
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
     }
   });
 
   var mailOptions = {
-    to: "DOMAD24901@gmail.com",
+    to: process.env.EMAIL_USERNAME,
     from: name,
     subject: 'New message from contact us sent by ' + name,
     text: content
