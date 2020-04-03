@@ -6,6 +6,7 @@ import logo_wh from '../../images/CompleteDoMADLogo.svg';
 import logo_bl from '../../images/DoMADLogoDark.svg';
 import StepsGraphic from '../../images/123DoMADGraphic.png';
 
+
 import dons from '../../images/home-filler-volunteers.jpg';
 
 function Home() {
@@ -13,7 +14,7 @@ function Home() {
 
     <div className="home">
 
-        <StickyHeadContainer id='top-container'>
+        <StickyContainer className='top-container'>
             <img id='bg_img' src={bg} alt={bg_alt} />
 
             <div className="navbar-wrapper">
@@ -40,32 +41,29 @@ function Home() {
                             <a href="/faq">FAQ</a>
                             <a href="/contact">Contact Us</a>
                         </div>
-                    </div>
-
-                </div>
+                    </li>
+                </ul>
             </div>
         
-            <div id="block-wrapper">
+            <div className="block-wrapper">
                 <div>
                     <img id='block-logo' src={logo_wh} alt={logo_bl} />
                 </div>
                 <div id='block-content'>
-                    <div className='block-box'>
+                    <div id='exp' className='block-box'>
                         <a href="/search_locations">Explore</a>
                     </div>
-                    <div className='block-box'>
+                    <div id='blog' className='block-box'>
                         <a href="/blogs">Blogs</a>
                     </div>
                 </div>
             </div>
-        </StickyHeadContainer>
+        </StickyContainer>
 
-        <article id='steps-wrapper'>
-            <header className='section_heads_foots'>
-                <h4>A Community that Empowers Global Travelers To Make A Difference Locally</h4>
-                <hr className='hr-spacer'/>
-                <h5><i>How does DoMAD work?</i></h5>
-            </header>
+        <article className='steps-wrapper'>
+            <h4 className='spacer-caption'>
+                Empowering Global Travelers To Make A Difference Locally
+            </h4>
 
             <div className='all-steps-container'>
                 <img className='steps-graphic' src={StepsGraphic} alt="Steps to donate" />
@@ -116,36 +114,26 @@ function Home() {
     )
 }
 
-function myHamButton() {
-    let x = document.getElementById("nav-container");
-    if (x.className === "") {
-        x.className += "hammed";
-    } else {
-        x.className = "";
-    }
-}
-
 /* Sets an Observer on the  for viewport visibility*/
-function StickyHeadContainer({ children, sticky=false, className, ...rest }){
+function StickyContainer({ children, sticky=false, className, ...rest }){
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
     
-    // mount viewport observer
+    // mount observer
     React.useEffect(() => {
         const cachedRef = ref.current, 
-            observer = new IntersectionObserver(
-                ([e]) => setIsSticky(e.intersectionRatio < 0.1), 
-                    { threshold: [0.1] }  
-            );
+                observer = new IntersectionObserver(
+                    ([e]) => setIsSticky(e.intersectionRatio < 0.1), {
+                        threshold: [0.1]
+                    } 
+                );
         observer.observe(cachedRef);
       
         // unmount
-        return function() { 
-            observer.unobserve(cachedRef); 
-        }
+        return function(){ observer.unobserve(cachedRef); }
     }, [])
     
-    return (
+  return (
         <div className={className + (isSticky ? " isSticky" : "")} ref={ref} {...rest}>
             {children}
         </div>
