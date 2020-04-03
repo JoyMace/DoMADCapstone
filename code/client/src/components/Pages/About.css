@@ -1,109 +1,119 @@
 .about {
-    margin-top: 64px;
+    margin-top: 50px;
     text-align: center;
 }
 
-header.about{
-    font-family: Cambria, Georgia, serif;
-    font-size: 30px;
-    font-weight: bold;
-    position: absolute;
-    color: #ffffff;
-    top: -90%;
-    left: 25%;
-    /* text-align: center; */
-    /* transform: translate(-50%, -50%); */   
+.about-image {
+    position: relative;
+    height: auto;
+    width: 100%;   
+    max-height: 70vh;    
 }
 
-div.aboutPad{
+.tinted {
+    filter: brightness(50%);
+}
+
+.mission-header {
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    margin: auto;
+}
+
+.about-pad {
+    position: absolute;
+    display: flex;
+    text-align: center;
     background-color: rgb(255,255,255,0.3);
     border-radius: 10px;
-    position: absolute;
-    width: 350px;
+    width: 500px;
     height: 60px;
-    padding: 20px;
-    top: 17%;
-    left: 37%;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-p.origin {
-    font-family: Cambria, Georgia, serif;
+.mission-paragraph-container {
+    position: absolute;
+    top: 370px;
+    left: 30%;
+    transform: translate(-20%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    line-height: 1.7;
+}
+
+.mission-paragraphs {
+    color: white;
+}
+
+.under-image-content {
+    margin-bottom: 50px;
+}
+
+.under-image-paragraph {
+    width: 70%;
+    margin: auto;
     margin-top: 40px;
     margin-bottom: 40px; 
-    margin-left: 250px;
-    margin-right: 250px;
 }
 
-p.white {
-    font-family: Cambria, Georgia, serif;
-    color: white;
-    margin-top: 20px;
+.separator-line {
+    width: 60%;
+    margin: auto;
 }
 
-pthick {
-    font-family: Cambria, Georgia, serif;
-    margin-left: 250px;
-    margin-right: 250px; 
-    font-weight: bold;
+.about-us-header {
+    padding-top: 25px;
 }
 
-p.top {
-    font-family: Cambria, Georgia, serif;
-    margin-top: 10px; 
-    margin-left: 250px;
-    margin-right: 250px;
-   
+.learn-more-paragraph {
+    margin: auto;
+    margin-top: 10px;
 }
 
-p.bottom {
-    font-family: Cambria, Georgia, serif;
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    margin-left: 250px;
-    margin-right: 250px;
-}
-
-.divl {
-    margin-top: 80px;
-    text-align: left;
-    margin-right: 400px;
-}
-
-.divr {
-    margin-top: 80px;
-    text-align: left;
-    margin-left: 400px;
-}
-
-.divl2 {
+.sponsor-about-us {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
     margin-top: 30px;
     text-align: left;
-    margin-right: 250px;
-}
-  
-.centered {
-    position: absolute;
-    font-family: Cambria, Georgia, serif;
-    color: #ffffff;
-    top: 35%;
-    left: 20%;
-    right: 20%;
-    /* transform: translate(-50%, -20%);   */
 }
 
+.sponsor-text {
+    width: 70%;
+}
 
-img.about{
-    position: relative;
+.sponsor-names {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+}
+
+.sponsor-title {
+    padding-bottom: 5px;
+}
+
+.sponsor-info {
+    line-height: 1.5;
+    font-size: 0.9em;
+}
+
+.sponsor-images {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.sponsor-image-styling {
     margin: auto;
-    max-width: 100%;
-    height: auto;
-    width: auto\9;
-       
+    border-radius: 5px;
+    overflow: hidden;
+    width: 250px;
+    height: 175px;
 }
-
-hr.about{
-    margin-right: 350px;
-    margin-left: 350px;   
-}
-
-.tinted { filter: brightness(50%); }
