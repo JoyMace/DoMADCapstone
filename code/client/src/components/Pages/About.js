@@ -49,7 +49,7 @@ function About() {
                 </p>
 
                 <div className="sponsor-about-us">
-                    <div className="sponsor-text">
+                    <div className="sponsor-text-section">
                         <h3>Founders</h3>
                         <p className="sponsor-names">Jill Drury</p>
                         <p className="sponsor-title">Founder & Executive Director, Donations Make A Difference (DoMAD)</p>
