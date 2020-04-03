@@ -4,6 +4,10 @@ resCode = {
       status:201,
       message:'Trip added successfully'
     },
+    badWordsFound:{
+      status:400,
+      message:'Profanity found in the input'
+    },
     addTripFail:{
       status:400,
       message:'Failed to add trip'

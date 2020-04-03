@@ -29,7 +29,6 @@ import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 //import ReactDOM from 'react-dom';
 
-
 class App extends Component {
   state = {
       data: null,
@@ -45,22 +44,6 @@ class App extends Component {
   backdropClickHandler = () => {
     this.setState({sideDrawerOpen: false});
   }
-
-  /*componentDidMount() {
-      // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-  }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body;
-  };*/
 
   /* determine current path for navbar rendering, other stuff */
   /*current_path() {
@@ -78,10 +61,11 @@ class App extends Component {
 
   render() {
     let backdrop;
-
+  
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
+
     return (
       // The 'Switch' renders the component for the first matching path
           // If path is "/" ==> Home page

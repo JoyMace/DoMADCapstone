@@ -66,9 +66,25 @@
         /* Dropdown headers */
         .DD-btn {
             font-size: 1.3em;
-            z-index: 7; /* Stack order = 4th */
-        }  
-        #signup-dd { width: 175%; }   
+        }
+            /* Hovering any DD item => styles header */
+            .nav-list .dropdown:hover .DD-btn {
+                transition: ease-in 0.3s;
+                border-left: 2px solid #CBB95A;
+            }
+            .down-up-arrow {
+                border: solid white;
+                display: inline-block;
+                border-width: 3px 3px 0 0;
+                padding: 4px;
+                margin-left: 6px;
+
+                transform: rotate(135deg);
+                -webkit-transform: rotate(135deg);
+            }
+            .dropdown:hover .down-up-arrow {
+                transition: all 0.3s;
+            }
 
         /* Active hovering any DD item -> border on header */
         #nav-container .dropdown:hover .DD-btn {
@@ -84,7 +100,8 @@
             min-width: 20px;
             background-color: #363D48;
             box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-            z-index: 8; /* Stack order = 5th, after head btn styles */
+            width: calc(100% + 30px);
+            z-index: 8; /* UI Stack order (1st before navbar) */
         }
         .dropdown:hover .dropdown-content {
             display: block;
@@ -180,7 +197,7 @@
     z-index: 3; /* Stack order = 2nd, after bg image */
 }
     #block-logo {
-        width: 100%;
+        width: 90%;
         height: auto;
         scale: 0.75;
     }
@@ -193,12 +210,17 @@
         flex-wrap: row wrap;
         justify-content: space-evenly;
         align-items: center;
+        width: 70%;
+        margin: auto;
+        padding-top: 2%;
     }
         .block-box {
             margin: 4px 12px;
-            padding: 8px 10px 4px 10px;
+            padding-top: 15px;
+            padding-bottom: 15px;
             border: 2px solid #CBB95A;
             border-radius: 5px;
+            width: 28%;
         }
         .block-box a {
             color: white;
@@ -216,11 +238,15 @@
     height: auto;
     margin: 0;
 }
-    #all-steps-container {
+    .all-steps-container {
+        align-items: center;
+    }
+
+    .steps-graphic {
         display: flex;
-        flex-flow: row wrap;
-        justify-content: space-evenly;
-        align-items: flex-start;
+        margin: auto;
+        height: auto;
+        width: 70%;
     }
 
     .step-container {
@@ -278,9 +304,18 @@
             border-radius: 6px;
         }
 
-/*========================*/
-/*=== Recent Donations ===*/
-#donations-wrapper {
+.text-hyperl {
+    color: #CBB95A;
+    text-decoration: underline;
+}
+.text-hyperl:hover, .text-hyperl:active {
+    transition: all 0.5s;
+    text-decoration: underline #010925 solid;
+}
+    
+/*==============================*/
+/*=== Donation Slider boxes ===*/
+.donations-wrapper {
     margin-top: 30px;
 }
 
@@ -300,7 +335,7 @@
         margin: 20px;
     }
     .slide-entry:hover {
-        border: 5px solid black;
+        border: 5px solid #010925;
     }
 
         .top-image {

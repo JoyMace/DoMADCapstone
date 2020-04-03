@@ -19,13 +19,11 @@ var crypto = require("crypto");
 
 router.post('/contact', function(req, res) {
 
-  console.log("inside msg router")
   var name = req.body.firstname + " " + req.body.lastname
   var email = req.body.email
   var message = req.body.message
-  var content = `name: ${name} \n email: ${email} \n message: ${message} `
+  var content = `Name: ${name} \nEmail: ${email} \nMessage: ${message} `
 
-  console.log(content)
   if(req.body.email == "" || req.body.message == "") {
       console.log("Error: Email & body should not be Blank");
       return false;
@@ -35,13 +33,13 @@ router.post('/contact', function(req, res) {
     host: "smtp.gmail.com",
     auth: {
       type: "login",
-      user: "DOMAD24901@gmail.com",
-      pass: "DoMADTemp#2020",
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
     }
   });
 
   var mailOptions = {
-    to: "DOMAD24901@gmail.com",
+    to: process.env.EMAIL_USERNAME,
     from: name,
     subject: 'New message from contact us sent by ' + name,
     text: content
@@ -54,8 +52,6 @@ router.post('/contact', function(req, res) {
   });
 
 })
-
-
 
 
 module.exports = router;

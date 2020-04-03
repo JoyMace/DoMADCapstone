@@ -3,15 +3,10 @@ import ReactDOM from 'react-dom';
 import './Account.css';
 import WorldMapImage from '../../images/WorldMap.png';
 import avatar from '../../images/Avatar.png';
-
-import { FaStar } from 'react-icons/fa';
-import { FaStarHalf } from 'react-icons/fa';
-import { IconContext } from "react-icons";
-
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
+
 
 
 const userInfo = {
@@ -69,10 +64,10 @@ class UserDonationStory extends React.Component {
 		return (
 
 		<form action="/api/user/trip/report" method="POST">
-			<ul class="flex-outer">
+			<ul className="flex-outer">
 				<input name="userID" value="123" type="hidden"/>
 				<li>
-					<label for="date">When did this trip occur?</label>
+					<label name="date">When did this trip occur?</label>
 					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />
 				</li>
 
@@ -341,7 +336,7 @@ class UserDonationStory extends React.Component {
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
-					  <option selected="selected">Select the Donation Category</option>
+					  <option value="selected">Select the Donation Category</option>
 					  <option value="AnimalWelfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
@@ -356,14 +351,14 @@ class UserDonationStory extends React.Component {
 				</li>
 				<li>
 					<p>Did you donate to an Individual or Organization?</p>
-						<ul class="flex-inner">
+						<ul className="flex-inner">
 							<li>
-							<label for="donationRecipient" name="donationRecipient">Individual</label>
+							<label name="donationRecipient">Individual</label>
 							<input type="checkbox" id="Individual" name="donationRecipient" value={this.state.donationRecipient}/>
 							</li>
 
 							<li>
-							<label for="donationRecipient" name="donationRecipient">Organization</label>
+							<label  name="donationRecipient">Organization</label>
 							<input type="checkbox" id="Organization"/>
 							</li>
 
@@ -394,7 +389,7 @@ class UserDonationStory extends React.Component {
 				<li>
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
-					  <option selected="selected">Select the Donation Category</option>
+					  <option value="selected">Select the Donation Category</option>
 					  <option value="AnimalWelfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
@@ -408,8 +403,8 @@ class UserDonationStory extends React.Component {
 					</select>
 				</li>
 				<li>
-					<label name="donationReason" className="donationReason"></label>
-					<input name="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onchange={this.accountChangeHandler}/>
+				<label name="donationReason" className="donationReason"></label>
+				<input name="donationReason" className="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
 				</li>
 				<li>
 					<label name="description" className="description" >What else would you like to share?</label>
@@ -418,9 +413,9 @@ class UserDonationStory extends React.Component {
 
 				<li>
 					<p>Make Private?</p>
-						<ul class="flex-inner">
+						<ul className="flex-inner">
 						<li>
-						<label for="private" name="public_private" className="public_private">Private</label>
+						<label name="public_private" className="public_private">Private</label>
 						<input type="checkbox" id="private"/>
 						</li>
 						</ul>
@@ -440,31 +435,36 @@ class UserDonationStory extends React.Component {
 	}
 }
 
-const post = {
-	date: UserDonationStory.date,
-	destination: UserDonationStory.destination,
-	donation: UserDonationStory.donationItem,
-	stars: UserDonationStory.rating,
-	description: UserDonationStory.description,
-};
+
 
 class PostContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = { post }
+		this.state = { 
+			date: "",
+			city: "",
+			country: "",
+			donationItem: "",
+			rating: "",
+			description: "",
+		 }
 	}
-	render() {
-		return <Post post={this.state.post} />
-	}
-
+	
 	componentDidMount() {
 		fetch("/api/user/trip/user-trips")
 		  .then(res => res.json())
 		  .then(
 			(result) => {
+				console.log("this is a string");
 			  this.setState({
+				date: result.date,
+				city: result.city,
+				country: result.country,
+				donationItem: result.donationItem,
+				rating: result.rating,
+				description: result.description,
 				isLoaded: true,
-				items: result.items
+				
 			  });
 			},
 			// Note: it's important to handle errors here
@@ -478,6 +478,9 @@ class PostContainer extends React.Component {
 			}
 		  )
 	  }
+	  render() {
+		return <Post post={this.state} />
+	}
 
 }
 
@@ -489,11 +492,11 @@ function Post(props) {
 		<div className="post-top-row">
 
 			<div className="post-destination-column">
-				<div className="Post-destination">Kenya {post.destination}</div>
+				<div className="Post-destination">Kenya {PostContainer.destination}</div>
 			</div>
 
 			<div className="post-date-column">
-				<div className="Post-date"> 2/20/2020 {post.date}</div>
+				<div className="Post-date"> 2/20/2020 {PostContainer.date}</div>
 			</div>
 
 		</div>
@@ -510,10 +513,10 @@ function Post(props) {
 			quis nostrud exercitation ullamco laboris nisi ut aliquip
 		</div>
 		<br></br>
-			<div className="Post-donation-row"> Items Donated:  {post.donation}</div>
+			<div className="Post-donation-row"> Items Donated:  {PostContainer.donation}</div>
 		<br></br>
 
-			<div className="Post-stars"> Donation rating: {post.stars}
+			<div className="Post-stars"> Donation rating: {PostContainer.stars}
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />
@@ -521,7 +524,7 @@ function Post(props) {
 				<FontAwesomeIcon icon={faStar} />
 			</div>
 		<br></br>
-		<div className="Post-donation-row"> Suggested Donations:  {post.donation}</div>
+		<div className="Post-donation-row"> Suggested Donations:  {PostContainer.donation}</div>
 		<br></br>
 	</div>
   );
@@ -536,9 +539,11 @@ function Account(props) {
 					<UserInfo/>
 				</div>
 					<br></br>
-				<div className="map-image">
+					<div id="mapid">
 					<h1>Your Travel Map</h1>
-					<img src={ WorldMapImage } alt="World Map" />
+					<div className='map' >
+						
+					</div>
 					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
 				</div>
 
