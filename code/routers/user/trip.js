@@ -17,21 +17,18 @@ const donationFunc = require('./donation');
     tripDate: Date
     country: String
     city: String
-    donations: String[] TODO: confirm how this is passed in
-    ratings: String[] TODO: same as above
+    donations: donationJSON[]
     notes: String
     isPrivate: boolean
+
+  donationJSON: contains any information that a donations has (item name, rating, etc.)
 
   creates new trip entry
   calls function to create new donations with reference to the new trip
 
-  TODO:
-    - see how donation information is passed from front end
-    - integrate donation creation
 */
 router.post('/report', function(req, res) {
-  // TODO: figure out how donations are being passed to backend
-  const {tripDate, country, city, donations, ratings, notes, isPrivate } = req.body;
+  const {tripDate, country, city, donations, notes, isPrivate } = req.body;
 
   // check for inappropriate words in 
   var requestString = JSON.stringify(req.body);
@@ -45,7 +42,7 @@ router.post('/report', function(req, res) {
   // checks if user is logged in or external request
   if ('userID' in req.body){
     userID = req.body.userID;
-  } else if ('userID' in req) {
+  } else if ('user' in req) {
     userID = req.user._id;
   } else {
     return res.status(tripCodes.report.userNotGiven.status).send({
@@ -81,22 +78,19 @@ router.post('/report', function(req, res) {
         });
       } else {
         var donationArr = [];
+
+        // loops through all donations given and adds any info they need
         for (var i = 0; i < donations.length; i++) {
-          var donationInformation = {
-            itemName: donations[i],
-            rating: ratings[i],
-            locationID: loc._id,
-            // category: categories[i],
-            donationDate: tripDate,
-            // itemDescription: itemDescriptions[i]
-            // organization: figure this out
-            suggestion: false
-          };
-          donationArr.push(donationInformation);
+          var fullDonationInformation = donations[i]
+          fullDonationInformation['locationID'] = loc._id;
+          fullDonationInformation['donationDate'] = tripDate;
+          
+          donationArr.push(fullDonationInformation);
         }
     
         donationFunc.createMultipleDonations(donationArr, trip._id, function(err, info) {
           if (err) {
+            console.log(err)
             return res.status(tripCodes.report.addTripFail.status).send({
               message: tripCodes.report.addTripFail.message
             });
@@ -204,7 +198,7 @@ router.get('/user-trips', function(req, res) {
   // checks if user is logged in or external request
   if ('userID' in req.query){
     query['userID'] = req.query.userID;
-  } else if ( 'userID' in req ) {
+  } else if ( 'user' in req ) {
     query['userID'] = req.user._id;
   } else {
     return res.status(tripCodes.userTrips.userNotGiven.status).send({

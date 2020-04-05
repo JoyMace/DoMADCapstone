@@ -17,8 +17,22 @@ testVar = {
   wrongVal: 'WRONG',
   tripInfo: {
     _id: 'TEST',
-    donations: ['TEST1', 'TEST2'], // this is used for report trip
-    ratings: [ 5, 1 ], // also used to report trip
+    donations: [
+      {
+        donationItem: "TEST",
+        donationCategory: "TEST",
+        donationRating: 5,
+        suggestion: false,
+        organization: false
+      },
+      {
+        donationItem: "TEST2",
+        donationCategory: "TEST2",
+        donationRating: 1,
+        suggestion: true,
+        organization: true
+      }
+    ],
     userID: 'TEST',
     isPrivate: true,
   },
