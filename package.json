@@ -1,0 +1,25 @@
+{
+  "name": "domadcapstone",
+  "version": "1.0.0",
+  "description": "Donations Make a Difference senior capstone project",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "(cd code && npm install) && (cd code && cd client && npm install)",
+    "start": "cd code && npm start",
+    "heroku-postbuild": "cd code && cd client && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoyMace/DoMADCapstone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoyMace/DoMADCapstone/issues"
+  },
+  "homepage": "https://github.com/JoyMace/DoMADCapstone#readme",
+  "dependencies": {
+    "mongodb": "^3.5.5"
+  }
+}

@@ -1,8 +1,10 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
+const badwords = require('badwords-list').regex;
 
 const User = require('../../models/user');
 const Trip = require('../../models/trip');
+const Location = require('../../models/location');
 
 const tripCodes = require('../../config/resCodes').trip;
 const donationFunc = require('./donation');
@@ -13,7 +15,8 @@ const donationFunc = require('./donation');
   inputs:
     userID: String
     tripDate: Date
-    tripLoc: String
+    country: String
+    city: String
     donations: String[] TODO: confirm how this is passed in
     ratings: String[] TODO: same as above
     notes: String
@@ -24,13 +27,19 @@ const donationFunc = require('./donation');
 
   TODO:
     - see how donation information is passed from front end
-    - get trip id information
-    - add picture support
     - integrate donation creation
 */
 router.post('/report', function(req, res) {
   // TODO: figure out how donations are being passed to backend
-  const {tripDate, tripLoc, donations, ratings, notes, isPrivate } = req.body;
+  const {tripDate, country, city, donations, ratings, notes, isPrivate } = req.body;
+
+  // check for inappropriate words in 
+  var requestString = JSON.stringify(req.body);
+  var badCheck = [...requestString.matchAll(badwords)]
+  if( badCheck.length ){
+    return res.status(tripCodes.report.badWordsFound.status).send({
+      message: tripCodes.report.badWordsFound.message});
+  }
 
   var userID;
   // checks if user is logged in or external request
@@ -43,56 +52,62 @@ router.post('/report', function(req, res) {
       message: tripCodes.report.userNotGiven.message});
   }
 
-  // TODO: get trip location ID ( check if location already exists, if so reference that, else create new location )
-  var locationID = '123'
-
   var newTrip = new Trip();
 
-  newTrip.locationID = locationID; 
   newTrip.userID = userID;
   newTrip.tripDate = tripDate;
-  // TODO: add picture support
   newTrip.notes = notes;
   newTrip.isPrivate = isPrivate;
 
-  newTrip.save(function(err, trip) {
-    if (err) {
-      return res.status(tripCodes.report.addTripFail.status).send({
-        message: tripCodes.report.addTripFail.message
-      });
-    } else {
-      // TODO: Integrate donations when created
-      //      - Call function passing it tripID and a callback function
-      var donationArr = [];
-      for (var i = 0; i < donations.length; i++) {
-        var donationInformation = {
-          itemName: donations[i],
-          rating: ratings[i],
-          locationID: locationID, // this will be changed
-          // country: country,
-          // city: city,
-          // category: categories[i],
-          donationDate: tripDate,
-          // itemDescription: itemDescriptions[i]
-          // organization: figure this out
-          suggestion: false
-        };
-        donationArr.push(donationInformation);
-      }
-  
-      donationFunc.createMultipleDonations(donationArr, trip._id, function(err, info) {
-        if (err) {
-          return res.status(tripCodes.report.addTripFail.status).send({
-            message: tripCodes.report.addTripFail.message
-          });
-        } else {
-          return res.status(tripCodes.report.success.status).send({
-            message: tripCodes.report.success.message
-          });
-        }
-      });
+  var locationQuery = {
+    country: country,
+    city: city
+  }
 
+  Location.findOneOrCreate(locationQuery, function(err, loc){ 
+
+    if (err) {
+      // TODO: unit test location lookup fail
+      return res.status(tripCodes.report.locationLookupFail.status).send({
+        message: tripCodes.report.locationLookupFail.message
+      });
     }
+
+    newTrip.locationID = loc._id;
+    newTrip.save(function(err, trip) {
+      if (err) {
+        return res.status(tripCodes.report.addTripFail.status).send({
+          message: tripCodes.report.addTripFail.message
+        });
+      } else {
+        var donationArr = [];
+        for (var i = 0; i < donations.length; i++) {
+          var donationInformation = {
+            itemName: donations[i],
+            rating: ratings[i],
+            locationID: loc._id,
+            // category: categories[i],
+            donationDate: tripDate,
+            // itemDescription: itemDescriptions[i]
+            // organization: figure this out
+            suggestion: false
+          };
+          donationArr.push(donationInformation);
+        }
+    
+        donationFunc.createMultipleDonations(donationArr, trip._id, function(err, info) {
+          if (err) {
+            return res.status(tripCodes.report.addTripFail.status).send({
+              message: tripCodes.report.addTripFail.message
+            });
+          } else {
+            return res.status(tripCodes.report.success.status).send({
+              message: tripCodes.report.success.message
+            });
+          }
+        });
+      }
+    });
   });
 });
 
@@ -182,13 +197,14 @@ router.get('/user-trips', function(req, res) {
 
   // default values
   query = {};
+  populate_match = {};
   limit = 50;
   offset = 0;
   
   // checks if user is logged in or external request
   if ('userID' in req.query){
     query['userID'] = req.query.userID;
-  } else if ( 'user' in req ) {
+  } else if ( 'userID' in req ) {
     query['userID'] = req.user._id;
   } else {
     return res.status(tripCodes.userTrips.userNotGiven.status).send({
@@ -198,7 +214,16 @@ router.get('/user-trips', function(req, res) {
   if('onlyPublic' in req.query){
     if(req.query.onlyPublic){
       query['isPrivate'] = false;
+      query['adminHide'] = false;
     }
+  }
+
+  if('country' in req.query){
+    populate_match['country'] = req.query.country
+  }
+
+  if('city' in req.query){
+    populate_match['city'] = req.query.city
   }
 
   if('limit' in req.query){
@@ -210,6 +235,7 @@ router.get('/user-trips', function(req, res) {
   }
 
   Trip.find(query)
+      .populate({ path:'locationID' })
       .skip(offset)
       .limit(limit)
       .sort({reportDate: -1})
@@ -219,6 +245,7 @@ router.get('/user-trips', function(req, res) {
             message: tripCodes.allTrips.tripsNotFound.message
           });
         }
+        trips = trips.filter(trip => trip['locationID'])
         return res.status(tripCodes.allTrips.success.status).send({trips: trips});
       });
 
@@ -231,6 +258,8 @@ router.get('/user-trips', function(req, res) {
     onlyPublic: boolean (optional)
     limit: Int (optional default=50)
     offset: Int (optional default=0)
+    country: String (optional)
+    city: String (optional)
   
   returns all trips from the trip database
     - if set, will only return public trips
@@ -239,13 +268,23 @@ router.get('/user-trips', function(req, res) {
 router.get('/all-trips', function(req,res) {
 
   query = {};
+  populate_match = {};
   limit = 50;
   offset = 0;
 
   if('onlyPublic' in req.query){
     if(req.query.onlyPublic){
       query['isPrivate'] = false;
+      query['adminHide'] = false;
     }
+  }
+
+  if('country' in req.query){
+    populate_match['country'] = req.query.country
+  }
+
+  if('city' in req.query){
+    populate_match['city'] = req.query.city
   }
 
   if('limit' in req.query){
@@ -257,6 +296,7 @@ router.get('/all-trips', function(req,res) {
   }
 
   Trip.find(query)
+      .populate({ path:'locationID', match:populate_match })
       .skip(offset)
       .limit(limit)
       .sort({reportDate: -1})
@@ -266,6 +306,7 @@ router.get('/all-trips', function(req,res) {
             message: tripCodes.allTrips.tripsNotFound.message
           });
         }
+        trips = trips.filter(trip => trip['locationID'])
         return res.status(tripCodes.allTrips.success.status).send({trips: trips});
       });
 });

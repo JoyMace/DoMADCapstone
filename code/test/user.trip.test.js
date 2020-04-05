@@ -1,7 +1,6 @@
 
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
-const passport = require('passport');
 const request = require('supertest');
 const sinon = require('sinon');
 const sandbox = sinon.createSandbox();
@@ -12,14 +11,13 @@ const testVar = require('../config/testVar');
 const Trip = require('../models/trip');
 const User = require('../models/user');
 const Donation = require('../models/donation');
+const Location = require('../models/location');
 
 describe('User Trip Routers', function() {
 
   describe('report trip', function(){
     
     before(function(done) {
-
-      //TODO: When location added create stub for location lookup/creation
 
       //TODO When donation added create stub for donation creation
 
@@ -35,12 +33,15 @@ describe('User Trip Routers', function() {
       var mongooseSaveStub = sandbox.stub(Donation.prototype, 'save');
       mongooseSaveStub.yields(null, fakeDonation);
 
+      var fakeLocation = new Location(testVar.locationInfo);
+      var locationStub = sandbox.stub(Location, 'findOneOrCreate');
+      locationStub.yields(null, fakeLocation);
+
       done();
     });
 
     it('report trip SUCCESS', function(done) {
       var trip = JSON.parse(JSON.stringify(testVar.tripInfo)); 
-      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
@@ -49,8 +50,26 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.success.status);
           expect(message).to.equal(tripCode.report.success.message)
+          expect(statusCode).to.equal(tripCode.report.success.status);
+        });
+      done();
+
+    });
+
+    it('report trip FAILURE - bad words found', function(done) {
+      var trip = JSON.parse(JSON.stringify(testVar.tripInfo)); 
+      trip.notes = 'ass';
+
+      request(app)
+        .post('/api/user/trip/report')
+        .send(trip)
+        .type('form')
+        .end(function(err, res){
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(message).to.equal(tripCode.report.badWordsFound.message)
+          expect(statusCode).to.equal(tripCode.report.badWordsFound.status);
         });
       done();
 
@@ -64,8 +83,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.userNotGiven.status);
           expect(message).to.equal(tripCode.report.userNotGiven.message)
+          expect(statusCode).to.equal(tripCode.report.userNotGiven.status);
         });
       done();
 
@@ -73,7 +92,6 @@ describe('User Trip Routers', function() {
 
     it('report trip FAILURE - add trip fail', function(done) {
       var trip = JSON.parse(JSON.stringify(testVar.tripInfo)); 
-      trip.userID = testVar._id;
 
       request(app)
         .post('/api/user/trip/report')
@@ -82,8 +100,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.report.addTripFail.status);
           expect(message).to.equal(tripCode.report.addTripFail.message)
+          expect(statusCode).to.equal(tripCode.report.addTripFail.status);
         });
       done();
 
@@ -122,8 +140,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.togglePrivacy.success.status);
           expect(message).to.equal(tripCode.togglePrivacy.success.message)
+          expect(statusCode).to.equal(tripCode.togglePrivacy.success.status);
         });
       done();
     });
@@ -136,8 +154,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.togglePrivacy.tripNotFound.status);
           expect(message).to.equal(tripCode.togglePrivacy.tripNotFound.message)
+          expect(statusCode).to.equal(tripCode.togglePrivacy.tripNotFound.status);
         });
       done();
     });
@@ -150,8 +168,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.togglePrivacy.tripNotFound.status);
           expect(message).to.equal(tripCode.togglePrivacy.tripNotFound.message)
+          expect(statusCode).to.equal(tripCode.togglePrivacy.tripNotFound.status);
         });
       done();
     });
@@ -164,8 +182,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.togglePrivacy.tripUpdateFail.status);
           expect(message).to.equal(tripCode.togglePrivacy.tripUpdateFail.message)
+          expect(statusCode).to.equal(tripCode.togglePrivacy.tripUpdateFail.status);
         });
       done();
     });
@@ -200,8 +218,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.deleteTrip.success.status);
           expect(message).to.equal(tripCode.deleteTrip.success.message)
+          expect(statusCode).to.equal(tripCode.deleteTrip.success.status);
         });
       done();
     });
@@ -214,8 +232,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.deleteTrip.checkTripExistFail.status);
           expect(message).to.equal(tripCode.deleteTrip.checkTripExistFail.message)
+          expect(statusCode).to.equal(tripCode.deleteTrip.checkTripExistFail.status);
         });
       done();
     });
@@ -228,8 +246,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.deleteTrip.tripNotFound.status);
           expect(message).to.equal(tripCode.deleteTrip.tripNotFound.message)
+          expect(statusCode).to.equal(tripCode.deleteTrip.tripNotFound.status);
         });
       done();
     });
@@ -242,8 +260,8 @@ describe('User Trip Routers', function() {
         .end(function(err, res){
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.deleteTrip.deleteTripFail.status);
           expect(message).to.equal(tripCode.deleteTrip.deleteTripFail.message)
+          expect(statusCode).to.equal(tripCode.deleteTrip.deleteTripFail.status);
         });
       done();
     });
@@ -265,6 +283,9 @@ describe('User Trip Routers', function() {
         skip: function (offset) {
           checkSkip(offset);
           return this;
+        },
+        populate: function(query) {
+          return this; 
         },
         limit: function (limit) {
           checkLimit(limit);
@@ -337,8 +358,8 @@ describe('User Trip Routers', function() {
         .then(function(res) {
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(statusCode).to.equal(tripCode.userTrips.userNotGiven.status);
           expect(message).to.equal(tripCode.userTrips.userNotGiven.message);
+          expect(statusCode).to.equal(tripCode.userTrips.userNotGiven.status);
         });
 
       done();
@@ -373,6 +394,9 @@ describe('User Trip Routers', function() {
           checkSkip(offset);
           return this;
         },
+        populate: function(query) {
+          return this; 
+        },
         limit: function (limit) {
           checkLimit(limit);
           return this;
@@ -391,7 +415,7 @@ describe('User Trip Routers', function() {
       var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
       findTripsDBStump.returns(mockFind);
       findTripsDBStump.onCall(2).returns(mockFindFail);
-  
+
       done();
     });
 
