@@ -12,15 +12,14 @@ const donationCategories = ['Health', 'Household', 'Clothing', 'Education', 'Art
 const donationSchema = new mongoose.Schema({
   itemName: {type: String, required: true},
   rating: {type: Number, required: true},
-  locationID: {type: LocationSchema, required: true},
-  tripID: {type: String, required:true},
+  locationID: {type: mongoose.Schema.Types.ObjectId, ref:'Location', required: true},
+  tripID: {type: mongoose.Schema.Types.ObjectId, ref:'Trip'},
   category: {type: String, enum: donationCategories},  
   donationDateTime: Date,
   reportingDateTime: {type: Date, default: Date.now},
   itemDescr: String,
-  pictures: String, //String for now, maybe use gridfs?
-  organization: Boolean, //could there be a better way to do this?
-  suggestion: Boolean //could there be a better way to do this?
+  organizationID: {type: mongoose.Schema.Types.ObjectId, ref:'Organization'},
+  suggestion: Boolean
 });
 
 const donation = mongoose.model('Donation', donationSchema);
