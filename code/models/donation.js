@@ -19,9 +19,10 @@ const donationSchema = new mongoose.Schema({
   reportingDateTime: {type: Date, default: Date.now},
   itemDescr: String,
   organizationID: {type: mongoose.Schema.Types.ObjectId, ref:'Organization'},
+  organization: Boolean, // since we only have a boolean on the front end we will just do this for now
   suggestion: Boolean
 });
 
-const donation = mongoose.model('Donation', donationSchema);
+const Donation = mongoose.model('Donation', donationSchema);
 
-module.exports = donation
+module.exports = Donation
