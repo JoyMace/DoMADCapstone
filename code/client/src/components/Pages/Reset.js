@@ -9,7 +9,7 @@ class Reset extends React.Component {
         <div className="Reset">
           <div className = "form-wrapper">
           <h1 className="title">Reset Password</h1>
-            <form className="action" action="/api/user/forgot" method="POST" >
+            <form className="action" action="/api/user/reset/forgot" method="POST" >
               <div className="Email">
                 <label htmlFor="email">Email</label>
                 <input name="email" type="text" placeholder="Enter your email"  onChange={this.handleChange}/>
