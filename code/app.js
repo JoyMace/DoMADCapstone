@@ -20,12 +20,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // connect to mongodb
-mongooseInput = {
-  useNewUrlParser: true
+// mongooseInput = {
+//   useNewUrlParser: true
+// }
+
+// connect to mongodb
+mongoose_input = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 }
 
-mongoose.set('useFindAndModify', false);
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING, mongooseInput);
+// mongoose.set('useFindAndModify', false);
+// mongoose.connect(process.env.MONGODB_CONNECTION_STRING, mongooseInput);
+mongoose.connect('mongodb://localhost/domad', mongoose_input);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
