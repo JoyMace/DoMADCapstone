@@ -18,7 +18,6 @@ We are using Trello to track progress
 -**([Trello Link](https://trello.com/b/hu36FAx3/domad))**
 
 ## Navigating this repository
-**the following is what we have so far, however, there will be more added. The old README is in the google drive for reference to what we might want to add**
 Here's a breakdown of what you'll find in this repo:
 
 - `code/` - The code for the social network itself
