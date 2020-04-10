@@ -10,27 +10,27 @@ import KenyaImage from '../../images/KenyaSavannah.jfif';
 
 
 /* Class for UserInfo with variables to set */
-class UserInfo extends React.Component {
+class UserInfoContainer extends React.Component {
 	constructor(props) {
 		super(props)
 
 	var user = this.props.user;
 	
 	this.state = {
-		username: "Joy", //user.firstName + user.lastName,
-		signupDate: "1/1/2020",//user.signupDate,
-		locationID: "USA", //user.locationID	
+		username: user.firstName + user.lastName,
+		signupDate: user.signupDate,
+		locationID: user.locationID	
 	}
 	}
 
 	render() {
-		return <UserInfoContainer user={this.state} />
+		return <UserInfo user={this.state} />
 	}
 }
 
 
 /* Function for UserInfo with divs*/
-function UserInfoContainer(props) {
+function UserInfo(props) {
   return (
 	<div className="UserInfo">
 		<div className="user-info-row">
@@ -40,10 +40,10 @@ function UserInfoContainer(props) {
 					</div>
 			</div>
 			<div className="user-info-column">
-				<div className="UserInfo-name">{props.UserInfo.username}</div>
-				<div className='UserInfo-signupDate'>Member Since: {props.UserInfo.signupDate}</div>
-				<div className="UserInfo-tripsCount">{props.UserInfo.tripsCount}</div>
-				<div className="UserInfo-donationsCount">{props.UserInfo.donationsCount}</div>
+				<div className="UserInfo-name">{props.User.username}</div>
+				<div className='UserInfo-signupDate'>Member Since: {props.User.signupDate}</div>
+				<div className="UserInfo-tripsCount">{props.User.tripsCount}</div>
+				<div className="UserInfo-donationsCount">{props.User.donationsCount}</div>
 			</div>
 		</div>
 	</div>
@@ -51,7 +51,7 @@ function UserInfoContainer(props) {
 }
 
 /* class with API pull of user info */
-class UserData extends React.Component {
+class User extends React.Component {
 	constructor(props) {
 		super(props)
 	this.state = { loading: 'true', reloadAccount: this.reload };
@@ -71,11 +71,11 @@ class UserData extends React.Component {
 
 	getUser = async () => {
 		const response = await fetch('/api/user/profile');
-		const data = await response.json();
+		const user = await response.json();
 		if (response.status != 200) {
 			throw Error(response.message)
 		}
-		return data;
+		return user;
 	};
 
 	componentDidMount() {
@@ -660,11 +660,11 @@ function Account(props) {
 	  </div>
 	}
 	var user = <div></div>
-	if(props.post.loading == "false"){
-		var userData = props.user.user.user;
-		var users = userData.map(user => {
+	if(props.user.loading == "false"){
+		var user = props.user.user;
+		var users = user.map(user => {
 		  return <div className='user-info'>
-			<UserInfo userInfo={user} />
+			<UserInfoContainer userInfo={user} />
 		  </div>
 		});
 	users = <div className='user-info-container'></div>
@@ -702,4 +702,4 @@ function Account(props) {
 	  );
   }
 
-export default AccountContainer;
+export default Account;

@@ -68,14 +68,14 @@ class Register extends React.Component {
                     <div className="emailaddress">
                         <label htmlFor="emailaddress">Email address</label>
                         <input type="text" className="form-control" name="emailaddress" value={user.emailaddress} onChange={this.handleChange} />
-                        {submitted && !user.username &&
+                        {submitted && !user.emailaddress &&
                             <div className="help-block">Email address is required</div>
                         }
                     </div>
                     <div className="homecountry">
                         <label htmlFor="homecountry">Home country</label>
                         <input type="text" className="form-control" name="homecountry" value={user.homecountry} onChange={this.handleChange} />
-                        {submitted && !user.username &&
+                        {submitted && !user.homecountry &&
                             <div className="help-block">Home country is required</div>
                         }
                     </div>
@@ -96,7 +96,7 @@ class Register extends React.Component {
               </div>
               <div className="register-right-info">
                   <h2>Register Now – It’s quick & easy!</h2>
-                  <h2>By registering you’ll be able to log your trips, add photos, share your travel experiences, rate your donations and view other traveler blogs.</h2>
+                  <h2>By registering you’ll be able to log your trips, share your travel experiences, and rate your donations.</h2>
                   <h2>DoMAD will never sell your personal information.</h2>
               </div>
             </div>
