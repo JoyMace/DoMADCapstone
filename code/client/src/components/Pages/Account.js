@@ -13,14 +13,12 @@ import KenyaImage from '../../images/KenyaSavannah.jfif';
 class UserInfoContainer extends React.Component {
 	constructor(props) {
 		super(props)
-
-	var user = this.props.user;
+		this.state = {
+			username: "",
+			signupDate: "",
+			locationID: ""	
+		}
 	
-	this.state = {
-		username: user.firstName + user.lastName,
-		signupDate: user.signupDate,
-		locationID: user.locationID	
-	}
 	}
 
 	render() {
@@ -28,9 +26,18 @@ class UserInfoContainer extends React.Component {
 	}
 }
 
-
 /* Function for UserInfo with divs*/
 function UserInfo(props) {
+	var user = <div></div>
+	if(props.user.loading == "false"){
+		var user = props.user;
+		var user = user.map(user => {
+		  return <div className='UserInfo'>
+			<UserInfoContainer user={user} />
+		  </div>
+		});
+	user = <div className='UserInfo'></div>
+	  }
   return (
 	<div className="UserInfo">
 		<div className="user-info-row">
@@ -40,10 +47,10 @@ function UserInfo(props) {
 					</div>
 			</div>
 			<div className="user-info-column">
-				<div className="UserInfo-name">{props.User.username}</div>
-				<div className='UserInfo-signupDate'>Member Since: {props.User.signupDate}</div>
-				<div className="UserInfo-tripsCount">{props.User.tripsCount}</div>
-				<div className="UserInfo-donationsCount">{props.User.donationsCount}</div>
+				<div className="UserInfo-name">{props.user.username}</div>
+				<div className='UserInfo-signupDate'>Member Since: {props.user.signupDate}</div>
+				<div className="UserInfo-tripsCount">{props.user.tripsCount}</div>
+				<div className="UserInfo-donationsCount">{props.user.donationsCount}</div>
 			</div>
 		</div>
 	</div>
@@ -54,28 +61,22 @@ function UserInfo(props) {
 class User extends React.Component {
 	constructor(props) {
 		super(props)
-	this.state = { loading: 'true', reloadAccount: this.reload };
-	}
+	this.state = { 
+		loading: 'true',
+		username: "",
+		signupDate: "",
+		locationID: ""	
 
-	reload = () => {
-		this.setState({ loading: 'true', reloadAccount: this.reload });
-		this.getUser(this).
-			then(res => {
-				this.setState({
-					user: res,
-					loading: 'false',
-					reloadAccount: this.reload
-				});
-			});
+	};
 	}
 
 	getUser = async () => {
 		const response = await fetch('/api/user/profile');
-		const user = await response.json();
+		const data = await response.json();
 		if (response.status != 200) {
 			throw Error(response.message)
 		}
-		return user;
+		return data;
 	};
 
 	componentDidMount() {
@@ -92,9 +93,9 @@ class User extends React.Component {
 
 	render() {
 	if(this.state.loading == 'false') {
-		return <Account user={this.state} />
+		return <UserInfoContainer userInfo={this.state} />
 	}
-		return <Account user={this.state} />
+		return <UserInfoContainer userInfo={this.state} />
 	}
 }
 
@@ -122,9 +123,10 @@ class UserTripForm extends React.Component {
 		var donations = []
 		// Each donation will be added to the list of donations above in the following format.
 		var newDonation = {
+		  "itemName": "TEST",
 		  "donationItem": this.state.donationItem,
 		  "donationCategory": this.state.donationCategory,
-		  "donationRating": 4, // TODO: add rating support
+		  "donationRating": this.state.donationRating, 
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
@@ -656,26 +658,16 @@ function Account(props) {
 		</div>
 	  });
 	  trips = <div className="main-bottom-row">
-		{trips.reverse().slice(0,4)}
+		{trips.reverse().slice(0,6)}
 	  </div>
 	}
-	var user = <div></div>
-	if(props.user.loading == "false"){
-		var user = props.user.user;
-		var users = user.map(user => {
-		  return <div className='user-info'>
-			<UserInfoContainer userInfo={user} />
-		  </div>
-		});
-	users = <div className='user-info-container'></div>
-	  }
-
+	
 	return (
 	  <div className="Account">
 		  <div className='main-top-row'>
 			  <div className='left-column'>
 				  <div className='user-info-container'>
-					  {users}
+					  <UserInfoContainer/>
 				  </div>
 					  <br></br>
 					  <div id="mapid">
@@ -702,4 +694,4 @@ function Account(props) {
 	  );
   }
 
-export default Account;
+export default AccountContainer;
