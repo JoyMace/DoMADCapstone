@@ -30,5 +30,4 @@ Here's a breakdown of what you'll find in this repo:
   - `app.js` - Main file for running Nodejs express server.
   - `package.json` - Tells [Node](https://nodejs.org/en/) how to run the server, how to run tests on it, how to set up the database, and what modules it needs to install the server.
   - `package-lock.json` - Nodejs packages.
-- `meeting_notes/` - Word documents containing the notes from our weekly meetings.
-- `milestones/` - Word documents marking our progress at certain points throughout the development process
+
