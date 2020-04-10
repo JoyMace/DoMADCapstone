@@ -81,7 +81,7 @@
 	flex-basis: 2;	
 }
 
-/* User Donation Form styling */
+/* User Trip Form styling */
 .container {	
 	color: #FFFFFF;
 	width: 600px;
@@ -96,7 +96,7 @@
 	border-radius: 5px;	
 }
 
-/* User Donation Form Formatting */
+/* User Trip Form Formatting */
 .flex-outer,
 .flex-inner {
   list-style-type: none;

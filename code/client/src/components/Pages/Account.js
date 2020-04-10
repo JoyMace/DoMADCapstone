@@ -8,36 +8,98 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
 
 
-/* This will also need to pull from backend: from code/models/user.js */
-const userInfo = {
-	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
-	username: 'Joy Mace',
-	memberSince: '1999',
-	hometown: 'Denver, CO',
-	totalDonations: '105',
-	totalContributions: '99',
-};
 
-function UserInfo(props) {
+/* Class for UserInfo with variables to set */
+class UserInfo extends React.Component {
+	constructor(props) {
+		super(props)
+
+	var user = this.props.user;
+	
+	this.state = {
+		username: "Joy", //user.firstName + user.lastName,
+		signupDate: "1/1/2020",//user.signupDate,
+		locationID: "USA", //user.locationID	
+	}
+	}
+
+	render() {
+		return <UserInfoContainer user={this.state} />
+	}
+}
+
+
+/* Function for UserInfo with divs*/
+function UserInfoContainer(props) {
   return (
 	<div className="UserInfo">
 		<div className="user-info-row">
 			<div className="avatar-column">
-					<div className='UserInfo-avatar'>{userInfo.avatar}</div>
+					<div className='UserInfo-avatar'>
+					<img src={ avatar } alt= "avatar" height='120px' />
+					</div>
 			</div>
 			<div className="user-info-column">
-				<div className="UserInfo-name">{userInfo.name}</div>
-				<div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
-				<div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
-				<div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
-				<div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
+				<div className="UserInfo-name">{props.UserInfo.username}</div>
+				<div className='UserInfo-signupDate'>Member Since: {props.UserInfo.signupDate}</div>
+				<div className="UserInfo-tripsCount">{props.UserInfo.tripsCount}</div>
+				<div className="UserInfo-donationsCount">{props.UserInfo.donationsCount}</div>
 			</div>
 		</div>
 	</div>
   )
 }
 
-class UserDonationStory extends React.Component {
+/* class with API pull of user info */
+class UserData extends React.Component {
+	constructor(props) {
+		super(props)
+	this.state = { loading: 'true', reloadAccount: this.reload };
+	}
+
+	reload = () => {
+		this.setState({ loading: 'true', reloadAccount: this.reload });
+		this.getUser(this).
+			then(res => {
+				this.setState({
+					user: res,
+					loading: 'false',
+					reloadAccount: this.reload
+				});
+			});
+	}
+
+	getUser = async () => {
+		const response = await fetch('/api/user/profile');
+		const data = await response.json();
+		if (response.status != 200) {
+			throw Error(response.message)
+		}
+		return data;
+	};
+
+	componentDidMount() {
+		this.getUser(this). 
+			then(res => {
+				this.setState({
+					user: res,
+					loading: 'false',
+					reloadAccount: this.reload
+				});
+			})
+			.catch(err => console.log(err));
+	}
+
+	render() {
+	if(this.state.loading == 'false') {
+		return <Account user={this.state} />
+	}
+		return <Account user={this.state} />
+	}
+}
+
+/* The Form a User fills out when they want to report a trip and donation */
+class UserTripForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.reloadAccount = this.props.reloadAccount;
@@ -412,7 +474,7 @@ class UserDonationStory extends React.Component {
 				</li>
 
 				<li>
-					<label name="rating" className="rating">How was the donation received?</label>
+					<label name="rating" className="rating">How useful was this donation? 5 = Very Useful</label>
 					<select name='rating' value={this.state.donationRating} onChange={this.accountChangeHandler}>
 					  <option value="selected">Score out of 5</option>
 					  <option value="1">1</option>
@@ -423,7 +485,7 @@ class UserDonationStory extends React.Component {
 					</select>
 
 				</li>
-
+				{/* To-Do: Add this functionality*/}
 				<li>
 					<button>Add Item</button>
 
@@ -483,7 +545,7 @@ class UserDonationStory extends React.Component {
 }
 
 
-/* PostContainer is the card that displays a user's trip information */
+/* The card that displays a user's trip information by date in descending order */
 class PostContainer extends React.Component {
 	constructor(props) {
 		super(props)
@@ -538,7 +600,7 @@ function Post(props) {
 	</div>
   );
 }
-
+/* This component loads Trip Info from the database for Trip Cards on an Account Page */
 class AccountContainer extends React.Component {
 	constructor(props) {
 		super(props)
@@ -583,7 +645,7 @@ class AccountContainer extends React.Component {
 	}
 }
 
-
+/* This function handles the formatting and rendering of the entire Account Page */
 function Account(props) {
 	var trips = <div></div>
 	if(props.post.loading == "false"){
@@ -597,12 +659,23 @@ function Account(props) {
 		{trips.reverse().slice(0,4)}
 	  </div>
 	}
+	var user = <div></div>
+	if(props.post.loading == "false"){
+		var userData = props.user.user.user;
+		var users = userData.map(user => {
+		  return <div className='user-info'>
+			<UserInfo userInfo={user} />
+		  </div>
+		});
+	users = <div className='user-info-container'></div>
+	  }
+
 	return (
 	  <div className="Account">
 		  <div className='main-top-row'>
 			  <div className='left-column'>
 				  <div className='user-info-container'>
-					  <UserInfo/>
+					  {users}
 				  </div>
 					  <br></br>
 					  <div id="mapid">
@@ -617,7 +690,7 @@ function Account(props) {
 					  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
 						  Share your recent DoMAD travel story!
 					  </h3>
-					  <UserDonationStory reloadAccount={props.post.reloadAccount}/>
+					  <UserTripForm reloadAccount={props.post.reloadAccount}/>
 					</div>
 			  </div>
 		  </div>
