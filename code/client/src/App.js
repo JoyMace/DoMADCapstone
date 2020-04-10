@@ -26,7 +26,6 @@ import Reset_token from './components/Pages/Reset_token';
 
 import ReactDOM from 'react-dom';
 
-
 class App extends Component {
   state = {
       data: null,
@@ -42,22 +41,6 @@ class App extends Component {
   backdropClickHandler = () => {
     this.setState({sideDrawerOpen: false});
   }
-
-  /*componentDidMount() {
-      // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-  }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body;
-  };*/
 
   /* determine current path for navbar rendering, other stuff */
   /*current_path() {
@@ -79,6 +62,7 @@ class App extends Component {
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
+
     return (
       // The 'Switch' renders the component for the first matching path
           // If path is "/" ==> Home page
@@ -104,6 +88,7 @@ class App extends Component {
               <Route />
           </Switch>
           {backdrop}
+          <Switch>
           <Route path="/about" component={About} />
           <Route path="/account" component={Account} />
           <Route path="/blogs" component={Blogs} />
@@ -117,6 +102,10 @@ class App extends Component {
           <Route path="/country_pages" component={CountryPages} />
           <Route path="/forgot" component={Reset} />
           <Route path="/individual_blogs" component={IndividualBlogs} />
+          <Route path="/:token" component={Reset_token} /> //Leave this line last
+
+          </Switch>
+
           <Footer />
         </div>
       </Router>
