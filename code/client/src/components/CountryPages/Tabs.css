@@ -6,17 +6,19 @@
 }
 
 .regular-tabs {
-    height: 40px;
-    display: inline-block;
+    height: auto;
+    min-height: 50px;
+    width: 12%;
+    text-align: center;
     border-bottom: none;
-    position: relative;
     list-style: none;
-    padding: 6px 12px;
+    padding: 12px 12px;
     cursor: pointer;
     margin: auto;
     background-color: gray;
     color: white;
     border-radius: 5px;
+    font-size: 1.1em;
 }
 
 .country-flag-block {

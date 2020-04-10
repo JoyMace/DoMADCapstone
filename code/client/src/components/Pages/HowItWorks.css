@@ -1,89 +1,101 @@
 .how {
     margin-top: 64px;
     text-align: center;
-}
-
-h1.how {
+    vertical-align: middle;
     font-family: Cambria, Georgia, serif;
 }
 
-.divLeft {
-    position: relative;
-    text-align: left;
-    margin-right: 410px;
+/* Step 1 */
+.step-1-row {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 5%;
+    font-size: 20px;
+}
+.step-1-left-column {   
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;  
+}
+.step-1-right-column {
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;  
+}
+.map {
+    width: 100%;
+    margin: 20px;
+    flex: 1;   
+    vertical-align: middle;
+}
+img.step1 {  
+    width: 50px;      
 }
 
-img.howMap {
-    position: relative;
-    float: right;
-    margin-right: 18%;
-    width: 35%;      
+/* Step 2 */
+.step-2-row {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 5%;
+    font-size: 20px;    
 }
-
-.rightImg2 {
-    position: absolute;
-    transform: translate(95%, 620%);
+.step-2-left-column {
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;  
 }
-
+.step-2-right-column {
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;  
+}
 img.howPacking {
-    position: relative;
-    float: left;
-    margin-left: 19%;
-    margin-top: 4%; 
-    width: 29%;      
+    width: 100%;
+    padding: 20px;
+    flex: 1;     
 }
-
-img.howTravel {
-    position: relative;
-    float: right;
-    margin-top: 2%;
-    margin-right: 19%;
-    width: 31%;      
-}
-
-
-img.step1 {
-    position: relative;
-    margin: 0;
-    width: 55%;      
-}
-
-.leftStep1 {
-    position: absolute;
-    transform: translate(205%, 50%);
-}
-
 img.step2 {
-    position: relative;
-    margin: 0;
-    width: 55%;      
+    width: 50px;      
 }
 
-.rightStep2 {
-    position: absolute;
-    transform: translate(567%, 50%);
+/* Step 3 */
+.step-3-row {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 5%;
+    font-size: 20px;    
 }
-
+.step-3-left-column {
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;   
+}
+.step-3-right-column {
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;  
+}
 img.step3 {
-    position: relative;
-    margin: 0;
-    width: 55%;      
+    width: 50px;      
 }
-
-.leftStep3 {
-    position: absolute;
-    transform: translate(205%, 50%);
+img.howTravel {
+    width: 100%;
+    margin: 10%;  
 }
 
 .bluePadding {
     background-color: #010925;
     border-radius: 5px;
-    width: 820px;
-    height: 80px;
-    padding: 15px;
+    width: 90%;
+    height: 10%;
+    margin: auto;
+    margin-top: 5%;
     margin-bottom: 50px;
     text-align: center;
-    transform: translate(30%, 10%);
+    padding: 1%;
 }
 
 p.downCenter{
