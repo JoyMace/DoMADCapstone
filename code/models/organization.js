@@ -15,6 +15,6 @@ OrganizationSchema.statics.findOneOrCreate = function findOneOrCreate(condition,
   });
 }
 
-const organization = mongoose.model('Organization', organizationSchema);
+const Organization = mongoose.model('Organization', organizationSchema);
 
-module.exports = organization
+module.exports = Organization
