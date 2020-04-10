@@ -376,6 +376,10 @@ class FilteringSearchBar extends React.Component {
         }
     }
 
+    /*It doesn't look like the bottom of the country page is right. Changes that I've made to those tabs aren't there, 
+    and the design is all messed up. You may want to compare what you have for the Country Pages files and see what's 
+    different, because there are changes that should show up that aren't.*/
+
     handleQueryChange(event) {
     // ON KEY UP => Create a filtered country list based on the query and set both states
         let qText = event.target.value.toUpperCase();
