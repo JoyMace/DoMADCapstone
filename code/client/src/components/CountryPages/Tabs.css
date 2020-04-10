@@ -1,6 +1,5 @@
 #tabs-component {
     display: flex;
-    width: 100vw;
     margin-right: 1%;
     margin-left: 1%;
 }
@@ -11,9 +10,10 @@
         flex-flow: row nowrap;
         justify-content: space-evenly;
         align-items: flex-end;
-        
-        height: 100px;
-        margin: 0 5px 15px 5px;
+        width: 100%;
+        height: auto;
+        margin: 0 5px;
+        padding-bottom: 12px;
     }
 
       .country-flag-block {
@@ -32,33 +32,36 @@
         }
 
       .country-name-block {
-          flex-basis: 8;
-          display: inline-block;
-          padding: 10px;
-          margin: 5px 7px;
+          display: flex;
+          flex-basis: 6;
+          padding: 5px;
+          margin: auto;
+          height: 80px;
 
-          border: white 2px 1px 0 1px;
-          border-radius: 5px;          
-
+          border: white 1px; border-radius: 5px;
           background-color: #010925;
-          border-radius: 5px;
           color: white;
-          font-size: 1.4em;
-          word-wrap: break-word;
+          font-size: 1.5em;
+          text-align: center;
       }
       
       .regular-tabs {
           flex-basis: 3;
           display: inline-block;
-          margin: 5px 7px;
-          padding: 4px;
-          height: 60px;
+          padding: 12px 12px;
+          height: auto; min-height: 60px;
+          border-bottom: none;
+          margin: auto 4px;   
+
           background-color: gray;
-          border-radius: 6px;
-          
+          border-radius: 5px;
           list-style: none;
           cursor: pointer;
           transition: all 0.5s;
+          color: white;
+          text-align: center;
+          font-size: 1.1em;
+          overflow: visible;
       }
     
     /*--- From react-tabs ---*/
