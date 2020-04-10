@@ -19,16 +19,16 @@ testVar = {
     _id: 'TEST',
     donations: [
       {
-        donationItem: "TEST",
-        donationCategory: "TEST",
-        donationRating: 5,
+        itemName: "TEST",
+        category: "TEST",
+        rating: 5,
         suggestion: false,
         organization: false
       },
       {
-        donationItem: "TEST2",
-        donationCategory: "TEST2",
-        donationRating: 1,
+        itemName: "TEST2",
+        catgory: "TEST2",
+        rating: 1,
         suggestion: true,
         organization: true
       }
