@@ -8,10 +8,10 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
 
 
-
+/* This will also need to pull from backend: from code/models/user.js */
 const userInfo = {
 	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
-	name: 'Joy Mace',
+	username: 'Joy Mace',
 	memberSince: '1999',
 	hometown: 'Denver, CO',
 	totalDonations: '105',
@@ -40,40 +40,86 @@ function UserInfo(props) {
 class UserDonationStory extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			date: '',
-			country: '',	
-			city: '',	
-			donationRecipient: '',
-			donationItem: '',
-			donationCategory: '',
-			rating: '',
-			description: '',
-			public_private: 'Public',
-			suggestedDonationItem: ""
-		};
+		this.reloadAccount = this.props.reloadAccount;
+		this.state = {};
 	}
+	
 	accountChangeHandler = (event) => {
-		let nam = event.target.name;
-		let val = event.target.value;
-		console.log(nam, val);
-		this.setState({[nam]: val});
+		const target = event.target;
+		const name = target.name;
+		const value = target.value;
+		if (event.target.type == 'checkbox') {
+			value = event.target.checked;
+		}
+		console.log(name, value);
+		this.setState({[name]: value});
 	}
-	render() {
-		const { post } = this.props
-		return (
 
-		<form action="/api/user/trip/report" method="POST">
+	reportTrip = async () => {
+		// TODO: Create support for adding multiple items at a time
+		var donations = []
+		// Each donation will be added to the list of donations above in the following format.
+		var newDonation = {
+		  "donationItem": this.state.donationItem,
+		  "donationCategory": this.state.donationCategory,
+		  "donationRating": 4, // TODO: add rating support
+		  "suggestion": false,
+		  "organization": false // Check in to too if we are only doing this and no organization information
+		}
+		donations.push(newDonation);
+		const reqBody = {
+		  "userID": "123", // This should work once you can signin and a login session is saved
+		  "tripDate": this.state.tripDate,
+		  "donations": donations,
+		  "notes": this.state.description,
+		  "isPrivate": "isPrivate" in this.state ? this.state.isPrivate : false,
+		  "country": this.state.country,
+		  "city": this.state.city 
+		}
+
+		const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(reqBody)
+		  };
+		  const response = await fetch('/api/user/trip/report', requestOptions);
+		  const data = await response.json();
+		  if (response.status !== 201) {
+			throw Error(data.message)
+		  }
+
+		  return data;
+		};
+
+		onSubmit = (e) => {
+		  e.preventDefault()
+		  console.log(this.state);
+		  console.log('SUBMIT');
+
+		  this.reportTrip()
+			.then(res => {
+			  console.log(res)
+			  this.reloadAccount();
+			})
+			.catch(err => console.log(err)); // TODO: Handle all errors and relay to user
+		}
+
+		render() {
+			const { post } = this.props
+			return (
+
+			//<form action="/api/user/trip/report" method="POST">
+		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
 				<input name="userID" value="123" type="hidden"/>
 				<li>
 					<label name="date">When did this trip occur?</label>
-					<input id="date" name='date' type="date" onChange={this.accountChangeHandler } />
+					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
 
 				<li>
-					<label name="country" className="country">Where did you go?</label>
-					<select name="country" className="country"value={this.state.country} onChange={this.accountChangeHandler}>
+					<label> Where did you go?</label>
+					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
 						<option value="Afganistan">Afghanistan</option>
 						<option value="Albania">Albania</option>
 						<option value="Algeria">Algeria</option>
@@ -320,7 +366,7 @@ class UserDonationStory extends React.Component {
 						<option value="Zaire">Zaire</option>
 						<option value="Zambia">Zambia</option>
 						<option value="Zimbabwe">Zimbabwe</option>
-						</select>
+					</select>
 				
 				</li>
 
@@ -436,69 +482,35 @@ class UserDonationStory extends React.Component {
 }
 
 
-
+/* PostContainer is the card that displays a user's trip information */
 class PostContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = { 
-			date: "",
-			city: "",
-			country: "",
-			donationItem: "",
-			rating: "",
-			description: "",
-		 }
+    var tripInfo = this.props.tripInfo;
+    var tripDate = new Date(tripInfo.tripDate);
+    this.state = {
+      city: tripInfo.locationID.city,
+      country: tripInfo.locationID.country,
+      tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
+      notes: tripInfo.notes 
+    }
 	}
-	
-	componentDidMount() {
-		fetch("/api/user/trip/user-trips")
-		  .then(res => res.json())
-		  .then(
-			(result) => {
-				console.log("this is a string");
-			  this.setState({
-				date: result.date,
-				city: result.city,
-				country: result.country,
-				donationItem: result.donationItem,
-				rating: result.rating,
-				description: result.description,
-				isLoaded: true,
-				
-			  });
-			},
-			// Note: it's important to handle errors here
-			// instead of a catch() block so that we don't swallow
-			// exceptions from actual bugs in components.
-			(error) => {
-			  this.setState({
-				isLoaded: true,
-				error
-			  });
-			}
-		  )
-	  }
-	  render() {
+	render() {
 		return <Post post={this.state} />
 	}
-
 }
 
-
+/* */
 function Post(props) {
 	return (
 	<div className="Post">
-
 		<div className="post-top-row">
-
 			<div className="post-destination-column">
-				<div className="Post-destination">Kenya {PostContainer.destination}</div>
+				<div className="Post-destination">{props.post.city},{props.post.country}</div>
 			</div>
-
 			<div className="post-date-column">
-				<div className="Post-date"> 2/20/2020 {PostContainer.date}</div>
+				<div className="Post-date"> {props.post.tripDate}</div>
 			</div>
-
 		</div>
 		<div className="post-middle-row">
 			<div className="Post-image">
@@ -507,15 +519,11 @@ function Post(props) {
 		</div>
 		<br></br>
 		<div className="post-description-row">
-			Lorem ipsum dolor sit amet,
-			consectetur adipiscing elit, sed do eiusmod tempor incididunt
-			ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip
+      {props.post.notes}
 		</div>
 		<br></br>
 			<div className="Post-donation-row"> Items Donated:  {PostContainer.donation}</div>
 		<br></br>
-
 			<div className="Post-stars"> Donation rating: {PostContainer.stars}
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />
@@ -530,64 +538,94 @@ function Post(props) {
   );
 }
 
-function Account(props) {
-  return (
-	<div className="Account">
-		<div className='main-top-row'>
-			<div className='left-column'>
-				<div className='user-info-container'>
-					<UserInfo/>
-				</div>
-					<br></br>
-					<div id="mapid">
-					<h1>Your Travel Map</h1>
-					<div className='map' >
-						
-					</div>
-					<p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
-				</div>
-
-			</div>
-			<div className='right-column'>
-				  <div className='container'>
-					<h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
-						Share your recent DoMAD travel story!
-					</h3>
-					<UserDonationStory />
-				  </div>
-			</div>
-		</div>
-		<h1> Your Trips </h1>
-		<div className="main-bottom-row">
-
-			<div className='post-container'>
-				<Post/>
-			</div>
-			<div className='post-container'>
-				<Post/>
-			</div>
-			<div className='post-container'>
-				<Post/>
-			</div>
-			<div className='post-container'>
-				<Post/>
-			</div>
-			<div className='post-container'>
-				<Post/>
-			</div>
-			<div className='post-container'>
-				<Post/>
-			</div>
-
-
-		</div>
-	</div>
-	);
+class AccountContainer extends React.Component {
+	constructor(props) {
+		super(props)
+    this.state = { loading: 'true', reloadAccount: this.reload };
+	}
+  reload = () => {
+    console.log('READLOAD');
+    this.setState({ loading: 'true', reloadAccount: this.reload });
+    this.getTrips(this).
+      then(res => {
+        this.setState({
+          trips: res,
+          loading: 'false',
+          reloadAccount: this.reload
+        });
+      });
+  }
+  getTrips = async () => {
+    const response = await fetch('/api/user/trip/all-trips');
+    const data = await response.json();
+    if (response.status != 200) {
+      throw Error(response.message)
+    }
+    return data;
+  }; 
+	componentDidMount() {
+    this.getTrips(this).
+      then(res => {
+        this.setState({
+          trips: res,
+          loading: 'false',
+          reloadAccount: this.reload
+        });
+      })
+      .catch(err => console.log(err)); // TODO: handle all errors and relay to user
+	}
+	render() {
+    if(this.state.loading == 'false'){
+		  return <Account post={this.state} />
+    }
+		return <Account post={this.state} />
+	}
 }
 
-ReactDOM.render(
-  <Account  />,
-  document.getElementById('root')
-);
 
-export default Account;
+function Account(props) {
+	var trips = <div></div>
+	if(props.post.loading == "false"){
+	  var tripData = props.post.trips.trips;
+	  var trips = tripData.map(trip => {
+		return <div className='post-container'>
+		  <PostContainer tripInfo={trip} />
+		</div>
+	  });
+	  trips = <div className="main-bottom-row">
+		{trips.reverse().slice(0,4)}
+	  </div>
+	}
+	return (
+	  <div className="Account">
+		  <div className='main-top-row'>
+			  <div className='left-column'>
+				  <div className='user-info-container'>
+					  <UserInfo/>
+				  </div>
+					  <br></br>
+					  <div id="mapid">
+					  <h1>Your Travel Map</h1>
+					  <div className='map' >
+					  </div>
+					  <p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+				  </div>
+			  </div>
+			  <div className='right-column'>
+					<div className='container'>
+					  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
+						  Share your recent DoMAD travel story!
+					  </h3>
+					  <UserDonationStory reloadAccount={props.post.reloadAccount}/>
+					</div>
+			  </div>
+		  </div>
+		  <h1> Your Trips </h1>
+	  {trips}
+	  </div>
+	  );
+  }
+
+
+
+export default AccountContainer;
