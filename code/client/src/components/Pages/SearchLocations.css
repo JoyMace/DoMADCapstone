@@ -173,9 +173,9 @@
 /*=== Main - Country Tab Content === */
 .country-pages {
     display: flex;
+    position: relative;
     flex-direction: row;
     padding-top: 50px;
-    padding-bottom: 50px;
-    height: 100vh;
+    padding-bottom: 0px;
     width: 100%;
 }

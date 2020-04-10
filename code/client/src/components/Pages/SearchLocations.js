@@ -490,7 +490,7 @@ class ToTopBtn extends React.Component {
     render () {
         let defaultStyles = {
             position: "fixed", 
-            bottom: "80px", right: "10px",
+            bottom: "75px", right: "10px",
             padding: "12px",
             zIndex: "98", /*--make sure theres no overlap */
             outline: "none",
