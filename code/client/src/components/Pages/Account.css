@@ -1,21 +1,15 @@
-.Account {
-	
-}
-.Post {
-	
-	
-}
 /* Post Container */
 .post-container {	
 	display:flex;
-	width: 337px;
+	width: 30%;
 	background: #363D48;
 	border: 1px solid #FFFFFF;
 	border-radius: 5px;
 	color: #FFFFFF;
 	padding: 10px;
-	margin-left: 100px;
-	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
 	align-content: center;
 	
 }
@@ -35,8 +29,7 @@
 	align-items: center;	
 	font-size: 12px;
 	flex-basis: 0;
-	width: 25%;
-	
+	width: 25%;	
 }
 
 .post-destination-column {	
@@ -46,20 +39,16 @@
 	font-size: 32px;
 	flex-basis: 2;
 	width: 75%;
-	
-
 }
 /* Post Middle Picture */
-.post-middle-row {
-	
+.post-middle-row {	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
 	width: 100%;	
 }
 /* Post Details */
-.post-detail-row {
-	
+.post-detail-row {	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
@@ -73,12 +62,10 @@
 	flex-direction: row;
 	align-items: left;	
 	font-size: 32px;
-	flex-basis: 2;
-	
+	flex-basis: 2;	
 }
 
-.post-donation {
-	
+.post-donation {	
 	display: flex;
 	flex-direction: row;
 	align-items: left;	
@@ -106,9 +93,7 @@
 	background: #363D48;
 	border: 1px solid #FFFFFF;
 	box-sizing: border-box;
-	border-radius: 5px;
-	
-	
+	border-radius: 5px;	
 }
 
 /* User Donation Form Formatting */
@@ -127,8 +112,7 @@
 .flex-inner {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  
+  align-items: center;  
 }
 
 .flex-inner {
@@ -144,8 +128,7 @@
 .flex-outer li label,
 .flex-outer li p {
   padding: 5px;
-  font-weight: 300; 
-  
+  font-weight: 300;   
 }
 
 .flex-outer > li > label,
@@ -181,13 +164,10 @@
 }
 
 .flex-inner li {
-  width: 100px;
-
-  
+  width: 100px;  
 }
 
-.star-rating {
-	
+.star-rating {	
 	display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -195,8 +175,8 @@
 }
 /*end form formatting*/
 
-.main-top-row {
-	
+/* Whole Page Formatting to give Top Row, Two columns on top, and Bottom row*/
+.main-top-row {	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
@@ -208,12 +188,11 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	width: 100%;	
-		
+	margin: auto;
+	width: 100%;			
 }
 
-.left-column {
-	
+.left-column {	
 	padding-top: 100px;
 	flex-direction: column;
 	margin-top: 20px;
@@ -222,8 +201,7 @@
 	flex: 2;
 }
 
-.right-column {
-	
+.right-column {	
 	padding-top: 100px;
 	flex-direction: column;
 	margin-top: 20px;	
@@ -231,9 +209,6 @@
 	margin-right: 0%;
 	flex: 2;
 }
-
-
-
 
 .user-info-row {
 	display: flex;
@@ -243,16 +218,13 @@
 	align-items: stretch;	
 }
 
-.UserInfo-avatar {
-	
+.UserInfo-avatar {	
 	width: 120px;
 	height: 120px;
-	border-radius: 50%;
-	
+	border-radius: 50%;	
 }
 
-.avatar-column {
-	
+.avatar-column {	
 	display: flex;
 	flex-direction: column;
 	align-items: center;	
@@ -260,8 +232,7 @@
 	padding-left: 5px
 }
 
-.user-info-column {
-	
+.user-info-column {	
 	display: flex;
 	flex-direction: column;
 	width: 100%;	
@@ -271,15 +242,13 @@
 	padding-left: 25px;
 }
 
-
 .UserInfo-name {
 	text-align: left;
 	font-size: 24px;
 	
 }
 /*User Info Container*/
-.user-info-container {
-	
+.user-info-container {	
 	display: flex;
 	width: 400px;
 	height: 120px;	
@@ -291,6 +260,5 @@
 }
 .UserInfo {
 	display: flex;
-	font-size: 12px;
-	
+	font-size: 12px;	
 }

@@ -413,13 +413,14 @@ class UserDonationStory extends React.Component {
 
 				<li>
 					<label name="rating" className="rating">How was the donation received?</label>
-						<div className='star-rating'>
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-						</div>
+					<select name='rating' value={this.state.donationRating} onChange={this.accountChangeHandler}>
+					  <option value="selected">Score out of 5</option>
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					  <option value="4">4</option>
+					  <option value="5">5</option>					  
+					</select>
 
 				</li>
 
@@ -466,12 +467,12 @@ class UserDonationStory extends React.Component {
 						</li>
 						</ul>
 				</li>
-
+				{/* Image Upload not currently supported. Uncomment this code to show button and add functionality
 				<li>
 					<label name="pictures" className="pictures">Upload Pictures?</label>
 					<input type='file' size="100"/>
 				</li>
-
+				*/}
 				<li>
 					<button type="submit">Submit</button>
 				</li>
@@ -500,7 +501,7 @@ class PostContainer extends React.Component {
 	}
 }
 
-/* */
+/* This function handles the formatting of the Trip Cards on an Account Page */
 function Post(props) {
 	return (
 	<div className="Post">
@@ -620,12 +621,12 @@ function Account(props) {
 					</div>
 			  </div>
 		  </div>
-		  <h1> Your Trips </h1>
-	  {trips}
+		  <div className='main-bottom-row'>
+		  	<h1 style={{padding: 20, lineHeight:2}}> Your Trips </h1>
+	  		{trips}
+		  	</div>
 	  </div>
 	  );
   }
-
-
 
 export default AccountContainer;
