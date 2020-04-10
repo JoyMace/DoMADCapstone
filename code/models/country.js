@@ -14,7 +14,6 @@ const countrySchema = new mongoose.Schema({
     map: String, // Same as above 
     locationID: {type: mongoose.Schema.Types.ObjectId, ref: 'Location'}
   },
-  organizations: [OrganizationSchema]
   statistics: {
     totalElectricity: mongoose.Types.Decimal128,
     ruralElectriity: mongoose.Types.Decimal128
