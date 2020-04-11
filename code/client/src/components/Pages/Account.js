@@ -1,12 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './Account.css';
 import WorldMapImage from '../../images/WorldMap.png';
 import avatar from '../../images/Avatar.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
-
 
 
 /* Class for UserInfo with variables to set */
@@ -17,44 +15,11 @@ class UserInfoContainer extends React.Component {
 			username: "",
 			signupDate: "",
 			locationID: ""	
-		}
-	
+		}	
 	}
-
 	render() {
-		return <UserInfo user={this.state} />
+		return <User user={this.state} />
 	}
-}
-
-/* Function for UserInfo with divs*/
-function UserInfo(props) {
-	var user = <div></div>
-	if(props.user.loading == "false"){
-		var user = props.user;
-		var user = user.map(user => {
-		  return <div className='UserInfo'>
-			<UserInfoContainer user={user} />
-		  </div>
-		});
-	user = <div className='UserInfo'></div>
-	  }
-  return (
-	<div className="UserInfo">
-		<div className="user-info-row">
-			<div className="avatar-column">
-					<div className='UserInfo-avatar'>
-					<img src={ avatar } alt= "avatar" height='120px' />
-					</div>
-			</div>
-			<div className="user-info-column">
-				<div className="UserInfo-name">{props.user.username}</div>
-				<div className='UserInfo-signupDate'>Member Since: {props.user.signupDate}</div>
-				<div className="UserInfo-tripsCount">{props.user.tripsCount}</div>
-				<div className="UserInfo-donationsCount">{props.user.donationsCount}</div>
-			</div>
-		</div>
-	</div>
-  )
 }
 
 /* class with API pull of user info */
@@ -63,6 +28,8 @@ class User extends React.Component {
 		super(props)
 	this.state = { 
 		loading: 'true',
+		firstname: "",
+		lastname: "",
 		username: "",
 		signupDate: "",
 		locationID: ""	
@@ -71,7 +38,7 @@ class User extends React.Component {
 	}
 
 	getUser = async () => {
-		const response = await fetch('/api/user/profile');
+		const response = await fetch('/API/user/profile?UserID=5e77a660f3ad797398557439")');
 		const data = await response.json();
 		if (response.status != 200) {
 			throw Error(response.message)
@@ -85,7 +52,6 @@ class User extends React.Component {
 				this.setState({
 					user: res,
 					loading: 'false',
-					reloadAccount: this.reload
 				});
 			})
 			.catch(err => console.log(err));
@@ -93,12 +59,32 @@ class User extends React.Component {
 
 	render() {
 	if(this.state.loading == 'false') {
-		return <UserInfoContainer userInfo={this.state} />
+		return <UserInfo userInfo={this.state} />
 	}
-		return <UserInfoContainer userInfo={this.state} />
+		return <UserInfo userInfo={this.state} />
 	}
 }
-
+/* Function for UserInfo with divs*/
+function UserInfo(props) {
+	
+	return (
+	  <div className="UserInfo">
+		  <div className="user-info-row">
+			  <div className="avatar-column">
+					  <div className='UserInfo-avatar'>
+					  <img src={ avatar } alt= "avatar" height='120px' />
+					  </div>
+			  </div>
+			  <div className="user-info-column"> {/* This is still not working, so the default values will need to be removed when it works*/} 
+				  <div className="UserInfo-name">{props.userInfo.username}Joy Mace</div>
+				  <div className='UserInfo-signupDate'>DoMAD Member Since: {props.userInfo.signupDate}1999</div>
+				  <div className="UserInfo-tripsCount">Number of trips: {props.userInfo.tripsCount}999</div>
+				  <div className="UserInfo-donationsCount">Number of Donations: {props.userInfo.donationsCount}999</div>
+			  </div>
+		  </div>
+	  </div>
+	)
+  }
 /* The Form a User fills out when they want to report a trip and donation */
 class UserTripForm extends React.Component {
 	constructor(props) {
@@ -571,7 +557,7 @@ function Post(props) {
 	<div className="Post">
 		<div className="post-top-row">
 			<div className="post-destination-column">
-				<div className="Post-destination">{props.post.city},{props.post.country}</div>
+				<div className="Post-destination">{props.post.city}, {props.post.country}</div>
 			</div>
 			<div className="post-date-column">
 				<div className="Post-date"> {props.post.tripDate}</div>
@@ -587,9 +573,9 @@ function Post(props) {
       {props.post.notes}
 		</div>
 		<br></br>
-			<div className="Post-donation-row"> Items Donated:  {PostContainer.donation}</div>
+			<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
 		<br></br>
-			<div className="Post-stars"> Donation rating: {PostContainer.stars}
+			<div className="Post-stars"> Donation rating: {props.post.donationRating}
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />
 				<FontAwesomeIcon icon={faStar} />

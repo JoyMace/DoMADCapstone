@@ -1,7 +1,6 @@
 /* Post Container */
 .post-container {	
 	display:flex;
-	width: 30%;
 	background: #363D48;
 	border: 1px solid #FFFFFF;
 	border-radius: 5px;
@@ -11,6 +10,7 @@
 	margin-right: auto;
 	margin-bottom: 15px;
 	align-content: center;
+	max-width: 30%;
 	
 }
 /* Post Top Row*/
@@ -26,9 +26,9 @@
 .post-date-column {	
 	display: flex;
 	flex-direction: column;
-	align-items: center;	
+	align-items: center;
 	font-size: 12px;
-	flex-basis: 0;
+	flex-basis: 1;
 	width: 25%;	
 }
 
@@ -36,7 +36,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: left;	
-	font-size: 32px;
+	font-size: 24px;
 	flex-basis: 2;
 	width: 75%;
 }
@@ -45,10 +45,11 @@
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
-	width: 100%;	
+	width: 100%;
+	flex: 1;	
 }
 /* Post Details */
-.post-detail-row {	
+.post-description-row {	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
@@ -57,15 +58,8 @@
 	flex-grow: 1;	
 }
 
-.post-description {
-	display: flex;
-	flex-direction: row;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;	
-}
 
-.post-donation {	
+.post-donation-row {	
 	display: flex;
 	flex-direction: row;
 	align-items: left;	
