@@ -15,9 +15,9 @@ const donationSchema = new mongoose.Schema({
   locationID: {type: mongoose.Schema.Types.ObjectId, ref:'Location', required: true},
   tripID: {type: mongoose.Schema.Types.ObjectId, ref:'Trip'},
   category: {type: String, enum: donationCategories},  
+  itemDescription: String,
   donationDateTime: Date,
   reportingDateTime: {type: Date, default: Date.now},
-  itemDescr: String,
   organizationID: {type: mongoose.Schema.Types.ObjectId, ref:'Organization'},
   organization: Boolean, // since we only have a boolean on the front end we will just do this for now
   suggestion: Boolean
