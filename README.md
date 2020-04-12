@@ -18,7 +18,6 @@ We are using Trello to track progress
 -**([Trello Link](https://trello.com/b/hu36FAx3/domad))**
 
 ## Navigating this repository
-**the following is what we have so far, however, there will be more added. The old README is in the google drive for reference to what we might want to add**
 Here's a breakdown of what you'll find in this repo:
 
 - `code/` - The code for the social network itself
@@ -30,5 +29,4 @@ Here's a breakdown of what you'll find in this repo:
   - `app.js` - Main file for running Nodejs express server.
   - `package.json` - Tells [Node](https://nodejs.org/en/) how to run the server, how to run tests on it, how to set up the database, and what modules it needs to install the server.
   - `package-lock.json` - Nodejs packages.
-- `meeting_notes/` - Word documents containing the notes from our weekly meetings.
-- `milestones/` - Word documents marking our progress at certain points throughout the development process
+
