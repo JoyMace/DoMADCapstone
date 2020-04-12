@@ -208,7 +208,7 @@ router.get('/user-trips', function(req, res) {
   }
 
   Trip.find(query)
-      .populate({ path:'locationID' })
+      .populate({ path:'locationID', match:populate_match })
       .skip(offset)
       .limit(limit)
       .sort({reportDate: -1})

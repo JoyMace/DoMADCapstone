@@ -22,7 +22,7 @@ resCode = {
       status:404,
       message:'Could not find country'
     }
-  }
+  },
   getOrganizations:{
     success:{
       status:200,
