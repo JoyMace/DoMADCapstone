@@ -83,6 +83,7 @@
                     text-decoration: none;
                     font-size: 0.7em;
                     color: black;
+                    cursor: pointer;
                 }
                 .filtered-country-items:hover:not(.header) {
                     background-color: #eee; /* Add hover effect to all links minus header */

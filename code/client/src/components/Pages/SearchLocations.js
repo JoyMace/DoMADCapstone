@@ -1,84 +1,87 @@
 import React from 'react';
 import './SearchLocations.css';
 import CountryDataTabs from '../CountryPages/Tabs.js';
-
-// Map package, DON'T use react-simple-maps
 import WorldMap from 'react-world-map';
 import search_icon from '../../images/search_icon.png';
 
-function SearchLocations() {
-    return (
-        <div id="search-locations">
+// TO DO ===============
+// On WorldMap Click --> SearchBar.queryText = 'Continent'
+// On SearchBar Select --> CountryDataTabs.cCountry = 'Country'
+// =====================
 
-            <div id='exploring-root'>
-                <div id='header-search-flexbox'>
-                    <div id="title">
-                        <p>Explore Locations</p>
+class SearchLocations extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { t: ''};
+
+        this.sendCountryOnSelect = this.sendCountryOnSelect.bind(this);
+        this.searchContinentOnSelect = this.searchContinentOnSelect.bind(this);
+    }
+
+    // SearchBar Child Connector: On SearchBar Select --> CountryDataTabs.cCountry = 'Country'
+    sendCountryOnSelect (continent) {
+        console.log('parent received continent, updating search query with: ', continent);
+    }
+
+    // On WorldMap Click --> SearchBar.queryText = 'Continent'
+    searchContinentOnSelect() {
+
+    }
+
+    render() {
+        return (
+            <div id="search-locations">
+                <div id='exploring-root'>
+                    <div id='header-search-flexbox'>
+                        <div id="title">
+                            <p>Explore Locations</p>
+                        </div>
+                        <div>
+                            <SearchBar sendCountryOnSelect = {this.sendCountryOnSelect} />
+                        </div>
                     </div>
-                    <div>
-                        <FilteringSearchBar />
+
+                    <div id="description-box">
+                        <h5>Choose your location by clicking the world map, searching by name, or a combination of the two!</h5>
+                        <h5>Select a country to view tabular donation and country information.</h5>
                     </div>
+
+                    <div id='map-content-wrap'>
+                        <div id="map-stretchy-wrapper">
+                            <WorldMapController searchContinentOnSelect = {this.searchContinentOnSelect} />
+                        </div>
+                        <div id="side-navigation">
+                            
+                        </div>
+                    </div>
+
+                    <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
+                    <footer id='explore-spacer'><hr/></footer>
                 </div>
 
-                <div id="description-box">
-                    <h5>Choose your location by clicking the world map, searching by name, or a combination of the two!</h5>
-                    <h5>Select a country to view tabular donation and country information.</h5>
-                </div>
-
-                <div id='map-content-wrap'>
-                    <div id="map-stretchy-wrapper">
-                        <WorldMapController />
-                    </div>
-                    <div id="side-navigation">
-                        
+                <div id='master-content-root'>
+                    <div className="country-pages">
+                        <CountryDataTabs />
                     </div>
                 </div>
-
-                <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
-
-                <footer id='explore-spacer'>
-                    <hr/>
-                </footer>
             </div>
-
-            <div id='master-content-root'>
-                <div className="country-pages">
-                    <CountryDataTabs />
-                </div>
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 /* ======== Main Map renderer & handler ======== */
 class WorldMapController extends React.Component {
     constructor(props) {
         super(props);
+        this.searchContinentOnSelect = this.props.searchContinentOnSelect.bind(this);
     }
-    /*
-    .map-unselected:hover::after { 
-        content: "";
-        position: absolute;
-        visibility: hidden;
-        width: 120px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
-
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -60px;
-        opacity: 0;
-        transition: opacity 0.3s
-    }
-    */
+    
     componentDidMount() {
         window.addEventListener('WorldMapClicked', 
-            function(e) { console.log('map was clicked, current selection is: ', e.detail.clickedState) }
+            function(e) { 
+                console.log('map was clicked, current selection is: ', e.detail.clickedState);
+                this.props.searchContinentOnSelect(e.detail.clickedState);
+            }
         );
     }
 
@@ -87,9 +90,8 @@ class WorldMapController extends React.Component {
     } 
 }
 
-
 /* ======== Main Searchbar query handler ======== */
-class FilteringSearchBar extends React.Component {
+class SearchBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = { queryText: '', filteredCountries: []};
@@ -364,24 +366,20 @@ class FilteringSearchBar extends React.Component {
             {"name": "Zimbabwe","continent": "Africa"}];
         
         this.handleQueryChange = this.handleQueryChange.bind(this);
-        this.handleOnSelect = this.handleOnSelect.bind(this);
+        /*this.handleOnSelect = this.handleOnSelect.bind(this);*/
     }
 
     /* componentDidMount() {} */
-    componentDidUpdate(prevProps, prevState) { // Should the component re-render?
-    // if input is nominal, don't update state
+
+    // Should the component re-render? if input is nominal, don't update state
+    componentDidUpdate(prevProps, prevState) { 
         if (prevState.queryText !== this.state.queryText.trim()) {
-            //console.log("state has changed.")
             return
         }
     }
 
-    /*It doesn't look like the bottom of the country page is right. Changes that I've made to those tabs aren't there, 
-    and the design is all messed up. You may want to compare what you have for the Country Pages files and see what's 
-    different, because there are changes that should show up that aren't.*/
-
-    handleQueryChange(event) {
     // ON KEY UP => Create a filtered country list based on the query and set both states
+    handleQueryChange(event) {
         let qText = event.target.value.toUpperCase();
         qText = qText.trim();
 
@@ -396,7 +394,6 @@ class FilteringSearchBar extends React.Component {
                 let cContinent = country.continent.toUpperCase();
                 return (cName.includes(qText) !== false || cContinent.substring(qText) === qText)
             });
-            //!Set the state after all computing is done!
             this.setState({
                 filteredCountries: newFilteredCountries,
                 queryText: qText
@@ -405,11 +402,11 @@ class FilteringSearchBar extends React.Component {
     }
 
     /*-- On country selection, initiate DB ping to display tablular data --*/
-    handleOnSelect(event) {
+    /*handleOnSelect(event) {
         alert("Country Selection is: " + event.target.value);
-        event.preventDefault(); /* DELETE later, prevents default form submit */
+        event.preventDefault(); 
         //CountryDataTabs.call
-    }
+    }*/
     
     render() {
         return (
@@ -424,7 +421,7 @@ class FilteringSearchBar extends React.Component {
                     <div id='searchUL-wrap'>
                         <ul className="searchUL">
                             {this.state.filteredCountries.map(country => (
-                                <li className="filtered-country-items" key={country.name} onClick={this.handleSelection}>
+                                <li className="filtered-country-items" key={country.name} onClick={this.props.sendCountryOnSelect}>
                                     {country.name}
                                 </li>
                             ))}
@@ -516,9 +513,5 @@ class ToTopBtn extends React.Component {
         )
     }
 }
-
-/*****== Extra stuff ==*********/
-/*
-*/
 
 export default SearchLocations;

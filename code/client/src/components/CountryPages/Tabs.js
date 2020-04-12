@@ -13,7 +13,7 @@ class CountryTabs extends React.Component {
         super(props);
         this.state = { 
             active: false, 
-            refCountry: "Country Name"
+            curCountry: "Country Name"
         };
     }
 
@@ -28,7 +28,7 @@ class CountryTabs extends React.Component {
                             <img src={countryflag} alt="peru flag" className="flag_image"/>
                         </li>
                         <li className="country-name-block">
-                            <h3>{this.state.refCountry}</h3>
+                            <h3>{this.state.curCountry}</h3>
                         </li>
                         <Tab active className="regular-tabs">Country Info</Tab>
                         <Tab className="regular-tabs">Donation Items</Tab>
