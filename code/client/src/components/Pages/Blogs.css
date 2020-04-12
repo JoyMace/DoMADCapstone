@@ -23,11 +23,10 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: space-evenly;
     width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin: auto;
+    margin-top: 20px;
 }
 
 .country-buttons {
@@ -45,11 +44,11 @@
 }
 
 .top-buttons-blog {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .bottom-buttons-blog {
-    padding-top: 5px;
+    padding-bottom: 10x;
 }
 
 /*Africa*/
@@ -73,10 +72,12 @@
     display: none; /* initial */
     position: absolute;
     min-width: 20px;
+    width: auto;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-left: 10%;
     color: white;
+    max-height: 75vh;
 }
 
 .dropdown-content-africa option:hover {
@@ -89,14 +90,17 @@
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
-    background: none;
+    background: #010925;
     text-decoration: none;
     text-align: left;
     color: white;
 }
 
 .dropdown-africa:hover .dropdown-content-africa {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: auto;
 }
 
 /*Asia*/
@@ -120,10 +124,12 @@
     display: none; /* initial */
     position: absolute;
     min-width: 20px;
+    width: auto;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-left: 10%;
     color: white;
+    max-height: 75vh;
 }
 
 .dropdown-content-asia option:hover {
@@ -136,7 +142,7 @@
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
-    background: none;
+    background: #010925;
     text-decoration: none;
     text-emphasis: bold;
     text-align: left;
@@ -144,7 +150,10 @@
 }
 
 .dropdown-asia:hover .dropdown-content-asia {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: auto;
 }
 
 /*Australia*/
@@ -168,10 +177,12 @@
     display: none; /* initial */
     position: absolute;
     min-width: 20px;
+    width: auto;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-left: 10%;
     color: white;
+    max-height: 75vh;
 }
 
 .dropdown-content-australia option:hover {
@@ -184,7 +195,7 @@
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
-    background: none;
+    background: #010925;
     text-decoration: none;
     text-emphasis: bold;
     text-align: left;
@@ -192,7 +203,10 @@
 }
 
 .dropdown-australia:hover .dropdown-content-australia {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: auto;
 }
 
 /*Europe*/
@@ -215,10 +229,12 @@
     display: none; /* initial */
     position: absolute;
     min-width: 20px;
+    width: auto;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-left: 10%;
     color: white;
+    max-height: 70vh;
 }
 
 .dropdown-content-europe option:hover {
@@ -231,7 +247,7 @@
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
-    background: none;
+    background: #010925;
     text-decoration: none;
     text-emphasis: bold;
     text-align: left;
@@ -239,7 +255,10 @@
 }
 
 .dropdown-europe:hover .dropdown-content-europe {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: auto;
 }
 
 /*North America*/
@@ -262,10 +281,12 @@
     display: none; /* initial */
     position: absolute;
     min-width: 20px;
+    width: auto;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-left: 10%;
     color: white;
+    max-height: 70vh;
 }
 
 .dropdown-content-north option:hover {
@@ -278,7 +299,7 @@
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
-    background: none;
+    background: #010925;
     text-decoration: none;
     text-emphasis: bold;
     text-align: left;
@@ -286,7 +307,10 @@
 }
 
 .dropdown-north:hover .dropdown-content-north {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: auto;
 }
 
 /*South America*/
@@ -309,10 +333,12 @@
     display: none; /* initial */
     position: absolute;
     min-width: 20px;
+    width: auto;
     background-color: #010925;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-left: 10%;
     color: white;
+    max-height: 70vh;
 }
 
 .dropdown-content-south option:hover {
@@ -325,7 +351,7 @@
     display: inline-block;
     padding: 6px 8px;
     width: 100%;
-    background: none;
+    background: #010925;
     text-decoration: none;
     text-emphasis: bold;
     text-align: left;
@@ -333,7 +359,10 @@
 }
 
 .dropdown-south:hover .dropdown-content-south {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: auto;
 }
 /*End country dropdowns*/
 

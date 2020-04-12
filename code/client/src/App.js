@@ -58,7 +58,7 @@ class App extends Component {
 
   render() {
     let backdrop;
-  
+
     if(this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
@@ -88,6 +88,7 @@ class App extends Component {
               <Route />
           </Switch>
           {backdrop}
+          <Switch>
           <Route path="/about" component={About} />
           <Route path="/account" component={Account} />
           <Route path="/blogs" component={Blogs} />
@@ -101,6 +102,10 @@ class App extends Component {
           <Route path="/country_pages" component={CountryPages} />
           <Route path="/forgot" component={Reset} />
           <Route path="/individual_blogs" component={IndividualBlogs} />
+          <Route path="/:token" component={Reset_token} /> //Leave this line last
+
+          </Switch>
+
           <Footer />
         </div>
       </Router>
