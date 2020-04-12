@@ -7,7 +7,7 @@ const OrganizationSchema = mongoose.model('Organization').schema;
 const countrySchema = new mongoose.Schema({
   name: { type: String, required: true },
   abbreviation: { type: String, required: true },
-  organizationID: [{type: mongoose.Schema.Types.ObjectId, ref: 'Organization'}],
+  organizationIDs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Organization'}],
   generalInformation: {
     officialLanguages: [ String ],
     flag: String, // For now this is just a file location. Looking GridFS
