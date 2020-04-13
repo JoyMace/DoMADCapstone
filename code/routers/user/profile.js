@@ -24,7 +24,7 @@ router.get('/profile', (req, res) => {
 
   var userID;
   // checks if user is logged in or external request
-  console.log("req.query:" + req.user._id)
+
   if ('userID' in req.query){
     userID = req.query.userID;
   } else if ('user' in req) {
