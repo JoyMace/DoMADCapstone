@@ -13,16 +13,22 @@ class CountryTabs extends React.Component {
         super(props);
 
         this.state = { 
-            active: true, 
-            current_country: 'none'
+            active: false, 
+            current_country: 'none',
+            country_image_url: ''
         };
-        this.populateCountry = this.populateCountry.bind(this);
+
+        this.getCountry = this.getCountry.bind(this);
     }
 
     // Invoked from parent passing down selected country name
-    populateCountry(country) {
-        console.log('received country selection from parent..\n invoking: ', country);
-        this.setState({current_country: country});
+    getCountry(country) {
+        // only do this once we grab the data
+
+        this.setState({
+            current_country: (country.substring(0,1).toUpperCase() + country.substring(1)),
+            active: true
+        });
     }
 
     render() {

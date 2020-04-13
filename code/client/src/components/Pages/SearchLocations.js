@@ -14,9 +14,16 @@ class SearchLocations extends React.Component {
         this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }
 
-    // Get Country click from <SearchBar/> => send to <CountryDataTabs/>
-    sendCountryOnSelect (country) {
-        this.refs.datatabs.populateCountry(country.name);
+    // Get Country choice or search button click from <SearchBar/> => send to <CountryDataTabs/>
+    sendCountryOnSelect (country_name) {
+        if (this.refs.searchbar.countries.some(e => (e.name.toLowerCase()).includes(country_name.toLowerCase()) == 1 )) {
+            console.log("sending!");
+            this.refs.datatabs.getCountry(country_name);
+            this.refs.searchbar.setState({filteredCountries: []}); 
+        } else {
+            console.log("Thats not a country!")
+        }
+        
     }
     // Get Continent click from <WorldMap/> => send to <SearchBar/>
     sendContinentSearch(continent) {
@@ -51,7 +58,7 @@ class SearchLocations extends React.Component {
                         <h5>Once a country is selected tabular donation and country information will populate below.</h5>
                     </div>
 
-                    <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
+                    <NewSearchBtn returnstepinms="25" returnstepinpx="50"/>
                     <footer id='explore-spacer'><hr/></footer>
                 </div>
 
@@ -372,8 +379,13 @@ class SearchBar extends React.Component {
         ];
         
         this.continents = {
-            'as': "Asia",'af': "Africa",'eu': "Europe",'oc': "Oceania", 
-            'na': "North America",'sa': "South America",'an': "Antarctica"
+            'as': "Asia",
+            'af': "Africa",
+            'eu': "Europe",
+            'oc': "Oceania", 
+            'na': "North America",
+            'sa': "South America",
+            'an': "Antarctica"
         };
         
         this.updateQueryToContinent = this.updateQueryToContinent.bind(this);
@@ -387,7 +399,8 @@ class SearchBar extends React.Component {
         }
     }
 
-    updateQueryToContinent(cont_key) { // Continent code entry (from map)
+    //--> Search continent entry from map
+    updateQueryToContinent(cont_key) { 
         let newCountryFilter = this.countries.filter((country) => {
             return (country.contCode.substring(cont_key) === cont_key)
         });
@@ -397,11 +410,11 @@ class SearchBar extends React.Component {
         this.refs.search.value = name;
     }
 
-    //--> Key up OR continent choice => filter for a country list or continent flavore query
+    //--> Key up OR continent choice => filter for country list or continent flavored query
     handleSearch(text) {
         let query = text.toUpperCase().trim();
         
-        if (query.length == 0) {
+        if (query.length === 0) {
             this.setState({filteredCountries: [], queryText: query});
         }   
         else { // Text entry search
@@ -420,14 +433,14 @@ class SearchBar extends React.Component {
                 <div id="search-wrap">
                     <input id="search-input" ref='search' onKeyUp={(e) => this.handleSearch(e.target.value)} 
                         type="text" placeholder="Search Countries.." maxLength='100'/>
-                    <button id='search-btn' type="submit">
-                        <img id="icon" src={search_icon}/>
+                    <button id='search-btn' type="submit" onClick={() => this.props.sendCountryOnSelect(this.refs.search.value)}>
+                        <img id="icon" src={search_icon} alt=""/>
                     </button>
 
                     <div id='searchUL-wrap'>
                         <ul className="searchUL">
                             {this.state.filteredCountries.map(country => (
-                                <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country)}>
+                                <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country.name)}>
                                     {country.name}
                                 </li>
                             ))}
@@ -440,7 +453,7 @@ class SearchBar extends React.Component {
 }
 
 /* ======== 'Scroll to Top' button ======== */
-class ToTopBtn extends React.Component {
+class NewSearchBtn extends React.Component {
     constructor(props) {
         super(props);
 
@@ -463,7 +476,7 @@ class ToTopBtn extends React.Component {
 
     /*-- Determine button rendering based on pageYoffset value --*/
     handleScroll() {
-        if (window.pageYOffset > 400) {
+        if (window.pageYOffset > 100) {
             if (!this.state.show) {
                 //this.props.style.display = "block";
                 this.setState({show: true });
@@ -513,7 +526,7 @@ class ToTopBtn extends React.Component {
         
         return (
             <div>
-                <button id='toTopBtn' style={defaultStyles}
+                <button id='new-search-btn' style={defaultStyles}
                     onClick={ () => {this.scrollToTop()}}>To Top</button>
             </div>
         )
