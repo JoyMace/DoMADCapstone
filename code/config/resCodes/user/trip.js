@@ -8,6 +8,10 @@ resCode = {
       status:400,
       message:'Profanity found in the input'
     },
+    locationLookupFail:{
+      status:400,
+      message:'Something went wrong when trying to find or create a location'
+    },
     addTripFail:{
       status:400,
       message:'Failed to add trip'

@@ -18,7 +18,7 @@ var crypto = require("crypto");
 
   inputs:
     username: String
-    password: String 
+    password: String
 
   logs a user in using passport and creates local session
   redirects user to /success or /failure depending on if the login was successful
@@ -49,8 +49,8 @@ router.post('/login', function(req, res, next) {
     firstName: String
     lastName: String
     email: String
-    password: String 
-    verifyPassword: String 
+    password: String
+    verifyPassword: String
     country: String
     city: String
 
@@ -96,7 +96,7 @@ router.post('/signup', function(req, res) {
         message: authCode.signup.userExists.message
       });
     }else{
-      // create user  
+      // create user
       var newUser = new User();
 
       newUser.username = username;
@@ -112,7 +112,8 @@ router.post('/signup', function(req, res) {
 
       // Get a location id for new user
       Location.findOneOrCreate(locationQuery, function(err, loc) {
-        newUser.locationID = loc._id;
+        //This is causing errors so I've commented it out
+        //newUser.locationID = loc._id;
 
         newUser.save(function(err, user) {
           if(err) {

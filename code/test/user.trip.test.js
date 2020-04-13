@@ -10,6 +10,7 @@ const tripCode = require('../config/resCodes').trip;
 const testVar = require('../config/testVar');
 const Trip = require('../models/trip');
 const User = require('../models/user');
+const Donation = require('../models/donation');
 const Location = require('../models/location');
 
 describe('User Trip Routers', function() {
@@ -28,8 +29,11 @@ describe('User Trip Routers', function() {
       saveTripDBStub.yields(null, fakeTrip);
       saveTripDBStub.onCall(1).yields(true, null);
 
-      var fakeLocation = new Location(testVar.locationInfo);
+      var fakeDonation = new Donation(testVar.donationInformation);
+      var mongooseSaveStub = sandbox.stub(Donation.prototype, 'save');
+      mongooseSaveStub.yields(null, fakeDonation);
 
+      var fakeLocation = new Location(testVar.locationInfo);
       var locationStub = sandbox.stub(Location, 'findOneOrCreate');
       locationStub.yields(null, fakeLocation);
 
