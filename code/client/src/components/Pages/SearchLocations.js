@@ -15,17 +15,17 @@ class SearchLocations extends React.Component {
         this.state = { t: ''};
 
         this.sendCountryOnSelect = this.sendCountryOnSelect.bind(this);
-        this.searchContinentOnSelect = this.searchContinentOnSelect.bind(this);
+        this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }
 
-    // SearchBar Child Connector: On SearchBar Select --> CountryDataTabs.cCountry = 'Country'
-    sendCountryOnSelect (continent) {
-        console.log('parent received continent, updating search query with: ', continent);
+    // Receives Country selection from <SearchBar/> and sends to CountryDataTabs
+    sendCountryOnSelect (country) {
+        console.log('parent received country selection...\n sending', country.name, 'to Country Data Tabs!');
     }
 
-    // On WorldMap Click --> SearchBar.queryText = 'Continent'
-    searchContinentOnSelect() {
-
+    // Received Continent selection from <WorldMap/> and sends to SearchBar
+    sendContinentSearch(continent) {
+        console.log('parent received continent change...\n', 'sending', continent, 'to SearchBar');
     }
 
     render() {
@@ -48,7 +48,7 @@ class SearchLocations extends React.Component {
 
                     <div id='map-content-wrap'>
                         <div id="map-stretchy-wrapper">
-                            <WorldMapController searchContinentOnSelect = {this.searchContinentOnSelect} />
+                            <WorldMapController sendContinentSearch = {this.sendContinentSearch} />
                         </div>
                         <div id="side-navigation">
                             
@@ -73,20 +73,24 @@ class SearchLocations extends React.Component {
 class WorldMapController extends React.Component {
     constructor(props) {
         super(props);
-        this.searchContinentOnSelect = this.props.searchContinentOnSelect.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
-    
+
+    handleChange(e) {
+        this.props.sendContinentSearch(e.detail.clickedState);
+    }
+
     componentDidMount() {
-        window.addEventListener('WorldMapClicked', 
-            function(e) { 
-                console.log('map was clicked, current selection is: ', e.detail.clickedState);
-                this.props.searchContinentOnSelect(e.detail.clickedState);
-            }
-        );
+        window.addEventListener('WorldMapClicked', this.handleChange);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('WorldMapClicked', this.handleChange);
     }
 
     render() {
-        return <WorldMap />;
+        return (
+            <WorldMap/>
+        );
     } 
 }
 
@@ -366,10 +370,7 @@ class SearchBar extends React.Component {
             {"name": "Zimbabwe","continent": "Africa"}];
         
         this.handleQueryChange = this.handleQueryChange.bind(this);
-        /*this.handleOnSelect = this.handleOnSelect.bind(this);*/
     }
-
-    /* componentDidMount() {} */
 
     // Should the component re-render? if input is nominal, don't update state
     componentDidUpdate(prevProps, prevState) { 
@@ -400,13 +401,6 @@ class SearchBar extends React.Component {
             });
         }
     }
-
-    /*-- On country selection, initiate DB ping to display tablular data --*/
-    /*handleOnSelect(event) {
-        alert("Country Selection is: " + event.target.value);
-        event.preventDefault(); 
-        //CountryDataTabs.call
-    }*/
     
     render() {
         return (
@@ -421,7 +415,7 @@ class SearchBar extends React.Component {
                     <div id='searchUL-wrap'>
                         <ul className="searchUL">
                             {this.state.filteredCountries.map(country => (
-                                <li className="filtered-country-items" key={country.name} onClick={this.props.sendCountryOnSelect}>
+                                <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country)}>
                                     {country.name}
                                 </li>
                             ))}
@@ -447,7 +441,7 @@ class ToTopBtn extends React.Component {
     }
 
     componentDidMount() {
-        this.handleScroll(); // also initializes state
+        this.handleScroll();
         window.addEventListener('scroll', this.handleScroll);
     }
 

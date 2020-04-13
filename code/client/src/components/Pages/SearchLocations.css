@@ -130,7 +130,7 @@
         border: 2px solid #081d68;
         border-radius: 5px;
     } 
-    .map-img {  /*--svg element*/
+    .map-img {  /*--svg map element*/
         width: 100% !important;  /* overwrite static inline dimensions*/
         height: auto !important; 
         /* viewbox scales to match aspect ratio. auto 
@@ -140,7 +140,7 @@
             margin-top: 0; /*overwriting from Account.css-- FIX THIS */
         } 
         .map-img path {
-            stroke: green; /*-- use instead of fill */
+            stroke: black;
             stroke-width: 1px;
             stroke-linejoin: bevel;
         }
@@ -148,15 +148,15 @@
             fill: rgb(213, 221, 223);
         }
             .map-img .map-unselected:hover {
-                fill: #081d68;
+                fill: #428FBE;
             }
 
         .map-img .map-selected {
-            fill: #428FBE;
+            fill: #081d68;
         }
             .map-img .map-selected:hover {
-                cursor: pointer;
                 fill: #428FBE;
+                cursor: pointer;
             }
 
 /*--- Explore Search Area Footer ---*/

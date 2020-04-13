@@ -13,15 +13,20 @@ class CountryTabs extends React.Component {
         super(props);
         this.state = { 
             active: false, 
-            curCountry: "Country Name"
+            curCountry: 'none'
         };
     }
 
-    //componentDidMount() { /**/ }
-
     render() {
+        let defaultStyles = {
+            display: (this.state.active ? 'flex' : 'none'),
+            marginright: '1%',
+            marginleft: '1%',
+            transition: "visibility 0s, opacity 0.5s linear",
+            transitionDuration: "0.2s", transitionDelay: "0"
+        }
         return (
-            <div id="tabs-component">
+            <div id="tabs-component" style={defaultStyles}>
                 <Tabs>
                     <TabList className="tab-style">
                         <li className="country-flag-block">
