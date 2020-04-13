@@ -14,7 +14,7 @@ class CountryTabs extends React.Component {
 
         this.state = { 
             active: true, 
-            curCountry: 'none'
+            current_country: 'none'
         };
         this.populateCountry = this.populateCountry.bind(this);
     }
@@ -22,6 +22,7 @@ class CountryTabs extends React.Component {
     // Invoked from parent passing down selected country name
     populateCountry(country) {
         console.log('received country selection from parent..\n invoking: ', country);
+        this.setState({current_country: country});
     }
 
     render() {
@@ -40,7 +41,7 @@ class CountryTabs extends React.Component {
                             <img src={countryflag} alt="peru flag" className="flag_image"/>
                         </li>
                         <li className="country-name-block">
-                            <h3>{this.state.curCountry}</h3>
+                            <h3>{this.state.current_country}</h3>
                         </li>
                         <Tab active className="regular-tabs">Country Info</Tab>
                         <Tab className="regular-tabs">Donation Items</Tab>

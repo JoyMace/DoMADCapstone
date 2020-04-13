@@ -3,12 +3,7 @@ import './SearchLocations.css';
 import CountryDataTabs from '../CountryPages/Tabs.js';
 import WorldMap from 'react-world-map';
 import search_icon from '../../images/search_icon.png';
-import { FaAffiliatetheme } from 'react-icons/fa';
 
-// TO DO ===============
-// On WorldMap Click --> SearchBar.queryText = 'Continent'
-// On SearchBar Select --> CountryDataTabs.cCountry = 'Country'
-// =====================
 
 class SearchLocations extends React.Component {
     constructor(props) {
@@ -19,7 +14,7 @@ class SearchLocations extends React.Component {
         this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }
 
-    // Get Country click from <SearchBar/> and send to <CountryDataTabs/>
+    // Get Country click from <SearchBar/> => send to <CountryDataTabs/>
     sendCountryOnSelect (country) {
         this.refs.datatabs.populateCountry(country.name);
     }
@@ -70,7 +65,8 @@ class SearchLocations extends React.Component {
     }
 }
 
-/* ======== Main Map renderer & handler ======== */
+
+/* ======== Main World Map Handler ======== */
 class WorldMapController extends React.Component {
     constructor(props) {
         super(props);
@@ -82,6 +78,7 @@ class WorldMapController extends React.Component {
     }
 
     componentDidMount() {
+        // have to add event listener because we can;'t directly access <WorldMap/>
         window.addEventListener('WorldMapClicked', this.handleChange);
     }
     componentWillUnmount() {
@@ -375,13 +372,8 @@ class SearchBar extends React.Component {
         ];
         
         this.continents = {
-            'as': "Asia", 
-            'af': "Africa", 
-            'eu': "Europe", 
-            'oc': "Oceania", 
-            'na': "North America", 
-            'sa': "South America", 
-            'an': "Antarctica"
+            'as': "Asia",'af': "Africa",'eu': "Europe",'oc': "Oceania", 
+            'na': "North America",'sa': "South America",'an': "Antarctica"
         };
         
         this.updateQueryToContinent = this.updateQueryToContinent.bind(this);
