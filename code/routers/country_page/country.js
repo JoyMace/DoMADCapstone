@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const Country = require('../../models/country');
+const Organization = require('../../models/organization');
 
 const countryCodes = require('../../config/resCodes').country;
 
@@ -96,9 +97,29 @@ router.get('/get-country-info', (req, res) => {
 
 
 /*
-    TODO: Country organization info api
-*/
+    Get Country organizations api
+    inputs:
+      countryName: String
 
+    Returns the list of organizations associated with given country
+*/
+router.get('/get-organizations', (req, res) => {
+  name = req.body.name;
+
+  var query = {name: name};
+  Country.find(query, function(err, country) {
+    if(err) {
+      return res.status(countryCodes.getOrganizations.countryNotFound.status).send({
+        message: countryCodes.getOrganizations.countryNotFound.message
+      });
+    }else{
+      return res.status(countryCodes.getOrganizations.success.status).send({
+        organizations: country[0].organizations,
+        message: countryCodes.getOrganizations.success.message
+      });
+    }
+  })
+})
 
 
 
