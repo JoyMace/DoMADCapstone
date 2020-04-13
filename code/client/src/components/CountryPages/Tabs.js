@@ -11,10 +11,17 @@ import countryflag from '../../images/peruflag.png';
 class CountryTabs extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = { 
-            active: false, 
+            active: true, 
             curCountry: 'none'
         };
+        this.populateCountry = this.populateCountry.bind(this);
+    }
+
+    // Invoked from parent passing down selected country name
+    populateCountry(country) {
+        console.log('received country selection from parent..\n invoking: ', country);
     }
 
     render() {
