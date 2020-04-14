@@ -47,10 +47,6 @@
     padding-bottom: 10px;
 }
 
-.bottom-buttons-blog {
-    padding-bottom: 10x;
-}
-
 /*Africa*/
 .dropdown-africa:first-child { 
     float: left; 
@@ -366,11 +362,25 @@
 }
 /*End country dropdowns*/
 
+.blog-trips-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;	
+		
+}
+
+.blog-container-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .blog-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    height: 100%;
 }
 
 .blog-entry {
@@ -378,7 +388,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 384px;
+    height: auto;
     width: 338px;
     margin: 20px;
 }
@@ -387,30 +397,27 @@
     border: 5px solid #010925;
 }
 
-.top-image {
-    height: 60%;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+.top-blog-image {
+    height: 40%;
 }
 
-.top-image img {
+.top-blog-image img {
     width: 100%;
     height: 100%;
 }
 
-.bottom-content {
-    height: 40%;
+.bottom-blog-content {
+    height: 60%;
     text-align: left;
-    padding-left: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
     padding-top: 25px;
     background-color: #010925;
     color: white;
     line-height: 2em;
 }
 
-.star-rating {
+.star-blog-rating {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -7,59 +7,56 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
-            user: {
-                firstname: '',
-                lastname: '',
-                emailaddress: '',
-                homecountry: '',
-                password: ''
-            },
-            submitted: false
+                username: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                verifyPassword: '',
+                password: '',
+                submitted: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    handleChange(event) {
-        const { name, value } = event.target;
-        const { user } = this.state;
-        this.setState({
-            user: {
-                ...user,
-                [name]: value
-            }
-        });
+    handleChange(e) {
+      const { name, value } = e.target;
+      this.setState({ [name]: value });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
 
-        this.setState({ submitted: true });
-        const { user } = this.state;
-        if (user.firstName && user.lastName && user.username && user.password) {
-            this.props.register(user);
-        }
-    }
+    handleSubmit(e) {
+          e.preventDefault();
+          this.setState({ submitted: true });
+          const { username, firstName, lastName, email, password, verifyPassword } = this.state;
+          if ((username && firstName && lastName && email && password && verifyPassword)) {
+              this.props.Register(username, firstName, lastName, email, password, verifyPassword);
+          }
+
+      }
 
     render() {
         const { registering } = this.props;
-        const { user, submitted } = this.state;
+        const { username, firstName, lastName, email, password, verifyPassword, submitted } = this.state;
         return (
             <div className="Register">
               <div className="register-left">
                 <h1 className="title">Create Account</h1>
-                <form className="RegisterForm" onSubmit={this.handleSubmit}>
-                    <div className="firstname">
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-                        {submitted && !user.firstName &&
-                            <div className="help-block">First Name is required</div>
-                        }
+                <form className="RegisterForm" onSubmit={this.handleSubmit} action="/api/user/auth/signup" method="POST">
+                    <div className="username">
+                        <label htmlFor="username">Username</label>
+                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
                     </div>
-                    <div className="lastname">
+                    <div className="firstName">
+                        <label htmlFor="firstName">First Name</label>
+                        <input type="text" className="form-control" name="firstName" value={firstName} onChange={this.handleChange} />
+
+                    </div>
+                    <div className="lastName">
                         <label htmlFor="lastName">Last Name</label>
+
                         <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
                         {submitted && !user.lastName &&
                             <div className="help-block">Last Name is required</div>
@@ -78,13 +75,18 @@ class Register extends React.Component {
                         {submitted && !user.homecountry &&
                             <div className="help-block">Home country is required</div>
                         }
+
                     </div>
+
                     <div className="password">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                        {submitted && !user.password &&
-                            <div className="help-block">Password is required</div>
-                        }
+                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+
+                    </div>
+                    <div className="verifyPassword">
+                        <label htmlFor="verifyPassword">Verify Password</label>
+                        <input type="password" className="form-control" name="verifyPassword" value={verifyPassword} onChange={this.handleChange} />
+
                     </div>
                     <div className="createAccount">
                       <button type="submit">Create Account</button>
@@ -95,18 +97,27 @@ class Register extends React.Component {
                 </form>
               </div>
               <div className="register-right-info">
+
                   <h2>Register Now – It’s quick & easy!</h2>
                   <h2>By registering you’ll be able to log your trips, share your travel experiences, and rate your donations.</h2>
+
                   <h2>DoMAD will never sell your personal information.</h2>
               </div>
             </div>
         );
     }
-}
 
-function mapState(state) {
-    const { registering } = state.registration;
-    return { registering };
+
+handleChange = event => {
+  this.setState({
+    [event.target.name]: event.target.value
+  });
+};
+
+handleSubmit = event => {
+  console.log("Submitting");
+  console.log(this.state);
+  };
 }
 
 

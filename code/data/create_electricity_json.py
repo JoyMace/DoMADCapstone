@@ -1,5 +1,14 @@
 from pandas import read_csv, DataFrame, Series
 
+def list_to_string(l):
+    listString = ""
+    for elem in l:
+        s = str(elem)
+        if s == 'nan':
+            s = '{"$numberDouble": "NaN"}'
+        listString += s + ','
+    return listString[:-1] #leave out the last comma
+
 df = read_csv("input/origin_data.csv")
 #for the purpose of DoMAD, we will show data for Special Administrrative Regions (Like Hong Kong) and other territories (like Greenland) as their own countries. 
 non_countries = ['Caucasian and Central Asia', 'Caucasus and Central Asia', 'Eastern Asia (including Japan)', \
@@ -25,15 +34,45 @@ rural_lists_nums = []
 
 #want to populate new_columns 1.2RURAL, 1.1TOT with corresponding list
 for i, vals in elecDf.iterrows():
-  if i%2 == 0:
-    rural_lists_nums.append(vals.values[4:]) #get the time series values
-  else:
-    total_lists_nums.append(vals.values[4:])
+    if i%2 == 0:
+        rural_lists_nums.append(vals.values[4:]) #get the time series values
+    else:
+        total_lists_nums.append(vals.values[4:])
         
 #no need to worry about if rural or total lists are the same length, since the dataframe is guaranteed to have
 #an even number of rows, since there are 2 rows for each country
 #just need to create new df with only unique country codes
-finalDf = DataFrame({"COUNTRY.CODE": elecDf["Country Code"].unique()}) #note that pandas.unique doesn't sort the values unlike np.unique
-finalDf["ACCESS.ELECTRICITY.RURAL"] = rural_lists_nums
-finalDf["ACCESS.ELECTRICITY.TOTAL"] = total_lists_nums
-finalDf.to_json(path_or_buf = "output/country_electricity.json", orient = 'records')
+finalDf = DataFrame({"name": elecDf["Country Name"].unique(), #note that pandas.unique doesn't sort the values unlike np.unique
+                     "abbreviation": elecDf["Country Code"].unique(),
+                     "organizationID": None,
+                     "generalInformation": None,
+                     "statistics": None
+                    })
+
+finalDf.to_json(path_or_buf = "output/country_basic.json", orient = 'records')
+
+
+#Read it back in as a string and add the statistics
+country_data_string = ""
+with open("output/country_basic.json", 'r') as f:
+    country_data_string = f.readline()
+    
+new_json = ""
+stats_index = country_data_string.find("statistics")+12
+for i in range(len(total_lists_nums)):
+    new_json += country_data_string[:stats_index]+"{"
+    
+    total_vals = list_to_string(total_lists_nums[i])
+    total_elec = '"totalElectricity":[' + total_vals + '],'
+    
+    rural_vals = list_to_string(rural_lists_nums[i])
+    rural_elec = '"ruralElectricity":[' + rural_vals + ']}'
+    
+    new_json += total_elec + rural_elec
+    
+    country_data_string = country_data_string[stats_index+4:]
+    stats_index = country_data_string.find("statistics")+12
+new_json += country_data_string
+
+with open('output/country_electricity.json', 'w') as f:
+    f.write(new_json)
