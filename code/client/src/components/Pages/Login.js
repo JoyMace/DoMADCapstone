@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './Login.css';
 
 class Login extends React.Component {
@@ -22,15 +23,19 @@ class Login extends React.Component {
   }
   handleSubmit(e) {
         e.preventDefault();
-        this.setState({ submitted: true });
         const { username, password } = this.state;
         if ((username && password)) {
-            this.props.login(username, password);
+            this.setState({
+              loggedIn: true
+            })
         }
 
     }
 
   render() {
+      if(this.state.loggedIn){
+        return <Redirect to="/account" user={this.props.username}/>
+      }
     const { loggingIn} = this.props;
     const { username, password, submitted } = this.state;
     return (
@@ -44,7 +49,7 @@ class Login extends React.Component {
               <input name="username" type="text" placeholder="Enter your username" value={username} onChange={this.handleChange}/>
               {submitted && !username &&
                 <div className="help-block">username is required</div>
-            }
+              }
           </div>
 
           <div className="password">
@@ -52,7 +57,7 @@ class Login extends React.Component {
               <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}/>
               {submitted && !password &&
                 <div className="help-block">Password is required</div>
-          }
+               }
           </div>
           <div className="signinbutton">
             <button type="submit">Sign In</button>
@@ -66,16 +71,7 @@ class Login extends React.Component {
       );
     }
 
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
-
-  handleSubmit = event => {
-    console.log("Submitting");
-    console.log(this.state);
-  };
+  
 }
 
 export default Login;

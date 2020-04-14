@@ -94,7 +94,9 @@ class UserTripForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.reloadAccount = this.props.reloadAccount;
-		this.state = {};
+		this.state = {
+			country: "Select from List"
+		};
 	}
 	
 	accountChangeHandler = (event) => {
@@ -161,19 +163,18 @@ class UserTripForm extends React.Component {
 			const { post } = this.props
 			return (
 
-			//<form action="/api/user/trip/report" method="POST">
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
 				<input name="userID" value="5e77a660f3ad797398557439" type="hidden"/>
-				<li>{/*Trip Date Entry */}
+				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
 					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
 				
-				<li>{/*Country Selection List */}
+				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
 					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
-						<option value="Afganistan" selected="selected">Afghanistan</option>
+						<option value="Afganistan">Afghanistan</option>
 						<option value="Albania">Albania</option>
 						<option value="Algeria">Algeria</option>
 						<option value="American Samoa">American Samoa</option>
@@ -419,16 +420,17 @@ class UserTripForm extends React.Component {
 				
 				</li>
 
-				<li>{/*City Text Entry*/}
+				<li>{/* City Text Entry*/}
 					<label name="city" className="city">What city?</label>
 					<input name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
 				</li>
 
-				<li>{/*Donation Item Text Entry */}
+				<li>{/* Donation Item Text Entry */}
 					<label name="donationItem" className="donationItem">What did you donate?</label>
 					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
-				<li>{/*Donation Item Category Selection List */}
+				
+				<li>{/* Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
@@ -444,7 +446,8 @@ class UserTripForm extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				<li>{/*Individual or Organization Check Boxes */}
+				
+				<li>{/* Individual or Organization Check Boxes */}
 					<p>Did you donate to an Individual or Organization?</p>
 						<ul className="flex-inner">
 							<li>
@@ -482,6 +485,7 @@ class UserTripForm extends React.Component {
 					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
 					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
 				</li>
+				
 				<li>{/* Suggested Future Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
@@ -498,10 +502,12 @@ class UserTripForm extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
+				
 				<li>{/* Suggested Future Donation Item Readon Text Entry */}
 				<label name="donationReason" className="donationReason"></label>
 				<input name="donationReason" className="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
 				</li>
+				
 				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
 					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
