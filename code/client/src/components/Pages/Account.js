@@ -173,7 +173,7 @@ class UserTripForm extends React.Component {
 				<li>{/*Country Selection List */}
 					<label> Where did you go?</label>
 					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
-						<option value="Afganistan">Afghanistan</option>
+						<option value="Afganistan" selected="selected">Afghanistan</option>
 						<option value="Albania">Albania</option>
 						<option value="Algeria">Algeria</option>
 						<option value="American Samoa">American Samoa</option>
