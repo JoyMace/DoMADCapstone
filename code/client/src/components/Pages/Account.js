@@ -1,6 +1,6 @@
 import React from 'react';
 import './Account.css';
-import WorldMapImage from '../../images/WorldMap.png';
+import WorldMapImage from '../../images/Map.png';
 import avatar from '../../images/Avatar.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
@@ -11,54 +11,17 @@ import KenyaImage from '../../images/KenyaSavannah.jfif';
 class UserInfoContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			username: "",
-			signupDate: "",
-			locationID: ""	
-		}	
-	}
-	render() {
-		return <User user={this.state} />
-	}
-}
-
-/* class with API pull of user info */
-class User extends React.Component {
-	constructor(props) {
-		super(props)
-	this.state = { 
-		firstname: "",
-		lastname: "",
-		username: "",
-		signupDate: "",
-		locationID: ""	
-
-	};
-	}
-
-	getUser = async () => {
-		const response = await fetch('/api/user/profile');
-		const data = await response.json();
-		if (response.status != 200) {
-			throw Error(response.message)
-		}
-		console.log(data);
-		return data;
-	};
-
-	componentDidMount() {
-		this.getUser(this). 
-			then(res => {
-				this.setState({
-					user: res,
-				});
-			})
-			.catch(err => console.log(err));
-	}
-
-	render() {
 	
-		return <UserInfo userInfo={this.state} />
+	this.state = {
+		username: this.props.username + "Joy",
+		signupDate: "today",
+		locationID: "here",
+		tripsCount: "none",
+		donationsCount: "none"	
+	}	
+	}
+	render() {
+		return <UserInfo user={this.state} />
 	}
 }
 /* Function for UserInfo with divs*/
@@ -72,16 +35,60 @@ function UserInfo(props) {
 					  <img src={ avatar } alt= "avatar" height='120px' />
 					  </div>
 			  </div>
-			  <div className="user-info-column"> {/* This is still not working, so the default values will need to be removed when it works*/} 
-				  <div className="UserInfo-name">{props.userInfo.username}Joy Mace</div>
-				  <div className='UserInfo-signupDate'>DoMAD Member Since: {props.userInfo.signupDate}1999</div>
-				  <div className="UserInfo-tripsCount">Number of trips: {props.userInfo.tripsCount}999</div>
-				  <div className="UserInfo-donationsCount">Number of Donations: {props.userInfo.donationsCount}999</div>
+			  <div className="user-info-column"> {/* This is still not working, I hardcoded the values in UserInfoContainer*/} 
+				  <div className="UserInfo-name">{props.user.username}</div>
+				  <div className='UserInfo-signupDate'>DoMAD Member Since: {props.user.signupDate}</div>
+				  <div className="UserInfo-tripsCount">Number of trips: {props.user.tripsCount}</div>
+				  <div className="UserInfo-donationsCount">Number of Donations: {props.user.donationsCount}</div>
 			  </div>
 		  </div>
 	  </div>
 	)
   }
+/* class with API pull of user info */
+class User extends React.Component {
+	constructor(props) {
+		super(props)
+	this.state = { 
+		
+		username: "",
+		signupDate: "",
+		locationID: "",
+		tripsCount: "",
+		donationsCount: "",	
+
+	};
+	}
+
+	getUser = async () => {
+		const response = await fetch('/api/user/profile');
+		const data = await response.json();
+		if (response.status != 200) {
+			throw Error(response.message)
+		}
+		console.log(response);
+		return data;
+	};
+
+	componentDidMount() {
+		this.getUser(this). 
+			then(data => {
+				this.setState({
+					username: data.username,
+					firstName: data.firstName,
+					lastName: data.firstName,
+					signupDate: data.signupDate
+				});
+			})
+			.catch(err => console.log(err));
+	}
+
+	render() {
+	
+		return <UserInfoContainer user={this.state} />
+	}
+}
+
 /* The Form a User fills out when they want to report a trip and donation */
 class UserTripForm extends React.Component {
 	constructor(props) {
@@ -114,7 +121,7 @@ class UserTripForm extends React.Component {
 		}
 		donations.push(newDonation);
 		const reqBody = {
-		  "userID": "123", // This should work once you can signin and a login session is saved
+		  "userID": "5e77a660f3ad797398557439", // This should work once you can signin and a login session is saved
 		  "tripDate": this.state.tripDate,
 		  "donations": donations,
 		  "notes": this.state.description,
@@ -157,13 +164,13 @@ class UserTripForm extends React.Component {
 			//<form action="/api/user/trip/report" method="POST">
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
-				<input name="userID" value="123" type="hidden"/>
-				<li>
+				<input name="userID" value="5e77a660f3ad797398557439" type="hidden"/>
+				<li>{/*Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
 					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
-
-				<li>
+				
+				<li>{/*Country Selection List */}
 					<label> Where did you go?</label>
 					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
 						<option value="Afganistan">Afghanistan</option>
@@ -356,7 +363,6 @@ class UserTripForm extends React.Component {
 						<option value="St Maarten">St Maarten</option>
 						<option value="St Pierre & Miquelon">St Pierre & Miquelon</option>
 						<option value="St Vincent & Grenadines">St Vincent & Grenadines</option>
-						<option value="Saipan">Saipan</option>
 						<option value="Samoa">Samoa</option>
 						<option value="Samoa American">Samoa American</option>
 						<option value="San Marino">San Marino</option>
@@ -384,8 +390,8 @@ class UserTripForm extends React.Component {
 						<option value="Tajikistan">Tajikistan</option>
 						<option value="Tanzania">Tanzania</option>
 						<option value="Thailand">Thailand</option>
+						<option value="Timor-Leste">Timor-Leste</option>
 						<option value="Togo">Togo</option>
-						<option value="Tokelau">Tokelau</option>
 						<option value="Tonga">Tonga</option>
 						<option value="Trinidad & Tobago">Trinidad & Tobago</option>
 						<option value="Tunisia">Tunisia</option>
@@ -401,31 +407,28 @@ class UserTripForm extends React.Component {
 						<option value="Uraguay">Uruguay</option>
 						<option value="Uzbekistan">Uzbekistan</option>
 						<option value="Vanuatu">Vanuatu</option>
-						<option value="Vatican City State">Vatican City State</option>
 						<option value="Venezuela">Venezuela</option>
 						<option value="Vietnam">Vietnam</option>
 						<option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
 						<option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
-						<option value="Wake Island">Wake Island</option>
 						<option value="Wallis & Futana Is">Wallis & Futana Is</option>
 						<option value="Yemen">Yemen</option>
-						<option value="Zaire">Zaire</option>
 						<option value="Zambia">Zambia</option>
 						<option value="Zimbabwe">Zimbabwe</option>
 					</select>
 				
 				</li>
 
-				<li>
+				<li>{/*City Text Entry*/}
 					<label name="city" className="city">What city?</label>
 					<input name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
 				</li>
 
-				<li>
+				<li>{/*Donation Item Text Entry */}
 					<label name="donationItem" className="donationItem">What did you donate?</label>
 					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
-				<li>
+				<li>{/*Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
@@ -441,7 +444,7 @@ class UserTripForm extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				<li>
+				<li>{/*Individual or Organization Check Boxes */}
 					<p>Did you donate to an Individual or Organization?</p>
 						<ul className="flex-inner">
 							<li>
@@ -457,7 +460,7 @@ class UserTripForm extends React.Component {
 						</ul>
 				</li>
 
-				<li>
+				<li>{/* Donation Usefulness Rating DropDown */}
 					<label name="rating" className="rating">How useful was this donation? 5 = Very Useful</label>
 					<select name='rating' value={this.state.donationRating} onChange={this.accountChangeHandler}>
 					  <option value="selected">Score out of 5</option>
@@ -469,17 +472,17 @@ class UserTripForm extends React.Component {
 					</select>
 
 				</li>
-				{/* To-Do: Add this functionality*/}
+				{/* To-Do: Add Another Item functionality*/}
 				<li>
 					<button>Add Item</button>
 
 				</li>
 
-				<li>
+				<li>{/* Suggested Future Donation Item Name Text Entry */}
 					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
 					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
 				</li>
-				<li>
+				<li>{/* Suggested Future Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
@@ -495,16 +498,16 @@ class UserTripForm extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				<li>
+				<li>{/* Suggested Future Donation Item Readon Text Entry */}
 				<label name="donationReason" className="donationReason"></label>
 				<input name="donationReason" className="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
 				</li>
-				<li>
+				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
 					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
 				</li>
 
-				<li>
+				<li>{/* Make Private Check Box */}
 					<p>Make Private?</p>
 						<ul className="flex-inner">
 						<li>
@@ -519,7 +522,7 @@ class UserTripForm extends React.Component {
 					<input type='file' size="100"/>
 				</li>
 				*/}
-				<li>
+				<li> {/* Submit Button */}
 					<button type="submit">Submit</button>
 				</li>
 			</ul>
@@ -674,8 +677,9 @@ function Account(props) {
 					  <div id="mapid">
 					  <h1>Your Travel Map</h1>
 					  <div className='map' >
+						  <img src={ WorldMapImage } width='600px'/>
 					  </div>
-					  <p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+					  <p style={{fontSize:12, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
 				  </div>
 			  </div>
 			  <div className='right-column'>
