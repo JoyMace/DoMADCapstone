@@ -27,7 +27,6 @@ class User extends React.Component {
 	constructor(props) {
 		super(props)
 	this.state = { 
-		loading: 'true',
 		firstname: "",
 		lastname: "",
 		username: "",
@@ -43,6 +42,7 @@ class User extends React.Component {
 		if (response.status != 200) {
 			throw Error(response.message)
 		}
+		console.log(data);
 		return data;
 	};
 
@@ -51,16 +51,13 @@ class User extends React.Component {
 			then(res => {
 				this.setState({
 					user: res,
-					loading: 'false',
 				});
 			})
 			.catch(err => console.log(err));
 	}
 
 	render() {
-	if(this.state.loading == 'false') {
-		return <UserInfo userInfo={this.state} />
-	}
+	
 		return <UserInfo userInfo={this.state} />
 	}
 }
@@ -109,10 +106,9 @@ class UserTripForm extends React.Component {
 		var donations = []
 		// Each donation will be added to the list of donations above in the following format.
 		var newDonation = {
-		  "itemName": "TEST",
-		  "donationItem": this.state.donationItem,
-		  "donationCategory": this.state.donationCategory,
-		  "donationRating": this.state.donationRating, 
+		  "itemName": "TESTINGFUNCTIONALITY",
+		  "category": "Health",
+		  "rating": 5, 
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
@@ -126,7 +122,7 @@ class UserTripForm extends React.Component {
 		  "country": this.state.country,
 		  "city": this.state.city 
 		}
-
+		console.log(reqBody);
 		const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -543,7 +539,10 @@ class PostContainer extends React.Component {
       city: tripInfo.locationID.city,
       country: tripInfo.locationID.country,
       tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-      notes: tripInfo.notes 
+	  notes: tripInfo.notes, 
+	  donationItem: tripInfo._id.itemName,
+	  donationRating: tripInfo._id.rating
+	 
     }
 	}
 	render() {
@@ -553,6 +552,28 @@ class PostContainer extends React.Component {
 
 /* This function handles the formatting of the Trip Cards on an Account Page */
 function Post(props) {
+	var star_number;
+	var rating_number = props.post.donationRating;
+	if (rating_number == 1) 
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} /></div>
+	}
+	else if (rating_number == 2)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+	}
+	else if (rating_number == 3)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+	}
+	else if (rating_number == 4)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+	}
+	else if (rating_number == 5)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+	}
 	return (
 	<div className="Post">
 		<div className="post-top-row">
@@ -575,13 +596,7 @@ function Post(props) {
 		<br></br>
 			<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
 		<br></br>
-			<div className="Post-stars"> Donation rating: {props.post.donationRating}
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-			</div>
+			<div className="Post-stars"> Donation rating: {star_number}	</div>
 		<br></br>
 		<div className="Post-donation-row"> Suggested Donations:  {PostContainer.donation}</div>
 		<br></br>
@@ -644,7 +659,7 @@ function Account(props) {
 		</div>
 	  });
 	  trips = <div className="main-bottom-row">
-		{trips.reverse().slice(0,6)}
+		{trips.reverse()}
 	  </div>
 	}
 	
