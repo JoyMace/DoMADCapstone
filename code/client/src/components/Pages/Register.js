@@ -39,7 +39,7 @@ class Register extends React.Component {
 
     render() {
         const { registering } = this.props;
-        const { username, firstName, lastName, email, password, verifyPassword, submitted } = this.state;
+        const { username, firstName, lastName, emailaddress, password, verifyPassword, submitted, homecountry } = this.state;
         return (
             <div className="Register">
               <div className="register-left">
@@ -57,22 +57,22 @@ class Register extends React.Component {
                     <div className="lastName">
                         <label htmlFor="lastName">Last Name</label>
 
-                        <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-                        {submitted && !user.lastName &&
+                        <input type="text" className="form-control" name="lastName" value={lastName} onChange={this.handleChange} />
+                        {submitted && !lastName &&
                             <div className="help-block">Last Name is required</div>
                         }
                     </div>
                     <div className="emailaddress">
                         <label htmlFor="emailaddress">Email address</label>
-                        <input type="text" className="form-control" name="emailaddress" value={user.emailaddress} onChange={this.handleChange} />
-                        {submitted && !user.emailaddress &&
+                        <input type="text" className="form-control" name="emailaddress" value={emailaddress} onChange={this.handleChange} />
+                        {submitted && !emailaddress &&
                             <div className="help-block">Email address is required</div>
                         }
                     </div>
                     <div className="homecountry">
                         <label htmlFor="homecountry">Home country</label>
-                        <input type="text" className="form-control" name="homecountry" value={user.homecountry} onChange={this.handleChange} />
-                        {submitted && !user.homecountry &&
+                        <input type="text" className="form-control" name="homecountry" value={homecountry} onChange={this.handleChange} />
+                        {submitted && !homecountry &&
                             <div className="help-block">Home country is required</div>
                         }
 
