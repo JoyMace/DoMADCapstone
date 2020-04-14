@@ -38,7 +38,7 @@ class User extends React.Component {
 	}
 
 	getUser = async () => {
-		const response = await fetch('/API/user/profile?UserID=5e77a660f3ad797398557439")');
+		const response = await fetch('/api/user/profile');
 		const data = await response.json();
 		if (response.status != 200) {
 			throw Error(response.message)
