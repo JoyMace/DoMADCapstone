@@ -5,6 +5,7 @@ const badwords = require('badwords-list').regex;
 const User = require('../../models/user');
 const Trip = require('../../models/trip');
 const Location = require('../../models/location');
+const Donation = require('../../models/donation');
 
 const tripCodes = require('../../config/resCodes').trip;
 const donationFunc = require('./donation');
@@ -234,13 +235,56 @@ router.get('/user-trips', function(req, res) {
       .limit(limit)
       .sort({reportDate: -1})
       .exec(function(err, trips) {
-        if(err) {
-          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-            message: tripCodes.allTrips.tripsNotFound.message
-          });
+
+        // get all trip ids
+        tripIDs = []
+        trips.forEach(trip => {
+          tripIDs.push(trip._id);
+        });
+
+        donationQuery = {
+          'tripID': { $in: tripIDs } 
         }
-        trips = trips.filter(trip => trip['locationID'])
-        return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+
+        Donation.find(donationQuery)
+          .populate({ path:'locationID' })
+          .exec(function(err, donations) {
+
+
+            // Load donations into JSON where it is asociated with it's tripID
+            donationByTripID = {}
+
+            donations.forEach(donation => {
+              if (donation.tripID in donationByTripID) {
+                donationByTripID[donation.tripID].push(donation);
+              } else {
+                donationByTripID[donation.tripID] = [ donation ];
+              }
+            });
+
+            // add donation information to each trip
+            for(let i = 0; i < trips.length; i++) {
+              trips[i]["donations"] = donationByTripID[trips[i]._id];
+            }
+            // need to convert the trips to a modifiable format since mongoose returns a const
+            const tempTrips = trips;
+            trips = []
+            tempTrips.forEach(trip => {
+              var newTrip = { ...trip, status: 'ok' }._doc;
+              newTrip.donations = donationByTripID[trip._id];
+              trips.push(newTrip);
+            });
+
+            if(err) {
+              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+                message: tripCodes.allTrips.tripsNotFound.message
+              });
+            }
+            trips = trips.filter(trip => trip['locationID'])
+            return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+          });
+
+
       });
 
 });
@@ -295,13 +339,57 @@ router.get('/all-trips', function(req,res) {
       .limit(limit)
       .sort({reportDate: -1})
       .exec(function(err, trips) {
-        if(err) {
-          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-            message: tripCodes.allTrips.tripsNotFound.message
-          });
+
+        // get all trip ids
+        tripIDs = []
+        trips.forEach(trip => {
+          tripIDs.push(trip._id);
+        });
+
+        donationQuery = {
+          'tripID': { $in: tripIDs } 
         }
-        trips = trips.filter(trip => trip['locationID'])
-        return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+
+        Donation.find(donationQuery)
+          .populate({ path:'locationID' })
+          .exec(function(err, donations) {
+
+
+            // Load donations into JSON where it is asociated with it's tripID
+            donationByTripID = {}
+
+            donations.forEach(donation => {
+              if (donation.tripID in donationByTripID) {
+                donationByTripID[donation.tripID].push(donation);
+              } else {
+                donationByTripID[donation.tripID] = [ donation ];
+              }
+            });
+
+            // add donation information to each trip
+            for(let i = 0; i < trips.length; i++) {
+              trips[i]["donations"] = donationByTripID[trips[i]._id];
+            }
+            // need to convert the trips to a modifiable format since mongoose returns a const
+            const tempTrips = trips;
+            trips = []
+            tempTrips.forEach(trip => {
+              var newTrip = { ...trip, status: 'ok' }._doc;
+              newTrip.donations = donationByTripID[trip._id];
+              trips.push(newTrip);
+            });
+
+            if(err) {
+              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+                message: tripCodes.allTrips.tripsNotFound.message
+              });
+            }
+
+            // remove objects with null locationID
+            trips = trips.filter(trip => trip['locationID'])
+
+            return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+          });
       });
 });
 
