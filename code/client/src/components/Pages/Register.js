@@ -97,10 +97,18 @@ class Register extends React.Component {
                 </form>
               </div>
               <div className="register-right-info">
+                  <br></br>
+                  <br></br>
+                  <br></br>
 
-                  <h2>Register Now – It’s quick & easy!</h2>
-                  <h2>By registering you’ll be able to log your trips, share your travel experiences, and rate your donations.</h2>
-
+                  <h2>Register Now</h2>
+                  <br></br>
+                  <h2> It’s quick & easy!</h2>
+                  <br></br>
+                  <h2>Registration allows you to join a community of travelers who want to make a difference!</h2>
+                  <br></br>
+                  <h2> By registering you’ll be able to log your trips, share your travel experiences, and rate your donations.</h2>
+                  <br></br>
                   <h2>DoMAD will never sell your personal information.</h2>
               </div>
             </div>

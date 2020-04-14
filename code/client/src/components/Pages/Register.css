@@ -20,7 +20,7 @@
   box-shadow: 0px 10px 50px #555;
   background-color: #363D48;
   color: #ffffff;
-  height: 550px;
+  height: 650px;
 }
 
 .register-right-info {
@@ -30,8 +30,9 @@
   border-radius: 10px;
   background-color: #363D48;
   color: #ffffff;
-  height: 550px;
+  height: 650px;
   text-align: center;
+  vertical-align: middle;
   padding: 20px 40px;
 }
 
@@ -107,7 +108,8 @@
 }
 
 .username,
-.email,
+.emailaddress,
+.homecountry,
 .verifyPassword,
 .password {
   width: 100%;
