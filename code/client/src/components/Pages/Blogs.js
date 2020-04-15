@@ -5,6 +5,7 @@ import { FaStar } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 
 let blogAPI = '/api/user/trip/all-trips?';
+let countryselected = false;
 
 class BlogInfo extends React.Component {
     constructor(props) {
@@ -22,7 +23,6 @@ class BlogInfo extends React.Component {
             donationRating: tripInfo.donations[0].rating,
             privatePost: tripInfo.isPrivate
         }
-        console.log(tripInfo);
     }
 
 	render() {
@@ -32,7 +32,6 @@ class BlogInfo extends React.Component {
 
 function BlogEntry(props) {
     var star_amount;
-    var private_post;
     if(props.blog.donationRating == 1) {
         star_amount = <div><FaStar /></div>
     }
@@ -49,41 +48,38 @@ function BlogEntry(props) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
 
-    if(props.blog.privatePost == false) {
-        return (
-            <div className="blog-container">
-                <div className="blog-entry">
-                    <div className="top-blog-image">
-                        <img src={ blogimage } alt="boulder" />
+    return (
+        <div className="blog-container">
+            <div className="blog-entry">
+                <div className="top-blog-image">
+                    <img src={ blogimage } alt="boulder" />
+                </div>
+                <div className="bottom-blog-content">
+                    <div className="blog-same-line">
+                        <h4>Location: </h4>
+                        {props.blog.country}
                     </div>
-                    <div className="bottom-blog-content">
-                        <div className="blog-same-line">
-                            <h4>Location: </h4>
-                            {props.blog.country}
-                        </div>
-                        <div className="blog-same-line">
-                            <h4>Travel Date: </h4>
-                            {props.blog.tripDate}
-                        </div>
-                        <div className="blog-same-line">
-                            <h4>Donation Item: </h4>
-                            {props.blog.donationItem}
-                        </div>
-                        <div className="star-blog-rating">
-                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                                <div className="star-blog-rating">
-                                    <h4>Rating: </h4>
-                                    {star_amount}
-                                </div>
-                            </IconContext.Provider>
-                        </div>
-                        <h4>Travel Story:</h4>{props.blog.notes}
-                        <p>Is Private: {private_post}</p>
+                    <div className="blog-same-line">
+                        <h4>Travel Date: </h4>
+                        {props.blog.tripDate}
                     </div>
+                    <div className="blog-same-line">
+                        <h4>Donation Item: </h4>
+                        {props.blog.donationItem}
+                    </div>
+                    <div className="star-blog-rating">
+                        <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                            <div className="star-blog-rating">
+                                <h4>Rating: </h4>
+                                {star_amount}
+                            </div>
+                        </IconContext.Provider>
+                    </div>
+                    <h4>Travel Story:</h4>{props.blog.notes}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 class BlogContainer extends React.Component {
@@ -108,24 +104,23 @@ class BlogContainer extends React.Component {
       }
 
     getTrips = async (props) => {        
-        console.log(this.props.countryblog);
 
-        // if(props.countryblog == "") {
+        if(countryselected == false) {
             const response = await fetch(blogAPI);
             const data = await response.json();
             if (response.status != 200) {
-            throw Error(response.message)
+                throw Error(response.message)
             }
             return data;
-        // }
-        /*else {
+        }
+        else {
             const response = await fetch(props.countryblog);
             const data = await response.json();
             if (response.status != 200) {
               throw Error(response.message)
             }
             return data;
-        }*/
+        }
     };
     
     componentDidMount() {
@@ -164,15 +159,18 @@ class BlogDropDown extends React.Component {
         const target = event.target;
         const name = target.value;
         //const countryAppend = "";
-        const countryAppend = blogAPI + 'country=' + name;
+        const countryAppend = "'" + blogAPI + 'country=' + name + "'";
         console.log(countryAppend);
+        countryselected = true;
         this.setState({
             countryAppend: countryAppend
         });
-        return <BlogContainer countryblog={this.state.countryAppend}/>
     }
 
     render() {
+        if(countryselected == true) {
+            return <BlogContainer countryblog={this.state.countryAppend}/>
+        }
         return (
             <div className="country-button-container">
                 <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>

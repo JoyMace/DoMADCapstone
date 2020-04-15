@@ -108,7 +108,7 @@ class UserTripForm extends React.Component {
 	accountChangeHandler = (event) => {
 		const target = event.target;
 		const name = target.name;
-		const value = target.value;
+		var value = target.value;
 		if (event.target.type == 'checkbox') {
 			value = event.target.checked;
 		}
@@ -440,7 +440,7 @@ class UserTripForm extends React.Component {
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
-					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="Animal Welfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
 					  <option value="Education">Education</option>
@@ -524,7 +524,7 @@ class UserTripForm extends React.Component {
 						<ul className="flex-inner">
 						<li>
 						<label name="public_private" className="public_private">Private</label>
-						<input type="checkbox" id="private"/>
+						<input type="checkbox" value={this.state.isPrivate} id="private" onChange={this.accountChangeHandler}/>
 						</li>
 						</ul>
 				</li>
