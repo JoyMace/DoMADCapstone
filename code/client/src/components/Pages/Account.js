@@ -1,47 +1,108 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './Account.css';
-import WorldMapImage from '../../images/WorldMap.png';
+import WorldMapImage from '../../images/Map.png';
 import avatar from '../../images/Avatar.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
+/* NOTES: We want to export the main component of the page so that everything renders properly
+This means that we will display other components within the main component. 
+We will need to have a main class that is the default export. This should be the AccountPage class.
+Every part that appears on the page will need to be a separate component.
+For instance, the Account Page will contain a UserForm, a UserProfileData section, and Posts
+that are generated when the Form is used to add Trip Data to DoMAD. */
 
-
-/* This will also need to pull from backend: from code/models/user.js */
-const userInfo = {
-	avatar: <img src={ avatar } alt="avatar" height='120px'/>,
-	username: 'Joy Mace',
-	memberSince: '1999',
-	hometown: 'Denver, CO',
-	totalDonations: '105',
-	totalContributions: '99',
-};
-
-function UserInfo(props) {
-  return (
-	<div className="UserInfo">
-		<div className="user-info-row">
-			<div className="avatar-column">
-					<div className='UserInfo-avatar'>{userInfo.avatar}</div>
+/* Class for UserInfo with variables to set 
+ Props: user */
+class UserInfoContainer extends React.Component {
+	constructor(props) {
+		super(props)
+	var user = this.props;
+	this.user = {
+		username: user.username + "Joy",
+		signupDate: "today" + user.signupDate,
+		locationID: "here",
+		tripsCount: "none",
+		donationsCount: "none"	
+	}	
+	}
+	render() {
+		return (
+			<div className="UserInfo">
+				<div className="user-info-row">
+					<div className="avatar-column">
+							<div className='UserInfo-avatar'>
+							<img src={ avatar } alt= "avatar" height='120px' />
+							</div>
+					</div>
+					<div className="user-info-column"> {/* This is still not working, I hardcoded the values in UserInfoContainer*/} 
+						<div className="UserInfo-name">{this.user.username}</div>
+						<div className='UserInfo-signupDate'>DoMAD Member Since: {this.user.signupDate}</div>
+						<div className="UserInfo-tripsCount">Number of trips: {this.user.tripsCount}</div>
+						<div className="UserInfo-donationsCount">Number of Donations: {this.user.donationsCount}</div>
+					</div>
+				</div>
 			</div>
-			<div className="user-info-column">
-				<div className="UserInfo-name">{userInfo.name}</div>
-				<div className='UserInfo-memberSince'>Member Since: {userInfo.memberSince}</div>
-				<div className='UserInfo-hometown'>Hometown: {userInfo.hometown}</div>
-				<div className='UserInfo-totalDonations'>Total Donations Made: {userInfo.totalDonations}</div>
-				<div className='UserInfo-totalContributions'>Total Contributions to DoMAD: {userInfo.totalContributions}</div>
-			</div>
-		</div>
-	</div>
-  )
+		  )
+	}
 }
 
-class UserDonationStory extends React.Component {
+/* class with API pull of user info */
+class User extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
+	var userID = props.userID;
+	this.state = { 		
+		username: "",
+		signupDate: "",
+		locationID: "",
+		tripsCount: "",
+		donationsCount: "",	
+
+	};
+	}
+
+	getUser = async () => {
+		const reqBody = {
+			"_id": this.userID
+		}
+		const response = await fetch('/api/user/profile', reqBody);
+		const data = await response.json();
+		if (response.status != 200) {
+			throw Error(response.message)
+		}
+		console.log(response);
+		return data;
+	};
+
+	componentDidMount() {
+		this.getUser(this). 
+			then(res => {
+				this.setState({
+					username: res.username,
+					signupDate: res.signupDate,
+					locationID: res.locationID,
+					tripsCount: res.tripsCount,
+					donationsCount: res.donationsCount,	
+				});
+			})
+			.catch(err => console.log(err));
+	}
+
+	render() {
+		console.log(this.state);
+		return <UserInfoContainer user={this.state} />
+	}
+}
+
+/* The Form a User fills out when they want to report a trip and donation */
+class UserTripForm extends React.Component {
+	constructor(props) {
+		super(props);		
 		this.reloadAccount = this.props.reloadAccount;
-		this.state = {};
+		this.state = {
+			country: "Select from List"
+		};
 	}
 	
 	accountChangeHandler = (event) => {
@@ -60,15 +121,15 @@ class UserDonationStory extends React.Component {
 		var donations = []
 		// Each donation will be added to the list of donations above in the following format.
 		var newDonation = {
-		  "donationItem": this.state.donationItem,
-		  "donationCategory": this.state.donationCategory,
-		  "donationRating": 4, // TODO: add rating support
+		  "itemName": this.state.donationItem,
+		  "category": this.state.donationCategory,
+		  "rating": this.state.rating, 
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
 		donations.push(newDonation);
 		const reqBody = {
-		  "userID": "123", // This should work once you can signin and a login session is saved
+		  "userID": "5e77a660f3ad797398557439", // This should work once you can signin and a login session is saved
 		  "tripDate": this.state.tripDate,
 		  "donations": donations,
 		  "notes": this.state.description,
@@ -76,7 +137,7 @@ class UserDonationStory extends React.Component {
 		  "country": this.state.country,
 		  "city": this.state.city 
 		}
-
+		console.log(reqBody);
 		const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -108,16 +169,15 @@ class UserDonationStory extends React.Component {
 			const { post } = this.props
 			return (
 
-			//<form action="/api/user/trip/report" method="POST">
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
-				<input name="userID" value="123" type="hidden"/>
-				<li>
+				<input name="userID" value="5e77a660f3ad797398557439" type="hidden"/>
+				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
 					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
-
-				<li>
+				
+				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
 					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
 						<option value="Afganistan">Afghanistan</option>
@@ -310,7 +370,6 @@ class UserDonationStory extends React.Component {
 						<option value="St Maarten">St Maarten</option>
 						<option value="St Pierre & Miquelon">St Pierre & Miquelon</option>
 						<option value="St Vincent & Grenadines">St Vincent & Grenadines</option>
-						<option value="Saipan">Saipan</option>
 						<option value="Samoa">Samoa</option>
 						<option value="Samoa American">Samoa American</option>
 						<option value="San Marino">San Marino</option>
@@ -338,8 +397,8 @@ class UserDonationStory extends React.Component {
 						<option value="Tajikistan">Tajikistan</option>
 						<option value="Tanzania">Tanzania</option>
 						<option value="Thailand">Thailand</option>
+						<option value="Timor-Leste">Timor-Leste</option>
 						<option value="Togo">Togo</option>
-						<option value="Tokelau">Tokelau</option>
 						<option value="Tonga">Tonga</option>
 						<option value="Trinidad & Tobago">Trinidad & Tobago</option>
 						<option value="Tunisia">Tunisia</option>
@@ -355,31 +414,29 @@ class UserDonationStory extends React.Component {
 						<option value="Uraguay">Uruguay</option>
 						<option value="Uzbekistan">Uzbekistan</option>
 						<option value="Vanuatu">Vanuatu</option>
-						<option value="Vatican City State">Vatican City State</option>
 						<option value="Venezuela">Venezuela</option>
 						<option value="Vietnam">Vietnam</option>
 						<option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
 						<option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
-						<option value="Wake Island">Wake Island</option>
 						<option value="Wallis & Futana Is">Wallis & Futana Is</option>
 						<option value="Yemen">Yemen</option>
-						<option value="Zaire">Zaire</option>
 						<option value="Zambia">Zambia</option>
 						<option value="Zimbabwe">Zimbabwe</option>
 					</select>
 				
 				</li>
 
-				<li>
+				<li>{/* City Text Entry*/}
 					<label name="city" className="city">What city?</label>
 					<input name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
 				</li>
 
-				<li>
+				<li>{/* Donation Item Text Entry */}
 					<label name="donationItem" className="donationItem">What did you donate?</label>
 					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
-				<li>
+				
+				<li>{/* Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
@@ -395,7 +452,8 @@ class UserDonationStory extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				<li>
+				
+				<li>{/* Individual or Organization Check Boxes */}
 					<p>Did you donate to an Individual or Organization?</p>
 						<ul className="flex-inner">
 							<li>
@@ -411,28 +469,30 @@ class UserDonationStory extends React.Component {
 						</ul>
 				</li>
 
-				<li>
-					<label name="rating" className="rating">How was the donation received?</label>
-						<div className='star-rating'>
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-							<FontAwesomeIcon icon={faStar} />
-						</div>
+				<li>{/* Donation Usefulness Rating DropDown */}
+					<label name="rating" className="rating">How useful was this donation? 5 = Very Useful</label>
+					<select name='rating' value={this.state.donationRating} onChange={this.accountChangeHandler}>
+					  <option value="selected">Score out of 5</option>
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					  <option value="4">4</option>
+					  <option value="5">5</option>					  
+					</select>
 
 				</li>
-
+				{/* To-Do: Add Another Item functionality*/}
 				<li>
 					<button>Add Item</button>
 
 				</li>
 
-				<li>
+				<li>{/* Suggested Future Donation Item Name Text Entry */}
 					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
 					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
 				</li>
-				<li>
+				
+				<li>{/* Suggested Future Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
@@ -448,16 +508,18 @@ class UserDonationStory extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				<li>
+				
+				<li>{/* Suggested Future Donation Item Readon Text Entry */}
 				<label name="donationReason" className="donationReason"></label>
 				<input name="donationReason" className="donationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
 				</li>
-				<li>
+				
+				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
 					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
 				</li>
 
-				<li>
+				<li>{/* Make Private Check Box */}
 					<p>Make Private?</p>
 						<ul className="flex-inner">
 						<li>
@@ -466,13 +528,13 @@ class UserDonationStory extends React.Component {
 						</li>
 						</ul>
 				</li>
-
+				{/* Image Upload not currently supported. Uncomment this code to show button and add functionality
 				<li>
 					<label name="pictures" className="pictures">Upload Pictures?</label>
 					<input type='file' size="100"/>
 				</li>
-
-				<li>
+				*/}
+				<li> {/* Submit Button */}
 					<button type="submit">Submit</button>
 				</li>
 			</ul>
@@ -482,7 +544,7 @@ class UserDonationStory extends React.Component {
 }
 
 
-/* PostContainer is the card that displays a user's trip information */
+/* The card that displays a user's trip information by date in descending order */
 class PostContainer extends React.Component {
 	constructor(props) {
 		super(props)
@@ -492,7 +554,11 @@ class PostContainer extends React.Component {
       city: tripInfo.locationID.city,
       country: tripInfo.locationID.country,
       tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-      notes: tripInfo.notes 
+	  notes: tripInfo.notes, 
+	  donationItem: tripInfo.donations[0].itemName,
+	  donationRating: tripInfo.donations[0].rating,
+	  userID: tripInfo.userID
+	 
     }
 	}
 	render() {
@@ -500,13 +566,35 @@ class PostContainer extends React.Component {
 	}
 }
 
-/* */
+/* This function handles the formatting of the Trip Cards on an Account Page */
 function Post(props) {
+	var star_number;
+	var rating_number = props.post.donationRating;
+	if (rating_number == 1) 
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+	}
+	else if (rating_number == 2)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+	}
+	else if (rating_number == 3)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+	}
+	else if (rating_number == 4)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+	}
+	else if (rating_number == 5)
+	{
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+	}
 	return (
 	<div className="Post">
 		<div className="post-top-row">
 			<div className="post-destination-column">
-				<div className="Post-destination">{props.post.city},{props.post.country}</div>
+				<div className="Post-destination">{props.post.city}, {props.post.country}</div>
 			</div>
 			<div className="post-date-column">
 				<div className="Post-date"> {props.post.tripDate}</div>
@@ -518,29 +606,22 @@ function Post(props) {
 			</div>
 		</div>
 		<br></br>
-		<div className="post-description-row">
-      {props.post.notes}
-		</div>
+		<div className="post-description-row"> {props.post.notes} </div>
 		<br></br>
-			<div className="Post-donation-row"> Items Donated:  {PostContainer.donation}</div>
+		<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
 		<br></br>
-			<div className="Post-stars"> Donation rating: {PostContainer.stars}
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-				<FontAwesomeIcon icon={faStar} />
-			</div>
+			<div className="Post-stars"> Donation rating: {star_number}	</div>
 		<br></br>
 		<div className="Post-donation-row"> Suggested Donations:  {PostContainer.donation}</div>
 		<br></br>
 	</div>
   );
 }
-
+/* This component loads Trip Info from the database for Trip Cards on an Account Page */
 class AccountContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		
     this.state = { loading: 'true', reloadAccount: this.reload };
 	}
   reload = () => {
@@ -556,7 +637,7 @@ class AccountContainer extends React.Component {
       });
   }
   getTrips = async () => {
-    const response = await fetch('/api/user/trip/all-trips');
+    const response = await fetch('/api/user/trip/user-trips');
     const data = await response.json();
     if (response.status != 200) {
       throw Error(response.message)
@@ -582,7 +663,7 @@ class AccountContainer extends React.Component {
 	}
 }
 
-
+/* This function handles the formatting and rendering of the entire Account Page */
 function Account(props) {
 	var trips = <div></div>
 	if(props.post.loading == "false"){
@@ -593,22 +674,24 @@ function Account(props) {
 		</div>
 	  });
 	  trips = <div className="main-bottom-row">
-		{trips.reverse().slice(0,4)}
+		{trips.reverse()}
 	  </div>
 	}
+	
 	return (
 	  <div className="Account">
 		  <div className='main-top-row'>
 			  <div className='left-column'>
 				  <div className='user-info-container'>
-					  <UserInfo/>
+					  <User userID={props.post.userID}/>
 				  </div>
 					  <br></br>
 					  <div id="mapid">
 					  <h1>Your Travel Map</h1>
 					  <div className='map' >
+						  <img src={ WorldMapImage } width='600px'/>
 					  </div>
-					  <p style={{fontSize:12, lineHeight:2}}> Right click Your Travel Map at the location to drop a map pin there.</p>
+					  <p style={{fontSize:12, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
 				  </div>
 			  </div>
 			  <div className='right-column'>
@@ -616,16 +699,16 @@ function Account(props) {
 					  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
 						  Share your recent DoMAD travel story!
 					  </h3>
-					  <UserDonationStory reloadAccount={props.post.reloadAccount}/>
+					  <UserTripForm reloadAccount={props.post.reloadAccount}/>
 					</div>
 			  </div>
 		  </div>
-		  <h1> Your Trips </h1>
-	  {trips}
+		  <div className='main-bottom-row'>
+		  	<h1 style={{padding: 20, lineHeight:2}}> Your Trips </h1>
+	  		{trips}
+		  	</div>
 	  </div>
 	  );
   }
-
-
 
 export default AccountContainer;
