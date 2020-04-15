@@ -3,7 +3,6 @@ import './Blogs.css';
 import blogimage from '../../images/boulder_image.jpg';
 import { FaStar } from 'react-icons/fa';
 import { IconContext } from "react-icons";
-import { FaCaretDown } from 'react-icons/fa';
 
 let blogAPI = '/api/user/trip/all-trips?';
 
@@ -19,10 +18,9 @@ class BlogInfo extends React.Component {
             country: tripInfo.locationID.country,
             tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
             notes: tripInfo.notes,
-            donations: tripInfo.donations,
-            ratings: tripInfo.ratings,
-            userID: tripInfo.userID,
-            isPrivate: tripInfo.isPrivate
+            donationItem: tripInfo.donations[0].itemName,
+            donationRating: tripInfo.donations[0].rating,
+            privatePost: tripInfo.isPrivate
         }
         console.log(tripInfo);
     }
@@ -34,55 +32,58 @@ class BlogInfo extends React.Component {
 
 function BlogEntry(props) {
     var star_amount;
-    var rating = 4;
-    if(rating == 1) {
+    var private_post;
+    if(props.blog.donationRating == 1) {
         star_amount = <div><FaStar /></div>
     }
-    else if(rating == 2) {
+    else if(props.blog.donationRating == 2) {
         star_amount = <div><FaStar /> <FaStar /></div>
     }
-    else if(rating == 3) {
+    else if(props.blog.donationRating == 3) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /></div>
     }
-    else if(rating == 4) {
+    else if(props.blog.donationRating == 4) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
-    else if(rating == 5) {
+    else if(props.blog.donationRating == 5) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
 
-    return (
-        <div className="blog-container">
-            <div className="blog-entry">
-                <div className="top-blog-image">
-                    <img src={ blogimage } alt="boulder" />
-                </div>
-                <div className="bottom-blog-content">
-                    <div className="blog-same-line">
-                        <h4>Location: </h4>
-                        {props.blog.country}
+    if(props.blog.privatePost == false) {
+        return (
+            <div className="blog-container">
+                <div className="blog-entry">
+                    <div className="top-blog-image">
+                        <img src={ blogimage } alt="boulder" />
                     </div>
-                    <div className="blog-same-line">
-                        <h4>Travel Date: </h4>
-                        {props.blog.tripDate}
+                    <div className="bottom-blog-content">
+                        <div className="blog-same-line">
+                            <h4>Location: </h4>
+                            {props.blog.country}
+                        </div>
+                        <div className="blog-same-line">
+                            <h4>Travel Date: </h4>
+                            {props.blog.tripDate}
+                        </div>
+                        <div className="blog-same-line">
+                            <h4>Donation Item: </h4>
+                            {props.blog.donationItem}
+                        </div>
+                        <div className="star-blog-rating">
+                            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                                <div className="star-blog-rating">
+                                    <h4>Rating: </h4>
+                                    {star_amount}
+                                </div>
+                            </IconContext.Provider>
+                        </div>
+                        <h4>Travel Story:</h4>{props.blog.notes}
+                        <p>Is Private: {private_post}</p>
                     </div>
-                    <div className="blog-same-line">
-                        <h4>Donation Item: </h4>
-                        {props.blog.donations}
-                    </div>
-                    <div className="star-blog-rating">
-                        <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                            <div className="star-blog-rating">
-                                <h4>Rating: </h4>
-                                {star_amount}
-                            </div>
-                        </IconContext.Provider>
-                    </div>
-                    <h4>Travel Story:</h4>{props.blog.notes}
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 class BlogContainer extends React.Component {
