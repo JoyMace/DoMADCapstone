@@ -81,9 +81,7 @@ class User extends React.Component {
 				this.setState({
 					username: res.username,
 					signupDate: res.signupDate,
-					locationID: res.locationID,
-					tripsCount: res.tripsCount,
-					donationsCount: res.donationsCount,	
+					locationID: res.locationID					
 				});
 			})
 			.catch(err => console.log(err));
