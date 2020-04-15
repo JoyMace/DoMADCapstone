@@ -4,7 +4,7 @@ import WorldMapImage from '../../images/Map.png';
 import avatar from '../../images/Avatar.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import KenyaImage from '../../images/KenyaSavannah.jfif';
+import HelpIcon from '../../images/png_icons/help.png';
 /* NOTES: We want to export the main component of the page so that everything renders properly
 This means that we will display other components within the main component. 
 We will need to have a main class that is the default export. This should be the AccountPage class.
@@ -600,7 +600,7 @@ function Post(props) {
 		</div>
 		<div className="post-middle-row">
 			<div className="Post-image">
-			<img src={ KenyaImage } alt="Kenya Savannah" height='175px'/>
+			<img src={ HelpIcon } alt="One person helping another" height='175px'/>
 			</div>
 		</div>
 		<br></br>
@@ -635,7 +635,7 @@ class AccountContainer extends React.Component {
       });
   }
   getTrips = async () => {
-    const response = await fetch('/api/user/trip/user-trips');
+    const response = await fetch('/api/user/trip/all-trips');
     const data = await response.json();
     if (response.status != 200) {
       throw Error(response.message)
