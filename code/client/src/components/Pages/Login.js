@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
+import User from './Account';
+
+/* NOTES: We need to add an Authenticated Path that makes a HomeRoute and a Route so that when Authenticated, 
+users will be redirected to their profile and not the login page*/
 
 class Login extends React.Component {
   constructor(props) {
@@ -34,7 +38,7 @@ class Login extends React.Component {
 
   render() {
       if(this.state.loggedIn){
-        return <Redirect to="/account" user={this.props.username}/>
+        return <Redirect to="/account/:userId" component={User}/>
       }
     const { loggingIn} = this.props;
     const { username, password, submitted } = this.state;

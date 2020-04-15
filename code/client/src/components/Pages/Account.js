@@ -5,52 +5,53 @@ import avatar from '../../images/Avatar.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import KenyaImage from '../../images/KenyaSavannah.jfif';
+/* NOTES: We want to export the main component of the page so that everything renders properly
+This means that we will display other components within the main component. 
+We will need to have a main class that is the default export. This should be the AccountPage class.
+Every part that appears on the page will need to be a separate component.
+For instance, the Account Page will contain a UserForm, a UserProfileData section, and Posts
+that are generated when the Form is used to add Trip Data to DoMAD. */
 
-
-/* Class for UserInfo with variables to set */
+/* Class for UserInfo with variables to set 
+ Props: user */
 class UserInfoContainer extends React.Component {
 	constructor(props) {
 		super(props)
-	
-	this.state = {
-		username: this.props.username + "Joy",
-		signupDate: "today",
+	var user = this.props;
+	this.user = {
+		username: user.username + "Joy",
+		signupDate: "today" + user.signupDate,
 		locationID: "here",
 		tripsCount: "none",
 		donationsCount: "none"	
 	}	
 	}
 	render() {
-		return <UserInfo user={this.state} />
+		return (
+			<div className="UserInfo">
+				<div className="user-info-row">
+					<div className="avatar-column">
+							<div className='UserInfo-avatar'>
+							<img src={ avatar } alt= "avatar" height='120px' />
+							</div>
+					</div>
+					<div className="user-info-column"> {/* This is still not working, I hardcoded the values in UserInfoContainer*/} 
+						<div className="UserInfo-name">{this.user.username}</div>
+						<div className='UserInfo-signupDate'>DoMAD Member Since: {this.user.signupDate}</div>
+						<div className="UserInfo-tripsCount">Number of trips: {this.user.tripsCount}</div>
+						<div className="UserInfo-donationsCount">Number of Donations: {this.user.donationsCount}</div>
+					</div>
+				</div>
+			</div>
+		  )
 	}
 }
-/* Function for UserInfo with divs*/
-function UserInfo(props) {
-	
-	return (
-	  <div className="UserInfo">
-		  <div className="user-info-row">
-			  <div className="avatar-column">
-					  <div className='UserInfo-avatar'>
-					  <img src={ avatar } alt= "avatar" height='120px' />
-					  </div>
-			  </div>
-			  <div className="user-info-column"> {/* This is still not working, I hardcoded the values in UserInfoContainer*/} 
-				  <div className="UserInfo-name">{props.user.username}</div>
-				  <div className='UserInfo-signupDate'>DoMAD Member Since: {props.user.signupDate}</div>
-				  <div className="UserInfo-tripsCount">Number of trips: {props.user.tripsCount}</div>
-				  <div className="UserInfo-donationsCount">Number of Donations: {props.user.donationsCount}</div>
-			  </div>
-		  </div>
-	  </div>
-	)
-  }
+
 /* class with API pull of user info */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
-	this.state = { 
-		
+	this.state = { 		
 		username: "",
 		signupDate: "",
 		locationID: "",
@@ -61,7 +62,10 @@ class User extends React.Component {
 	}
 
 	getUser = async () => {
-		const response = await fetch('/api/user/profile');
+		const reqBody = {
+			"_id": "5e77a660f3ad797398557439"
+		}
+		const response = await fetch('/api/user/profile', reqBody);
 		const data = await response.json();
 		if (response.status != 200) {
 			throw Error(response.message)
@@ -72,19 +76,20 @@ class User extends React.Component {
 
 	componentDidMount() {
 		this.getUser(this). 
-			then(data => {
+			then(res => {
 				this.setState({
-					username: data.username,
-					firstName: data.firstName,
-					lastName: data.firstName,
-					signupDate: data.signupDate
+					username: res.username,
+					signupDate: res.signupDate,
+					locationID: res.locationID,
+					tripsCount: res.tripsCount,
+					donationsCount: res.donationsCount,	
 				});
 			})
 			.catch(err => console.log(err));
 	}
 
 	render() {
-	
+		console.log(this.state);
 		return <UserInfoContainer user={this.state} />
 	}
 }
@@ -92,7 +97,7 @@ class User extends React.Component {
 /* The Form a User fills out when they want to report a trip and donation */
 class UserTripForm extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props);		
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
 			country: "Select from List"
@@ -549,8 +554,9 @@ class PostContainer extends React.Component {
       country: tripInfo.locationID.country,
       tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
 	  notes: tripInfo.notes, 
-	  donationItem: tripInfo._id.itemName,
-	  donationRating: tripInfo._id.rating
+	  donationItem: tripInfo.donations[0].itemName,
+	  donationRating: tripInfo.donations[0].rating,
+	  userID: tripInfo.userID
 	 
     }
 	}
@@ -599,11 +605,9 @@ function Post(props) {
 			</div>
 		</div>
 		<br></br>
-		<div className="post-description-row">
-      {props.post.notes}
-		</div>
+		<div className="post-description-row"> {props.post.notes} </div>
 		<br></br>
-			<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
+		<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
 		<br></br>
 			<div className="Post-stars"> Donation rating: {star_number}	</div>
 		<br></br>
@@ -616,6 +620,7 @@ function Post(props) {
 class AccountContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		
     this.state = { loading: 'true', reloadAccount: this.reload };
 	}
   reload = () => {
@@ -631,7 +636,7 @@ class AccountContainer extends React.Component {
       });
   }
   getTrips = async () => {
-    const response = await fetch('/api/user/trip/all-trips');
+    const response = await fetch('/api/user/trip/user-trips');
     const data = await response.json();
     if (response.status != 200) {
       throw Error(response.message)
@@ -677,7 +682,7 @@ function Account(props) {
 		  <div className='main-top-row'>
 			  <div className='left-column'>
 				  <div className='user-info-container'>
-					  <UserInfoContainer/>
+					  <User user={props.post.userID}/>
 				  </div>
 					  <br></br>
 					  <div id="mapid">
