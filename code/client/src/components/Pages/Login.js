@@ -38,7 +38,7 @@ class Login extends React.Component {
 
   render() {
       if(this.state.loggedIn){
-        return <Redirect to="/account/:userId" component={User}/>
+        return <Redirect to="/account/:_id" component={User}/>
       }
     const { loggingIn} = this.props;
     const { username, password, submitted } = this.state;
