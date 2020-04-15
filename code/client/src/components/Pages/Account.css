@@ -11,7 +11,7 @@
 	margin-bottom: 15px;
 	align-content: center;
 	max-width: 30%;
-	min-width: 30%;
+	
 	
 }
 /* Post Top Row*/
@@ -73,8 +73,10 @@
 	flex-direction: row;
 	align-items: left;	
 	font-size: 32px;
-	flex-basis: 2;	
+	flex-basis: 2;
+	color: yellow;	
 }
+
 
 /* User Trip Form styling */
 .container {	

@@ -51,6 +51,7 @@ class UserInfoContainer extends React.Component {
 class User extends React.Component {
 	constructor(props) {
 		super(props)
+	var userID = props.userID;
 	this.state = { 		
 		username: "",
 		signupDate: "",
@@ -63,7 +64,7 @@ class User extends React.Component {
 
 	getUser = async () => {
 		const reqBody = {
-			"_id": "5e77a660f3ad797398557439"
+			"_id": this.userID
 		}
 		const response = await fetch('/api/user/profile', reqBody);
 		const data = await response.json();
@@ -120,9 +121,9 @@ class UserTripForm extends React.Component {
 		var donations = []
 		// Each donation will be added to the list of donations above in the following format.
 		var newDonation = {
-		  "itemName": "TESTINGFUNCTIONALITY",
-		  "category": "Health",
-		  "rating": 5, 
+		  "itemName": this.state.donationItem,
+		  "category": this.state.donationCategory,
+		  "rating": this.state.rating, 
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
@@ -571,23 +572,23 @@ function Post(props) {
 	var rating_number = props.post.donationRating;
 	if (rating_number == 1) 
 	{
-		star_number = <div><FontAwesomeIcon icon={faStar} /></div>
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
 	else if (rating_number == 2)
 	{
-		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
 	else if (rating_number == 3)
 	{
-		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
 	else if (rating_number == 4)
 	{
-		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
 	else if (rating_number == 5)
 	{
-		star_number = <div><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar} /></div>
+		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
 	return (
 	<div className="Post">
@@ -682,7 +683,7 @@ function Account(props) {
 		  <div className='main-top-row'>
 			  <div className='left-column'>
 				  <div className='user-info-container'>
-					  <User user={props.post.userID}/>
+					  <User userID={props.post.userID}/>
 				  </div>
 					  <br></br>
 					  <div id="mapid">
