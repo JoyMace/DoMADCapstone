@@ -438,7 +438,7 @@ class UserTripForm extends React.Component {
 					<label name="donationCategory" className="donationCategory"></label>
 					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
-					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="Animal Welfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
 					  <option value="Education">Education</option>
