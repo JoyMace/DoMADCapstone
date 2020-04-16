@@ -18,6 +18,10 @@ resCode = {
       tripcountNotFound:{
         status:400,
         message:'Could not find user trip count'
+      },
+      donationcountNotFound:{
+        status:400,
+        message:'Could not find user donations count'
       }
     }
 }
