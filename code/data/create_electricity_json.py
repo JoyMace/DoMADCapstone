@@ -14,9 +14,9 @@ df = read_csv("input/origin_data.csv")
 non_countries = ['Caucasian and Central Asia', 'Caucasus and Central Asia', 'Eastern Asia (including Japan)', \
                 'Eastern Asia (not including Japan)', 'Eastern Europe', 'Europe', 'High income', 'High income: OECD', \
                 'High income: nonOECD', 'Latin America and Caribbean', 'Low & middle income', 'Low income', \
-                'Lower middle income', 'Middle income', 'Not classified', 'Nothern America', 'Oceania', \
-                'Oceania (not including Australia and New Zealand)', 'Southern Asia', 'Sub-Saharan Africa', \
-                'Upper middle income', 'Western Asia', 'World']
+                'Lower middle income', 'Middle income', 'Not classified', 'Northern America', 'Nothern America', \
+                'Oceania', 'Oceania (not including Australia and New Zealand)', 'Southern Asia', 'South Eastern Asia', \
+                'Sub-Saharan Africa', 'Upper middle income', 'Western Asia', 'World']
 
 #get all indices to drop
 dropIndices = []
