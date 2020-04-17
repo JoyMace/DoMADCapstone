@@ -18,7 +18,7 @@ class SearchLocations extends React.Component {
     sendCountryOnSelect (country_name) {
         if (this.refs.searchbar.countries.some(e => (e.name.toLowerCase()).includes(country_name.toLowerCase()) == 1 )) {
             console.log("sending!");
-            this.refs.datatabs.getCountry(country_name);
+            this.refs.datatabs.receiveCountry(country_name);
             this.refs.searchbar.setState({filteredCountries: []}); 
         } else {
             console.log("Thats not a country!")
@@ -37,7 +37,7 @@ class SearchLocations extends React.Component {
                     <div id='header-search-flexbox'>
                         <div id="title"><p>Explore Locations</p></div>
                         <div>
-                            <SearchBar ref='searchbar' sendCountryOnSelect = {this.sendCountryOnSelect} />
+                            <SearchBar ref='searchbar' sendCountryOnSelect={this.sendCountryOnSelect} />
                         </div>
                     </div>
                     
@@ -81,6 +81,7 @@ class WorldMapController extends React.Component {
     }
 
     handleChange(e) {
+        /*if (e.detail.clickedState !== 'none') {*/
         this.props.sendContinentSearch(e.detail.clickedState);
     }
 
@@ -401,13 +402,18 @@ class SearchBar extends React.Component {
 
     //--> Search continent entry from map
     updateQueryToContinent(cont_key) { 
-        let newCountryFilter = this.countries.filter((country) => {
-            return (country.contCode.substring(cont_key) === cont_key)
-        });
-        let name = this.continents[cont_key];
+        if (cont_key === 'none') { // unclick country
+            this.setState({filteredCountries: [], queryText: ''});
+            this.refs.search.value = '';
+        } else {
+            let newCountryFilter = this.countries.filter((country) => {
+                return (country.contCode.substring(cont_key) === cont_key)
+            });
+            let name = this.continents[cont_key];
 
-        this.setState({filteredCountries: newCountryFilter, queryText: name});
-        this.refs.search.value = name;
+            this.setState({filteredCountries: newCountryFilter, queryText: name});
+            this.refs.search.value = name;
+        }
     }
 
     //--> Key up OR continent choice => filter for country list or continent flavored query
@@ -423,7 +429,7 @@ class SearchBar extends React.Component {
                 let continent_name = country.continent.toUpperCase();
                 return (country_name.includes(query) !== false || continent_name.substring(query) === query)
             });
-            this.setState({ filteredCountries: newCountryFilter, queryText: query});
+            this.setState({filteredCountries: newCountryFilter, queryText: query});
         }
     }
     

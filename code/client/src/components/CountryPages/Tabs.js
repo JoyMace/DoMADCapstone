@@ -18,17 +18,39 @@ class CountryTabs extends React.Component {
             country_image_url: ''
         };
 
-        this.getCountry = this.getCountry.bind(this);
+        this.getData = this.getData.bind(this);
+        this.receiveCountry = this.receiveCountry.bind(this);
     }
 
+    getData = async (country) => {
+        let ping = '/api/user/get-country-info?country.name:'+country;
+        /*var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', () => {
+            console.log(xhr.responseText);
+        });
+        xhr.open('GET', ping);*/
+        const response = await fetch(ping);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(response.message)
+        }
+        if (data === null) {
+            console.log("null data");
+        } else {
+            console.log(data);
+        }
+        
+        return data;
+    }
+    
     // Invoked from parent passing down selected country name
-    getCountry(country) {
+    receiveCountry(country) {
         // only do this once we grab the data
-
         this.setState({
             current_country: (country.substring(0,1).toUpperCase() + country.substring(1)),
             active: true
         });
+        this.getData(country);
     }
 
     render() {
