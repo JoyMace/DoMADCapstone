@@ -497,14 +497,14 @@ class UserTripForm extends React.Component {
 					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
 				</li>
 
-				<li>{/* Make Private Check Box */}
+				{/* <li> Make Private  Checkbox - feature currently not supported: checkbox not sending bool to console
 					<label>Make Private?</label>
 						<ul className="flex-inner">						
 						<label>Private
 						<input name="isPrivate" type="checkbox"  checked={this.state.isPrivate} onChange={this.accountChangeHandler} />
 						</label>						
 						</ul>
-				</li>
+				</li> */}
 				{/* Image Upload not currently supported. Uncomment this code to show button and add functionality
 				<li>
 					<label name="pictures" className="pictures">Upload Pictures?</label>
