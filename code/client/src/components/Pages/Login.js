@@ -35,10 +35,6 @@ class Login extends React.Component {
   }
 
   render() {
-    const { loggingIn} = this.props;
-      if(this.state.loggedIn){
-        return <Redirect to="/account/:_id" component={User}/>
-      }
     const { username, password, submitted } = this.state;
     if (this.state.submitted) {
       // redirect to account page if signed in
@@ -91,7 +87,7 @@ class Login extends React.Component {
     axios.post('/api/user/auth/login',{username:this.state.username,password:this.state.password})
     .then(function(response){
 
-        if(response.status == 200){
+        if(response.status === 200){
             currentComponent.setState({ submitted: true });
         }
     })
