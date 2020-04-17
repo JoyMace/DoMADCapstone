@@ -18,8 +18,6 @@ that are generated when the Form is used to add Trip Data to DoMAD. */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
-
-	this.state = { 		
 		firstName: "",
 		lastName: "", 
 		signupDate: "",
@@ -32,7 +30,7 @@ class User extends React.Component {
 	getUser = async () => {
 		const response = await fetch('/api/user/profile/profile');
 		const data = await response.json();
-		if (response.status != 200) {
+		if (response.status !== 200) {
 			throw Error(response.message)
 		}
 		console.log(data);
@@ -40,8 +38,8 @@ class User extends React.Component {
 	};
 
 	componentDidMount() {
-		this.getUser(this). 
-			then(res => {
+		this.getUser(this)
+			.then(res => {
 				this.setState({
 					firstName: res.userData.firstName,
 					lastName: res.userData.lastName,
@@ -100,6 +98,10 @@ class UserTripForm extends React.Component {
 		const target = event.target;
 		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
+		var value = target.value;
+		if (event.target.type === 'checkbox') {
+			value = event.target.checked;
+		}
 		console.log(name, value);
 		this.setState({
 		  [name]: value
@@ -159,6 +161,8 @@ class UserTripForm extends React.Component {
 	render() {
 		const { post } = this.props
 		return (
+		render() {
+			return (
 
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
@@ -405,7 +409,6 @@ class UserTripForm extends React.Component {
 					<option value="Yemen, Rep.">Yemen, Rep.</option>
 					<option value="Zambia">Zambia</option>
 					<option value="Zimbabwe">Zimbabwe</option>
-
 					</select>
 				
 				</li>
@@ -502,9 +505,9 @@ class UserTripForm extends React.Component {
 						<ul className="flex-inner">						
 						<label>Private
 						<input name="isPrivate" type="checkbox"  checked={this.state.isPrivate} onChange={this.accountChangeHandler} />
-						</label>						
-						</ul>
-				</li> */}
+						</label>	
+            </ul>
+				<li>
 				{/* Image Upload not currently supported. Uncomment this code to show button and add functionality
 				<li>
 					<label name="pictures" className="pictures">Upload Pictures?</label>
@@ -547,23 +550,23 @@ class PostContainer extends React.Component {
 function Post(props) {
 	var star_number;
 	var rating_number = props.post.donationRating;
-	if (rating_number == 1) 
+	if (rating_number === 1) 
 	{
 		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
-	else if (rating_number == 2)
+	else if (rating_number === 2)
 	{
 		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
-	else if (rating_number == 3)
+	else if (rating_number === 3)
 	{
 		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
-	else if (rating_number == 4)
+	else if (rating_number === 4)
 	{
 		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
-	else if (rating_number == 5)
+	else if (rating_number === 5)
 	{
 		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 	}
@@ -604,8 +607,8 @@ class AccountContainer extends React.Component {
   reload = () => {
     console.log('READLOAD');
     this.setState({ loading: 'true', reloadAccount: this.reload });
-    this.getTrips(this).
-      then(res => {
+    this.getTrips(this)
+      .then(res => {
         this.setState({
           trips: res,
           loading: 'false',
@@ -616,14 +619,14 @@ class AccountContainer extends React.Component {
   getTrips = async () => {
     const response = await fetch('/api/user/trip/user-trips');
     const data = await response.json();
-    if (response.status != 200) {
+    if (response.status !== 200) {
       throw Error(response.message)
     }
     return data;
   }; 
 	componentDidMount() {
-    this.getTrips(this).
-      then(res => {
+    this.getTrips(this)
+      .then(res => {
         this.setState({
           trips: res,
           loading: 'false',
@@ -633,7 +636,7 @@ class AccountContainer extends React.Component {
       .catch(err => console.log(err)); // TODO: handle all errors and relay to user
 	}
 	render() {
-    if(this.state.loading == 'false'){
+    if(this.state.loading === 'false'){
 		  return <Account post={this.state} />
     }
 		return <Account post={this.state} />
@@ -643,9 +646,9 @@ class AccountContainer extends React.Component {
 /* This function handles the formatting and rendering of the entire Account Page */
 function Account(props) {
 	var trips = <div></div>
-	if(props.post.loading == "false"){
+	if(props.post.loading === "false"){
 	  var tripData = props.post.trips.trips;
-	  var trips = tripData.map(trip => {
+	  trips = tripData.map(trip => {
 		return <div className='post-container'>
 		  <PostContainer tripInfo={trip} />
 		</div>
@@ -666,7 +669,7 @@ function Account(props) {
 					  <div id="mapid">
 					  <h1>Your Travel Map</h1>
 					  <div className='map' >
-						  <img src={ WorldMapImage } width='600px'/>
+						  <img src={ WorldMapImage } alt="map of the world" width='600px'/>
 					  </div>
 					  <p style={{fontSize:12, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
 				  </div>
