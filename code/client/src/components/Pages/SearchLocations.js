@@ -5,27 +5,50 @@ import WorldMap from 'react-world-map';
 import search_icon from '../../images/search_icon.png';
 
 
+/* COMPONENT: SendCountryOnSelect 
+    Description: 
+        page parent function that receives and invokes data comms from child components
+    States: 
+        none (holds refs to all child classes)
+    Functions:  
+        SendCountryOnSelect(country_name),
+        sendContinentSearch(continent)
+    Renders: 
+        ALL main content for /search_locations. Each subcomponent handles 
+        its own conditional rendering and data.
+*/
 class SearchLocations extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { countryToView: ''};
         
         this.sendCountryOnSelect = this.sendCountryOnSelect.bind(this);
         this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }
 
-    // Get Country choice or search button click from <SearchBar/> => send to <CountryDataTabs/>
+    /* -- SendCountryOnSelect ----
+        - Description: Receives a country choice by a click of a country in the searchbar
+                    or the search icon and sends the choice to <CountryDataTabs> in Tabs.js
+        - Parameters: country_name: String
+        - Returns: none (sets state of searchbar filter to empty)
+    */
     sendCountryOnSelect (country_name) {
         if (this.refs.searchbar.countries.some(e => (e.name.toLowerCase()).includes(country_name.toLowerCase()) == 1 )) {
             console.log("sending!");
             this.refs.datatabs.receiveCountry(country_name);
-            this.refs.searchbar.setState({filteredCountries: []}); 
+            this.refs.searchbar.setState({filteredCountries: [], queryText: ''}); 
         } else {
             console.log("Thats not a country!")
         }
         
     }
-    // Get Continent click from <WorldMap/> => send to <SearchBar/>
+
+    /* -- SendContinentSearch ----
+        - Description: Receives a continent choice from WorldMapController and sends
+                    the continent name to the search bar to be searched
+        - Parameters: continent: String
+        - Invokes: SearchBar.updateQueryToContinent() 
+        - Returns: none
+    */
     sendContinentSearch(continent) {
         this.refs.searchbar.updateQueryToContinent(continent);
     }
@@ -58,7 +81,7 @@ class SearchLocations extends React.Component {
                         <h5>Once a country is selected tabular donation and country information will populate below.</h5>
                     </div>
 
-                    <NewSearchBtn returnstepinms="25" returnstepinpx="50"/>
+                    <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
                     <footer id='explore-spacer'><hr/></footer>
                 </div>
 
@@ -73,34 +96,64 @@ class SearchLocations extends React.Component {
 }
 
 
-/* ======== Main World Map Handler ======== */
+/* COMPONENT: WorldMapController
+    Description: 
+        React package controller (see node_modules/react-world-map)
+    States: none
+    Functions: 
+        handleChange(event)
+    Renders: 
+        the world map by continent
+*/
 class WorldMapController extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    /* -- handleChange ----
+        - Description: Invokes searchLocations.sendContinentSearch (parent function) with the continent
+                    code on change in WorldMap clicked state (see node_modules/react-world-map)
+        - Parameters: e: Event 
+        - Returns: none
+    */
     handleChange(e) {
-        /*if (e.detail.clickedState !== 'none') {*/
         this.props.sendContinentSearch(e.detail.clickedState);
     }
 
+    /* -- ComponentDidMount & componentWillUnmount ----
+        - Description: Adds and removes an event listener for the 'WorldMapClicked' 
+                    Event (see node_modules/react-world-map)
+        - Parameters: none
+        - Returns: none
+    */
     componentDidMount() {
-        // have to add event listener because we can;'t directly access <WorldMap/>
         window.addEventListener('WorldMapClicked', this.handleChange);
     }
     componentWillUnmount() {
         window.removeEventListener('WorldMapClicked', this.handleChange);
     }
 
-    render() {
-        return (
-            <WorldMap/>
-        );
-    } 
+    render() { return (<WorldMap/>); } 
 }
 
-/* ======== Main Searchbar query handler ======== */
+
+/* COMPONENT: SearchBar
+    Description: 
+        A text entry searchbar with a selectable dropdown of all world 
+        countries. Sortable by country and continent.
+    States: 
+        queryText: String
+        filteredCountries: Array
+    Variables: 
+        countries: Dict - world countries names, continent, and continent code
+        continents: Dict - the 7 continents and their code
+    Functions:
+        updateQueryToContinent(cont_key)
+        handleSearch(text)
+    Renders: 
+        search bar in the upper right
+*/
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
@@ -393,14 +446,25 @@ class SearchBar extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-    //--> dont update if input is nominal
-    componentDidUpdate(prevProps, prevState) { 
+    /* -- componentDidUpdate ----
+        - Description: React member function (on 'True' stops the component from re-rendering), checks
+                    if the new query text is nominal, aka whitespace
+        - Parameters: prevState: Object
+        - Returns: T/F
+    */
+    componentDidUpdate(prevState) { 
         if (prevState.queryText !== this.state.queryText.trim()) {
             return
         }
     }
 
-    //--> Search continent entry from map
+    /* -- updateQueryToContinent ----
+        - Description: updates query text and filter based on continent key when 
+                    a world map continent is selected. Is invoked in 
+                    searchLocations.sendContinentSearch(continent) by a ref.
+        - Parameters: cont_key: String
+        - Returns: new queryText and filteredCountries state
+    */
     updateQueryToContinent(cont_key) { 
         if (cont_key === 'none') { // unclick country
             this.setState({filteredCountries: [], queryText: ''});
@@ -416,7 +480,11 @@ class SearchBar extends React.Component {
         }
     }
 
-    //--> Key up OR continent choice => filter for country list or continent flavored query
+    /* -- handleSearch ----
+        - Description: handles text entry in the search bar (not continent click).
+        - Parameters: text: String
+        - Returns: new queryText and filteredCountries state
+    */
     handleSearch(text) {
         let query = text.toUpperCase().trim();
         
@@ -458,8 +526,19 @@ class SearchBar extends React.Component {
     }
 }
 
-/* ======== 'Scroll to Top' button ======== */
-class NewSearchBtn extends React.Component {
+
+/* COMPONENT: SendCountryOnSelect 
+    Description: 
+        button appearing on page scroll that scrolls user to the top of the page
+    Functions:
+        handleScroll()
+        scrollToTop()
+        scrollStep()
+    States: 
+        show: Bool - show or hide the button
+        scrollInterval - helper state for scrolling to top
+*/
+class ToTopBtn extends React.Component {
     constructor(props) {
         super(props);
 
@@ -471,16 +550,23 @@ class NewSearchBtn extends React.Component {
         this.scrollToTop = this.scrollToTop.bind(this);
     }
 
+    /* -- componentDidMount ----
+        - Description: Member function called on page load and re-render, invokes an initial
+                    handle of page position and adds scroll event listener.
+    */
     componentDidMount() {
         this.handleScroll();
         window.addEventListener('scroll', this.handleScroll);
     }
-
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    /*-- Determine button rendering based on pageYoffset value --*/
+    /* -- handleScroll --->
+        - Description: Determines button render state based on pageYoffset value
+        - Parameters: none
+        - Returns: T/F button show state
+    */
     handleScroll() {
         if (window.pageYOffset > 100) {
             if (!this.state.show) {
@@ -495,18 +581,27 @@ class NewSearchBtn extends React.Component {
         }
     }
 
-    /*-- Creates a dynamic scroll effect by scrolling X pixels every Y milliseconds --*/
+    /* -- SendCountryOnSelect ---
+        - Description: Initiate scrolling the document to top on button click
+        - Parameters: none
+        - Returns: new interval state for next scroll step
+    */
+    scrollToTop() { 
+        let interval = setInterval(this.scrollStep.bind(this), this.props.returnstepinms);
+        this.setState({ scrollInterval: interval});
+    }
+
+    /* -- scrollStep ---
+        - Description: Creates a dynamic scroll effect as part of scrollToTop() 
+                    by scrolling X pixels every Y milliseconds 
+        - Parameters: none
+        - Returns: scrolls window up
+    */
     scrollStep() {
         if (window.pageYOffset === 0) {
             clearInterval(this.state.scrollInterval);
         }
         window.scroll(0, window.pageYOffset - this.props.returnstepinpx);
-    }
-
-    /*-- Initiate scrolling the document to top on button click --*/
-    scrollToTop() { 
-        let interval = setInterval(this.scrollStep.bind(this), this.props.returnstepinms);
-        this.setState({ scrollInterval: interval});
     }
 
     render () {
@@ -528,7 +623,6 @@ class NewSearchBtn extends React.Component {
             transition: "visibility 0s, opacity 0.5s linear",
             transitionDuration: "0.2s", transitionDelay: "0"
         }
-        /*ref=> https://stackoverflow.com/questions/3331353/transitions-on-the-css-display-property */
         
         return (
             <div>
