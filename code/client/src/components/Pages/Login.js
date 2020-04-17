@@ -1,11 +1,8 @@
-import React from 'react';
+import React from "react";
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 import './Login.css';
-import User from './Account';
-
-/* NOTES: We need to add an Authenticated Path that makes a HomeRoute and a Route so that when Authenticated, 
-users will be redirected to their profile and not the login page*/
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,6 +14,7 @@ class Login extends React.Component {
       submitted: false
     };
 
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -25,34 +23,39 @@ class Login extends React.Component {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
+
   handleSubmit(e) {
         e.preventDefault();
+        this.setState({ submitted: false });
         const { username, password } = this.state;
         if ((username && password)) {
-            this.setState({
-              loggedIn: true
-            })
+            this.props.login(username, password);
         }
 
-    }
+  }
 
   render() {
+    const { loggingIn} = this.props;
       if(this.state.loggedIn){
         return <Redirect to="/account/:_id" component={User}/>
       }
     const { username, password, submitted } = this.state;
+    if (this.state.submitted) {
+      // redirect to account page if signed in
+      return <Redirect to = {{ pathname: "/account" }} />;
+    }
     return (
       <div className = "Login">
        <div className = "form-wrapper">
         <h1 className="title">Log In To DoMAD</h1>
-        <form className="LoginForm" onSubmit={this.handleSubmit} action="/api/user/auth/login" method="POST">
+        <form className="LoginForm" onSubmit={this.handleSubmit}  >
 
           <div className="username">
               <label htmlFor="username">Username</label>
               <input name="username" type="text" placeholder="Enter your username" value={username} onChange={this.handleChange}/>
               {submitted && !username &&
                 <div className="help-block">username is required</div>
-              }
+            }
           </div>
 
           <div className="password">
@@ -60,7 +63,7 @@ class Login extends React.Component {
               <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}/>
               {submitted && !password &&
                 <div className="help-block">Password is required</div>
-               }
+          }
           </div>
           <div className="signinbutton">
             <button type="submit">Sign In</button>
@@ -74,7 +77,25 @@ class Login extends React.Component {
       );
     }
 
-  
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    let currentComponent = this;
+
+    axios.post('/api/user/auth/login',{username:this.state.username,password:this.state.password})
+    .then(function(response){
+
+        if(response.status == 200){
+            currentComponent.setState({ submitted: true });
+        }
+    })
+  };
 }
 
 export default Login;

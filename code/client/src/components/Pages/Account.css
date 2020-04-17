@@ -10,9 +10,13 @@
 	margin-right: auto;
 	margin-bottom: 15px;
 	align-content: center;
-	max-width: 30%;
-	
-	
+	width: 32%;	
+}
+.Post {
+	width: 100%;
+	display: flex;
+	flex: 2;
+	flex-direction: column;
 }
 /* Post Top Row*/
 .post-top-row {
@@ -46,6 +50,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
+	align-items: center;
 	width: 100%;
 	flex: 1;	
 }
@@ -82,7 +87,7 @@
 .container {	
 	color: #FFFFFF;
 	width: 600px;
-	height: 980px;
+	height: 800px;
 	left: 725px;
 	top: 200px;
 	padding-left: 5%;
@@ -179,6 +184,8 @@
 	flex-flow: column-wrap;
 	width: 100%;	
 	align-items: stretch;	
+	flex: 1;
+	padding-top: 100px;
 	
 }
 .main-bottom-row {
@@ -186,25 +193,25 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin: auto;
-	width: 100%;			
+	width: 95%;			
 }
 
 .left-column {	
-	padding-top: 100px;
+	
 	flex-direction: column;
 	margin-top: 20px;
 	margin-left: 10%;
 	margin-right: 0%;
-	flex: 2;
+	flex: 1;
 }
 
 .right-column {	
-	padding-top: 100px;
+	
 	flex-direction: column;
 	margin-top: 20px;	
 	margin-left: 0%;
 	margin-right: 0%;
-	flex: 2;
+	flex: 1;
 }
 
 .user-info-row {
