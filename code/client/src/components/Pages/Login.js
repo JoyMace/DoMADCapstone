@@ -40,7 +40,6 @@ class Login extends React.Component {
       if(this.state.loggedIn){
         return <Redirect to="/account/:_id" component={User}/>
       }
-    const { loggingIn} = this.props;
     const { username, password, submitted } = this.state;
     return (
       <div className = "Login">

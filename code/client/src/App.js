@@ -24,8 +24,6 @@ import IndividualBlogs from './components/Pages/IndividualBlogs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
-import ReactDOM from 'react-dom';
-
 class App extends Component {
   state = {
       data: null,
@@ -102,8 +100,7 @@ class App extends Component {
           <Route path="/country_pages" component={CountryPages} />
           <Route path="/forgot" component={Reset} />
           <Route path="/individual_blogs" component={IndividualBlogs} />
-          <Route path="/:token" component={Reset_token} /> //Leave this line last
-
+          <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
           </Switch>
 
           <Footer />

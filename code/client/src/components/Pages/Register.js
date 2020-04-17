@@ -38,8 +38,7 @@ class Register extends React.Component {
       }
 
     render() {
-        const { registering } = this.props;
-        const { username, firstName, lastName, email, password, verifyPassword, submitted } = this.state;
+        const { username, firstName, lastName, email, password, verifyPassword } = this.state;
         return (
             <div className="Register">
               <div className="register-left">

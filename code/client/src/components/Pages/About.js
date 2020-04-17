@@ -1,7 +1,6 @@
 import React from 'react';
 import './About.css';
-import AboutImage from '../../images/AboutImage.jpg'
-import HeaderImage from '../../images/Frequent-Traveler-Successful.jpg'
+import HeaderImage from '../../images/Frequent-Traveler-Successful.jpg';
 
 function About() {
     return (
@@ -90,7 +89,7 @@ function StickyContainer({ children, sticky=false, className, ...rest }){
       
         // unmount
         return function(){ observer.unobserve(cachedRef); }
-    }, [])
+    }, [ref])
     
   return (
         <div className={className + (isSticky ? " isSticky" : "")} ref={ref} {...rest}>

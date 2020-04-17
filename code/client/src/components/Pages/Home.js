@@ -10,7 +10,7 @@ import { FaStar } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 
 
-import dons from '../../images/home-filler-volunteers.jpg';
+import dons from '../../images/png_icons/comingSoonIcon.svg';
 
 class HomeBlogInfo extends React.Component {
     constructor(props) {
@@ -34,19 +34,19 @@ class HomeBlogInfo extends React.Component {
 
 function HomeBlogEntry(props) {
     var star_amount;
-    if(props.homeblog.donationRating == 1) {
+    if(props.homeblog.donationRating === 1) {
         star_amount = <div><FaStar /></div>
     }
-    else if(props.homeblog.donationRating == 2) {
+    else if(props.homeblog.donationRating === 2) {
         star_amount = <div><FaStar /> <FaStar /></div>
     }
-    else if(props.homeblog.donationRating == 3) {
+    else if(props.homeblog.donationRating === 3) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /></div>
     }
-    else if(props.homeblog.donationRating == 4) {
+    else if(props.homeblog.donationRating === 4) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
-    else if(props.homeblog.donationRating == 5) {
+    else if(props.homeblog.donationRating === 5) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
 
@@ -90,8 +90,8 @@ class HomeBlogContainer extends React.Component {
     reload = () => {
         console.log('READLOAD');
         this.setState({ loading: 'true', reloadAccount: this.reload });
-        this.getTrips(this).
-          then(res => {
+        this.getTrips(this)
+          .then(res => {
             this.setState({
               trips: res,
               loading: 'false',
@@ -103,15 +103,15 @@ class HomeBlogContainer extends React.Component {
     getTrips = async () => {        
         const response = await fetch('/api/user/trip/all-trips');
         const data = await response.json();
-        if (response.status != 200) {
+        if (response.status !== 200) {
             throw Error(response.message)
         }
         return data;
     };
     
     componentDidMount() {
-        this.getTrips(this).
-        then(res => {
+        this.getTrips(this)
+        .then(res => {
             this.setState({
                 trips: res,
                 loading: 'false',
@@ -122,7 +122,7 @@ class HomeBlogContainer extends React.Component {
     }
 
 	render() {
-        if(this.state.loading == 'false'){
+        if(this.state.loading === 'false'){
             return <Home homeblog={this.state} />
         }
         return (
@@ -137,10 +137,9 @@ function Home(props) {
 
     var trips = <div></div>
 
-    if(props.homeblog.loading == "false"){
+    if(props.homeblog.loading === "false"){
         var tripData = props.homeblog.trips.trips;
-
-        var trips = tripData.map(trip => {
+        trips = tripData.map(trip => {
         return <div className='blog-container-wrapper'>
             <HomeBlogInfo tripInfo={trip} />
         </div>
@@ -232,7 +231,7 @@ function StickyContainer({ children, sticky=false, className, ...rest }){
       
         // unmount
         return function(){ observer.unobserve(cachedRef); }
-    }, [])
+    }, [ref])
     
     return (
         <div className={className + (isSticky ? " isSticky" : "")} ref={ref} {...rest}>

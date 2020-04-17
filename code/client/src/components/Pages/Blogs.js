@@ -1,10 +1,10 @@
-import React, { Fragment }from 'react';
+import React from 'react';
 import './Blogs.css';
-import blogimage from '../../images/boulder_image.jpg';
+import defaultblogimage from '../../images/png_icons/comingSoonIcon.svg';
 import { FaStar } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 
-let blogAPI = '/api/user/trip/all-trips?';
+let blogAPI = 'api/user/trip/all-trips?';
 let countryselected = false;
 
 class BlogInfo extends React.Component {
@@ -32,19 +32,19 @@ class BlogInfo extends React.Component {
 
 function BlogEntry(props) {
     var star_amount;
-    if(props.blog.donationRating == 1) {
+    if(props.blog.donationRating === 1) {
         star_amount = <div><FaStar /></div>
     }
-    else if(props.blog.donationRating == 2) {
+    else if(props.blog.donationRating === 2) {
         star_amount = <div><FaStar /> <FaStar /></div>
     }
-    else if(props.blog.donationRating == 3) {
+    else if(props.blog.donationRating === 3) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /></div>
     }
-    else if(props.blog.donationRating == 4) {
+    else if(props.blog.donationRating === 4) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
-    else if(props.blog.donationRating == 5) {
+    else if(props.blog.donationRating === 5) {
         star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
     }
 
@@ -52,7 +52,7 @@ function BlogEntry(props) {
         <div className="blog-container">
             <div className="blog-entry">
                 <div className="top-blog-image">
-                    <img src={ blogimage } alt="boulder" />
+                    <img src={ defaultblogimage } alt="boulder" />
                 </div>
                 <div className="bottom-blog-content">
                     <div className="blog-same-line">
@@ -93,8 +93,8 @@ class BlogContainer extends React.Component {
     reload = () => {
         console.log('READLOAD');
         this.setState({ loading: 'true', reloadAccount: this.reload });
-        this.getTrips(this).
-          then(res => {
+        this.getTrips(this)
+          .then(res => {
             this.setState({
               trips: res,
               loading: 'false',
@@ -103,20 +103,22 @@ class BlogContainer extends React.Component {
           });
       }
 
-    getTrips = async (props) => {        
-
-        if(countryselected == false) {
-            const response = await fetch(blogAPI);
+    getTrips = async (countryAppend) => {        
+        
+        if(countryselected === false) {
+            const response = await fetch('/api/user/trip/all-trips');
             const data = await response.json();
-            if (response.status != 200) {
+            console.log("The main api was called.")
+            if (response.status !== 200) {
                 throw Error(response.message)
             }
             return data;
         }
         else {
-            const response = await fetch(props.countryblog);
+            const response = await fetch(this.state.countryAppend);
             const data = await response.json();
-            if (response.status != 200) {
+            console.log("This api was called.")
+            if (response.status !== 200) {
               throw Error(response.message)
             }
             return data;
@@ -124,8 +126,8 @@ class BlogContainer extends React.Component {
     };
     
     componentDidMount() {
-        this.getTrips(this).
-        then(res => {
+        this.getTrips(this)
+        .then(res => {
             this.setState({
                 trips: res,
                 loading: 'false',
@@ -135,12 +137,32 @@ class BlogContainer extends React.Component {
       .catch(err => console.log(err)); // TODO: handle all errors and relay to user
     }
 
+    updateCountryonClick = (event) => {
+        const target = event.target;
+        const name = target.value;
+        const countryAppend = blogAPI + 'country=' + name;
+        countryselected = true;
+        console.log(countryAppend)
+        this.setState({
+            countryAppend: countryAppend
+        });
+        // this.getTrips(countryAppend);
+        // this.componentDidMount();
+        // return <BlogContainer/>
+    }
+
 	render() {
-        if(this.state.loading == 'false'){
-            return <Blogs blog={this.state} />
+        if(this.state.loading === 'false'){
+            return (
+                <div>
+                    <BlogDropDown updateCountry={this.updateCountryonClick} />
+                    <Blogs blog={this.state} />
+                </div>
+            )
         }
         return (
             <div>
+                <BlogDropDown updateCountry={this.updateCountryonClick} />
                 <Blogs blog={this.state} />
             </div>
         )
@@ -151,29 +173,14 @@ class BlogDropDown extends React.Component {
     constructor(props) {
 		super(props)
 		this.state = {
-
+            
         };
     }
 
-    updateCountryonClick = (event) => {
-        const target = event.target;
-        const name = target.value;
-        //const countryAppend = "";
-        const countryAppend = "'" + blogAPI + 'country=' + name + "'";
-        console.log(countryAppend);
-        countryselected = true;
-        this.setState({
-            countryAppend: countryAppend
-        });
-    }
-
-    render() {
-        if(countryselected == true) {
-            return <BlogContainer countryblog={this.state.countryAppend}/>
-        }
+    render () {
         return (
             <div className="country-button-container">
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
                     <option selected>Africa</option>
                     <option value='Algeria'>Algeria</option>
                     <option value='Angola'>Angola</option>
@@ -235,7 +242,7 @@ class BlogDropDown extends React.Component {
                     <option value='Zimbabwe'>Zimbabwe</option>
                 </select>
 
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
                     <option selected>Asia</option>
                     <option value='Afghanistan'>Afghanistan</option>
                     <option value='Armenia'>Armenia</option>
@@ -289,7 +296,7 @@ class BlogDropDown extends React.Component {
                     <option value='Yemen, Rep.'>Yemen, Rep.</option>
                 </select>
 
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
                     <option selected>Australia</option>
                     <option value='American Samoa'>American Samoa</option>
                     <option value='Australia'>Australia</option>
@@ -315,7 +322,7 @@ class BlogDropDown extends React.Component {
                     <option value='Wallis and Futuna'>Wallis and Futuna</option>
                 </select>
 
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
                     <option selected>Europe</option>
                     <option value='Albania'>Albania</option>
                     <option value='Andorra'>Andorra</option>
@@ -369,7 +376,7 @@ class BlogDropDown extends React.Component {
                     <option value='United Kingdom'>United Kingdom</option>
                 </select>
 
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
                     <option selected>North America</option>
                     <option value='Anguilla'>Anguilla</option>
                     <option value='Antigua and Barbuda'>Antigua and Barbuda</option>
@@ -411,7 +418,7 @@ class BlogDropDown extends React.Component {
                     <option value='Virgin Islands (U.S.'>Virgin Islands (U.S.)</option>
                 </select>
 
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.updateCountryonClick}>
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
                     <option selected>South America</option>
                     <option value='Argentina'>Argentina</option>
                     <option value='BES Islands'>BES Islands</option>
@@ -430,7 +437,6 @@ class BlogDropDown extends React.Component {
                     <option value='Uruguay'>Uruguay</option>
                     <option value='Venezuela, RB'>Venezuela, RB</option>
                 </select>
-
             </div>
         )
     }
@@ -440,10 +446,10 @@ function Blogs(props) {
 
     var trips = <div></div>
 
-    if(props.blog.loading == "false"){
+    if(props.blog.loading === "false"){
         var tripData = props.blog.trips.trips;
 
-        var trips = tripData.map(trip => {
+        trips = tripData.map(trip => {
         return <div className='blog-container-wrapper'>
             <BlogInfo tripInfo={trip} />
         </div>
@@ -460,7 +466,7 @@ function Blogs(props) {
                 <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
             </div>
             <div className="country-button-container">
-                <BlogDropDown/>
+                <BlogDropDown />
             </div>
             {trips}
         </div>

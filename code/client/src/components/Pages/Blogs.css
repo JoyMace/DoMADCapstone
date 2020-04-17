@@ -81,12 +81,9 @@
     margin: 20px;
 }
 
-/*.blog-entry:hover {
-    border: 5px solid #010925;
-}*/
-
 .top-blog-image {
-    height: 30%;
+    height: auto;
+    border: 5px solid #010925;
 }
 
 .top-blog-image img {
@@ -95,11 +92,12 @@
 }
 
 .bottom-blog-content {
-    height: 70%;
+    height: 100%;
     text-align: left;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 25px;
+    padding-bottom: 25px;
     background-color: #010925;
     color: white;
     line-height: 1.8em;
