@@ -18,6 +18,7 @@ that are generated when the Form is used to add Trip Data to DoMAD. */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
 		firstName: "",
 		lastName: "", 
 		signupDate: "",
@@ -98,10 +99,6 @@ class UserTripForm extends React.Component {
 		const target = event.target;
 		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
-		var value = target.value;
-		if (event.target.type === 'checkbox') {
-			value = event.target.checked;
-		}
 		console.log(name, value);
 		this.setState({
 		  [name]: value
@@ -159,10 +156,7 @@ class UserTripForm extends React.Component {
 		}
 
 	render() {
-		const { post } = this.props
 		return (
-		render() {
-			return (
 
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
