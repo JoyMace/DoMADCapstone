@@ -1,6 +1,10 @@
 import React from 'react';
 import './About.css';
 import HeaderImage from '../../images/Frequent-Traveler-Successful.jpg';
+import FounderImage1 from '../../images/Founder/Horseride.jpg';
+// import FounderImage2 from '../../images/Founder/Horseride2.jpg';
+import FounderImage3 from '../../images/Founder/PeruHike.JPG';
+import FounderImage4 from '../../images/Founder/shannahanridge.jpg';
 
 function About() {
     return (
@@ -63,9 +67,9 @@ function About() {
                         </p>
                     </div>
                     <div className="sponsor-images">
-                        <img className="sponsor-image-styling" src={HeaderImage} alt="person backpacking"/>
-                        <img className="sponsor-image-styling" src={HeaderImage} alt="person backpacking"/>
-                        <img className="sponsor-image-styling" src={HeaderImage} alt="person backpacking"/>
+                        <img className="sponsor-image-styling" src={FounderImage3} alt="hike in peru"/>
+                        <img className="sponsor-image-styling" src={FounderImage1} alt="horse riding"/>
+                        <img className="sponsor-image-styling" src={FounderImage4} alt="people outdoors"/>
                     </div>
                 </div>
             </div>

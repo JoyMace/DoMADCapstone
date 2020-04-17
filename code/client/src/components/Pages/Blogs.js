@@ -103,7 +103,7 @@ class BlogContainer extends React.Component {
           });
       }
 
-    getTrips = async (countryAppend) => {        
+    getTrips = async () => {        
         
         if(countryselected === false) {
             const response = await fetch('/api/user/trip/all-trips');
@@ -114,7 +114,7 @@ class BlogContainer extends React.Component {
             }
             return data;
         }
-        else {
+        else if(countryselected === true) {
             const response = await fetch(this.state.countryAppend);
             const data = await response.json();
             console.log("This api was called.")
@@ -138,31 +138,46 @@ class BlogContainer extends React.Component {
     }
 
     updateCountryonClick = (event) => {
+        // this.componentDidMount(this);
         const target = event.target;
         const name = target.value;
         const countryAppend = blogAPI + 'country=' + name;
         countryselected = true;
-        console.log(countryAppend)
+        console.log(countryAppend);
+        console.log(name);
         this.setState({
-            countryAppend: countryAppend
+            countryAppend: countryAppend,
+            loading: 'false',
+            reloadAccount: this.reload
         });
-        // this.getTrips(countryAppend);
-        // this.componentDidMount();
-        // return <BlogContainer/>
+        // this.getTrips(this);
+        // this.componentDidMount(this);
+        this.reload();
     }
 
 	render() {
         if(this.state.loading === 'false'){
+            console.log("this is printing")
             return (
                 <div>
-                    <BlogDropDown updateCountry={this.updateCountryonClick} />
+                    <div className="page-info">
+                        <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                    </div>
+                    <div className="country-button-container">
+                        <BlogDropDown updateCountry={this.updateCountryonClick} />
+                    </div>
                     <Blogs blog={this.state} />
                 </div>
             )
         }
         return (
             <div>
-                <BlogDropDown updateCountry={this.updateCountryonClick} />
+                <div className="page-info">
+                    <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                </div>
+                <div className="country-button-container">
+                    <BlogDropDown updateCountry={this.updateCountryonClick} />
+                </div>
                 <Blogs blog={this.state} />
             </div>
         )
@@ -462,12 +477,6 @@ function Blogs(props) {
 
     return (
         <div className="blogs">
-            <div className="page-info">
-                <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
-            </div>
-            <div className="country-button-container">
-                <BlogDropDown />
-            </div>
             {trips}
         </div>
     );
