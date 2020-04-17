@@ -9,7 +9,7 @@ class SearchLocations extends React.Component {
     constructor(props) {
         super(props);
         this.state = { countryToView: ''};
-
+        
         this.sendCountryOnSelect = this.sendCountryOnSelect.bind(this);
         this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }

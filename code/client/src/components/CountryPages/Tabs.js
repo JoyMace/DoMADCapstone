@@ -23,7 +23,7 @@ class CountryTabs extends React.Component {
     }
 
     getData = async (country) => {
-        let ping = '/api/user/get-country-info?country.name:'+country;
+        let ping = '/api/user/get-country-info?country='+country;
         /*var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', () => {
             console.log(xhr.responseText);
