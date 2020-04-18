@@ -1,7 +1,6 @@
 import React from 'react';
 import './Reset_token.css'
-import ReactDOM from 'react-dom'; //added to retrive token from url
-import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+import {BrowserRouter as useParams } from "react-router-dom";
 
 function Reset_token() {
 

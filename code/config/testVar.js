@@ -17,8 +17,24 @@ testVar = {
   wrongVal: 'WRONG',
   tripInfo: {
     _id: 'TEST',
+    donations: [
+      {
+        itemName: "TEST",
+        category: "TEST",
+        rating: 5,
+        suggestion: false,
+        organization: false
+      },
+      {
+        itemName: "TEST2",
+        catgory: "TEST2",
+        rating: 1,
+        suggestion: true,
+        organization: true
+      }
+    ],
     userID: 'TEST',
-    isPrivate: true
+    isPrivate: true,
   },
   locationInfo: {
     _id: 'TEST',
@@ -37,10 +53,8 @@ testVar = {
       zipCode: null
     },
     category: 'Miscellaneous', 
-    donationDateTime: null, 
-    reportingDateTime: null, 
-    itemDescr: null, 
-    pictures: null, 
+    donationDate: null, 
+    itemDescription: null, 
     organization: true, 
     suggestion: false
   }

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const User = require('../../models/user');
 const Trip = require('../../models/trip');
+const Donation = require('../../models/donation');
 
 const profileCodes = require('../../config/resCodes').profile;
 
@@ -23,9 +24,10 @@ router.get('/profile', (req, res) => {
 
   var userID;
   // checks if user is logged in or external request
+
   if ('userID' in req.query){
     userID = req.query.userID;
-  } else if ('userID' in req) {
+  } else if ('user' in req) {
     userID = req.user._id;
   } else {
     return res.status(profileCodes.profile.userNotGiven.status).send({
@@ -42,10 +44,9 @@ router.get('/profile', (req, res) => {
       });
     }
     else{
-      userData = {firstName: user.firstName, lastName: user.lastName,
+      userData = {userName: user.username, firstName: user.firstName, lastName: user.lastName,
                 signupDate: user.signupDate, locationID: user.locationID};
 
-      //Move this inside the User.findById call
       Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {
 
         if(err) {
@@ -55,7 +56,19 @@ router.get('/profile', (req, res) => {
         }
         else{
           userData['tripsCount'] = user[0].count;
-          return res.status(profileCodes.profile.success.status).send({userData: userData});
+
+          Donation.aggregate( [ { $group: {"_id" : userID, count: { $sum: 1 }}}], function(err, user) {
+
+            if(err) {
+              return res.status(profileCodes.profile.donationcountNotFound.status).send({
+                message: profileCodes.profile.donationcountNotFound.message
+              });
+            }
+            else{
+              userData['donationCount'] = user[0].count;
+              return res.status(profileCodes.profile.success.status).send({userData: userData});
+            }
+          });
         }
       });
     }

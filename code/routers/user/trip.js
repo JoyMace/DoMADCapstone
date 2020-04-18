@@ -5,8 +5,10 @@ const badwords = require('badwords-list').regex;
 const User = require('../../models/user');
 const Trip = require('../../models/trip');
 const Location = require('../../models/location');
+const Donation = require('../../models/donation');
 
 const tripCodes = require('../../config/resCodes').trip;
+const donationFunc = require('./donation');
 
 /*
   report trip api
@@ -16,22 +18,18 @@ const tripCodes = require('../../config/resCodes').trip;
     tripDate: Date
     country: String
     city: String
-    donations: String[] TODO: confirm how this is passed in
-    ratings: String[] TODO: same as above
+    donations: donationJSON[]
     notes: String
     isPrivate: boolean
+
+  donationJSON: contains any information that a donations has (item name, rating, etc.)
 
   creates new trip entry
   calls function to create new donations with reference to the new trip
 
-  TODO:
-    - see how donation information is passed from front end
-    - add picture support
-    - integrate donation creation
 */
 router.post('/report', function(req, res) {
-  // TODO: figure out how donations are being passed to backend
-  const {tripDate, country, city, donations, ratings, notes, isPrivate } = req.body;
+  const {tripDate, country, city, donations, notes, isPrivate } = req.body;
 
   // check for inappropriate words in 
   var requestString = JSON.stringify(req.body);
@@ -45,7 +43,7 @@ router.post('/report', function(req, res) {
   // checks if user is logged in or external request
   if ('userID' in req.body){
     userID = req.body.userID;
-  } else if ('userID' in req) {
+  } else if ('user' in req) {
     userID = req.user._id;
   } else {
     return res.status(tripCodes.report.userNotGiven.status).send({
@@ -56,7 +54,6 @@ router.post('/report', function(req, res) {
 
   newTrip.userID = userID;
   newTrip.tripDate = tripDate;
-  // TODO: add picture support (stretch goal maybe)
   newTrip.notes = notes;
   newTrip.isPrivate = isPrivate;
 
@@ -66,6 +63,14 @@ router.post('/report', function(req, res) {
   }
 
   Location.findOneOrCreate(locationQuery, function(err, loc){ 
+
+    if (err) {
+      // TODO: unit test location lookup fail
+      return res.status(tripCodes.report.locationLookupFail.status).send({
+        message: tripCodes.report.locationLookupFail.message
+      });
+    }
+
     newTrip.locationID = loc._id;
     newTrip.save(function(err, trip) {
       if (err) {
@@ -73,11 +78,28 @@ router.post('/report', function(req, res) {
           message: tripCodes.report.addTripFail.message
         });
       } else {
-        // TODO: Integrate donations when created
-        //      - Call function passing it tripID and a callback function
-        
-        return res.status(tripCodes.report.success.status).send({
-          message: tripCodes.report.success.message
+        var donationArr = [];
+
+        // loops through all donations given and adds any info they need
+        for (var i = 0; i < donations.length; i++) {
+          var fullDonationInformation = donations[i]
+          fullDonationInformation['locationID'] = loc._id;
+          fullDonationInformation['donationDate'] = tripDate;
+          
+          donationArr.push(fullDonationInformation);
+        }
+    
+        donationFunc.createMultipleDonations(donationArr, trip._id, function(err, info) {
+          if (err) {
+            console.log(err)
+            return res.status(tripCodes.report.addTripFail.status).send({
+              message: tripCodes.report.addTripFail.message
+            });
+          } else {
+            return res.status(tripCodes.report.success.status).send({
+              message: tripCodes.report.success.message
+            });
+          }
         });
       }
     });
@@ -177,7 +199,7 @@ router.get('/user-trips', function(req, res) {
   // checks if user is logged in or external request
   if ('userID' in req.query){
     query['userID'] = req.query.userID;
-  } else if ( 'userID' in req ) {
+  } else if ( 'user' in req ) {
     query['userID'] = req.user._id;
   } else {
     return res.status(tripCodes.userTrips.userNotGiven.status).send({
@@ -208,18 +230,61 @@ router.get('/user-trips', function(req, res) {
   }
 
   Trip.find(query)
-      .populate({ path:'locationID' })
+      .populate({ path:'locationID', match:populate_match })
       .skip(offset)
       .limit(limit)
       .sort({reportDate: -1})
       .exec(function(err, trips) {
-        if(err) {
-          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-            message: tripCodes.allTrips.tripsNotFound.message
-          });
+
+        // get all trip ids
+        tripIDs = []
+        trips.forEach(trip => {
+          tripIDs.push(trip._id);
+        });
+
+        donationQuery = {
+          'tripID': { $in: tripIDs } 
         }
-        trips = trips.filter(trip => trip['locationID'])
-        return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+
+        Donation.find(donationQuery)
+          .populate({ path:'locationID' })
+          .exec(function(err, donations) {
+
+
+            // Load donations into JSON where it is asociated with it's tripID
+            donationByTripID = {}
+
+            donations.forEach(donation => {
+              if (donation.tripID in donationByTripID) {
+                donationByTripID[donation.tripID].push(donation);
+              } else {
+                donationByTripID[donation.tripID] = [ donation ];
+              }
+            });
+
+            // add donation information to each trip
+            for(let i = 0; i < trips.length; i++) {
+              trips[i]["donations"] = donationByTripID[trips[i]._id];
+            }
+            // need to convert the trips to a modifiable format since mongoose returns a const
+            const tempTrips = trips;
+            trips = []
+            tempTrips.forEach(trip => {
+              var newTrip = { ...trip, status: 'ok' }._doc;
+              newTrip.donations = donationByTripID[trip._id];
+              trips.push(newTrip);
+            });
+
+            if(err) {
+              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+                message: tripCodes.allTrips.tripsNotFound.message
+              });
+            }
+            trips = trips.filter(trip => trip['locationID'])
+            return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+          });
+
+
       });
 
 });
@@ -274,13 +339,57 @@ router.get('/all-trips', function(req,res) {
       .limit(limit)
       .sort({reportDate: -1})
       .exec(function(err, trips) {
-        if(err) {
-          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-            message: tripCodes.allTrips.tripsNotFound.message
-          });
+
+        // get all trip ids
+        tripIDs = []
+        trips.forEach(trip => {
+          tripIDs.push(trip._id);
+        });
+
+        donationQuery = {
+          'tripID': { $in: tripIDs } 
         }
-        trips = trips.filter(trip => trip['locationID'])
-        return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+
+        Donation.find(donationQuery)
+          .populate({ path:'locationID' })
+          .exec(function(err, donations) {
+
+
+            // Load donations into JSON where it is asociated with it's tripID
+            donationByTripID = {}
+
+            donations.forEach(donation => {
+              if (donation.tripID in donationByTripID) {
+                donationByTripID[donation.tripID].push(donation);
+              } else {
+                donationByTripID[donation.tripID] = [ donation ];
+              }
+            });
+
+            // add donation information to each trip
+            for(let i = 0; i < trips.length; i++) {
+              trips[i]["donations"] = donationByTripID[trips[i]._id];
+            }
+            // need to convert the trips to a modifiable format since mongoose returns a const
+            const tempTrips = trips;
+            trips = []
+            tempTrips.forEach(trip => {
+              var newTrip = { ...trip, status: 'ok' }._doc;
+              newTrip.donations = donationByTripID[trip._id];
+              trips.push(newTrip);
+            });
+
+            if(err) {
+              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+                message: tripCodes.allTrips.tripsNotFound.message
+              });
+            }
+
+            // remove objects with null locationID
+            trips = trips.filter(trip => trip['locationID'])
+
+            return res.status(tripCodes.allTrips.success.status).send({trips: trips});
+          });
       });
 });
 
