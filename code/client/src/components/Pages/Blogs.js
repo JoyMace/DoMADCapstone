@@ -114,14 +114,17 @@ class BlogContainer extends React.Component {
             }
             return data;
         }
-        else if(countryselected === true) {
-            const response = await fetch(this.state.countryAppend);
-            const data = await response.json();
-            console.log("This api was called.")
-            if (response.status !== 200) {
-              throw Error(response.message)
+        else {
+            var response2 = await fetch(this.state.countryAppend);
+            response2 = await fetch(this.state.countryAppend);
+            console.log(response2);
+            console.log("This api was called.");
+            const data2 = await response2.json();
+            console.log("This api was called.");
+            if (response2.status !== 200) {
+              throw Error(response2.message)
             }
-            return data;
+            return data2;
         }
     };
     
@@ -150,7 +153,7 @@ class BlogContainer extends React.Component {
             loading: 'false',
             reloadAccount: this.reload
         });
-        // this.getTrips(this);
+        // this.getTrips(this.reload);
         // this.componentDidMount(this);
         this.reload();
     }
