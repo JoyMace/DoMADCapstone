@@ -103,7 +103,7 @@ router.get('/get-country-info', (req, res) => {
 
     Returns the list of organizations associated with given country
 */
-router.get('/get-country-organizations', (req, res) => {
+router.get('/get-organizations', (req, res) => {
   name = req.query.name;
 
   var query = {name: name};
