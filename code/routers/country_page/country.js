@@ -101,7 +101,7 @@ router.get('/get-country-info', (req, res) => {
     inputs:
       countryName: String
 
-    Returns the list of organizations associated with given country
+    Returns the list of organizationIDs associated with given country
 */
 router.get('/get-organizations', (req, res) => {
   name = req.query.name;
@@ -114,7 +114,7 @@ router.get('/get-organizations', (req, res) => {
       });
     }else{
       return res.status(countryCodes.getOrganizations.success.status).send({
-        organizations: country[0].organizations,
+        organizations: country[0].organizationIDs,
         message: countryCodes.getOrganizations.success.message
       });
     }
