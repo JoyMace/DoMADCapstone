@@ -134,8 +134,6 @@ describe('User Auth Routers', function() {
         // make sure this corresponds with failed to add user
         saveDBStub.onCall(1).yields(true, null);
 
-        // TODO: mock this stub
-
         var fakeLocation = new Location(testVar.locationInfo);
 
         var saveLocationStub = sandbox.stub(Location, 'findOneOrCreate');

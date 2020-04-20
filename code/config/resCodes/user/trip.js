@@ -76,6 +76,10 @@ resCode = {
     userNotGiven:{
       status:400,
       message:'No user id was given'
+    },
+    getDonationsErr:{
+      status:500,
+      messagge:'A problem occured when getting organizations for trips'
     }
   },
   allTrips:{
@@ -85,6 +89,10 @@ resCode = {
     tripsNotFound:{
       status:404,
       message:'Could not find one or more trips by ID' 
+    },
+    getDonationsErr:{
+      status:500,
+      messagge:'A problem occured when getting organizations for trips'
     }
   }
 }

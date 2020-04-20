@@ -19,10 +19,6 @@ describe('User Trip Routers', function() {
     
     before(function(done) {
 
-      //TODO When donation added create stub for donation creation
-
-      // When it comes time to implement unit test for these in this test I (thomas) can do this. This test is kinda messy and I might try to refactor it
-
       var fakeTrip = new Trip(testVar.tripInfo);
 
       var saveTripDBStub = sandbox.stub(Trip.prototype, 'save')
@@ -274,7 +270,7 @@ describe('User Trip Routers', function() {
 
   // TODO: Need to fix these tests for get trips. Since adding the ability to get the donations too, the tests have broken but that is becasue new stubs need to be made
 
-  /*
+  
   describe('get trips', function() {
 
     var checkSkip = () => {};
@@ -298,16 +294,20 @@ describe('User Trip Routers', function() {
           return this;
         },
         exec: function (callback) {
-          callback(null, ['trip']);
+          callback(null, [{'_doc':{}}]);
         }
       };
 
       var mockFindFail = { ...mockFind };
       mockFindFail['exec'] = function(callback) { callback(true, null); }
   
-      var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
-      findTripsDBStump.returns(mockFind);
-      findTripsDBStump.onCall(2).returns(mockFindFail);
+      var findDBStub = sandbox.stub(mongoose.Model, 'find');
+      // calls find 2 times
+      findDBStub.returns(mockFind);
+      // calls find 1 time
+      findDBStub.onCall(4).returns(mockFindFail);
+      // calls find 2 times
+      findDBStub.onCall(6).returns(mockFindFail);
   
       done();
     });
@@ -384,8 +384,8 @@ describe('User Trip Routers', function() {
       done();
     });
   });
-  */
-  /*
+  
+  
   describe('get all trips', function(){
 
     var checkSkip = () => {};
@@ -409,16 +409,20 @@ describe('User Trip Routers', function() {
           return this;
         },
         exec: function (callback) {
-          callback(null, ['trip']);
+          callback(null, [{'_doc':{}}]);
         }
       };
 
       var mockFindFail = { ...mockFind };
       mockFindFail['exec'] = function(callback) { callback(true, null); }
   
-      var findTripsDBStump = sandbox.stub(mongoose.Model, 'find');
-      findTripsDBStump.returns(mockFind);
-      findTripsDBStump.onCall(2).returns(mockFindFail);
+      var findDBStub = sandbox.stub(mongoose.Model, 'find');
+      // calls find 2 times
+      findDBStub.returns(mockFind);
+      // calls find 1 time
+      findDBStub.onCall(4).returns(mockFindFail);
+      // calls find 2 times
+      findDBStub.onCall(6).returns(mockFindFail);
 
       done();
     });
@@ -476,9 +480,19 @@ describe('User Trip Routers', function() {
       done();
     });
 
+    it('get all trips FAILURE - donations err', function(done) {
+      request(app)
+        .get('/api/user/trip/all-trips')
+        .then(function(res) {
+          statusCode = res.statusCode;
+          expect(statusCode).to.equal(tripCode.allTrips.getDonationsErr.status);
+        });
+      done();
+    });
+
     after( function(done) {
       sandbox.restore();
       done();
     });
-  });*/
+  });
 });

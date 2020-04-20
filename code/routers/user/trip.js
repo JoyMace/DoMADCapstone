@@ -10,9 +10,7 @@ const Donation = require('../../models/donation');
 const tripCodes = require('../../config/resCodes').trip;
 const donationFunc = require('./donation');
 
-/*
-  report trip api
-
+/* report trip api 
   inputs:
     userID: String
     tripDate: Date
@@ -65,7 +63,6 @@ router.post('/report', function(req, res) {
   Location.findOneOrCreate(locationQuery, function(err, loc){ 
 
     if (err) {
-      // TODO: unit test location lookup fail
       return res.status(tripCodes.report.locationLookupFail.status).send({
         message: tripCodes.report.locationLookupFail.message
       });
@@ -236,6 +233,12 @@ router.get('/user-trips', function(req, res) {
       .sort({reportDate: -1})
       .exec(function(err, trips) {
 
+        if(err) {
+          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+            message: tripCodes.allTrips.tripsNotFound.message
+          });
+        }
+
         // get all trip ids
         tripIDs = []
         trips.forEach(trip => {
@@ -250,6 +253,11 @@ router.get('/user-trips', function(req, res) {
           .populate({ path:'locationID' })
           .exec(function(err, donations) {
 
+            if(err) {
+              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+                message: tripCodes.allTrips.getDonationsErr.message
+              });
+            }
 
             // Load donations into JSON where it is asociated with it's tripID
             donationByTripID = {}
@@ -275,11 +283,6 @@ router.get('/user-trips', function(req, res) {
               trips.push(newTrip);
             });
 
-            if(err) {
-              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-                message: tripCodes.allTrips.tripsNotFound.message
-              });
-            }
             trips = trips.filter(trip => trip['locationID'])
             return res.status(tripCodes.allTrips.success.status).send({trips: trips});
           });
@@ -340,6 +343,12 @@ router.get('/all-trips', function(req,res) {
       .sort({reportDate: -1})
       .exec(function(err, trips) {
 
+        if(err) {
+          return res.status(tripCodes.allTrips.tripsNotFound.status).send({
+            message: tripCodes.allTrips.tripsNotFound.message
+          });
+        }
+
         // get all trip ids
         tripIDs = []
         trips.forEach(trip => {
@@ -354,6 +363,11 @@ router.get('/all-trips', function(req,res) {
           .populate({ path:'locationID' })
           .exec(function(err, donations) {
 
+            if(err) {
+              return res.status(tripCodes.allTrips.getDonationsErr.status).send({
+                message: tripCodes.allTrips.getDonationsErr.message
+              });
+            }
 
             // Load donations into JSON where it is asociated with it's tripID
             donationByTripID = {}
@@ -378,12 +392,6 @@ router.get('/all-trips', function(req,res) {
               newTrip.donations = donationByTripID[trip._id];
               trips.push(newTrip);
             });
-
-            if(err) {
-              return res.status(tripCodes.allTrips.tripsNotFound.status).send({
-                message: tripCodes.allTrips.tripsNotFound.message
-              });
-            }
 
             // remove objects with null locationID
             trips = trips.filter(trip => trip['locationID'])
