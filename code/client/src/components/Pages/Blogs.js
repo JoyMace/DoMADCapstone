@@ -1,12 +1,11 @@
-import React, { Fragment }from 'react';
+import React from 'react';
 import './Blogs.css';
-import blogimage from '../../images/boulder_image.jpg';
+import defaultblogimage from '../../images/png_icons/comingSoonIcon.svg';
 import { FaStar } from 'react-icons/fa';
-import { FaStarHalf } from 'react-icons/fa';
 import { IconContext } from "react-icons";
-import { FaCaretDown } from 'react-icons/fa';
 
-let blogAPI = '/api/user/trip/all-trips?';
+let blogAPI = 'api/user/trip/all-trips?';
+let countryselected = false;
 
 class BlogInfo extends React.Component {
     constructor(props) {
@@ -16,15 +15,15 @@ class BlogInfo extends React.Component {
         var tripDate = new Date(tripInfo.tripDate);
 
         this.state = {
-        city: tripInfo.locationID.city,
-        country: tripInfo.locationID.country,
-        tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-        notes: tripInfo.notes ,
-        donations: tripInfo.donations,
-        ratings: tripInfo.ratings,
-        userID: tripInfo.userID
+            city: tripInfo.locationID.city,
+            country: tripInfo.locationID.country,
+            tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
+            notes: tripInfo.notes,
+            donationItem: tripInfo.donations[0].itemName,
+            donationRating: tripInfo.donations[0].rating,
+            privatePost: tripInfo.isPrivate
         }
-	}
+    }
 
 	render() {
 		return <BlogEntry blog={this.state} />
@@ -32,23 +31,51 @@ class BlogInfo extends React.Component {
 }
 
 function BlogEntry(props) {
+    var star_amount;
+    if(props.blog.donationRating === 1) {
+        star_amount = <div><FaStar /></div>
+    }
+    else if(props.blog.donationRating === 2) {
+        star_amount = <div><FaStar /> <FaStar /></div>
+    }
+    else if(props.blog.donationRating === 3) {
+        star_amount = <div><FaStar /> <FaStar /> <FaStar /></div>
+    }
+    else if(props.blog.donationRating === 4) {
+        star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
+    }
+    else if(props.blog.donationRating === 5) {
+        star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
+    }
+
     return (
         <div className="blog-container">
             <div className="blog-entry">
                 <div className="top-blog-image">
-                    <img src={ blogimage } alt="boulder" />
+                    <img src={ defaultblogimage } alt="boulder" />
                 </div>
                 <div className="bottom-blog-content">
-                    <p>Location: {props.blog.country}</p>
-                    <p>Donation: {props.blog.userID}</p>
-                    <p>Travel Story: {props.blog.notes}</p>
+                    <div className="blog-same-line">
+                        <h4>Location: </h4>
+                        {props.blog.country}
+                    </div>
+                    <div className="blog-same-line">
+                        <h4>Travel Date: </h4>
+                        {props.blog.tripDate}
+                    </div>
+                    <div className="blog-same-line">
+                        <h4>Donation Item: </h4>
+                        {props.blog.donationItem}
+                    </div>
                     <div className="star-blog-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                            <div>
-                                <p>Rating: <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStarHalf /></p>
+                            <div className="star-blog-rating">
+                                <h4>Rating: </h4>
+                                {star_amount}
                             </div>
                         </IconContext.Provider>
                     </div>
+                    <h4>Travel Story:</h4>{props.blog.notes}
                 </div>
             </div>
         </div>
@@ -66,8 +93,8 @@ class BlogContainer extends React.Component {
     reload = () => {
         console.log('READLOAD');
         this.setState({ loading: 'true', reloadAccount: this.reload });
-        this.getTrips(this).
-          then(res => {
+        this.getTrips(this)
+          .then(res => {
             this.setState({
               trips: res,
               loading: 'false',
@@ -76,36 +103,34 @@ class BlogContainer extends React.Component {
           });
       }
 
-    getTrips = async (props) => {        
-        // console.log(props.countryblog);
-        const response = await fetch(blogAPI);
+    getTrips = async () => {        
+        
+        if(countryselected === false) {
+            const response = await fetch('/api/user/trip/all-trips');
             const data = await response.json();
-            if (response.status != 200) {
-              throw Error(response.message)
-            }
-            return data;
-
-        /*if(props.countryblog == "") {
-            const response = await fetch(blogAPI);
-            const data = await response.json();
-            if (response.status != 200) {
-            throw Error(response.message)
+            console.log("The main api was called.")
+            if (response.status !== 200) {
+                throw Error(response.message)
             }
             return data;
         }
         else {
-            const response = await fetch(props.countryblog);
-            const data = await response.json();
-            if (response.status != 200) {
-              throw Error(response.message)
+            var response2 = await fetch(this.state.countryAppend);
+            response2 = await fetch(this.state.countryAppend);
+            console.log(response2);
+            console.log("This api was called.");
+            const data2 = await response2.json();
+            console.log("This api was called.");
+            if (response2.status !== 200) {
+              throw Error(response2.message)
             }
-            return data;
-        }*/
+            return data2;
+        }
     };
     
     componentDidMount() {
-        this.getTrips(this).
-        then(res => {
+        this.getTrips(this)
+        .then(res => {
             this.setState({
                 trips: res,
                 loading: 'false',
@@ -115,12 +140,47 @@ class BlogContainer extends React.Component {
       .catch(err => console.log(err)); // TODO: handle all errors and relay to user
     }
 
+    updateCountryonClick = (event) => {
+        // this.componentDidMount(this);
+        const target = event.target;
+        const name = target.value;
+        const countryAppend = blogAPI + 'country=' + name;
+        countryselected = true;
+        console.log(countryAppend);
+        console.log(name);
+        this.setState({
+            countryAppend: countryAppend,
+            loading: 'false',
+            reloadAccount: this.reload
+        });
+        // this.getTrips(this.reload);
+        // this.componentDidMount(this);
+        this.reload();
+    }
+
 	render() {
-        if(this.state.loading == 'false'){
-            return <Blogs blog={this.state} />
+        if(this.state.loading === 'false'){
+            console.log("this is printing")
+            return (
+                <div>
+                    <div className="page-info">
+                        <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                    </div>
+                    <div className="country-button-container">
+                        <BlogDropDown updateCountry={this.updateCountryonClick} />
+                    </div>
+                    <Blogs blog={this.state} />
+                </div>
+            )
         }
         return (
             <div>
+                <div className="page-info">
+                    <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                </div>
+                <div className="country-button-container">
+                    <BlogDropDown updateCountry={this.updateCountryonClick} />
+                </div>
                 <Blogs blog={this.state} />
             </div>
         )
@@ -131,293 +191,271 @@ class BlogDropDown extends React.Component {
     constructor(props) {
 		super(props)
 		this.state = {
-
+            
         };
     }
 
-    updateCountryonClick = (event) => {
-        const target = event.target;
-        const name = target.value;
-        const countryAppend = blogAPI + 'country=' + name;
-        console.log(countryAppend);
-        this.setState({
-            countryAppend: countryAppend
-        });
-    }
-
-    render() {
+    render () {
         return (
-            <React.Fragment>
-                <div className="top-buttons-blog">
-                    <li className="dropdown-africa">
-                        <button href="javascript:void(0)" className="country-buttons">Africa<FaCaretDown /></button>
-                        <div className="dropdown-content-africa">
-                            <select name="country" value={this.state.value} className="country" onChange={this.updateCountryonClick}>
-                                <option value='Algeria'>Algeria</option>
-                                <option value='Angola'>Angola</option>
-                                <option value='Benin'>Benin</option>
-                                <option value='Botswana'>Botswana</option>
-                                <option value='Burkina Faso'>Burkina Faso</option>
-                                <option value='Burundi'>Burundi</option>
-                                <option value='Cameroon'>Cameroon</option>
-                                <option value='Cape Verde'>Cape Verde</option>
-                                <option value='Central African Republic'>Central African Republic</option>
-                                <option value='Chad'>Chad</option>
-                                <option value='Comoros'>Comoros</option>
-                                <option value='Congo, Dem. Rep.'>Congo, Dem. Rep.</option>
-                                <option value='Congo, Rep.'>Congo, Rep.</option>
-                                <option value="Cote d'Ivoire">Cote d'Ivoire</option>
-                                <option value='Djibouti'>Djibouti</option>
-                                <option value='Egypt, Arab Rep.'>Egypt, Arab Rep.</option>
-                                <option value='Equatorial Guinea'>Equatorial Guinea</option>
-                                <option value='Eritrea'>Eritrea</option>
-                                <option value='Ethiopia'>Ethiopia</option>
-                                <option value='Gabon'>Gabon</option>
-                                <option value='Gambia'>Gambia, The</option>
-                                <option value='Ghana'>Ghana</option>
-                                <option value='Guinea'>Guinea</option>
-                                <option value='Guinea-Bissau'>Guinea-Bissau</option>
-                                <option value='Kenya'>Kenya</option>
-                                <option value='Lesotho'>Lesotho</option>
-                                <option value='Liberia'>Liberia</option>
-                                <option value='Libya'>Libya</option>
-                                <option value='Madagascar'>Madagascar</option>
-                                <option value='Malawi'>Malawi</option>
-                                <option value='Mali'>Mali</option>
-                                <option value='Mauritania'>Mauritania</option>
-                                <option value='Mauritius'>Mauritius</option>
-                                <option value='Mayotte'>Mayotte</option>
-                                <option value='Morocco'>Morocco</option>
-                                <option value='Mozambique'>Mozambique</option>
-                                <option value='Namibia'>Namibia</option>
-                                <option value='Niger'>Niger</option>
-                                <option value='Nigeria'>Nigeria</option>
-                                <option value='Reunion'>Reunion</option>
-                                <option value='Rwanda'>Rwanda</option>
-                                <option value='Sao Tome and Principe'>Sao Tome and Principe</option>
-                                <option value='Senegal'>Senegal</option>
-                                <option value='Seychelles'>Seychelles</option>
-                                <option value='Sierra Leone'>Sierra Leone</option>
-                                <option value='Somalia'>Somalia</option>
-                                <option value='South Africa'>South Africa</option>
-                                <option value='South Sudan'>South Sudan</option>
-                                <option value='St. Helena'>St. Helena</option>
-                                <option value='Sudan'>Sudan</option>
-                                <option value='Swaziland'>Swaziland</option>
-                                <option value='Tanzania'>Tanzania</option>
-                                <option value='Togo'>Togo</option>
-                                <option value='Tunisia'>Tunisia</option>
-                                <option value='Uganda'>Uganda</option>
-                                <option value='Western Sahara'>Western Sahara</option>
-                                <option value='Zambia'>Zambia</option>
-                                <option value='Zimbabwe'>Zimbabwe</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li className="dropdown-asia">
-                        <button href="javascript:void(0)" className="country-buttons">Asia<FaCaretDown /></button>
-                        <div className="dropdown-content-asia">
-                            <option value='AFG'>Afghanistan</option>
-                            <option value='ARM'>Armenia</option>
-                            <option value='AZE'>Azerbaijan</option>
-                            <option value='BHR'>Bahrain</option>
-                            <option value='BGD'>Bangladesh</option>
-                            <option value='BTN'>Bhutan</option>
-                            <option value='BRN'>Brunei Darussalam</option>
-                            <option value='KHM'>Cambodia</option>
-                            <option value='CHN'>China</option>
-                            <option value='GEO'>Georgia</option>
-                            <option value='HKG'>Hong Kong SAR, China</option>
-                            <option value='IND'>India</option>
-                            <option value='IDN'>Indonesia</option>
-                            <option value='IRN'>Iran, Islamic Rep.</option>
-                            <option value='IRQ'>Iraq</option>
-                            <option value='ISR'>Israel</option>
-                            <option value='JPN'>Japan</option>
-                            <option value='JOR'>Jordan</option>
-                            <option value='KAZ'>Kazakhstan</option>
-                            <option value='PRK'>Korea, Dem. Rep.</option>
-                            <option value='KOR'>Korea, Rep.</option>
-                            <option value='KWT'>Kuwait</option>
-                            <option value='KGZ'>Kyrgyz Republic</option>
-                            <option value='LAO'>Lao PDR</option>
-                            <option value='LBN'>Lebanon</option>
-                            <option value='MAC'>Macao SAR, China</option>
-                            <option value='MYS'>Malaysia</option>
-                            <option value='MDV'>Maldives</option>
-                            <option value='MNG'>Mongolia</option>
-                            <option value='MMR'>Myanmar</option>
-                            <option value='NPL'>Nepal</option>
-                            <option value='OMN'>Oman</option>
-                            <option value='PAK'>Pakistan</option>
-                            <option value='PHL'>Philippines</option>
-                            <option value='QAT'>Qatar</option>
-                            <option value='RUS'>Russian Federation</option>
-                            <option value='SAU'>Saudi Arabia</option>
-                            <option value='SGP'>Singapore</option>
-                            <option value='LKA'>Sri Lanka</option>
-                            <option value='SYR'>Syrian Arab Republic</option>
-                            <option value='TWN'>Taiwan, China</option>
-                            <option value='TJK'>Tajikistan</option>
-                            <option value='THA'>Thailand</option>
-                            <option value='TLS'>Timor-Leste</option>
-                            <option value='TKM'>Turkmenistan</option>
-                            <option value='ARE'>United Arab Emirates</option>
-                            <option value='UZB'>Uzbekistan</option>
-                            <option value='VNM'>Vietnam</option>
-                            <option value='PSE'>West Bank and Gaza</option>
-                            <option value='YEM'>Yemen, Rep.</option>
-                        </div>
-                    </li>
-                    <li className="dropdown-australia">
-                        <button href="javascript:void(0)" className="country-buttons">Australia<FaCaretDown /></button>
-                        <div className="dropdown-content-australia">
-                            <option value='ASM'>American Samoa</option>
-                            <option value='AUS'>Australia</option>
-                            <option value='COK'>Cook Islands</option>
-                            <option value='FJI'>Fiji</option>
-                            <option value='PYF'>French Polynesia</option>
-                            <option value='GUM'>Guam</option>
-                            <option value='KIR'>Kiribati</option>
-                            <option value='MHL'>Marshall Islands</option>
-                            <option value='FSM'>Micronesia, Fed. Sts.</option>
-                            <option value='NRU'>Nauru</option>
-                            <option value='NCL'>New Caledonia</option>
-                            <option value='NZL'>New Zealand</option>
-                            <option value='NIU'>Niue</option>
-                            <option value='MNP'>Northern Mariana Islands</option>
-                            <option value='PLW'>Palau</option>
-                            <option value='PNG'>Papua New Guinea</option>
-                            <option value='WSM'>Samoa</option>
-                            <option value='SLB'>Solomon Islands</option>
-                            <option value='TON'>Tonga</option>
-                            <option value='TUV'>Tuvalu</option>
-                            <option value='VUT'>Vanuatu</option>
-                            <option value='WLF'>Wallis and Futuna</option>
-                        </div>
-                    </li>
-                    <li className="dropdown-europe">
-                        <button href="javascript:void(0)" className="country-buttons">Europe<FaCaretDown /></button>
-                        <div className="dropdown-content-europe">
-                            <option value='ALB'>Albania</option>
-                            <option value='AND'>Andorra</option>
-                            <option value='AUT'>Austria</option>
-                            <option value='BLR'>Belarus</option>
-                            <option value='BEL'>Belgium</option>
-                            <option value='BIH'>Bosnia and Herzegovina</option>
-                            <option value='BGR'>Bulgaria</option>
-                            <option value='CHI'>Channel Islands</option>
-                            <option value='HRV'>Croatia</option>
-                            <option value='CYP'>Cyprus</option>
-                            <option value='CZE'>Czech Republic</option>
-                            <option value='DNK'>Denmark</option>
-                            <option value='EST'>Estonia</option>
-                            <option value='FRO'>Faroe Islands</option>
-                            <option value='FIN'>Finland</option>
-                            <option value='FRA'>France</option>
-                            <option value='DEU'>Germany</option>
-                            <option value='GIB'>Gibraltar</option>
-                            <option value='GRC'>Greece</option>
-                            <option value='GRL'>Greenland</option>
-                            <option value='HUN'>Hungary</option>
-                            <option value='ISL'>Iceland</option>
-                            <option value='IRL'>Ireland</option>
-                            <option value='IMN'>Isle of Man</option>
-                            <option value='ITA'>Italy</option>
-                            <option value='XKX'>Kosovo</option>
-                            <option value='LVA'>Latvia</option>
-                            <option value='LIE'>Liechtenstein</option>
-                            <option value='LTU'>Lithuania</option>
-                            <option value='LUX'>Luxembourg</option>
-                            <option value='MKD'>Macedonia, FYR</option>
-                            <option value='MLT'>Malta</option>
-                            <option value='MDA'>Moldova</option>
-                            <option value='MCO'>Monaco</option>
-                            <option value='MNE'>Montenegro</option>
-                            <option value='NLD'>Netherlands</option>
-                            <option value='NOR'>Norway</option>
-                            <option value='POL'>Poland</option>
-                            <option value='PRT'>Portugal</option>
-                            <option value='ROU'>Romania</option>
-                            <option value='SMR'>San Marino</option>
-                            <option value='SRB'>Serbia</option>
-                            <option value='SVK'>Slovak Republic</option>
-                            <option value='SVN'>Slovenia</option>
-                            <option value='ESP'>Spain</option>
-                            <option value='SWE'>Sweden</option>
-                            <option value='CHE'>Switzerland</option>
-                            <option value='TUR'>Turkey</option>
-                            <option value='UKR'>Ukraine</option>
-                            <option value='GBR'>United Kingdom</option>
-                        </div>
-                    </li>
-                    <li className="dropdown-north">
-                        <button href="javascript:void(0)" className="country-buttons">North America<FaCaretDown /></button>
-                        <div className="dropdown-content-north">
-                            <option value='AIA'>Anguilla</option>
-                            <option value='ATG'>Antigua and Barbuda</option>
-                            <option value='ABW'>Aruba</option>
-                            <option value='BHS'>Bahamas, The</option>
-                            <option value='BRB'>Barbados</option>
-                            <option value='BLZ'>Belize</option>
-                            <option value='BMU'>Bermuda</option>
-                            <option value='VGB'>British Virgin Islands</option>
-                            <option value='CAN'>Canada</option>
-                            <option value='CYM'>Cayman Islands</option>
-                            <option value='CRI'>Costa Rica</option>
-                            <option value='CUB'>Cuba</option>
-                            <option value='DMA'>Dominica</option>
-                            <option value='DOM'>Dominican Republic</option>
-                            <option value='SLV'>El Salvador</option>
-                            <option value='GRD'>Grenada</option>
-                            <option value='GLP'>Guadeloupe</option>
-                            <option value='GTM'>Guatemala</option>
-                            <option value='HTI'>Haiti</option>
-                            <option value='HND'>Honduras</option>
-                            <option value='JAM'>Jamaica</option>
-                            <option value='MTQ'>Martinique</option>
-                            <option value='MEX'>Mexico</option>
-                            <option value='MSR'>Montserrat</option>
-                            <option value='ANT'>Netherlands Antilles</option>
-                            <option value='NIC'>Nicaragua</option>
-                            <option value='PAN'>Panama</option>
-                            <option value='PRI'>Puerto Rico</option>
-                            <option value='SPM'>Saint Pierre et Miquelon</option>
-                            <option value='SXM'>Sint Maarten (Dutch part)</option>
-                            <option value='KNA'>St. Kitts and Nevis</option>
-                            <option value='LCA'>St. Lucia</option>
-                            <option value='MAF'>St. Martin (French part)</option>
-                            <option value='VCT'>St. Vincent and the Grenadines</option>
-                            <option value='TTO'>Trinidad and Tobago</option>
-                            <option value='TCA'>Turks and Caicos Islands</option>
-                            <option value='USA'>United States</option>
-                            <option value='VIR'>Virgin Islands (U.S.)</option>
-                        </div>
-                    </li>
-                    <li className="dropdown-south">
-                        <button href="javascript:void(0)" className="country-buttons">South America<FaCaretDown /></button>
-                        <div className="dropdown-content-south">
-                            <option value='ARG'>Argentina</option>
-                            <option value='BES'>BES Islands</option>
-                            <option value='BOL'>Bolivia</option>
-                            <option value='BRA'>Brazil</option>
-                            <option value='CHL'>Chile</option>
-                            <option value='COL'>Colombia</option>
-                            <option value='CUW'>Curacao</option>
-                            <option value='ECU'>Ecuador</option>
-                            <option value='FLK'>Falkland Islands</option>
-                            <option value='GUF'>French Guyana</option>
-                            <option value='GUY'>Guyana</option>
-                            <option value='PRY'>Paraguay</option>
-                            <option value='PER'>Peru</option>
-                            <option value='SUR'>Suriname</option>
-                            <option value='URY'>Uruguay</option>
-                            <option value='VEN'>Venezuela, RB</option>
-                        </div>
-                    </li>
-                </div>
-                {/*<BlogContainer countryblog={this.state}/>*/}
-            </React.Fragment>
+            <div className="country-button-container">
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>Africa</option>
+                    <option value='Algeria'>Algeria</option>
+                    <option value='Angola'>Angola</option>
+                    <option value='Benin'>Benin</option>
+                    <option value='Botswana'>Botswana</option>
+                    <option value='Burkina Faso'>Burkina Faso</option>
+                    <option value='Burundi'>Burundi</option>
+                    <option value='Cameroon'>Cameroon</option>
+                    <option value='Cape Verde'>Cape Verde</option>
+                    <option value='Central African Republic'>Central African Republic</option>
+                    <option value='Chad'>Chad</option>
+                    <option value='Comoros'>Comoros</option>
+                    <option value='Congo, Dem. Rep.'>Congo, Dem. Rep.</option>
+                    <option value='Congo, Rep.'>Congo, Rep.</option>
+                    <option value="Cote d'Ivoire">Cote d'Ivoire</option>
+                    <option value='Djibouti'>Djibouti</option>
+                    <option value='Egypt, Arab Rep.'>Egypt, Arab Rep.</option>
+                    <option value='Equatorial Guinea'>Equatorial Guinea</option>
+                    <option value='Eritrea'>Eritrea</option>
+                    <option value='Ethiopia'>Ethiopia</option>
+                    <option value='Gabon'>Gabon</option>
+                    <option value='Gambia'>Gambia, The</option>
+                    <option value='Ghana'>Ghana</option>
+                    <option value='Guinea'>Guinea</option>
+                    <option value='Guinea-Bissau'>Guinea-Bissau</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Lesotho'>Lesotho</option>
+                    <option value='Liberia'>Liberia</option>
+                    <option value='Libya'>Libya</option>
+                    <option value='Madagascar'>Madagascar</option>
+                    <option value='Malawi'>Malawi</option>
+                    <option value='Mali'>Mali</option>
+                    <option value='Mauritania'>Mauritania</option>
+                    <option value='Mauritius'>Mauritius</option>
+                    <option value='Mayotte'>Mayotte</option>
+                    <option value='Morocco'>Morocco</option>
+                    <option value='Mozambique'>Mozambique</option>
+                    <option value='Namibia'>Namibia</option>
+                    <option value='Niger'>Niger</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='Reunion'>Reunion</option>
+                    <option value='Rwanda'>Rwanda</option>
+                    <option value='Sao Tome and Principe'>Sao Tome and Principe</option>
+                    <option value='Senegal'>Senegal</option>
+                    <option value='Seychelles'>Seychelles</option>
+                    <option value='Sierra Leone'>Sierra Leone</option>
+                    <option value='Somalia'>Somalia</option>
+                    <option value='South Africa'>South Africa</option>
+                    <option value='South Sudan'>South Sudan</option>
+                    <option value='St. Helena'>St. Helena</option>
+                    <option value='Sudan'>Sudan</option>
+                    <option value='Swaziland'>Swaziland</option>
+                    <option value='Tanzania'>Tanzania</option>
+                    <option value='Togo'>Togo</option>
+                    <option value='Tunisia'>Tunisia</option>
+                    <option value='Uganda'>Uganda</option>
+                    <option value='Western Sahara'>Western Sahara</option>
+                    <option value='Zambia'>Zambia</option>
+                    <option value='Zimbabwe'>Zimbabwe</option>
+                </select>
+
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>Asia</option>
+                    <option value='Afghanistan'>Afghanistan</option>
+                    <option value='Armenia'>Armenia</option>
+                    <option value='Azerbaijan'>Azerbaijan</option>
+                    <option value='Bahrain'>Bahrain</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Bhutan'>Bhutan</option>
+                    <option value='Brunei Darussalam'>Brunei Darussalam</option>
+                    <option value='Cambodia'>Cambodia</option>
+                    <option value='China'>China</option>
+                    <option value='Georgia'>Georgia</option>
+                    <option value='Hong Kong SAR, China'>Hong Kong SAR, China</option>
+                    <option value='India'>India</option>
+                    <option value='Indonesia'>Indonesia</option>
+                    <option value='Iran, Islamic Rep.'>Iran, Islamic Rep.</option>
+                    <option value='Iraq'>Iraq</option>
+                    <option value='Israel'>Israel</option>
+                    <option value='Japan'>Japan</option>
+                    <option value='Jordan'>Jordan</option>
+                    <option value='Kazakhstan'>Kazakhstan</option>
+                    <option value='Korea, Dem. Rep.'>Korea, Dem. Rep.</option>
+                    <option value='Korea, Rep.'>Korea, Rep.</option>
+                    <option value='Kuwait'>Kuwait</option>
+                    <option value='Kyrgyz Republic'>Kyrgyz Republic</option>
+                    <option value='Lao PDR'>Lao PDR</option>
+                    <option value='Lebanon'>Lebanon</option>
+                    <option value='Macao SAR, Chin'>Macao SAR, China</option>
+                    <option value='Malaysia'>Malaysia</option>
+                    <option value='Maldives'>Maldives</option>
+                    <option value='Mongolia'>Mongolia</option>
+                    <option value='Myanmar'>Myanmar</option>
+                    <option value='Nepal'>Nepal</option>
+                    <option value='Oman'>Oman</option>
+                    <option value='Pakistan'>Pakistan</option>
+                    <option value='Philippines'>Philippines</option>
+                    <option value='Qatar'>Qatar</option>
+                    <option value='Russian Federation'>Russian Federation</option>
+                    <option value='Saudi Arabia'>Saudi Arabia</option>
+                    <option value='Singapore'>Singapore</option>
+                    <option value='Sri Lanka'>Sri Lanka</option>
+                    <option value='Syrian Arab Republic'>Syrian Arab Republic</option>
+                    <option value='Taiwan, China'>Taiwan, China</option>
+                    <option value='Tajikistan'>Tajikistan</option>
+                    <option value='Thailand'>Thailand</option>
+                    <option value='Timor-Leste'>Timor-Leste</option>
+                    <option value='Turkmenistan'>Turkmenistan</option>
+                    <option value='United Arab Emirates'>United Arab Emirates</option>
+                    <option value='Uzbekistan'>Uzbekistan</option>
+                    <option value='Vietnam'>Vietnam</option>
+                    <option value='West Bank and Gaza'>West Bank and Gaza</option>
+                    <option value='Yemen, Rep.'>Yemen, Rep.</option>
+                </select>
+
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>Australia</option>
+                    <option value='American Samoa'>American Samoa</option>
+                    <option value='Australia'>Australia</option>
+                    <option value='Cook Islands'>Cook Islands</option>
+                    <option value='Fiji'>Fiji</option>
+                    <option value='French Polynesia'>French Polynesia</option>
+                    <option value='Guam'>Guam</option>
+                    <option value='Kiribati'>Kiribati</option>
+                    <option value='Marshall Islands'>Marshall Islands</option>
+                    <option value='Micronesia, Fed. Sts.'>Micronesia, Fed. Sts.</option>
+                    <option value='Nauru'>Nauru</option>
+                    <option value='New Caledonia'>New Caledonia</option>
+                    <option value='New Zealand'>New Zealand</option>
+                    <option value='Niue'>Niue</option>
+                    <option value='Northern Mariana Islands'>Northern Mariana Islands</option>
+                    <option value='Palau'>Palau</option>
+                    <option value='Papua New Guinea'>Papua New Guinea</option>
+                    <option value='Samoa'>Samoa</option>
+                    <option value='Solomon Islands'>Solomon Islands</option>
+                    <option value='Tonga'>Tonga</option>
+                    <option value='Tuvalu'>Tuvalu</option>
+                    <option value='Vanuatu'>Vanuatu</option>
+                    <option value='Wallis and Futuna'>Wallis and Futuna</option>
+                </select>
+
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>Europe</option>
+                    <option value='Albania'>Albania</option>
+                    <option value='Andorra'>Andorra</option>
+                    <option value='Austria'>Austria</option>
+                    <option value='Belarus'>Belarus</option>
+                    <option value='Belgium'>Belgium</option>
+                    <option value='Bosnia and Herzegovina'>Bosnia and Herzegovina</option>
+                    <option value='Bulgaria'>Bulgaria</option>
+                    <option value='Channel Islands'>Channel Islands</option>
+                    <option value='Croatia'>Croatia</option>
+                    <option value='Cyprus'>Cyprus</option>
+                    <option value='Czech Republic'>Czech Republic</option>
+                    <option value='Denmark'>Denmark</option>
+                    <option value='Estonia'>Estonia</option>
+                    <option value='Faroe Islands'>Faroe Islands</option>
+                    <option value='Finland'>Finland</option>
+                    <option value='France'>France</option>
+                    <option value='Germany'>Germany</option>
+                    <option value='Gibraltar'>Gibraltar</option>
+                    <option value='Greece'>Greece</option>
+                    <option value='Greenland'>Greenland</option>
+                    <option value='Hungary'>Hungary</option>
+                    <option value='Iceland'>Iceland</option>
+                    <option value='Ireland'>Ireland</option>
+                    <option value='Isle of Man'>Isle of Man</option>
+                    <option value='Italy'>Italy</option>
+                    <option value='Kosovo'>Kosovo</option>
+                    <option value='Latvia'>Latvia</option>
+                    <option value='Liechtenstein'>Liechtenstein</option>
+                    <option value='Lithuania'>Lithuania</option>
+                    <option value='Luxembourg'>Luxembourg</option>
+                    <option value='Macedonia'>Macedonia, FYR</option>
+                    <option value='Malta'>Malta</option>
+                    <option value='Moldova'>Moldova</option>
+                    <option value='Monaco'>Monaco</option>
+                    <option value='Montenegro'>Montenegro</option>
+                    <option value='Netherlands'>Netherlands</option>
+                    <option value='Norway'>Norway</option>
+                    <option value='Poland'>Poland</option>
+                    <option value='Portugal'>Portugal</option>
+                    <option value='Romania'>Romania</option>
+                    <option value='San Marino'>San Marino</option>
+                    <option value='Serbia'>Serbia</option>
+                    <option value='Slovak Republic'>Slovak Republic</option>
+                    <option value='Slovenia'>Slovenia</option>
+                    <option value='Spain'>Spain</option>
+                    <option value='Sweden'>Sweden</option>
+                    <option value='Switzerland'>Switzerland</option>
+                    <option value='Turkey'>Turkey</option>
+                    <option value='Ukraine'>Ukraine</option>
+                    <option value='United Kingdom'>United Kingdom</option>
+                </select>
+
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>North America</option>
+                    <option value='Anguilla'>Anguilla</option>
+                    <option value='Antigua and Barbuda'>Antigua and Barbuda</option>
+                    <option value='Aruba'>Aruba</option>
+                    <option value='Bahamas, The'>Bahamas, The</option>
+                    <option value='Barbados'>Barbados</option>
+                    <option value='Belize'>Belize</option>
+                    <option value='Bermuda'>Bermuda</option>
+                    <option value='British Virgin Islands'>British Virgin Islands</option>
+                    <option value='Canada'>Canada</option>
+                    <option value='Cayman Islands'>Cayman Islands</option>
+                    <option value='Costa Rica'>Costa Rica</option>
+                    <option value='Cuba'>Cuba</option>
+                    <option value='Dominica'>Dominica</option>
+                    <option value='Dominican Republic'>Dominican Republic</option>
+                    <option value='El Salvador'>El Salvador</option>
+                    <option value='Grenada'>Grenada</option>
+                    <option value='Guadeloupe'>Guadeloupe</option>
+                    <option value='Guatemala'>Guatemala</option>
+                    <option value='Haiti'>Haiti</option>
+                    <option value='Honduras'>Honduras</option>
+                    <option value='Jamaica'>Jamaica</option>
+                    <option value='Martinique'>Martinique</option>
+                    <option value='Mexico'>Mexico</option>
+                    <option value='Montserrat'>Montserrat</option>
+                    <option value='Netherlands Antilles'>Netherlands Antilles</option>
+                    <option value='Nicaragua'>Nicaragua</option>
+                    <option value='Panama'>Panama</option>
+                    <option value='Puerto Rico'>Puerto Rico</option>
+                    <option value='Saint Pierre et Miquelon'>Saint Pierre et Miquelon</option>
+                    <option value='Sint Maarten (Dutch part)'>Sint Maarten (Dutch part)</option>
+                    <option value='St. Kitts and Nevis'>St. Kitts and Nevis</option>
+                    <option value='St. Lucia'>St. Lucia</option>
+                    <option value='St. Martin (French part)'>St. Martin (French part)</option>
+                    <option value='St. Vincent and the Grenadines'>St. Vincent and the Grenadines</option>
+                    <option value='Trinidad and Tobago'>Trinidad and Tobago</option>
+                    <option value='Turks and Caicos Islands'>Turks and Caicos Islands</option>
+                    <option value='United States'>United States</option>
+                    <option value='Virgin Islands (U.S.'>Virgin Islands (U.S.)</option>
+                </select>
+
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>South America</option>
+                    <option value='Argentina'>Argentina</option>
+                    <option value='BES Islands'>BES Islands</option>
+                    <option value='Bolivia'>Bolivia</option>
+                    <option value='Brazil'>Brazil</option>
+                    <option value='Chile'>Chile</option>
+                    <option value='Colombia'>Colombia</option>
+                    <option value='Curacao'>Curacao</option>
+                    <option value='Ecuador'>Ecuador</option>
+                    <option value='Falkland Islands'>Falkland Islands</option>
+                    <option value='French Guyana'>French Guyana</option>
+                    <option value='Guyana'>Guyana</option>
+                    <option value='Paraguay'>Paraguay</option>
+                    <option value='Peru'>Peru</option>
+                    <option value='Suriname'>Suriname</option>
+                    <option value='Uruguay'>Uruguay</option>
+                    <option value='Venezuela, RB'>Venezuela, RB</option>
+                </select>
+            </div>
         )
     }
 }
@@ -426,10 +464,10 @@ function Blogs(props) {
 
     var trips = <div></div>
 
-    if(props.blog.loading == "false"){
+    if(props.blog.loading === "false"){
         var tripData = props.blog.trips.trips;
 
-        var trips = tripData.map(trip => {
+        trips = tripData.map(trip => {
         return <div className='blog-container-wrapper'>
             <BlogInfo tripInfo={trip} />
         </div>
@@ -442,14 +480,6 @@ function Blogs(props) {
 
     return (
         <div className="blogs">
-            <div className="page-info">
-                <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
-            </div>
-            <div className="country-button-container">
-                <IconContext.Provider value={{ className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                    <BlogDropDown/>
-                </IconContext.Provider>
-            </div>
             {trips}
         </div>
     );

@@ -44,7 +44,7 @@ router.get('/profile', (req, res) => {
       });
     }
     else{
-      userData = {firstName: user.firstName, lastName: user.lastName,
+      userData = {userName: user.username, firstName: user.firstName, lastName: user.lastName,
                 signupDate: user.signupDate, locationID: user.locationID};
 
       Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {

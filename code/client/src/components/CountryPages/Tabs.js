@@ -23,13 +23,26 @@ class CountryTabs extends React.Component {
     }
 
     getData = async (country) => {
-        let ping = '/api/user/get-country-info?country='+country;
+        // blogposts & donation items - OK
+        // let ping_BP_DI = '/api/user/trip/all-trips?country=' + country;
+        // Organizations - NOT WORKING
+        // let ping_O = '/api/country-page/country/get-organizations?country=' + country;
+        // country info - NOT WORKING
+        console.log('country:', country);
+        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
+        
+        // Other
+        // '/api/user/get-country-info?country=' + country
+
+
+
         /*var xhr = new XMLHttpRequest();
         xhr.addEventListener('load', () => {
             console.log(xhr.responseText);
         });
         xhr.open('GET', ping);*/
-        const response = await fetch(ping);
+
+        const response = await fetch(ping_CI);
         const data = await response.json();
         if (response.status !== 200) {
             throw Error(response.message)

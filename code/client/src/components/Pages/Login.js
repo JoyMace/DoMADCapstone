@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 import './Login.css';
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class Login extends React.Component {
       submitted: false
     };
 
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -20,24 +23,28 @@ class Login extends React.Component {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
+
   handleSubmit(e) {
         e.preventDefault();
-        this.setState({ submitted: true });
+        this.setState({ submitted: false });
         const { username, password } = this.state;
         if ((username && password)) {
             this.props.login(username, password);
         }
 
-    }
+  }
 
   render() {
-    const { loggingIn} = this.props;
     const { username, password, submitted } = this.state;
+    if (this.state.submitted) {
+      // redirect to account page if signed in
+      return <Redirect to = {{ pathname: "/account" }} />;
+    }
     return (
       <div className = "Login">
        <div className = "form-wrapper">
         <h1 className="title">Log In To DoMAD</h1>
-        <form className="LoginForm" onSubmit={this.handleSubmit} action="/api/user/auth/login" method="POST">
+        <form className="LoginForm" onSubmit={this.handleSubmit}  >
 
           <div className="username">
               <label htmlFor="username">Username</label>
@@ -73,8 +80,17 @@ class Login extends React.Component {
   };
 
   handleSubmit = event => {
-    console.log("Submitting");
-    console.log(this.state);
+    event.preventDefault();
+
+    let currentComponent = this;
+
+    axios.post('/api/user/auth/login',{username:this.state.username,password:this.state.password})
+    .then(function(response){
+
+        if(response.status === 200){
+            currentComponent.setState({ submitted: true });
+        }
+    })
   };
 }
 
