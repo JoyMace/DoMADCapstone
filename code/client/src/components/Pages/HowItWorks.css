@@ -13,7 +13,7 @@
     vertical-align: middle;
 }
 .suitcase {
-    width: 100%;
+    width: 75%;
     margin: 20px;
     flex: 1;   
     text-align: center;
@@ -44,7 +44,7 @@ img.step3 {
 }
 .step-column {
     flex: 50%;
-    margin: 2%;   
+    margin: 2%; 
 }
 
 .bluePadding {
