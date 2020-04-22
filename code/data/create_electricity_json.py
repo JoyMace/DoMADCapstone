@@ -46,7 +46,7 @@ for i, vals in elecDf.iterrows():
 #just need to create new df with only unique country codes
 finalDf = DataFrame({"name": elecDf["Country Name"].unique(), #note that pandas.unique doesn't sort the values unlike np.unique
                      "abbreviation": elecDf["Country Code"].unique(),
-                     "organizationID": None,
+                     "organizationIDs": None,
                      "generalInformation": None,
                      "statistics": None
                     })
