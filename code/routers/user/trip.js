@@ -198,7 +198,7 @@ router.get('/user-trips', function(req, res) {
   
   // checks if user is logged in or external request
   if ('userID' in req.query){
-    query['userID'] = req.query.userID;
+    query['_id'] = req.query.userID;
   } else if ( 'user' in req ) {
     query['userID'] = req.user._id;
   } else {

@@ -55,7 +55,7 @@ router.get('/profile', (req, res) => {
           });
         }
         else{
-          userData['tripsCount'] = user[0].count;
+          userData['tripsCount'] = user[0] ? user[0].count : 0;
 
           Donation.aggregate( [ { $group: {"_id" : userID, count: { $sum: 1 }}}], function(err, user) {
 
@@ -65,7 +65,7 @@ router.get('/profile', (req, res) => {
               });
             }
             else{
-              userData['donationCount'] = user[0].count;
+              userData['donationCount'] = user[0] ? user[0].count : 0;
               return res.status(profileCodes.profile.success.status).send({userData: userData});
             }
           });
