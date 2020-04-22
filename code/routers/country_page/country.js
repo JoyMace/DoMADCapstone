@@ -130,5 +130,44 @@ router.get('/get-organizations', (req, res) => {
 })
 
 
+/*
+    Insert Country Organizations api
+    inputs:
+      countryName: String
+      orgName: String
+
+    Gets list of organizations based on the organizationName parameter, 
+    Gets the country to add them to based on the countryName parameter, 
+    Lastly insert list of organizations (likely just one org) into found country.
+*/
+router.post('/insert-organizations', (req, res) => {
+  var orgQuery = {orgName: req.body.orgName};
+  var countryQuery = {name: req.body.countryName};
+  Organization.find(orgQuery, function(err, organizations) {
+    if(err || organizations.length == 0){
+      return res.status(countryCodes.insertOrganizations.organizationsNotFound.status).send({
+        message: countryCodes.insertOrganizations.organizationsNotFound.message
+      });
+    }else{
+      var orgIDs = []
+      for (var i = 0; i < organizations.length; i++) {
+        orgIDs.push(organizations[i]._id);
+      }
+
+      var updateQuery = {organizationIDs: orgIDs};
+      Country.findOneAndUpdate(countryQuery, updateQuery, {upsert: true}, function(err, country) {
+        if(err) {
+          return res.status(countryCodes.insertOrganizations.countryNotFound.status).send({
+            message: countryCodes.insertOrganizations.countryNotFound.message
+          });
+        }else{
+          return res.status(countryCodes.insertOrganizations.success.status).send({
+            message: countryCodes.insertOrganizations.success.message
+          });
+        }
+      })
+    }
+  })
+})
 
 module.exports = router;

@@ -36,6 +36,20 @@ resCode = {
       status:404,
       message:'Could not find organizations with given list of IDs'
     }
+  },
+  insertOrganizations:{
+    success:{
+      status:200,
+      message:'Successfully inserted organizations to specified country'
+    },
+    countryNotFound:{
+      status:404,
+      message:'Could not find specified country'
+    },
+    organizationsNotFound:{
+      status:404,
+      message:'Could not find organizations'
+    }
   }
 }
 
