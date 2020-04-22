@@ -49,6 +49,28 @@ resCode = {
     organizationsNotFound:{
       status:404,
       message:'Could not find organizations'
+    },
+    organizationUpdateFail:{
+      status:404,
+      message:'Found country, but failed to update organizationIDs'
+    }
+  },
+  removeOrganizations:{
+    success:{
+      status:200,
+      message:'Successfully removed organizations of specified country'
+    },
+    countryNotFound:{
+      status:404,
+      message:'Could not find specified country'
+    },
+    organizationsNotFound:{
+      status:404,
+      message:'Could not find organizations'
+    },
+    organizationUpdateFail:{
+      status:404,
+      message:'Found country, but failed to update organizationIDs'
     }
   }
 }
