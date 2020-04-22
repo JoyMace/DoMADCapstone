@@ -14,7 +14,7 @@ that are generated when the Form is used to add Trip Data to DoMAD. */
 
 
 
-/* class with API pull of user info */
+/* class with API pull of user info Displays UserData in upper left corner of AccountPage */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
@@ -64,7 +64,7 @@ class User extends React.Component {
 							<img src={ avatar } alt= "avatar" height='120px' />
 							</div>
 					</div>
-					<div className="user-info-column"> {/* This is still not working, I hardcoded the values in UserInfoContainer*/} 
+					<div className="user-info-column">  
 						<div className="UserInfo-name">{this.state.firstName + " " + this.state.lastName}</div>
 						<div className='UserInfo-signupDate'>DoMAD Member Since: {this.state.signupDate}</div>
 						<div className="UserInfo-tripsCount">Number of trips: {this.state.tripsCount}</div>
@@ -79,6 +79,7 @@ class User extends React.Component {
 class UserTripForm extends React.Component {
 	constructor(props) {
 		super(props);		
+		this.userID = this.props.userID;
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
 			date: "",
@@ -121,7 +122,7 @@ class UserTripForm extends React.Component {
 		}
 		donations.push(newDonation);
 		const reqBody = {
-		  "userID": "5e77a660f3ad797398557439", // This should work once you can signin and a login session is saved
+		  "userID": this.userID, // This should work once you can signin and a login session is saved"5e77a660f3ad797398557439"
 		  "tripDate": this.state.tripDate,
 		  "donations": donations,
 		  "notes": this.state.description,
@@ -162,7 +163,7 @@ class UserTripForm extends React.Component {
 
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
-				<input name="userID" value="5e77a660f3ad797398557439" type="hidden"/>
+				<input name="userID" value={this.userID} type="hidden"/>
 				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
 					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
@@ -675,7 +676,7 @@ function Account(props) {
 					  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
 						  Share your recent DoMAD travel story!
 					  </h3>
-					  <UserTripForm reloadAccount={props.post.reloadAccount}/>
+					  <UserTripForm reloadAccount={props.post.reloadAccount} userID={props.post.userID}/>
 					</div>
 			  </div>
 		  </div>

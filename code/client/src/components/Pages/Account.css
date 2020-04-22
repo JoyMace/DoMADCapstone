@@ -11,6 +11,7 @@
 	margin-bottom: 15px;
 	align-content: center;
 	width: 32%;	
+	flex-wrap: wrap;
 }
 .Post {
 	width: 100%;
@@ -178,6 +179,7 @@
 /*end form formatting*/
 
 /* Whole Page Formatting to give Top Row, Two columns on top, and Bottom row*/
+/* Top Row contains user info, user map and Trip form */
 .main-top-row {	
 	display: flex;
 	flex-direction: row;
@@ -186,18 +188,13 @@
 	align-items: stretch;	
 	flex: 1;
 	padding-top: 100px;
-	
-}
-.main-bottom-row {
-	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
 	margin: auto;
-	width: 95%;			
+	
 }
 
-.left-column {	
-	
+/* This is the left side of the Top Row */
+.left-column {		
 	flex-direction: column;
 	margin-top: 20px;
 	margin-left: 10%;
@@ -205,15 +202,15 @@
 	flex: 1;
 }
 
-.right-column {	
-	
+/* This is the right side of the Top Row */
+.right-column {		
 	flex-direction: column;
 	margin-top: 20px;	
 	margin-left: 0%;
 	margin-right: 0%;
 	flex: 1;
 }
-
+/* This is the portion of the Top Left Column that contains user Data */
 .user-info-row {
 	display: flex;
 	flex-direction: row;
@@ -222,12 +219,14 @@
 	align-items: stretch;	
 }
 
+/* This is the portion of the Top Left Column that contains user Avatars */
 .UserInfo-avatar {	
 	width: 120px;
 	height: 120px;
 	border-radius: 50%;	
 }
 
+/* This is the top left of the Top Left Column that contains user Avatars */
 .avatar-column {	
 	display: flex;
 	flex-direction: column;
@@ -236,6 +235,7 @@
 	padding-left: 5px
 }
 
+/* This is the top right of the Top Left Column that contains userName, signupDate, tripCount and donationCount */
 .user-info-column {	
 	display: flex;
 	flex-direction: column;
@@ -248,9 +248,9 @@
 
 .UserInfo-name {
 	text-align: left;
-	font-size: 24px;
-	
+	font-size: 24px;	
 }
+
 /*User Info Container*/
 .user-info-container {	
 	display: flex;
@@ -265,4 +265,11 @@
 .UserInfo {
 	display: flex;
 	font-size: 12px;	
+}
+/* Bottom row contains Posts */
+.main-bottom-row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+	width: 95%;			
 }
