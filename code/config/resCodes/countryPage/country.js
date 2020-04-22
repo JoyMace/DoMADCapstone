@@ -31,6 +31,10 @@ resCode = {
     countryNotFound:{
       status:404,
       message:'Could not find country'
+    },
+    organizationsNotFound:{
+      status:404,
+      message:'Could not find organizations with given list of IDs'
     }
   }
 }

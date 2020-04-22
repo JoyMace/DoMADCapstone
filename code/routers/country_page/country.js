@@ -72,7 +72,7 @@ router.post('/insert-country-info', (req, res) => {
 
 router.get('/get-country-info', (req, res) => {
 
-  name = req.query.name;
+  name = req.query.country;
 
   var query = { name: name };
 
@@ -104,19 +104,29 @@ router.get('/get-country-info', (req, res) => {
     Returns the list of organizationIDs associated with given country
 */
 router.get('/get-organizations', (req, res) => {
-  name = req.query.name;
+  name = req.query.country;
 
   var query = {name: name};
   Country.find(query, function(err, country) {
-    if(err) {
+    if(err || country.length == 0) {
       return res.status(countryCodes.getOrganizations.countryNotFound.status).send({
         message: countryCodes.getOrganizations.countryNotFound.message
       });
     }else{
-      return res.status(countryCodes.getOrganizations.success.status).send({
-        organizations: country[0].organizationIDs,
-        message: countryCodes.getOrganizations.success.message
-      });
+      var orgs = country[0].organizationIDs;
+      var orgQuery = {_id: {$in: orgs}}; // this queries a list of ids
+      Organization.find(query, function(err, organizations) {
+        if(err || organizations.length == 0){
+          return res.status(countryCodes.getOrganizations.organizationsNotFound.status).send({
+            message: countryCodes.getOrganizations.organizationsNotFound.message
+          });
+        }else{
+          return res.status(countryCodes.getOrganizations.success.status).send({
+           organizations: organizations,
+           message: countryCodes.getOrganizations.success.message
+          });
+        }
+      })
     }
   })
 })
