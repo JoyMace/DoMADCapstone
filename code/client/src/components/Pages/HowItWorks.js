@@ -20,7 +20,8 @@ function HowItWorks() {
                     <p>DoMAD provides suggested items for travelers to donate at their travel destination.  In many parts of the developing world, items that are relatively inexpensive for international travelers -- soap, bandages, flashlights, tarps and reading glasses -- are not readily available or affordable.</p>
                 </div>
                 <div className="step-column">                    
-                    <img className="map" src={Map}  alt="world map"/>                    
+                    <img className="map" src={Map}  alt="world map"/> 
+                    {/* SEARCH BAR GOES HERE */}                   
                 </div>
                     
             </div>

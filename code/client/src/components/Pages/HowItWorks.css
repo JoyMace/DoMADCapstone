@@ -5,7 +5,19 @@
     font-family: Cambria, Georgia, serif;    
     flex-wrap: wrap;
 }
-
+/* Rows and columns */
+.step-row {
+    display: flex;
+    flex: wrap;
+    margin-left: 10%;
+    margin-right: 5%;
+    font-size: 20px;    
+}
+.step-column {
+    flex: 50%;
+    margin: 2%; 
+}
+/* Images on page */
 .map {
     width: 100%;
     margin: 20px;
@@ -35,18 +47,7 @@ img.step3 {
     width: 50px;      
 }
 
-.step-row {
-    display: flex;
-    flex: wrap;
-    margin-left: 10%;
-    margin-right: 5%;
-    font-size: 20px;    
-}
-.step-column {
-    flex: 50%;
-    margin: 2%; 
-}
-
+/* Blue Text box on bottom above Footer */
 .bluePadding {
     background-color: #010925;
     border-radius: 5px;
@@ -64,6 +65,7 @@ p.downCenter{
     color: white;
 }
 
+/* On smaller screens, switch to columns */
 @media screen and (max-width: 900px) {
     .step-row {
         flex-direction: column;
