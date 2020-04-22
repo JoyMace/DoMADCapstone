@@ -104,9 +104,7 @@ router.get('/get-country-info', (req, res) => {
     Returns the list of organizationIDs associated with given country
 */
 router.get('/get-organizations', (req, res) => {
-  name = req.query.country;
-
-  var query = {name: name};
+  var query = req.query;
   Country.find(query, function(err, country) {
     if(err || country.length == 0) {
       return res.status(countryCodes.getOrganizations.countryNotFound.status).send({
