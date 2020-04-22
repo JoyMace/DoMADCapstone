@@ -18,6 +18,7 @@ that are generated when the Form is used to add Trip Data to DoMAD. */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
+	var signUpDate = new Date();
 		this.state = {
 		firstName: "",
 		lastName: "", 
@@ -41,10 +42,11 @@ class User extends React.Component {
 	componentDidMount() {
 		this.getUser(this)
 			.then(res => {
+				var signUpDate = new Date(res.userData.signupDate)
 				this.setState({
 					firstName: res.userData.firstName,
 					lastName: res.userData.lastName,
-					signupDate: res.userData.signupDate,
+					signupDate: (signUpDate.getMonth() + 1) + "/" + signUpDate.getDate() + "/" + signUpDate.getFullYear(),
 					tripsCount: res.userData.tripsCount,
 					donationCount: res.userData.donationCount
 										
