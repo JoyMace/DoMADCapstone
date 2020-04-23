@@ -17,33 +17,61 @@ describe('[ User profile APIs ]', function() {
 
   describe('[ Get profile ]', function() {
 
-    /*
-      before is called at the start of each set of tests to set up the testing environment
-    */
     before(function(done) {
 
-      // var findProfile = sandbox.stub(mongoose.Model, 'find');
-      // findProfile.yields(null, 1);
-      // findProfile.onCall(1).yields(true, null);
-      // findProfile.onCall(2).yields(null, 0);
-      //
-      // var deleteOneDBStub = sandbox.stub(mongoose.Model, 'countTrip');
-      // deleteOneDBStub.yields(null);
-      // deleteOneDBStub.onCall(1).yields(true);
-      //
-      // var deleteOneDBStub = sandbox.stub(mongoose.Model, 'countDonation');
-      // deleteOneDBStub.yields(null);
-      // deleteOneDBStub.onCall(1).yields(true);
+      var fakeUser = new User(testVar.userInfo);
+      var findProfileDBStub = sandbox.stub(mongoose.Model, 'findById');
+      findProfileDBStub.yields(null, fakeUser);
+      findProfileDBStub.onCall(1).yields(null, fakeUser);
+      findProfileDBStub.onCall(2).yields(null, fakeUser);
+      findProfileDBStub.onCall(3).yields(true, null);
+
+
+      var oneTrip = new Trip(testVar.tripInfo)
+      var secondTrip = new Trip(testVar.tripInfo)
+      var fakeTrips = [oneTrip, secondTrip]
+
+      var tripCountDBStub = sandbox.stub(Trip, 'aggregate');
+      tripCountDBStub.yields(null, fakeTrips);
+      tripCountDBStub.onCall(1).yields(null, fakeTrips);
+      tripCountDBStub.onCall(2).yields(true, null);
+
+
+      var oneDonation = new Donation(testVar.donationInformation);
+      var secondDonation = new Donation(testVar.donationInformation);
+      var fakeDonations = [oneDonation,secondDonation]
+
+      var donationCountDBStub = sandbox.stub(Donation, 'aggregate');
+      donationCountDBStub.yields(null, fakeDonations);
+      donationCountDBStub.onCall(1).yields(true, null);
 
       done();
 
     });
 
 
-    it('get user profile', function(done) {
+    it('get profile FAILTURE - user not given', function(done) {
       request(app)
         .get('/api/user/profile/profile')
-        .query({userID:testVar._id})
+        .type('form')
+        .then(function(res) {
+          statusCode = res.statusCode;
+          message = JSON.parse(res.res.text).message
+          expect(statusCode).to.equal(profileCodes.profile.userNotGiven.status);
+          expect(message).to.equal(profileCodes.profile.userNotGiven.message);
+        });
+
+      done();
+    });
+
+
+    it('get user profile SUCCESS', function(done) {
+      var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
+
+      request(app)
+        .get('/api/user/profile/profile')
+        .type('form')
+        .query(fakeUser)
         .then(function(res) {
           statusCode = res.statusCode;
           expect(statusCode).to.equal(profileCodes.profile.success.status);
@@ -51,26 +79,30 @@ describe('[ User profile APIs ]', function() {
       done();
     });
 
+    it('get profile FAILTURE - donation count not found', function(done) {
+      var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
 
-    it('get profile FAILTURE - profile not found', function(done) {
       request(app)
         .get('/api/user/profile/profile')
-        .query({userID:testVar._id})
+        .type('form')
+        .query(fakeUser)
         .then(function(res) {
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(message).to.equal(profileCodes.profile.profileNotFound.message);
-          expect(statusCode).to.equal(profileCodes.profile.profileNotFound.status);
+          expect(message).to.equal(profileCodes.profile.donationcountNotFound.message);
+          expect(statusCode).to.equal(profileCodes.profile.donationcountNotFound.status);
         });
 
       done();
     });
 
-
     it('get profile FAILTURE - trip count not found', function(done) {
+      var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
+
       request(app)
         .get('/api/user/profile/profile')
-        .query({userID:testVar._id})
+        .type('form')
+        .query(fakeUser)
         .then(function(res) {
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
@@ -82,30 +114,28 @@ describe('[ User profile APIs ]', function() {
     });
 
 
-    it('get profile FAILTURE - donation count not found', function(done) {
+    it('get profile FAILTURE - profile not found', function(done) {
+      var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
+
       request(app)
         .get('/api/user/profile/profile')
-        .query({userID:testVar._id})
+        .type('form')
+        .query(fakeUser)
         .then(function(res) {
           statusCode = res.statusCode;
           message = JSON.parse(res.res.text).message
-          expect(message).to.equal(profileCodes.profile.donationcountNotFound.message);
-          expect(statusCode).to.equal(profileCodes.profile.donationcountNotFound.status);
+          expect(message).to.equal(profileCodes.profile.profileNotFound.message);
+          expect(statusCode).to.equal(profileCodes.profile.profileNotFound.status);
         });
 
       done();
     });
 
 
-    /*
-      after is called at the end of a set of unit tests to clean up the testing environemnt
-    */
     after( function(done) {
       sandbox.restore();
       done();
     });
-
-    //  Note there is an afterEach function that is called after each test and not only at the end
 
   });
 

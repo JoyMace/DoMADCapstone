@@ -27,6 +27,8 @@ router.get('/profile', (req, res) => {
 
   if ('userID' in req.query){
     userID = req.query.userID;
+  } else if ('_id' in req.query) {
+    userID = req.query._id;
   } else if ('user' in req) {
     userID = req.user._id;
   } else {
@@ -35,6 +37,7 @@ router.get('/profile', (req, res) => {
   }
 
   var userData = [];
+
 
   User.findById(userID, function(err, user) {
 
