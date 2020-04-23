@@ -47,6 +47,7 @@ class User extends React.Component {
 					signupDate: (signUpDate.getMonth() + 1) + "/" + signUpDate.getDate() + "/" + signUpDate.getFullYear(),
 					tripsCount: res.userData.tripsCount ? res.userData.tripsCount : "None",
 					donationCount: res.userData.donationCount ? res.userData.donationCount : "None",
+          
 										
 				});
 			})
@@ -536,10 +537,10 @@ class PostContainer extends React.Component {
       city: tripInfo.locationID.city,
       country: tripInfo.locationID.country,
       tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-	  notes: tripInfo.notes, 
-	  donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
-	  donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
-	  userID: tripInfo.userID  
+      notes: tripInfo.notes, 
+      donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+      donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+      userID: tripInfo.userID
 	 
     }
 	}

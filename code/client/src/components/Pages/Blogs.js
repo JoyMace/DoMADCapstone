@@ -19,8 +19,8 @@ class BlogInfo extends React.Component {
             country: tripInfo.locationID.country,
             tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
             notes: tripInfo.notes,
-            donationItem: tripInfo.donations[0].itemName,
-            donationRating: tripInfo.donations[0].rating,
+            donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+	        donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
             privatePost: tripInfo.isPrivate
         }
     }
@@ -108,7 +108,6 @@ class BlogContainer extends React.Component {
         if(countryselected === false) {
             const response = await fetch('/api/user/trip/all-trips');
             const data = await response.json();
-            console.log("The main api was called.")
             if (response.status !== 200) {
                 throw Error(response.message)
             }
@@ -117,10 +116,7 @@ class BlogContainer extends React.Component {
         else {
             var response2 = await fetch(this.state.countryAppend);
             response2 = await fetch(this.state.countryAppend);
-            console.log(response2);
-            console.log("This api was called.");
             const data2 = await response2.json();
-            console.log("This api was called.");
             if (response2.status !== 200) {
               throw Error(response2.message)
             }
@@ -141,26 +137,20 @@ class BlogContainer extends React.Component {
     }
 
     updateCountryonClick = (event) => {
-        // this.componentDidMount(this);
         const target = event.target;
         const name = target.value;
         const countryAppend = blogAPI + 'country=' + name;
         countryselected = true;
-        console.log(countryAppend);
-        console.log(name);
         this.setState({
             countryAppend: countryAppend,
             loading: 'false',
             reloadAccount: this.reload
         });
-        // this.getTrips(this.reload);
-        // this.componentDidMount(this);
         this.reload();
     }
 
 	render() {
         if(this.state.loading === 'false'){
-            console.log("this is printing")
             return (
                 <div>
                     <div className="page-info">

@@ -8,9 +8,11 @@ import StepsGraphic from '../../images/123DoMADGraphic.png';
 
 import { FaStar } from 'react-icons/fa';
 import { IconContext } from "react-icons";
-
-
 import dons from '../../images/png_icons/comingSoonIcon.svg';
+
+import { Link } from 'react-router-dom';
+
+var loggedin = false;
 
 class HomeBlogInfo extends React.Component {
     constructor(props) {
@@ -154,45 +156,7 @@ function Home(props) {
         <div className="home">
             <StickyContainer className='top-container'>
                 <img id='bg_img' src={bg} alt={bg_alt} />
-                <div className="navbar-wrapper">
-                    <ul className='nav-list'>
-                        <li className='dropdown'>
-                        </li>
-                        <li className='dropdown'>
-                            <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
-                                Log In  <i className="down-up-arrow"></i>
-                            </a>
-                            <div className="dropdown-content">
-                                <a href="/login">Log In</a>
-                                <a href="/register">Register</a>
-                            </div>
-                        </li>
-                        <li className='dropdown'>
-                            <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
-                                Info  <i className="down-up-arrow"></i>
-                            </a>
-                            <div className="dropdown-content">
-                                <a href="/how_it_works">How It Works</a>
-                                <a href="/about">About Us</a>
-                                <a href="/faq">FAQ</a>
-                                <a href="/contact">Contact Us</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div className="block-wrapper">
-                    <div>
-                        <img id='block-logo' src={logo_wh} alt={logo_bl} />
-                    </div>
-                    <div id='block-content'>
-                        <div id='exp' className='block-box'>
-                            <a href="/search_locations">Explore</a>
-                        </div>
-                        <div id='blog' className='block-box'>
-                            <a href="/blogs">Blogs</a>
-                        </div>
-                    </div>
-                </div>
+                <HomeNavbar />
             </StickyContainer>
             <article className='steps-wrapper'>
                 <h4 className='spacer-caption'>
@@ -238,6 +202,176 @@ function StickyContainer({ children, sticky=false, className, ...rest }){
             {children}
         </div>
     );
+}
+
+class HomeNavbar extends React.Component {
+    constructor(props) {
+        super(props);
+		this.state = {
+            loading: 'true', reloadAccount: this.reload
+        };
+    }
+
+    reload = () => {
+        console.log('READLOAD');
+        this.setState({ loading: 'true', reloadAccount: this.reload });
+        this.checkLoggedInStatus(this)
+          .then(res => {
+            this.setState({
+              loading: 'false',
+              reloadAccount: this.reload
+            });
+          });
+    }
+
+    checkLoggedInStatus = async () => {
+        const response = await fetch('/api/user/auth/check-login');
+        const data = await response.json();
+        if (response.status === 200) {
+            loggedin = true;
+            console.log("this is the log in response", response.status);
+            this.setState({
+                loading: 'true',
+                reloadAccount: this.reload
+            });
+        }
+        else {
+            loggedin = false;
+            console.log("this is the log in response", response.status);
+            this.setState({
+                loading: 'true',
+                reloadAccount: this.reload
+            });
+        }
+        return data;
+    };
+    
+    componentDidMount() {
+        this.checkLoggedInStatus(this)
+        .then(res => {
+            this.setState({
+                loading: 'false',
+                reloadAccount: this.reload
+            });
+        })
+      .catch(err => console.log(err)); // TODO: handle all errors and relay to user
+    }
+
+    handleLogoutClick = async () => {
+        const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" }
+		};
+        const response2 = await fetch('/api/user/auth/logout' , requestOptions);
+        if (response2.status === 200) {
+            console.log("logout successful")
+            loggedin = false;
+            console.log("this is the login status", loggedin);
+            this.setState({
+                loading: 'true',
+                reloadAccount: this.reload
+            });
+            window.location.reload();
+        }
+        else {
+            console.log("logout not successful")
+        }
+    };
+
+    render () {
+        if(loggedin === true) {
+            return (
+                <div>
+                    <div className="navbar-wrapper">
+                        <ul className='nav-list'>
+                            <li className='dropdown'>
+                            </li>
+                            <li className='dropdown'>
+                                <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                                    Profile  <i className="down-up-arrow"></i>
+                                </a>
+                                <div className="dropdown-content">
+                                    <a href="/account">Account</a>
+                                    <div onClick={this.handleLogoutClick}>
+                                        <Link to="/">Log Out</Link>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className='dropdown'>
+                                <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                                    Info  <i className="down-up-arrow"></i>
+                                </a>
+                                <div className="dropdown-content">
+                                    <a href="/how_it_works">How It Works</a>
+                                    <a href="/about">About Us</a>
+                                    <a href="/faq">FAQ</a>
+                                    <a href="/contact">Contact Us</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="block-wrapper">
+                    <div>
+                        <img id='block-logo' src={logo_wh} alt={logo_bl} />
+                    </div>
+                    <div id='block-content'>
+                            <div id='exp' className='block-box'>
+                                <a href="/search_locations">Explore</a>
+                            </div>
+                            <div id='blog' className='block-box'>
+                                <a href="/blogs">Blogs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <div className="navbar-wrapper">
+                        <ul className='nav-list'>
+                            <li className='dropdown'>
+                            </li>
+                            <li className='dropdown'>
+                                <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                                    Log In  <i className="down-up-arrow"></i>
+                                </a>
+                                <div className="dropdown-content">
+                                    <a href="/login">Log In</a>
+                                    <a href="/register">Register</a>
+                                </div>
+                            </li>
+                            <li className='dropdown'>
+                                <a id='ham-btn' href="javascript:void(0)" className="DD-btn">
+                                    Info  <i className="down-up-arrow"></i>
+                                </a>
+                                <div className="dropdown-content">
+                                    <a href="/how_it_works">How It Works</a>
+                                    <a href="/about">About Us</a>
+                                    <a href="/faq">FAQ</a>
+                                    <a href="/contact">Contact Us</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="block-wrapper">
+                        <div>
+                            <img id='block-logo' src={logo_wh} alt={logo_bl} />
+                        </div>
+                        <div id='block-content'>
+                            <div id='exp' className='block-box'>
+                                <a href="/search_locations">Explore</a>
+                            </div>
+                            <div id='blog' className='block-box'>
+                                <a href="/register">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
 }
 
 export default HomeBlogContainer;

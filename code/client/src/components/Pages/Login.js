@@ -40,7 +40,6 @@ class Login extends React.Component {
             currentComponent.setState({ submitted: true });
         }
     })
-
   }
 
   render() {
@@ -71,10 +70,10 @@ class Login extends React.Component {
           }
           </div>
           <div className="signinbutton">
-            <button type="submit">Sign In</button>
-            <ul><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
-            <ul><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
-            <ul><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
+            <button type="submit" className="signinbuttonstyling">Sign In</button>
+            <ul className="accountlink"><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
+            <ul className="accountlink"><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
+            <ul className="accountlink"><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
           </div>
         </form>
        </div>
