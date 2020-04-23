@@ -72,7 +72,7 @@ router.post('/insert-country-info', (req, res) => {
 
 router.get('/get-country-info', (req, res) => {
 
-  name = req.body.name;
+  var name = req.body.name;
 
   var query = { name: name };
 
