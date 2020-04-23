@@ -25,21 +25,28 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    this.setState({ submitted: false });
-    const { username, password } = this.state;
-    if ((username && password)) {
-        this.props.login(username, password);
-    }
+        e.preventDefault();
+        this.setState({ submitted: false });
+        const { username, password } = this.state;
+        if ((username && password)) {
+            this.props.login(username, password);
+        }
+        let currentComponent = this;
+
+    axios.post('/api/user/auth/login',{username:this.state.username,password:this.state.password})
+    .then(function(response){
+
+        if(response.status === 200){
+            currentComponent.setState({ submitted: true });
+        }
+    })
   }
 
   render() {
     const { username, password, submitted } = this.state;
     if (this.state.submitted) {
       // redirect to account page if signed in
-      // window.location.reload();
-      // sleep(2000);
-      return <Redirect push to = {{ pathname: "/account" }} />;
+      return <Redirect to = {{ pathname: "/account/:username" }} />;
     }
     return (
       <div className = "Login">

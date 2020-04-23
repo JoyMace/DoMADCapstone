@@ -21,7 +21,7 @@ const profileCodes = require('../../config/resCodes').profile;
 
 
 router.get('/profile', (req, res) => {
-
+console.log(req.user);
   var userID;
   // checks if user is logged in or external request
 
@@ -47,8 +47,10 @@ router.get('/profile', (req, res) => {
       userData = {userName: user.username, firstName: user.firstName, lastName: user.lastName,
                 signupDate: user.signupDate, locationID: user.locationID};
 
-      Trip.aggregate( [ { $group: { "_id" : userID, count: { $sum: 1 } } } ], function(err, user) {
-
+      Trip.aggregate( [ 
+        { $match: { userID : userID } },
+        { $group: { _id : null, count: { $sum : 1 } } } ], function(err, user) {
+        
         if(err) {
           return res.status(profileCodes.profile.tripcountNotFound.status).send({
             message: profileCodes.profile.tripcountNotFound.message
@@ -56,8 +58,10 @@ router.get('/profile', (req, res) => {
         }
         else{
           userData['tripsCount'] = user[0] ? user[0].count : 0
-
-          Donation.aggregate( [ { $group: {"_id" : userID, count: { $sum: 1 }}}], function(err, user) {
+          console.log("USER TRIP COUNT", userData['tripsCount'], user[0]);
+          Donation.aggregate( [
+            { $match: { userID : userID } }, //this needs to match on trips that match on userID so this count will be wrong
+            { $group: {"_id" : null, count: { $sum : 1 }}}], function(err, user) {
 
             if(err) {
               return res.status(profileCodes.profile.donationcountNotFound.status).send({
@@ -66,6 +70,7 @@ router.get('/profile', (req, res) => {
             }
             else{
               userData['donationCount'] = user[0] ? user[0].count : 0
+              console.log("USER DONATION COUNT", userData['donationCount'], user[0]);
               return res.status(profileCodes.profile.success.status).send({userData: userData});
             }
           });
