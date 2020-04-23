@@ -99,9 +99,12 @@ router.get('/get-country-info', (req, res) => {
 /*
     Get Country organizations api
     inputs:
-      countryName: String
+      name: String
 
-    Returns the list of organizationIDs associated with given country
+    example query:
+      /api/country-page/country/get-organizations?name=Germany
+
+    Returns the list of organizations associated with country's organizationIDs
 */
 router.get('/get-organizations', (req, res) => {
   var query = req.query;
@@ -131,15 +134,14 @@ router.get('/get-organizations', (req, res) => {
 
 
 /*
-    Insert Country Organizations api
+    Insert Organizations API
     inputs:
-      countryName: String
+      [{
+      countryName: String,
       orgName: String
+      }]
 
-    Gets list of organizations based on the organizationName parameter, 
-    Gets the country to add them to based on the countryName parameter, 
-      this is done with two mongoose queries, find and then findOneAndUpdate
-    Lastly insert list of organizations (likely just one org) into found country.
+    Expects all countryNames to be the same.
 */
 router.post('/insert-organizations', (req, res) => {
 
@@ -199,9 +201,33 @@ router.post('/insert-organizations', (req, res) => {
   })
 })
 
+
+/*
+    Remove Organizations API
+    inputs:
+      [{
+      countryName: String,
+      orgName: String
+      }]
+
+    Expects all countryNames to be the same.
+*/
 router.post('/remove-organizations', (req, res) => {
-  var orgQuery = {orgName: req.body.orgName};
-  var countryQuery = {name: req.body.countryName};
+  
+  //Handling of multiple organizations, still expecting them to be from the same country
+  if(Array.isArray(req.body)){
+    var orgNames = [];
+    for (var i = 0; i < req.body.length; i++){
+      var curBody = req.body[i];
+      orgNames.push(curBody.orgName);
+    }
+    var orgQuery = {orgName: {$in: orgNames}};
+    var countryQuery = {name: req.body[0].countryName}; 
+  }else{
+    var orgQuery = {orgName: req.body.orgName}; 
+    var countryQuery = {name: req.body.countryName};  
+  }
+
   Organization.find(orgQuery, function(err, organizations) {
     if(err || organizations.length == 0){
       return res.status(countryCodes.removeOrganizations.organizationsNotFound.status).send({
