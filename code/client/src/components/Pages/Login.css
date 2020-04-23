@@ -1,7 +1,7 @@
 .Login {
     margin-top: 56px;
-    padding-top: 60px;
-    padding-bottom: 120px;
+    padding-top: 75px;
+    padding-bottom: 75px;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -57,7 +57,16 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .signinbuttonstyling {
+    border-radius: 5px;
+    width: 30%;
+    margin-bottom: 5px;
+  }
+
   .accountlink {
     text-decoration: underline;
     color: #FFFFFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }

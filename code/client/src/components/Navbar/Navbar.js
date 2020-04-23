@@ -81,11 +81,12 @@ class Navbar extends React.Component {
         if (response2.status === 200) {
             console.log("logout successful")
             loggedin = false;
-            console.log("this is the login status", loggedin)
+            console.log("this is the login status", loggedin);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
             });
+            window.location.reload();
         }
         else {
             console.log("logout not successful")
@@ -128,7 +129,9 @@ class Navbar extends React.Component {
                                         <div className="info-dropdown-content">
                                             <Link to="/account" className="dropdown-options">Account</Link>
                                             {/*<Link to="/" className="dropdown-options" onClick={this.handleLogoutClick}>Log Out</Link>*/}
-                                            <div className="dropdown-options" onClick={this.handleLogoutClick}>Log Out</div>
+                                            <div onClick={this.handleLogoutClick}>
+                                                <Link to="/" className="dropdown-options">Log Out</Link>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>

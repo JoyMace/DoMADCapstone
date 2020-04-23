@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/Navbar/Navbar';
@@ -87,20 +87,20 @@ class App extends Component {
           </Switch>
           {backdrop}
           <Switch>
-          <Route path="/about" component={About} />
-          <Route path="/account" component={Account} />
-          <Route path="/blogs" component={Blogs} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/disclaimer" component={Disclaimer} />
-          <Route path="/faq" component={Faq} />
-          <Route path="/register" component={Register} />
-          <Route path="/search_locations" component={SearchLocations} />
-          <Route path="/login" component={Login} />
-          <Route path="/how_it_works" component={HowItWorks} />
-          <Route path="/country_pages" component={CountryPages} />
-          <Route path="/forgot" component={Reset} />
-          <Route path="/individual_blogs" component={IndividualBlogs} />
-          <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
+            <Route path="/about" component={About} />
+            <Route path="/account" component={Account} />
+            <Route path="/blogs" component={Blogs} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/disclaimer" component={Disclaimer} />
+            <Route path="/faq" component={Faq} />
+            <Route path="/register" component={Register} />
+            <Route path="/search_locations" component={SearchLocations} />
+            <Route path="/login" component={Login} />
+            <Route path="/how_it_works" component={HowItWorks} />
+            <Route path="/country_pages" component={CountryPages} />
+            <Route path="/forgot" component={Reset} />
+            <Route path="/individual_blogs" component={IndividualBlogs} />
+            <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
           </Switch>
 
           <Footer />

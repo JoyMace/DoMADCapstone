@@ -4,8 +4,6 @@ import { Redirect } from 'react-router-dom'
 import './Login.css';
 import axios from 'axios';
 
-
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -27,20 +25,21 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-        e.preventDefault();
-        this.setState({ submitted: false });
-        const { username, password } = this.state;
-        if ((username && password)) {
-            this.props.login(username, password);
-        }
-
+    e.preventDefault();
+    this.setState({ submitted: false });
+    const { username, password } = this.state;
+    if ((username && password)) {
+        this.props.login(username, password);
+    }
   }
 
   render() {
     const { username, password, submitted } = this.state;
     if (this.state.submitted) {
       // redirect to account page if signed in
-      return <Redirect to = {{ pathname: "/account" }} />;
+      // window.location.reload();
+      // sleep(2000);
+      return <Redirect push to = {{ pathname: "/account" }} />;
     }
     return (
       <div className = "Login">
@@ -64,10 +63,10 @@ class Login extends React.Component {
           }
           </div>
           <div className="signinbutton">
-            <button type="submit">Sign In</button>
-            <ul><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
-            <ul><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
-            <ul><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
+            <button type="submit" className="signinbuttonstyling">Sign In</button>
+            <ul className="accountlink"><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
+            <ul className="accountlink"><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
+            <ul className="accountlink"><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
           </div>
         </form>
        </div>
