@@ -4,6 +4,10 @@ import CountryDataTabs from '../CountryPages/Tabs.js';
 import WorldMap from 'react-world-map';
 import search_icon from '../../images/search_icon.png';
 
+/* POSSIBLE ADDITIONS/CHANGES::
+    -on page alert if country searched isn't a country
+*/
+
 
 /* COMPONENT: SendCountryOnSelect 
     Description: 
@@ -21,6 +25,8 @@ class SearchLocations extends React.Component {
     constructor(props) {
         super(props);
         
+        this.spacerHTML_hr = "<hr id='spacer-line'/>";
+
         this.sendCountryOnSelect = this.sendCountryOnSelect.bind(this);
         this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }
@@ -31,15 +37,17 @@ class SearchLocations extends React.Component {
         - Parameters: country_name: String
         - Returns: none (sets state of searchbar filter to empty)
     */
-    sendCountryOnSelect (country_name) {
-        if (this.refs.searchbar.countries.some(e => (e.name.toLowerCase()).includes(country_name.toLowerCase()) == 1 )) {
-            console.log("sending!");
-            this.refs.datatabs.receiveCountry(country_name);
-            this.refs.searchbar.setState({filteredCountries: [], queryText: ''}); 
-        } else {
-            console.log("Thats not a country!")
-        }
+    sendCountryOnSelect (country_name) { // (e.name.toLowerCase()).includes(country_name.toLowerCase())
+        let cname_LC = country_name.trim().toLowerCase();
         
+        if (this.refs.searchbar.countries.some(e => (e.name.toLowerCase() === cname_LC))) {
+            document.getElementById('spacer').innerHTML = this.spacerHTML_hr;
+            this.refs.datatabs.receiveCountry(country_name);
+            this.refs.searchbar.setState({ filteredCountries: [], queryText: ''}); 
+        } else {
+            // Make an on page alert??
+            console.log(cname_LC, "is not a country!");
+        }
     }
 
     /* -- SendContinentSearch ----
@@ -77,18 +85,16 @@ class SearchLocations extends React.Component {
                         </div>
                     </div>
 
-                    <div id="description-box">
+                    <div id="spacer">
                         <h5>Once a country is selected tabular donation and country information will populate below.</h5>
                     </div>
-
                     <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
-                    <footer id='explore-spacer'><hr/></footer>
                 </div>
 
+               
+
                 <div id='master-content-root'>
-                    <div className="country-pages">
                         <CountryDataTabs ref='datatabs'/>
-                    </div>
                 </div>
             </div>
         )
@@ -119,6 +125,7 @@ class WorldMapController extends React.Component {
     */
     handleChange(e) {
         this.props.sendContinentSearch(e.detail.clickedState);
+        
     }
 
     /* -- ComponentDidMount & componentWillUnmount ----
@@ -161,252 +168,16 @@ class SearchBar extends React.Component {
             queryText: '', 
             filteredCountries: []
         };
-        /*
-        <option value="Afghanistan">Afghanistan</option>
-        <option value="Albania">Albania</option>
-        <option value="Algeria">Algeria</option>
-        <option value="American Samoa">American Samoa</option>
-        <option value="Andorra">Andorra</option>
-        <option value="Angola">Angola</option>
-        <option value="Anguilla">Anguilla</option>
-        <option value="Antigua and Barbuda">Antigua and Barbuda</option>
-        <option value="Argentina">Argentina</option>
-        <option value="Armenia">Armenia</option>
-        <option value="Aruba">Aruba</option>
-        <option value="Australia">Australia</option>
-        <option value="Austria">Austria</option>
-        <option value="Azerbaijan">Azerbaijan</option>
-        <option value="Bahamas, The">Bahamas, The</option>
-        <option value="Bahrain">Bahrain</option>
-        <option value="Bangladesh">Bangladesh</option>
-        <option value="Barbados">Barbados</option>
-        <option value="Belarus">Belarus</option>
-        <option value="Belgium">Belgium</option>
-        <option value="Belize">Belize</option>
-        <option value="Benin">Benin</option>
-        <option value="Bermuda">Bermuda</option>
-        <option value="BES Islands">BES Islands</option>
-        <option value="Bhutan">Bhutan</option>
-        <option value="Bolivia">Bolivia</option>
-        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-        <option value="Botswana">Botswana</option>
-        <option value="Brazil">Brazil</option>
-        <option value="British Virgin Islands">British Virgin Islands</option>
-        <option value="Brunei Darussalam">Brunei Darussalam</option>
-        <option value="Bulgaria">Bulgaria</option>
-        <option value="Burkina Faso">Burkina Faso</option>
-        <option value="Burundi">Burundi</option>
-        <option value="Cambodia">Cambodia</option>
-        <option value="Cameroon">Cameroon</option>
-        <option value="Canada">Canada</option>
-        <option value="Cape Verde">Cape Verde</option>
-        <option value="Cayman Islands">Cayman Islands</option>
-        <option value="Central African Republic">Central African Republic</option>
-        <option value="Chad">Chad</option>
-        <option value="Channel Islands">Channel Islands</option>
-        <option value="Chile">Chile</option>
-        <option value="China">China</option>
-        <option value="Colombia">Colombia</option>
-        <option value="Comoros">Comoros</option>
-        <option value="Congo, Dem. Rep.">Congo, Dem. Rep.</option>
-        <option value="Congo, Rep.">Congo, Rep.</option>
-        <option value="Cook Islands">Cook Islands</option>
-        <option value="Costa Rica">Costa Rica</option>
-        <option value="Cote d'Ivoire">Cote d'Ivoire</option>
-        <option value="Croatia">Croatia</option>
-        <option value="Cuba">Cuba</option>
-        <option value="Curacao">Curacao</option>
-        <option value="Cyprus">Cyprus</option>
-        <option value="Czech Republic">Czech Republic</option>
-        <option value="Denmark">Denmark</option>
-        <option value="Djibouti">Djibouti</option>
-        <option value="Dominica">Dominica</option>
-        <option value="Dominican Republic">Dominican Republic</option>
-        <option value="Ecuador">Ecuador</option>
-        <option value="Egypt, Arab Rep.">Egypt, Arab Rep.</option>
-        <option value="El Salvador">El Salvador</option>
-        <option value="Equatorial Guinea">Equatorial Guinea</option>
-        <option value="Eritrea">Eritrea</option>
-        <option value="Estonia">Estonia</option>
-        <option value="Ethiopia">Ethiopia</option>
-        <option value="Faroe Islands">Faroe Islands</option>
-        <option value="Falkland Islands">Falkland Islands</option>
-        <option value="Fiji">Fiji</option>
-        <option value="Finland">Finland</option>
-        <option value="France">France</option>
-        <option value="French Guyana">French Guyana</option>
-        <option value="French Polynesia">French Polynesia</option>
-        <option value="Gabon">Gabon</option>
-        <option value="Gambia, The">Gambia, The</option>
-        <option value="Georgia">Georgia</option>
-        <option value="Germany">Germany</option>
-        <option value="Ghana">Ghana</option>
-        <option value="Gibraltar">Gibraltar</option>
-        <option value="Greece">Greece</option>
-        <option value="Greenland">Greenland</option>
-        <option value="Grenada">Grenada</option>
-        <option value="Guadeloupe">Guadeloupe</option>
-        <option value="Guam">Guam</option>
-        <option value="Guatemala">Guatemala</option>
-        <option value="Guinea">Guinea</option>
-        <option value="Guinea-Bissau">Guinea-Bissau</option>
-        <option value="Guyana">Guyana</option>
-        <option value="Haiti">Haiti</option>
-        <option value="Honduras">Honduras</option>
-        <option value="Hong Kong SAR, China">Hong Kong SAR, China</option>
-        <option value="Hungary">Hungary</option>
-        <option value="Iceland">Iceland</option>
-        <option value="India">India</option>
-        <option value="Indonesia">Indonesia</option>
-        <option value="Iran, Islamic Rep.">Iran, Islamic Rep.</option>
-        <option value="Iraq">Iraq</option>
-        <option value="Ireland">Ireland</option>
-        <option value="Isle of Man">Isle of Man</option>
-        <option value="Israel">Israel</option>
-        <option value="Italy">Italy</option>
-        <option value="Jamaica">Jamaica</option>
-        <option value="Japan">Japan</option>
-        <option value="Jordan">Jordan</option>
-        <option value="Kazakhstan">Kazakhstan</option>
-        <option value="Kenya">Kenya</option>
-        <option value="Kiribati">Kiribati</option>
-        <option value="Korea, Dem. Rep.">Korea, Dem. Rep.</option>
-        <option value="Korea, Rep.">Korea, Rep.</option>
-        <option value="Kosovo">Kosovo</option>
-        <option value="Kuwait">Kuwait</option>
-        <option value="Kyrgyz Republic">Kyrgyz Republic</option>
-        <option value="Lao PDR">Lao PDR</option>
-        <option value="Latvia">Latvia</option>
-        <option value="Lebanon">Lebanon</option>
-        <option value="Lesotho">Lesotho</option>
-        <option value="Liberia">Liberia</option>
-        <option value="Libya">Libya</option>
-        <option value="Liechtenstein">Liechtenstein</option>
-        <option value="Lithuania">Lithuania</option>
-        <option value="Luxembourg">Luxembourg</option>
-        <option value="Macao SAR, Chin">Macao SAR, China</option>
-        <option value="Macedonia, FYR">Macedonia, FYR</option>
-        <option value="Madagascar">Madagascar</option>
-        <option value="Malawi">Malawi</option>
-        <option value="Malaysia">Malaysia</option>
-        <option value="Maldives">Maldives</option>
-        <option value="Mali">Mali</option>
-        <option value="Malta">Malta</option>
-        <option value="Marshall Islands">Marshall Islands</option>
-        <option value="Martinique">Martinique</option>
-        <option value="Mauritania">Mauritania</option>
-        <option value="Mauritius">Mauritius</option>
-        <option value="Mayotte">Mayotte</option>
-        <option value="Mexico">Mexico</option>
-        <option value="Micronesia, Fed. Sts.">Micronesia, Fed. Sts.</option>
-        <option value="Moldova">Moldova</option>
-        <option value="Monaco">Monaco</option>
-        <option value="Mongolia">Mongolia</option>
-        <option value="Montenegro">Montenegro</option>
-        <option value="Montserrat">Montserrat</option>
-        <option value="Morocco">Morocco</option>
-        <option value="Mozambique">Mozambique</option>
-        <option value="Myanmar">Myanmar</option>
-        <option value="Namibia">Namibia</option>
-        <option value="Nauru">Nauru</option>
-        <option value="Nepal">Nepal</option>
-        <option value="Netherlands">Netherlands</option>
-        <option value="Netherlands Antilles">Netherlands Antilles</option>
-        <option value="New Caledonia">New Caledonia</option>
-        <option value="New Zealand">New Zealand</option>
-        <option value="Nicaragua">Nicaragua</option>
-        <option value="Niger">Niger</option>
-        <option value="Nigeria">Nigeria</option>
-        <option value="Niue">Niue</option>
-        <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-        <option value="Norway">Norway</option>
-        <option value="Oman">Oman</option>
-        <option value="Pakistan">Pakistan</option>
-        <option value="Palau">Palau</option>
-        <option value="Panama">Panama</option>
-        <option value="Papua New Guinea">Papua New Guinea</option>
-        <option value="Paraguay">Paraguay</option>
-        <option value="Peru">Peru</option>
-        <option value="Philippines">Philippines</option>
-        <option value="Poland">Poland</option>
-        <option value="Portugal">Portugal</option>
-        <option value="Puerto Rico">Puerto Rico</option>
-        <option value="Qatar">Qatar</option>
-        <option value="Reunion">Reunion</option>
-        <option value="Romania">Romania</option>
-        <option value="Russian Federation">Russian Federation</option>
-        <option value="Rwanda">Rwanda</option>
-        <option value="Saint Pierre et Miquelon">Saint Pierre et Miquelon</option>
-        <option value="Samoa">Samoa</option>
-        <option value="San Marino">San Marino</option>
-        <option value="Sao Tome and Principe">Sao Tome and Principe</option>
-        <option value="Saudi Arabia">Saudi Arabia</option>
-        <option value="Senegal">Senegal</option>
-        <option value="Serbia">Serbia</option>
-        <option value="Seychelles">Seychelles</option>
-        <option value="Sierra Leone">Sierra Leone</option>
-        <option value="Singapore">Singapore</option>
-        <option value="Sint Maarten (Dutch part)">Sint Maarten (Dutch part)</option>
-        <option value="Slovak Republic">Slovak Republic</option>
-        <option value="Slovenia">Slovenia</option>
-        <option value="Solomon Islands">Solomon Islands</option>
-        <option value="Somalia">Somalia</option>
-        <option value="South Africa">South Africa</option>
-        <option value="South Sudan">South Sudan</option>
-        <option value="Spain">Spain</option>
-        <option value="Sri Lanka">Sri Lanka</option>
-        <option value="St. Helena">St. Helena</option>
-        <option value="St. Kitts and Nevis">St. Kitts and Nevis</option>
-        <option value="St. Lucia">St. Lucia</option>
-        <option value="St. Martin (French part)">St. Martin (French part)</option>
-        <option value="St. Vincent and the Grenadines">St. Vincent and the Grenadines</option>
-        <option value="Sudan">Sudan</option>
-        <option value="Suriname">Suriname</option>
-        <option value="Swaziland">Swaziland</option>
-        <option value="Sweden">Sweden</option>
-        <option value="Switzerland">Switzerland</option>
-        <option value="Syrian Arab Republic">Syrian Arab Republic</option>
-        <option value="Taiwan, China">Taiwan, China</option>
-        <option value="Tajikistan">Tajikistan</option>
-        <option value="Tanzania">Tanzania</option>
-        <option value="Thailand">Thailand</option>
-        <option value="Timor-Leste">Timor-Leste</option>
-        <option value="Togo">Togo</option>
-        <option value="Tonga">Tonga</option>
-        <option value="Trinidad and Tobago">Trinidad and Tobago</option>
-        <option value="Tunisia">Tunisia</option>
-        <option value="Turkey">Turkey</option>
-        <option value="Turkmenistan">Turkmenistan</option>
-        <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
-        <option value="Tuvalu">Tuvalu</option>
-        <option value="Uganda">Uganda</option>
-        <option value="Ukraine">Ukraine</option>
-        <option value="United Arab Emirates">United Arab Emirates</option>
-        <option value="United Kingdom">United Kingdom</option>
-        <option value="United States">United States</option>
-        <option value="Uruguay">Uruguay</option>
-        <option value="Uzbekistan">Uzbekistan</option>
-        <option value="Vanuatu">Vanuatu</option>
-        <option value="Venezuela, RB">Venezuela, RB</option>
-        <option value="Vietnam">Vietnam</option>
-        <option value="Virgin Islands (U.S.)">Virgin Islands (U.S.)</option>
-        <option value="Wallis and Futuna">Wallis and Futuna</option>
-        <option value="West Bank and Gaza">West Bank and Gaza</option>
-        <option value="Western Sahara">Western Sahara</option>
-        <option value="Yemen, Rep.">Yemen, Rep.</option>
-        <option value="Zambia">Zambia</option>
-        <option value="Zimbabwe">Zimbabwe</option>
-        */
        
         this.countries = [
-            {"name": "Afghanistan","continent": "Asia", "contCode": "as"},
+            {"name": "Afghanistan", "continent": "Asia", "contCode": "as"},
             {"name": "Albania","continent": "Europe", "contCode": "eu"},
             {"name": "Algeria","continent": "Africa", "contCode": "af"},
             {"name": "American Samoa","continent": "Oceania", "contCode": "oc"},
             {"name": "Andorra","continent": "Europe", "contCode": "eu"},
             {"name": "Angola", "continent": "Africa", "contCode": "af"},
             {"name": "Anguilla","continent": "North America", "contCode": "na"},
-            {"name": "Antarctica","continent": "Antarctica", "contCode": "an"},
+            /*ADD!! {"name": "Antarctica","continent": "Antarctica", "contCode": "an"},*/
             {"name": "Antigua and Barbuda","continent": "North America", "contCode": "na"},
             {"name": "Argentina","continent": "South America", "contCode": "sa"},
             {"name": "Armenia","continent": "Asia", "contCode": "as"},
@@ -415,7 +186,7 @@ class SearchBar extends React.Component {
             {"name": "Austria","continent": "Europe", "contCode": "eu"},
             {"name": "Azerbaijan","continent": "Asia", "contCode": "as"},
 
-            {"name": "Bahamas","continent": "North America", "contCode": "na"},
+            {"name": "Bahamas, The","continent": "North America", "contCode": "na"},
             {"name": "Bahrain","continent": "Asia", "contCode": "as"},
             {"name": "Bangladesh","continent": "Asia", "contCode": "as"},
             {"name": "Barbados","continent": "North America", "contCode": "na"},
@@ -424,36 +195,38 @@ class SearchBar extends React.Component {
             {"name": "Belize","continent": "North America", "contCode": "na"},
             {"name": "Benin","continent": "Africa", "contCode": "af"},
             {"name": "Bermuda","continent": "North America", "contCode": "na"},
+            /*Caribbean Netherlands??*/{"name": "BES Islands","continent": "", "contCode": ""},
             {"name": "Bhutan","continent": "Asia", "contCode": "as"},
             {"name": "Bolivia","continent": "South America", "contCode": "sa"},
             {"name": "Bosnia and Herzegovina","continent": "Europe", "contCode": "eu"},
             {"name": "Botswana","continent": "Africa", "contCode": "af"},
-            {"name": "Bouvet Island","continent": "Antarctica", "contCode": "an"},
             {"name": "Brazil","continent": "South America", "contCode": "sa"},
-            {"name": "British Indian Ocean Territory","continent": "Africa", "contCode": "af"},
-            {"name": "Brunei","continent": "Asia", "contCode": "as"},
+            {"name": "British Virgin Islands","continent": "North America", "contCode": "na"},
+            {"name": "Brunei Darussalam","continent": "Asia", "contCode": "as"},
             {"name": "Bulgaria","continent": "Europe", "contCode": "eu"},
             {"name": "Burkina Faso","continent": "Africa", "contCode": "af"},
             {"name": "Burundi","continent": "Africa", "contCode": "af"},
-
+            
             {"name": "Cambodia","continent": "Asia", "contCode": "as"},
             {"name": "Cameroon","continent": "Africa", "contCode": "af"},
             {"name": "Canada","continent": "North America", "contCode": "na"},
             {"name": "Cape Verde","continent": "Africa", "contCode": "af"},
             {"name": "Cayman Islands","continent": "North America", "contCode": "na"},
-            {"name": "Central AFn Republic","continent": "Africa", "contCode": "af"},
+            {"name": "Central African Republic","continent": "Africa", "contCode": "af"},
             {"name": "Chad","continent": "Africa", "contCode": "af"},
+            {"name": "Channel Islands","continent": "Europe", "contCode": "eu"},
             {"name": "Chile","continent": "South America", "contCode": "sa"},
             {"name": "China","continent": "Asia", "contCode": "as"},
-            {"name": "Christmas Island","continent": "Oceania", "contCode": "oc"},
-            {"name": "Cocos (Keeling) Islands","continent": "Oceania", "contCode": "oc"},
             {"name": "Colombia","continent": "South America", "contCode": "sa"},
             {"name": "Comoros","continent": "Africa", "contCode": "af"},
-            {"name": "Congo","continent": "Africa", "contCode": "af"},
+            /*Dem. Republic of Congo*/{"name": "Congo, Dem. Rep.","continent": "Africa", "contCode": "af"},
+            /*Republic of Congo*/{"name": "Congo, Rep.","continent": "Africa", "contCode": "af"},
             {"name": "Cook Islands","continent": "Oceania", "contCode": "oc"},
             {"name": "Costa Rica","continent": "North America", "contCode": "na"},
+            {"name": "Cote d'Ivoire", "continent": "Africa", "contCode": "af"},
             {"name": "Croatia","continent": "Europe", "contCode": "eu"},
             {"name": "Cuba","continent": "North America", "contCode": "na"},
+            {"name": "Curacao","continent": "South America", "contCode": "sa"},
             {"name": "Cyprus","continent": "Asia", "contCode": "as"},
             {"name": "Czech Republic","continent": "Europe", "contCode": "eu"},
 
@@ -462,11 +235,9 @@ class SearchBar extends React.Component {
             {"name": "Dominica","continent": "North America", "contCode": "na"},
             {"name": "Dominican Republic","continent": "North America", "contCode": "na"},
 
-            {"name": "East Timor","continent": "Asia", "contCode": "as"},
             {"name": "Ecuador","continent": "South America", "contCode": "sa"},
-            {"name": "Egypt","continent": "Africa", "contCode": "af"},
+            /*Egypt*/{"name": "Egypt, Arab Rep.","continent": "Africa", "contCode": "af"},
             {"name": "El Salvador","continent": "North America", "contCode": "na"},
-            {"name": "England","continent": "Europe", "contCode": "eu"},
             {"name": "Equatorial Guinea","continent": "Africa", "contCode": "af"},
             {"name": "Eritrea","continent": "Africa", "contCode": "af"},
             {"name": "Estonia","continent": "Europe", "contCode": "eu"},
@@ -474,15 +245,14 @@ class SearchBar extends React.Component {
 
             {"name": "Falkland Islands","continent": "South America", "contCode": "sa"},
             {"name": "Faroe Islands","continent": "Europe", "contCode": "eu"},
-            {"name": "Fiji Islands","continent": "Oceania", "contCode": "oc"},
+            {"name": "Fiji","continent": "Oceania", "contCode": "oc"},
             {"name": "Finland","continent": "Europe", "contCode": "eu"},
             {"name": "France","continent": "Europe", "contCode": "eu"},
-            {"name": "French Guiana","continent": "South America", "contCode": "sa"},
+            {"name": "French Guyana","continent": "South America", "contCode": "sa"},
             {"name": "French Polynesia","continent": "Oceania", "contCode": "oc"},
-            {"name": "French Southern Territories","continent": "Antarctica", "contCode": "an"},
 
             {"name": "Gabon","continent": "Africa", "contCode": "af"},
-            {"name": "Gambia","continent": "Africa", "contCode": "af"},
+            {"name": "Gambia, The","continent": "Africa", "contCode": "af"},
             {"name": "Georgia","continent": "Asia", "contCode": "as"},
             {"name": "Germany","continent": "Europe", "contCode": "eu"},
             {"name": "Ghana","continent": "Africa", "contCode": "af"},
@@ -498,21 +268,19 @@ class SearchBar extends React.Component {
             {"name": "Guyana","continent": "South America", "contCode": "sa"},
 
             {"name": "Haiti","continent": "North America", "contCode": "na"},
-            {"name": "Heard Island and McDonald Islands","continent": "Antarctica", "contCode": "an"},
-            {"name": "Holy See (Vatican City State)","continent": "Europe", "contCode": "eu"},
             {"name": "Honduras","continent": "North America", "contCode": "na"},
-            {"name": "Hong Kong","continent": "Asia", "contCode": "as"},
+            {"name": "Hong Kong SAR, China","continent": "Asia", "contCode": "as"},
             {"name": "Hungary","continent": "Europe", "contCode": "eu"},
 
             {"name": "Iceland","continent": "Europe", "contCode": "eu"},
             {"name": "India","continent": "Asia", "contCode": "as"},
             {"name": "Indonesia","continent": "Asia", "contCode": "as"},
-            {"name": "Iran","continent": "Asia", "contCode": "as"},
+            /*Islamic Rep. of Iran*/{"name": "Iran, Islamic Rep.","continent": "Asia", "contCode": "as"},
             {"name": "Iraq","continent": "Asia", "contCode": "as"},
             {"name": "Ireland","continent": "Europe", "contCode": "eu"},
+            {"name": "Isle of Man","continent": "Europe", "contCode": "eu"},
             {"name": "Israel","continent": "Asia", "contCode": "as"},
             {"name": "Italy","continent": "Europe", "contCode": "eu"},
-            {"name": "Ivory Coast","continent": "Africa", "contCode": "af"},
 
             {"name": "Jamaica","continent": "North America", "contCode": "na"},
             {"name": "Japan","continent": "Asia", "contCode": "as"},
@@ -521,21 +289,24 @@ class SearchBar extends React.Component {
             {"name": "Kazakhstan","continent": "Asia", "contCode": "as"},
             {"name": "Kenya","continent": "Africa", "contCode": "af"},
             {"name": "Kiribati","continent": "Oceania", "contCode": "oc"},
+            /*Dem. Rep. of Korea*/{"name": "Korea, Dem. Rep.","continent": "Asia", "contCode": "as"},
+            /*Rep. of Korea*/{"name": "Korea, Rep.","continent": "Asia", "contCode": "as"},
+            {"name": "Kosovo","continent": "Europe", "contCode": "eu"},
             {"name": "Kuwait","continent": "Asia", "contCode": "as"},
-            {"name": "Kyrgyzstan","continent": "Asia", "contCode": "as"},
+            /*Rep. of Kyrzygstan*/{"name": "Kyrgyz Republic","continent": "Asia", "contCode": "as"},
 
-            {"name": "Laos","continent": "Asia", "contCode": "as"},
+            /*Laos*/{"name": "Lao PDR","continent": "Asia", "contCode": "as"},
             {"name": "Latvia","continent": "Europe", "contCode": "eu"},
             {"name": "Lebanon","continent": "Asia", "contCode": "as"},
             {"name": "Lesotho","continent": "Africa", "contCode": "af"},
             {"name": "Liberia","continent": "Africa", "contCode": "af"},
-            {"name": "Libyan Arab Jamahiriya","continent": "Africa", "contCode": "af"},
+            {"name": "Libya","continent": "Africa", "contCode": "af"},
             {"name": "Liechtenstein","continent": "Europe", "contCode": "eu"},
             {"name": "Lithuania","continent": "Europe", "contCode": "eu"},
             {"name": "Luxembourg","continent": "Europe", "contCode": "eu"},
 
-            {"name": "Macao","continent": "Asia", "contCode": "as"},
-            {"name": "North Macedonia","continent": "Europe", "contCode": "eu"},
+            /*-Add 'a' to China-*/{"name": "Macao SAR, Chin","continent": "Asia", "contCode": "as"},
+            /*North Macedonia*/{"name": "Macedonia, FYR","continent": "Europe", "contCode": "eu"},
             {"name": "Madagascar","continent": "Africa", "contCode": "af"},
             {"name": "Malawi","continent": "Africa", "contCode": "af"},
             {"name": "Malaysia","continent": "Asia", "contCode": "as"},
@@ -548,10 +319,11 @@ class SearchBar extends React.Component {
             {"name": "Mauritius","continent": "Africa", "contCode": "af"},
             {"name": "Mayotte","continent": "Africa", "contCode": "af"},
             {"name": "Mexico","continent": "North America", "contCode": "na"},
-            {"name": "Micronesia, Federated States of","continent": "Oceania", "contCode": "oc"},
+            /*Fed. States of Micronesia*/{"name": "Micronesia, Fed. Sts.","continent": "Oceania", "contCode": "oc"},
             {"name": "Moldova","continent": "Europe", "contCode": "eu"},
             {"name": "Monaco","continent": "Europe", "contCode": "eu"},
             {"name": "Mongolia","continent": "Asia", "contCode": "as"},
+            {"name": "Montenegro","continent": "Europe", "contCode": "eu"},
             {"name": "Montserrat","continent": "North America", "contCode": "na"},
             {"name": "Morocco","continent": "Africa", "contCode": "af"},
             {"name": "Mozambique","continent": "Africa", "contCode": "af"},
@@ -568,72 +340,69 @@ class SearchBar extends React.Component {
             {"name": "Niger","continent": "Africa", "contCode": "af"},
             {"name": "Nigeria","continent": "Africa", "contCode": "af"},
             {"name": "Niue","continent": "Oceania", "contCode": "oc"},
-            {"name": "Norfolk Island","continent": "Oceania", "contCode": "oc"},
-            {"name": "North Korea","continent": "Asia", "contCode": "as"},
-            {"name": "Northern Ireland","continent": "Europe", "contCode": "eu"},
             {"name": "Northern Mariana Islands","continent": "Oceania", "contCode": "oc"},
             {"name": "Norway","continent": "Europe", "contCode": "eu"},
 
             {"name": "Oman","continent": "Asia", "contCode": "as"},
-
+			
             {"name": "Pakistan","continent": "Asia", "contCode": "as"},
             {"name": "Palau","continent": "Oceania", "contCode": "oc"},
-            {"name": "Palestine","continent": "Asia", "contCode": "as"},
+            /*State of Palestine*/{"name": "West Bank and Gaza", "continent": "Asia", "contCode": "as"},
             {"name": "Panama","continent": "North America", "contCode": "na"},
             {"name": "Papua New Guinea","continent": "Oceania", "contCode": "oc"},
             {"name": "Paraguay","continent": "South America", "contCode": "sa"},
             {"name": "Peru","continent": "South America", "contCode": "sa"},
             {"name": "Philippines","continent": "Asia", "contCode": "as"},
-            {"name": "Pitcairn","continent": "Oceania", "contCode": "oc"},
             {"name": "Poland","continent": "Europe", "contCode": "eu"},
             {"name": "Portugal","continent": "Europe", "contCode": "eu"},
             {"name": "Puerto Rico","continent": "North America", "contCode": "na"},
 
             {"name": "Qatar","continent": "Asia", "contCode": "as"},
-
             {"name": "Reunion","continent": "Africa", "contCode": "af"},
             {"name": "Romania","continent": "Europe", "contCode": "eu"},
             {"name": "Russian Federation","continent": "Europe", "contCode": "eu"},
             {"name": "Rwanda","continent": "Africa", "contCode": "af"},
 
-            {"name": "Saint Helena","continent": "Africa", "contCode": "af"},
-            {"name": "Saint Kitts and Nevis","continent": "North America", "contCode": "na"},
-            {"name": "Saint Lucia","continent": "North America", "contCode": "na"},
-            {"name": "Saint Pierre and Miquelon","continent": "North America", "contCode": "na"},
-            {"name": "Saint Vincent and the Grenadines","continent": "North America", "contCode": "na"},
+            {"name": "Saint Pierre et Miquelon","continent": "North America", "contCode": "na"},
             {"name": "Samoa","continent": "Oceania", "contCode": "oc"},
             {"name": "San Marino","continent": "Europe", "contCode": "eu"},
             {"name": "Sao Tome and Principe","continent": "Africa", "contCode": "af"},
             {"name": "Saudi Arabia","continent": "Asia", "contCode": "as"},
-            {"name": "Scotland","continent": "Europe", "contCode": "eu"},
+            /*ADD {"name": "Scotland","continent": "Europe", "contCode": "eu"},*/
             {"name": "Senegal","continent": "Africa", "contCode": "af"},
+            /*ADD {"name": "Serbia","continent": "Europe", "contCode": "eu"},*/
             {"name": "Seychelles","continent": "Africa", "contCode": "af"},
             {"name": "Sierra Leone","continent": "Africa", "contCode": "af"},
             {"name": "Singapore","continent": "Asia", "contCode": "as"},
-            {"name": "Slovakia","continent": "Europe", "contCode": "eu"},
+            {"name": "Slovak Republic","continent": "Europe", "contCode": "eu"},
             {"name": "Slovenia","continent": "Europe", "contCode": "eu"},
             {"name": "Solomon Islands","continent": "Oceania", "contCode": "oc"},
             {"name": "Somalia","continent": "Africa", "contCode": "af"},
-            {"name": "South AF","continent": "Africa", "contCode": "af"},
+            {"name": "South Africa","continent": "Africa", "contCode": "af"},
             {"name": "South Georgia and the South Sandwich Islands","continent": "Antarctica", "contCode": "an"},
-            {"name": "South Korea","continent": "Asia", "contCode": "as"},
             {"name": "South Sudan","continent": "Africa", "contCode": "af"},
             {"name": "Spain","continent": "Europe", "contCode": "eu"},
             {"name": "Sri Lanka","continent": "Asia", "contCode": "as"},
+            {"name": "St. Helena","continent": "Africa", "contCode": "af"},
+            {"name": "St. Kitts and Nevis","continent": "North America", "contCode": "na"},
+            {"name": "St. Lucia","continent": "North America", "contCode": "na"},
+            {"name": "St. Vincent and the Grenadines","continent": "North America", "contCode": "na"},
+            {"name": "St. Martin (French part)","continent": "", "contCode": ""},
+            {"name": "Sint Maarten (Dutch part)","continent": "", "contCode": ""},
             {"name": "Sudan","continent": "Africa", "contCode": "af"},
             {"name": "Suriname","continent": "South America", "contCode": "sa"},
-            {"name": "Svalbard and Jan Mayen","continent": "Europe", "contCode": "eu"},
             {"name": "Swaziland","continent": "Africa", "contCode": "af"},
             {"name": "Sweden","continent": "Europe", "contCode": "eu"},
             {"name": "Switzerland","continent": "Europe", "contCode": "eu"},
-            {"name": "Syria","continent": "Asia", "contCode": "as"},
+            {"name": "Syrian Arab Republic","continent": "Asia", "contCode": "as"},
 
+            {"name": "Timor-Leste","continent": "Asia", "contCode": "as"},
+            {"name": "Taiwan, China","continent": "Asia", "contCode": "as"},
             {"name": "Tajikistan","continent": "Asia", "contCode": "as"},
             {"name": "Tanzania","continent": "Africa", "contCode": "af"},
             {"name": "Thailand","continent": "Asia", "contCode": "as"},
-            {"name": "The Democratic Republic of Congo","continent": "Africa", "contCode": "af"},
             {"name": "Togo","continent": "Africa", "contCode": "af"},
-            {"name": "Tokelau","continent": "Oceania", "contCode": "oc"},
+            /*ADD {"name": "Tokelau","continent": "Oceania", "contCode": "oc"},*/
             {"name": "Tonga","continent": "Oceania", "contCode": "oc"},
             {"name": "Trinidad and Tobago","continent": "North America", "contCode": "na"},
             {"name": "Tunisia","continent": "Africa", "contCode": "af"},
@@ -647,23 +416,20 @@ class SearchBar extends React.Component {
             {"name": "United Arab Emirates","continent": "Asia", "contCode": "as"},
             {"name": "United Kingdom","continent": "Europe", "contCode": "eu"},
             {"name": "United States","continent": "North America", "contCode": "na"},
-            {"name": "United States Minor Outlying Islands","continent": "Oceania", "contCode": "oc"},
             {"name": "Uruguay","continent": "South America", "contCode": "sa"},
             {"name": "Uzbekistan","continent": "Asia", "contCode": "as"},
 
             {"name": "Vanuatu","continent": "Oceania", "contCode": "oc"},
             {"name": "Venezuela","continent": "South America", "contCode": "sa"},
             {"name": "Vietnam","continent": "Asia", "contCode": "as"},
-            {"name": "Virgin Islands, British","continent": "North America", "contCode": "na"},
-            {"name": "Virgin Islands, U.S.","continent": "North America", "contCode": "na"},
-
-            {"name": "Wales","continent": "Europe", "contCode": "eu"},
+            {"name": "Virgin Islands (U.S.)","continent": "North America", "contCode": "na"},
+            
+            /*ADD {"name": "Wales", "continent": "Europe", "contCode": "eu"}, */
             {"name": "Wallis and Futuna","continent": "Oceania", "contCode": "oc"},
             {"name": "Western Sahara","continent": "Africa", "contCode": "af"},
-
-            {"name": "Yemen","continent": "Asia", "contCode": "as"},
-            {"name": "Yugoslavia","continent": "Europe", "contCode": "eu"},
-
+            
+            /*Rep. of Yemen*/ {"name": "Yemen, Rep.","continent": "Asia", "contCode": "as"},
+            /*ADD {"name": "Yugoslavia","continent": "Europe", "contCode": "eu"},*/
             {"name": "Zambia","continent": "Africa", "contCode": "af"},
             {"name": "Zimbabwe","continent": "Africa", "contCode": "af"}
         ];
@@ -695,9 +461,10 @@ class SearchBar extends React.Component {
     }
 
     /* -- updateQueryToContinent ----
-        - Description: updates query text and filter based on continent key when 
-                    a world map continent is selected. Is invoked in 
-                    searchLocations.sendContinentSearch(continent) by a ref.
+        - Description: Updates search bar state on text entry or continent map
+                    selection. Closes search if the current continent unselected.
+                    Function is invoked in searchLocations.sendContinentSearch(continent) 
+                    by a ref call.
         - Parameters: cont_key: String
         - Returns: new queryText and filteredCountries state
     */
@@ -705,7 +472,8 @@ class SearchBar extends React.Component {
         if (cont_key === 'none') { // unclick country
             this.setState({filteredCountries: [], queryText: ''});
             this.refs.search.value = '';
-        } else {
+        } 
+        else {
             let newCountryFilter = this.countries.filter((country) => {
                 return (country.contCode.substring(cont_key) === cont_key)
             });

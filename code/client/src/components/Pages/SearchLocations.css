@@ -89,14 +89,21 @@
                     background-color: #eee; /* Add hover effect to all links minus header */
                 }
 
-    #description-box {
+    /*--- Map and Data spacer ---*/
+    #spacer {
+        width: 92%;
         flex-grow: 4;
-        margin: 8px 0 0 8px;
         text-align: center;
-        font-size: 0.9em;
-        font-style: italic;
+        font-size: 0.9em; font-style: italic;
         padding: 4px 6px;
+        margin: 12px 4% 30px 4%; /* 5% = 100 - (96*1/2) */
     }
+    #spacer-line {
+        margin-top: 30px;
+        width: 2;
+        color: #081d68;
+        background-color: #081d68;
+      }
 
 /*=== Map & its Sidebar ===*/
 #map-content-wrap {
@@ -105,7 +112,7 @@
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    margin: 24px 0;
+    margin-top: 24px;
 }
     /*-- Conditional Sidebar --*/
     #side-navigation {
@@ -144,39 +151,25 @@
             stroke-width: 1px;
             stroke-linejoin: bevel;
         }
+
         .map-img .map-unselected {
-            fill: rgb(213, 221, 223);
+            fill: #d5ddd5;
         }
             .map-img .map-unselected:hover {
                 fill: #428FBE;
+                transition: fill 0.5s;
+                transition-delay: 0;
             }
 
         .map-img .map-selected {
             fill: #081d68;
         }
             .map-img .map-selected:hover {
-                fill: #428FBE;
                 cursor: pointer;
+                opacity: 0.85;
             }
 
-/*--- Explore Search Area Footer ---*/
-#explore-spacer {
-    width: 100%;
-    margin: 60px 0 30px 0;
-}
-
-/*--- Conditional "Return to top" Button ---*/
-    /*--find master styles in component */
+/*--- Conditional "Return to top" Button (master styles in component) */
 #new-search-btn:hover {
-    background-color: #555; /* Add a dark-grey background on hover */
-}
-
-/*=== Main - Country Tab Content === */
-.country-pages {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    padding-top: 25px;
-    padding-bottom: 0px;
-    width: 100%;
+    background-color: #555; /*dark-grey background on hover*/
 }

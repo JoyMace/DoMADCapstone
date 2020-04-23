@@ -7,6 +7,7 @@ import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
 
 import countryflag from '../../images/peruflag.png';
+//import e from 'express';
 
 class CountryTabs extends React.Component {
     constructor(props) {
@@ -23,37 +24,32 @@ class CountryTabs extends React.Component {
     }
 
     getData = async (country) => {
+        console.log('fetching', country);
+
         // blogposts & donation items - OK
         // let ping_BP_DI = '/api/user/trip/all-trips?country=' + country;
         // Organizations - NOT WORKING
         // let ping_O = '/api/country-page/country/get-organizations?country=' + country;
         // country info - NOT WORKING
-        console.log('country:', country);
-        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
-        
-        // Other
-        // '/api/user/get-country-info?country=' + country
+        try {
+            let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
+            //let ping = '/api/country-page/country/get-country-info';
 
+            const response = await fetch(ping_CI);
+            const data = await response.json();
+            console.log('STATUS:', response.status);
+            console.log('ERROR TEXT?:', data.message);
 
+            if (response.status !== 200) {
+                console.log("THROW");
+                throw Error(data.message);
+            }
+            return data;
 
-        /*var xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', () => {
-            console.log(xhr.responseText);
-        });
-        xhr.open('GET', ping);*/
-
-        const response = await fetch(ping_CI);
-        const data = await response.json();
-        if (response.status !== 200) {
-            throw Error(response.message)
+        } catch (error) {
+            //console.log("CAUGHT ERROR: ", error);
+            throw error;
         }
-        if (data === null) {
-            console.log("null data");
-        } else {
-            console.log(data);
-        }
-        
-        return data;
     }
     
     // Invoked from parent passing down selected country name
@@ -75,7 +71,8 @@ class CountryTabs extends React.Component {
             transitionDuration: "0.2s", transitionDelay: "0"
         }
         return (
-            <div id="tabs-component" style={defaultStyles}>
+        <div id='country-pages-wrapper'>
+            <div id="tabs-wrapper" style={defaultStyles}>
                 <Tabs>
                     <TabList className="tab-style">
                         <li className="country-flag-block">
@@ -103,6 +100,7 @@ class CountryTabs extends React.Component {
                         <BlogPostsComponent />
                     </TabPanel>
             </Tabs>
+            </div>
         </div>
         )
     }

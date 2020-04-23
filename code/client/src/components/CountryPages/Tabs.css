@@ -1,8 +1,17 @@
-/*#tabs-component {
-    display: flex;
+/*=== Main - Country Tab Content === */
+.country-pages-wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  /*padding-top: 25px;*/
+  padding-bottom: 0px;
+  width: 100%;
+}
+
+#tabs-wrapper {
     margin-right: 1%;
     margin-left: 1%;
-}*/
+}
 
     /*=== <TabList> ===*/
     .tab-style {
@@ -64,10 +73,11 @@
           overflow: visible;
       }
     
-    /*--- From react-tabs ---*/
+/* --- <Tab className = "regular-tabs"> --- */
     .regular-tabs:hover {
-      background-color: #777;
+      background-color: #010925;
     }
+    /*--- From react-tabs ---*/
     .react-tabs__tab--disabled {
       color: gray;
     }
