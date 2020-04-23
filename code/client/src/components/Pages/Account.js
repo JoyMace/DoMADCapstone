@@ -12,8 +12,6 @@ Every part that appears on the page will need to be a separate component.
 For instance, the Account Page will contain a UserForm, a UserProfileData section, and Posts
 that are generated when the Form is used to add Trip Data to DoMAD. */
 
-
-
 /* class with API pull of user info */
 class User extends React.Component {
 	constructor(props) {
@@ -45,8 +43,8 @@ class User extends React.Component {
 					firstName: res.userData.firstName,
 					lastName: res.userData.lastName,
 					signupDate: res.userData.signupDate,
-					tripsCount: res.userData.tripsCount,
-					donationCount: res.userData.donationCount
+					tripsCount: res.userData.tripsCount ? res.userData.tripsCount : "None",
+					donationCount: res.userData.donationCount ? res.userData.donationCount : "None"
 										
 				});
 			})
@@ -525,13 +523,13 @@ class PostContainer extends React.Component {
     var tripInfo = this.props.tripInfo;
     var tripDate = new Date(tripInfo.tripDate);
     this.state = {
-      city: tripInfo.locationID.city,
-      country: tripInfo.locationID.country,
-      tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-	  notes: tripInfo.notes, 
-	  donationItem: tripInfo.donations[0].itemName,
-	  donationRating: tripInfo.donations[0].rating,
-	  userID: tripInfo.userID
+		city: tripInfo.locationID.city,
+		country: tripInfo.locationID.country,
+		tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
+		notes: tripInfo.notes, 
+		donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+		donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+		userID: tripInfo.userID
 	 
     }
 	}
