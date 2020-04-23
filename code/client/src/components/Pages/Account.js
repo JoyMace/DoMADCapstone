@@ -13,19 +13,17 @@ For instance, the Account Page will contain a UserForm, a UserProfileData sectio
 that are generated when the Form is used to add Trip Data to DoMAD. */
 
 
-
 /* class with API pull of user info Displays UserData in upper left corner of AccountPage */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
-	var signUpDate = new Date();
 		this.state = {
 		firstName: "",
 		lastName: "", 
 		signupDate: "",
 		tripsCount: "",
 		donationCount: "",	
-
+		
 	};
 	}
 
@@ -47,8 +45,8 @@ class User extends React.Component {
 					firstName: res.userData.firstName,
 					lastName: res.userData.lastName,
 					signupDate: (signUpDate.getMonth() + 1) + "/" + signUpDate.getDate() + "/" + signUpDate.getFullYear(),
-					tripsCount: res.userData.tripsCount,
-					donationCount: res.userData.donationCount
+					tripsCount: res.userData.tripsCount ? res.userData.tripsCount : "None",
+					donationCount: res.userData.donationCount ? res.userData.donationCount : "None",
 										
 				});
 			})
@@ -78,7 +76,7 @@ class User extends React.Component {
 /* The Form a User fills out when they want to report a trip and donation */
 class UserTripForm extends React.Component {
 	constructor(props) {
-		super(props);		
+		super(props);	
 		this.userID = this.props.userID;
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
@@ -120,9 +118,16 @@ class UserTripForm extends React.Component {
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
+		/* var newSuggestedDonation = {
+		  "itemName": this.state.suggestedDonationItem,
+		  "category": this.state.donationCategorySuggested,
+		  "suggestion": true,
+		  "reason": this.state.suggestedDonationReason
+		} */
 		donations.push(newDonation);
+		//donations.push(newSuggestedDonation);
 		const reqBody = {
-		  "userID": this.userID, // This should work once you can signin and a login session is saved"5e77a660f3ad797398557439"
+		  
 		  "tripDate": this.state.tripDate,
 		  "donations": donations,
 		  "notes": this.state.description,
@@ -163,7 +168,7 @@ class UserTripForm extends React.Component {
 
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
-				<input name="userID" value={this.userID} type="hidden"/>
+				{/*<input name="userID" value={this.userID} type="hidden"/>*/}
 				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
 					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
@@ -532,9 +537,9 @@ class PostContainer extends React.Component {
       country: tripInfo.locationID.country,
       tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
 	  notes: tripInfo.notes, 
-	  donationItem: tripInfo.donations[0].itemName,
-	  donationRating: tripInfo.donations[0].rating,
-	  userID: tripInfo.userID
+	  donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+	  donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+	  userID: tripInfo.userID  
 	 
     }
 	}
@@ -589,7 +594,7 @@ function Post(props) {
 		<br></br>
 			<div className="Post-stars"> Donation rating: {star_number}	</div>
 		<br></br>
-		<div className="Post-donation-row"> Suggested Donations:  {PostContainer.donation}</div>
+		<div className="Post-donation-row"> Suggested Donations:  {props.post.donationItem}</div>
 		<br></br>
 	</div>
   );
@@ -598,7 +603,6 @@ function Post(props) {
 class AccountContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		
     this.state = { loading: 'true', reloadAccount: this.reload };
 	}
   reload = () => {
@@ -618,7 +622,8 @@ class AccountContainer extends React.Component {
     const data = await response.json();
     if (response.status !== 200) {
       throw Error(response.message)
-    }
+	}
+	console.log(data);
     return data;
   }; 
 	componentDidMount() {
@@ -650,17 +655,15 @@ function Account(props) {
 		  <PostContainer tripInfo={trip} />
 		</div>
 	  });
-	  trips = <div className="main-bottom-row">
-		{trips.reverse()}
-	  </div>
+	  trips = <div>{trips.reverse()} </div>
 	}
 	
 	return (
 	  <div className="Account">
-		  <div className='main-top-row'>
-			  <div className='left-column'>
+		  <div className='account-row'>
+			  <div className='account-column'>
 				  <div className='user-info-container'>
-					  <User userID={props.post.userID}/>
+					  <User /> 
 				  </div>
 					  <br></br>
 					  <div id="mapid">
@@ -668,20 +671,21 @@ function Account(props) {
 					  <div className='map' >
 						  <img src={ WorldMapImage } alt="map of the world" width='600px'/>
 					  </div>
-					  <p style={{fontSize:12, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
+					  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
 				  </div>
 			  </div>
-			  <div className='right-column'>
+			  <div className='account-column'>
 					<div className='container'>
 					  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
 						  Share your recent DoMAD travel story!
 					  </h3>
-					  <UserTripForm reloadAccount={props.post.reloadAccount} userID={props.post.userID}/>
+					  <UserTripForm reloadAccount={props.post.reloadAccount} />
 					</div>
 			  </div>
 		  </div>
-		  <div className='main-bottom-row'>
-		  	<h1 style={{padding: 20, lineHeight:2}}> Your Trips </h1>
+		  <h1 style={{lineHeight:2}}> Your Trips </h1>
+		  <div className='account-row'>
+		  	
 	  		{trips}
 		  	</div>
 	  </div>

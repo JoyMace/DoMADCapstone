@@ -31,6 +31,15 @@ class Login extends React.Component {
         if ((username && password)) {
             this.props.login(username, password);
         }
+        let currentComponent = this;
+
+    axios.post('/api/user/auth/login',{username:this.state.username,password:this.state.password})
+    .then(function(response){
+
+        if(response.status === 200){
+            currentComponent.setState({ submitted: true });
+        }
+    })
 
   }
 
@@ -38,7 +47,7 @@ class Login extends React.Component {
     const { username, password, submitted } = this.state;
     if (this.state.submitted) {
       // redirect to account page if signed in
-      return <Redirect to = {{ pathname: "/account" }} />;
+      return <Redirect to = {{ pathname: "/account/:username" }} />;
     }
     return (
       <div className = "Login">

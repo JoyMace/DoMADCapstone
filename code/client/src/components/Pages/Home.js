@@ -21,8 +21,8 @@ class HomeBlogInfo extends React.Component {
         this.state = {
             city: tripInfo.locationID.city,
             country: tripInfo.locationID.country,
-            donationItem: tripInfo.donations[0].itemName,
-            donationRating: tripInfo.donations[0].rating,
+            donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+	        donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
             privatePost: tripInfo.isPrivate
         }
     }

@@ -1,3 +1,6 @@
+.Account {
+	margin-left: 10%;
+}
 /* Post Container */
 .post-container {	
 	display:flex;
@@ -6,19 +9,12 @@
 	border-radius: 5px;
 	color: #FFFFFF;
 	padding: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 15px;
 	align-content: center;
-	width: 32%;	
+	width: 100%;	
 	flex-wrap: wrap;
+	margin: 10%;
 }
-.Post {
-	width: 100%;
-	display: flex;
-	flex: 2;
-	flex-direction: column;
-}
+
 /* Post Top Row*/
 .post-top-row {
 	display: flex;
@@ -53,7 +49,7 @@
 	flex-flow: column-wrap;
 	align-items: center;
 	width: 100%;
-	flex: 1;	
+	flex: 50%;	
 }
 /* Post Details */
 .post-description-row {	
@@ -180,36 +176,25 @@
 
 /* Whole Page Formatting to give Top Row, Two columns on top, and Bottom row*/
 /* Top Row contains user info, user map and Trip form */
-.main-top-row {	
+.account-row {	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
 	width: 100%;	
 	align-items: stretch;	
 	flex: 1;
-	padding-top: 100px;
-	flex-wrap: wrap;
-	margin: auto;
-	
+	flex-wrap: wrap;	
 }
 
 /* This is the left side of the Top Row */
-.left-column {		
+.account-column {		
 	flex-direction: column;
 	margin-top: 20px;
-	margin-left: 10%;
 	margin-right: 0%;
 	flex: 1;
+	padding-top: 100px;
 }
 
-/* This is the right side of the Top Row */
-.right-column {		
-	flex-direction: column;
-	margin-top: 20px;	
-	margin-left: 0%;
-	margin-right: 0%;
-	flex: 1;
-}
 /* This is the portion of the Top Left Column that contains user Data */
 .user-info-row {
 	display: flex;
@@ -265,11 +250,4 @@
 .UserInfo {
 	display: flex;
 	font-size: 12px;	
-}
-/* Bottom row contains Posts */
-.main-bottom-row {
-	display: flex;
-	flex-wrap: wrap;
-	margin: auto;
-	width: 95%;			
 }
