@@ -57,7 +57,7 @@ console.log(req.user);
           });
         }
         else{
-          userData['tripsCount'] = user[0] ? user[0].count : 0
+          userData['tripsCount'] = user[0] ? user[0].count : 0;
           console.log("USER TRIP COUNT", userData['tripsCount'], user[0]);
           Trip.aggregate( [
             { $lookup:
@@ -77,7 +77,7 @@ console.log(req.user);
               });
             }
             else{
-              userData['donationCount'] = user[0] ? user[0].count : 0
+              userData['donationCount'] = user[0] ? user[0].count : 0;
               console.log("USER DONATION COUNT", userData['donationCount'], user[0]);
               return res.status(profileCodes.profile.success.status).send({userData: userData});
             }
