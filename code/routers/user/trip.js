@@ -29,6 +29,7 @@ const donationFunc = require('./donation');
 
 */
 router.post('/report', function(req, res) {
+  console.log("POST REQUEST USER", req.user);
   const {tripDate, country, city, donations, notes, isPrivate } = req.body;
 
   // check for inappropriate words in 
