@@ -528,79 +528,79 @@ class UserTripForm extends React.Component {
 
 
 /* The card that displays a user's trip information by date in descending order */
-class PostContainer extends React.Component {
+class Post extends React.Component {
 	constructor(props) {
 		super(props)
     var tripInfo = this.props.tripInfo;
-    var tripDate = new Date(tripInfo.tripDate);
+	var tripDate = new Date(tripInfo.tripDate);
+	
     this.state = {
-      city: tripInfo.locationID.city,
-      country: tripInfo.locationID.country,
-      tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-      notes: tripInfo.notes, 
-      donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
-      donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
-      userID: tripInfo.userID
-	 
-    }
+		city: tripInfo.locationID.city,
+		country: tripInfo.locationID.country,
+		tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
+		notes: tripInfo.notes, 
+		donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+		donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+		userID: tripInfo.userID	 
+    	}
 	}
+	
 	render() {
-		return <Post post={this.state} />
+		var star_number;
+		var rating_number = this.state.donationRating;
+		if (rating_number === 1) 
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 2)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 3)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 4)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 5)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+	return (
+		
+			<div className="Post">
+				<div className="post-top-row">
+					<div className="post-destination-column">
+						<div className="Post-destination">{this.state.city}, {this.state.country}</div>
+					</div>
+					<div className="post-date-column">
+						<div className="Post-date"> {this.state.tripDate}</div>
+					</div>
+				</div>
+				<div className="post-middle-row">
+					<div className="Post-image">
+						<img src={ ComingSoonIcon } alt="One person helping another" height='175px'/>
+					</div>
+				</div>
+				<br></br>
+				<div className="post-description-row"> {this.state.notes} </div>
+				<br></br>
+				<div className="Post-donation-row"> Items Donated:  {this.state.donationItem}</div>
+				<br></br>
+				<div className="Post-stars"> Donation rating: {star_number}	</div>
+				<br></br>
+				<div className="Post-donation-row"> Suggested Donations:  {this.state.donationItem}</div>
+				<br></br>
+			</div>
+		
+  		);
 	}
 }
 
-/* This function handles the formatting of the Trip Cards on an Account Page */
-function Post(props) {
-	var star_number;
-	var rating_number = props.post.donationRating;
-	if (rating_number === 1) 
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 2)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 3)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 4)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 5)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	return (
-	<div className="Post">
-		<div className="post-top-row">
-			<div className="post-destination-column">
-				<div className="Post-destination">{props.post.city}, {props.post.country}</div>
-			</div>
-			<div className="post-date-column">
-				<div className="Post-date"> {props.post.tripDate}</div>
-			</div>
-		</div>
-		<div className="post-middle-row">
-			<div className="Post-image">
-			<img src={ ComingSoonIcon } alt="One person helping another" height='175px'/>
-			</div>
-		</div>
-		<br></br>
-		<div className="post-description-row"> {props.post.notes} </div>
-		<br></br>
-		<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
-		<br></br>
-			<div className="Post-stars"> Donation rating: {star_number}	</div>
-		<br></br>
-		<div className="Post-donation-row"> Suggested Donations:  {props.post.donationItem}</div>
-		<br></br>
-	</div>
-  );
-}
-/* This component loads Trip Info from the database for Trip Cards on an Account Page */
+
+/* This component loads Trip Info from the database for Posts on an Account Page */
 class AccountContainer extends React.Component {
 	constructor(props) {
 		super(props)
@@ -652,11 +652,10 @@ function Account(props) {
 	if(props.post.loading === "false"){
 	  var tripData = props.post.trips.trips;
 	  trips = tripData.map(trip => {
-		return <div className='post-container'>
-		  <PostContainer tripInfo={trip} />
-		</div>
+		return (<Post tripInfo={trip}/> )
+				
 	  });
-	  trips = <div>{trips.reverse()} </div>
+	  trips = <div className="account-row">{trips.reverse()} </div>
 	}
 	
 	return (
@@ -664,16 +663,16 @@ function Account(props) {
 		  <div className='account-row'>
 			  <div className='account-column'>
 				  <div className='user-info-container'>
-					  <User /> 
+					  <User/> 
 				  </div>
+				  <br></br>					  
+				  <h1>Your Travel Map</h1>
+				  <div className='map'style={{margin: "auto"}} >
 					  <br></br>
-					  <div id="mapid">
-					  <h1>Your Travel Map</h1>
-					  <div className='map' >
-						  <img src={ WorldMapImage } alt="map of the world" width='600px'/>
-					  </div>
-					  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
+					  <br></br>
+					<img src={ WorldMapImage } alt="map of the world" width='590px' style={{marginRight: '10px'}}/>
 				  </div>
+				  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>				  
 			  </div>
 			  <div className='account-column'>
 					<div className='container'>
@@ -685,10 +684,7 @@ function Account(props) {
 			  </div>
 		  </div>
 		  <h1 style={{lineHeight:2}}> Your Trips </h1>
-		  <div className='account-row'>
-		  	
-	  		{trips}
-		  	</div>
+		    {trips}	
 	  </div>
 	  );
   }
