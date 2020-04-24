@@ -31,14 +31,22 @@ class Login extends React.Component {
         if ((username && password)) {
             this.props.login(username, password);
         }
+        let currentComponent = this;
 
+    axios.post('/api/user/auth/login',{username:this.state.username,password:this.state.password})
+    .then(function(response){
+
+        if(response.status === 200){
+            currentComponent.setState({ submitted: true });
+        }
+    })
   }
 
   render() {
     const { username, password, submitted } = this.state;
     if (this.state.submitted) {
       // redirect to account page if signed in
-      return <Redirect to = {{ pathname: "/account" }} />;
+      return <Redirect to = {{ pathname: "/account/:username" }} />;
     }
     return (
       <div className = "Login">
@@ -62,10 +70,10 @@ class Login extends React.Component {
           }
           </div>
           <div className="signinbutton">
-            <button type="submit">Sign In</button>
-            <ul><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
-            <ul><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
-            <ul><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
+            <button type="submit" className="signinbuttonstyling">Sign In</button>
+            <ul className="accountlink"><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
+            <ul className="accountlink"><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
+            <ul className="accountlink"><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
           </div>
         </form>
        </div>
