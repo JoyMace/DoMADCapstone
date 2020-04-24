@@ -62,32 +62,32 @@ class Register extends React.Component {
                 <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="username">
                         <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                        <input required = "Required" type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
                     </div>
                     <div className="firstName">
                         <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={firstName} onChange={this.handleChange} />
+                        <input required = "Required" type="text" className="form-control" name="firstName" value={firstName} onChange={this.handleChange} />
 
                     </div>
                     <div className="lastName">
                         <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control" name="lastName" value={lastName} onChange={this.handleChange} />
+                        <input required = "Required" type="text" className="form-control" name="lastName" value={lastName} onChange={this.handleChange} />
 
                     </div>
                     <div className="email">
                         <label htmlFor="email">Email address</label>
-                        <input type="text" className="form-control" name="email" value={email} onChange={this.handleChange} />
+                        <input required = "Required" type="text" className="form-control" name="email" value={email} onChange={this.handleChange} />
 
                     </div>
 
                     <div className="password">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                        <input required = "Required" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
 
                     </div>
                     <div className="verifyPassword">
                         <label htmlFor="verifyPassword">Verify Password</label>
-                        <input type="password" className="form-control" name="verifyPassword" value={verifyPassword} onChange={this.handleChange} />
+                        <input required = "Required" type="password" className="form-control" name="verifyPassword" value={verifyPassword} onChange={this.handleChange} />
 
                     </div>
                     <div className="createAccount">
