@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './Register.css';
-
+import axios from 'axios';
 
 class Register extends React.Component {
     constructor(props) {
@@ -29,21 +29,37 @@ class Register extends React.Component {
 
     handleSubmit(e) {
           e.preventDefault();
-          this.setState({ submitted: true });
-          const { username, firstName, lastName, email, password, verifyPassword } = this.state;
-          if ((username && firstName && lastName && email && password && verifyPassword)) {
-              this.props.Register(username, firstName, lastName, email, password, verifyPassword);
-          }
+          
+          let currentComponent = this;
+      
+          axios.post('/api/user/auth/signup',
+          {
+            username:this.state.username,
+            password:this.state.password, 
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            verifyPassword: this.state.verifyPassword
+          })
+          .then(function(response){
+              if(response.status === 200){
+                  currentComponent.setState({ submitted: true });
+              }
+          })
 
       }
 
     render() {
         const { username, firstName, lastName, email, password, verifyPassword } = this.state;
+        if (this.state.submitted) 
+        {
+          return <Redirect to ={{ pathname:"/login" }} />;
+        }
         return (
             <div className="Register">
               <div className="register-left">
                 <h1 className="title">Create Account</h1>
-                <form className="RegisterForm" onSubmit={this.handleSubmit} action="/api/user/auth/signup" method="POST">
+                <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="username">
                         <label htmlFor="username">Username</label>
                         <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
@@ -94,20 +110,33 @@ class Register extends React.Component {
             </div>
         );
     }
-
-
-handleChange = event => {
-  this.setState({
-    [event.target.name]: event.target.value
-  });
-};
-
-handleSubmit = event => {
-  console.log("Submitting");
-  console.log(this.state);
-  };
+    handleChange = event => {
+      this.setState({
+        [event.target.name]: event.target.value
+      });
+    };
+    handleSubmit = event => {
+      event.preventDefault();
+          let currentComponent = this;
+          axios.post('/api/user/auth/signup',
+          {
+            username:this.state.username,
+            password:this.state.password, 
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            verifyPassword: this.state.verifyPassword
+          })
+          .then(function(response){
+            console.log(response.status);
+              if(response.status === 201){
+                  currentComponent.setState({ submitted: true });                  
+              }
+          })
+      console.log("Submitting", this.state.submitted);
+      console.log(this.state);
+      };
+    
 }
-
-
 
 export default Register;
