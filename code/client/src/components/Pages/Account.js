@@ -569,7 +569,7 @@ class Post extends React.Component {
 			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
 	return (
-		<div className="post-column">
+		
 			<div className="Post">
 				<div className="post-top-row">
 					<div className="post-destination-column">
@@ -594,7 +594,7 @@ class Post extends React.Component {
 				<div className="Post-donation-row"> Suggested Donations:  {this.state.donationItem}</div>
 				<br></br>
 			</div>
-		</div>
+		
   		);
 	}
 }
@@ -655,7 +655,7 @@ function Account(props) {
 		return (<Post tripInfo={trip}/> )
 				
 	  });
-	  trips = <div>{trips.reverse()} </div>
+	  trips = <div className="account-row">{trips.reverse()} </div>
 	}
 	
 	return (
@@ -667,8 +667,10 @@ function Account(props) {
 				  </div>
 				  <br></br>					  
 				  <h1>Your Travel Map</h1>
-				  <div className='map' >
-					<img src={ WorldMapImage } alt="map of the world" width='600px'/>
+				  <div className='map'style={{margin: "auto"}} >
+					  <br></br>
+					  <br></br>
+					<img src={ WorldMapImage } alt="map of the world" width='590px' style={{marginRight: '10px'}}/>
 				  </div>
 				  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>				  
 			  </div>
@@ -682,7 +684,7 @@ function Account(props) {
 			  </div>
 		  </div>
 		  <h1 style={{lineHeight:2}}> Your Trips </h1>
-		  <div className='account-row'>  {trips}	</div>
+		    {trips}	
 	  </div>
 	  );
   }
