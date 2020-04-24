@@ -57,11 +57,19 @@ console.log(req.user);
           });
         }
         else{
-          userData['tripsCount'] = user[0] ? user[0].count : 0
+          userData['tripsCount'] = user[0] ? user[0].count : 0;
           console.log("USER TRIP COUNT", userData['tripsCount'], user[0]);
-          Donation.aggregate( [
-            { $match: { userID : userID } }, //this needs to match on trips that match on userID so this count will be wrong
-            { $group: {"_id" : null, count: { $sum : 1 }}}], function(err, user) {
+          Trip.aggregate( [
+            { $lookup:
+              {
+                from: "Donations",
+                localField: "userID",
+                foreignField: "tripID",
+                as: "matched-docs"
+              }
+            }, 
+            { $match: { userID : userID },  },           
+            { $group: { _id : null, count: { $sum : 1 } } }], function(err, user) {
 
             if(err) {
               return res.status(profileCodes.profile.donationcountNotFound.status).send({
@@ -69,7 +77,7 @@ console.log(req.user);
               });
             }
             else{
-              userData['donationCount'] = user[0] ? user[0].count : 0
+              userData['donationCount'] = user[0] ? user[0].count : 0;
               console.log("USER DONATION COUNT", userData['donationCount'], user[0]);
               return res.status(profileCodes.profile.success.status).send({userData: userData});
             }
