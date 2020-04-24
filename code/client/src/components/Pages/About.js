@@ -2,14 +2,14 @@ import React from 'react';
 import './About.css';
 import HeaderImage from '../../images/Frequent-Traveler-Successful.jpg';
 import FounderImage1 from '../../images/Founder/Horseride.jpg';
-// import FounderImage2 from '../../images/Founder/Horseride2.jpg';
+// import FounderImage2 from '../../images/Founder/Horseride2.jpg'; // extra image for founders section if needed
 import FounderImage3 from '../../images/Founder/PeruHike.JPG';
 import FounderImage4 from '../../images/Founder/shannahanridge.jpg';
 
 function About() {
     return (
         <div className="about">
-            <StickyContainer className="about-container">
+            <StickyContainer className="about-container"> {/* see StickContainer function below */}
                 <div className="tinted" >
                     <img className="about-image" src={HeaderImage} alt="person backpacking"/>
                 </div>
@@ -77,7 +77,7 @@ function About() {
     )
 }
 
-function StickyContainer({ children, sticky=false, className, ...rest }){
+function StickyContainer({ children, sticky=false, className, ...rest }){ // this is necessary to have the content appear over top of the image at the top of this page
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
     

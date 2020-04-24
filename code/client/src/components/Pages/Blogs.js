@@ -4,10 +4,10 @@ import defaultblogimage from '../../images/png_icons/comingSoonIcon.svg';
 import { FaStar } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 
-let blogAPI = 'api/user/trip/all-trips?';
-let countryselected = false;
+let blogAPI = 'api/user/trip/all-trips?'; // the API call
+let countryselected = false; // will show true when a country has been selected from the continent drop down options
 
-class BlogInfo extends React.Component {
+class BlogInfo extends React.Component { // this is what pull the back end trip info and assigns it to variables set in the state
     constructor(props) {
 		super(props)
 
@@ -26,14 +26,14 @@ class BlogInfo extends React.Component {
     }
 
 	render() {
-		return <BlogEntry blog={this.state} />
+		return <BlogEntry blog={this.state} /> // the state with all back end info is returned to the function BlogEntry so it can be shown on the page
 	}
 }
 
-function BlogEntry(props) {
-    var star_amount;
+function BlogEntry(props) { // need to take in props in order to pull from class BlogInfo
+    var star_amount; // star amount is the amount of stars shown for the donation rating based on the rating pulled from the back end
     if(props.blog.donationRating === 1) {
-        star_amount = <div><FaStar /></div>
+        star_amount = <div><FaStar /></div> // <FaStar /> is a separate package that is imported into the file in order to use the star icons
     }
     else if(props.blog.donationRating === 2) {
         star_amount = <div><FaStar /> <FaStar /></div>
@@ -52,12 +52,12 @@ function BlogEntry(props) {
         <div className="blog-container">
             <div className="blog-entry">
                 <div className="top-blog-image">
-                    <img src={ defaultblogimage } alt="boulder" />
+                    <img src={ defaultblogimage } alt="icon of person donating something" /> {/* default image used for blogs image since currently there is no functionality to upload images*/}
                 </div>
                 <div className="bottom-blog-content">
                     <div className="blog-same-line">
                         <h4>Location: </h4>
-                        {props.blog.country}
+                        {props.blog.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
                     </div>
                     <div className="blog-same-line">
                         <h4>Travel Date: </h4>
@@ -68,10 +68,10 @@ function BlogEntry(props) {
                         {props.blog.donationItem}
                     </div>
                     <div className="star-blog-rating">
-                        <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
+                        <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}> {/* this sets styling for the star icons used */}
                             <div className="star-blog-rating">
                                 <h4>Rating: </h4>
-                                {star_amount}
+                                {star_amount} {/* stars are returned in brackets in order to render */}
                             </div>
                         </IconContext.Provider>
                     </div>
@@ -86,14 +86,13 @@ class BlogContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-            loading: 'true', reloadAccount: this.reload
+            loading: 'true', reloadAccount: this.reload // loading is used to know when to reload the page after changes have been made
         };
     }
 
-    reload = () => {
-        console.log('READLOAD');
+    reload = () => { // this function is used to reload the information needed
         this.setState({ loading: 'true', reloadAccount: this.reload });
-        this.getTrips(this)
+        this.getTrips(this) // reload calls getTrips so that the function can call the api again after loading
           .then(res => {
             this.setState({
               trips: res,
@@ -105,7 +104,7 @@ class BlogContainer extends React.Component {
 
     getTrips = async () => {        
         
-        if(countryselected === false) {
+        if(countryselected === false) { // if a country hasn't been selected from the drop downs then the normal api is called for all trips
             const response = await fetch('/api/user/trip/all-trips');
             const data = await response.json();
             if (response.status !== 200) {
@@ -113,9 +112,9 @@ class BlogContainer extends React.Component {
             }
             return data;
         }
-        else {
-            var response2 = await fetch(this.state.countryAppend);
-            response2 = await fetch(this.state.countryAppend);
+        else { // if a country has been selected then the altered api call from updateCountryonClick is called - see notes in that function for details
+            var response2 = await fetch(this.state.countryAppend); // need to make this instance of response a var because it needs to be called twice - therefore it can't be a const
+            response2 = await fetch(this.state.countryAppend); // need to call this twice because without it the first time a country is selected the api is undefined - calling this twice causes the api call to include the correct information
             const data2 = await response2.json();
             if (response2.status !== 200) {
               throw Error(response2.message)
@@ -136,17 +135,17 @@ class BlogContainer extends React.Component {
       .catch(err => console.log(err)); // TODO: handle all errors and relay to user
     }
 
-    updateCountryonClick = (event) => {
-        const target = event.target;
-        const name = target.value;
-        const countryAppend = blogAPI + 'country=' + name;
-        countryselected = true;
+    updateCountryonClick = (event) => { // is triggered when a country is selected from the drop downs
+        const target = event.target; // this gets information from the select statement in the BlogDropDown class
+        const name = target.value; // this gets the value of the country that was selected
+        const countryAppend = blogAPI + 'country=' + name; // this takes the api call at the top and adds what's needed to query by country - that is api/country=countryname
+        countryselected = true; // this changes countryselected to be true so that the normal api isn't called when getTrips runs
         this.setState({
             countryAppend: countryAppend,
             loading: 'false',
             reloadAccount: this.reload
         });
-        this.reload();
+        this.reload(); // this is needed in order to render the correct trips
     }
 
 	render() {
@@ -157,7 +156,7 @@ class BlogContainer extends React.Component {
                         <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
                     </div>
                     <div className="country-button-container">
-                        <BlogDropDown updateCountry={this.updateCountryonClick} />
+                        <BlogDropDown updateCountry={this.updateCountryonClick} /> {/* this pulls in the class BlogDropDown so that it can be accessed by updateCountryonClick */}
                     </div>
                     <Blogs blog={this.state} />
                 </div>
@@ -177,7 +176,7 @@ class BlogContainer extends React.Component {
 	}
 }
 
-class BlogDropDown extends React.Component {
+class BlogDropDown extends React.Component { // this class has only the drop down information and no other functionality
     constructor(props) {
 		super(props)
 		this.state = {
@@ -187,9 +186,9 @@ class BlogDropDown extends React.Component {
 
     render () {
         return (
-            <div className="country-button-container">
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
-                    <option selected>Africa</option>
+            <div className="country-button-container"> {/* each country is listed and sorted by continent */}
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}> {/* for select statements you need to use onChange so when an option is selected it triggers onChange */}
+                    <option selected>Africa</option> {/* this is needed in order to show the continent as the default value before selecting anything */}
                     <option value='Algeria'>Algeria</option>
                     <option value='Angola'>Angola</option>
                     <option value='Benin'>Benin</option>
@@ -450,7 +449,7 @@ class BlogDropDown extends React.Component {
     }
 }
 
-function Blogs(props) {
+function Blogs(props) { // function to take back end data and display it
 
     var trips = <div></div>
 
@@ -464,7 +463,7 @@ function Blogs(props) {
         });
 
         trips = <div className="blog-trips-container">
-            {trips.reverse()}
+            {trips.reverse()} {/* trips needs to be displayed in reverse order to show newest to oldest */}
         </div>
     }
 
@@ -475,4 +474,4 @@ function Blogs(props) {
     );
 }
 
-export default BlogContainer;
+export default BlogContainer; // have to export the BlogContainer class in order to get everything to render

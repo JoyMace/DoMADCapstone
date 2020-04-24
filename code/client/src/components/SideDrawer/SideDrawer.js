@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 
 let drawerClasses = 'side-drawer';
 
+// see navbar file for comments on how log in/log out functionality works
+
+// it was decided that if a user was not logged in they would not be able to access the blogs page or Share Your Trip page so those are removed as options when a user isn't logged in
+
 var loggedin = false;
 
 class sideDrawer extends React.Component {
@@ -17,7 +21,6 @@ class sideDrawer extends React.Component {
     }
 
     reload = () => {
-        console.log('READLOAD');
         this.setState({ loading: 'true', reloadAccount: this.reload });
         this.checkLoggedInStatus(this)
           .then(res => {
