@@ -60,8 +60,15 @@ console.log(req.user);
           userData['tripsCount'] = user[0] ? user[0].count : 0
           console.log("USER TRIP COUNT", userData['tripsCount'], user[0]);
           Donation.aggregate( [
-            { $match: { userID : userID } }, //this needs to match on trips that match on userID so this count will be wrong
-            { $group: {"_id" : null, count: { $sum : 1 }}}], function(err, user) {
+            { $lookup:
+              {
+                from: "Trips",
+                localField: "tripID",
+                foreignField: "userID",
+                as: "matched-docs"
+              }
+            },            
+            { $group: { _id : null, count: { $sum : 1 } } }], function(err, user) {
 
             if(err) {
               return res.status(profileCodes.profile.donationcountNotFound.status).send({
