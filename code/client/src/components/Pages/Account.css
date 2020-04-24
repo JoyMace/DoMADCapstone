@@ -1,18 +1,22 @@
 .Account {
 	margin-left: 10%;
 }
-/* Post Container */
-.post-container {	
-	display:flex;
+.Post {
+	width: 30%;
+	margin: 10px;
 	background: #363D48;
 	border: 1px solid #FFFFFF;
 	border-radius: 5px;
 	color: #FFFFFF;
 	padding: 10px;
-	align-content: center;
-	width: 100%;	
-	flex-wrap: wrap;
-	margin: 10%;
+	align-content: center;	
+	flex: 30%;
+	float: left;
+	
+}
+/* Post Container */
+.post-column {	
+	flex: 1;
 }
 
 /* Post Top Row*/
@@ -60,7 +64,6 @@
 	flex-basis: 0;
 	flex-grow: 1;	
 }
-
 
 .post-donation-row {	
 	display: flex;
@@ -179,10 +182,8 @@
 .account-row {	
 	display: flex;
 	flex-direction: row;
-	flex-flow: column-wrap;
 	width: 100%;	
 	align-items: stretch;	
-	flex: 1;
 	flex-wrap: wrap;	
 }
 
@@ -191,7 +192,6 @@
 	flex-direction: column;
 	margin-top: 20px;
 	margin-right: 0%;
-	flex: 1;
 	padding-top: 100px;
 }
 
