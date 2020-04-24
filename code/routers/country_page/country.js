@@ -78,7 +78,7 @@ router.get('/get-country-info', (req, res) => {
 
   Country.find(query, function(err, country) {
 
-    if(err) {
+    if(err || country.length == 0) {
       return res.status(countryCodes.countryInfo.countryNotFound.status).send({
         message: countryCodes.countryInfo.countryNotFound.message
       });
