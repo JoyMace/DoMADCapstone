@@ -199,9 +199,9 @@ router.get('/user-trips', function(req, res) {
   
   // checks if user is logged in or external request
   if ('userID' in req.query){
-    query['_id'] = req.query.userID;
+    query['userID'] = req.query.userID;
   } else if ( 'user' in req ) {
-    query['_id'] = req.user._id;
+    query['userID'] = req.user._id;
   } else {
     return res.status(tripCodes.userTrips.userNotGiven.status).send({
       message: tripCodes.userTrips.userNotGiven.message});
