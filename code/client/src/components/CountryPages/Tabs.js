@@ -5,9 +5,11 @@ import CountryInfoComponent from '../CountryPages/CountryInfo';
 import DonationItemsComponent from '../CountryPages/DonationItems';
 import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
+// Batch import all flag files
 
-import countryflag from '../../images/peruflag.png';
-//import e from 'express';
+const flags = require.context('./flags', false);
+//const flagPath = (name) => flags(name, true);
+
 
 class CountryTabs extends React.Component {
     constructor(props) {
@@ -15,54 +17,56 @@ class CountryTabs extends React.Component {
 
         this.state = { 
             active: false, 
-            current_country: 'none',
-            country_image_url: ''
+            active_name: '',
+            active_abbr: 'USA',
+            loading_info: false, loading_donations: false,
+            loading_orgs: false, loading_blogs: false
         };
 
-        this.getData = this.getData.bind(this);
         this.receiveCountry = this.receiveCountry.bind(this);
+        this.handleDataLoading = this.handleDataLoading.bind(this);
     }
 
-    getData = async (country) => {
-        console.log('country:', country);
-        //let ping = '/api/country-page/country/get-country-info';
-
-        // blogposts & donation items - OK
-        // let ping_BP_DI = '/api/user/trip/all-trips?country=' + country;
-        // Organizations - NOT WORKING
-        // let ping_O = '/api/country-page/country/get-organizations?country=' + country;
-        // country info - NOT WORKING
-        
-        try {
-            let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
-            
-            const response = await fetch(ping_CI);
-            const data = await response.json();
-            console.log('STATUS:', response.status);
-            console.log('ERROR TEXT?:', data.message);
-
-            if (response.status !== 200) {
-                console.log("THROW");
-                throw Error(data.message);
-            }
-            return data;
-
-        } catch (error) {
-            //console.log("CAUGHT ERROR: ", error);
-            throw error;
-        }
-    }
-    
     // Invoked from parent passing down selected country name
+    // Passes country to the loader handler
     receiveCountry(country) {
-        // only do this once we grab the data
         this.setState({
-            current_country: (country.substring(0,1).toUpperCase() + country.substring(1)),
-            active: true
+            active_name: (country.substring(0,1).toUpperCase() + country.substring(1)),
+            active: true,
         });
-        this.getData(country);
+        this.handleDataLoading(country);
     }
 
+    // First invokes callback of CountryInfo, then sends and receives
+    // db calls to DonationItems, Organizations, and Blog
+    handleDataLoading = (country) => {
+
+        // First attempt loading country info
+        this.setState({ loading_info: true});
+        console.log('Loading country info...');
+
+        // getInfo 'res' is a tuple: [success, (success ? abbr: null)]
+        this.refs.CountryInfo.getInfo(country)
+            .then(res => {
+                console.log(res[0], res[1]);
+                if (res[0] == true) {
+                    console.log("country info load success!");
+                    //document.getElementById('country-flag').src = res[1] + '.png';
+                    //this.flag_path = 'flags/' + res[1] + '.png';
+                    
+                    this.setState({ active_abbr: res[1], loading_info: false,
+                        loading_donations: true, 
+                        loading_orgs: true, 
+                        loading_blogs: true
+                    });
+                    // load rest of data
+                } else {
+                    console.log('bad');
+                }
+            });   
+    }
+
+    //<img src={`${require(flag_path)}`} alt="No Flag" id="country-flag"/>
     render() {
         let defaultStyles = {
             display: (this.state.active ? 'flex' : 'none'),
@@ -71,13 +75,16 @@ class CountryTabs extends React.Component {
             transition: "visibility 0s, opacity 0.5s linear",
             transitionDuration: "0.2s", transitionDelay: "0"
         }
+        console.log('abbr:', this.state.active_abbr);
+        //let flag_path = 'flags/' + this.state.active_abbr + '.png';
+        let flag_path = './flags/USA.png';
         return (
         <div id='country-pages-wrapper'>
             <div id="tabs-wrapper" style={defaultStyles}>
                 <Tabs>
                     <TabList className="tab-style">
                         <li className="country-flag-block">
-                            <img src={countryflag} alt="peru flag" className="flag_image"/>
+                            <img src='/flags/USA.png' alt="No Flag" id="country-flag"/>
                         </li>
                         <li className="country-name-block">
                             <h3>{this.state.current_country}</h3>
@@ -89,16 +96,16 @@ class CountryTabs extends React.Component {
                     </TabList>
 
                     <TabPanel tabIndex={0}>
-                        <CountryInfoComponent />
+                        <CountryInfoComponent ref="CountryInfo"/>
                     </TabPanel>
                     <TabPanel tabIndex={1}>
-                        <DonationItemsComponent />
+                        <DonationItemsComponent ref="DonationItems"/>
                     </TabPanel>
                     <TabPanel tabIndex={2}>
-                        <OrganizationsComponent />
+                        <OrganizationsComponent ref="Organizations"/>
                     </TabPanel>
                     <TabPanel tabIndex={3}>
-                        <BlogPostsComponent />
+                        <BlogPostsComponent ref="BlogPosts"/>
                     </TabPanel>
             </Tabs>
             </div>
