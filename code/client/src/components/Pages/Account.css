@@ -253,12 +253,8 @@
 @media screen and (max-width: 600px) {
     .Post {
         max-width: 100%;
-    }
-}
-/* On smaller screens, switch to columns */
-@media screen and (max-width: 600px) {
-    .account-row {
+	}
+	.account-row {
         flex-direction: column;
 	}
-	
 }
