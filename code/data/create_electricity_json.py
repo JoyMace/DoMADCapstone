@@ -1,4 +1,5 @@
 from pandas import read_csv, DataFrame, Series
+from numpy import NaN
 
 def list_to_string(l):
     #given a list, write it out as a string such that Mongo can read it properly
@@ -30,6 +31,24 @@ df.drop(dropIndices, inplace = True)
 #keep only the relevant rows
 elecDf = df.loc[(df["Indicator Code"] == "1.2_ACCESS.ELECTRICITY.RURAL") | \
           (df["Indicator Code"] == "1.1_ACCESS.ELECTRICITY.TOT")]
+
+#additional countries to add
+stats = [NaN for i in range(1990, 2017)]
+to_add = [["Scotland", "SCT", "", ""]+stats,
+          ["Scotland", "SCT", "", ""]+stats,
+          ["Tokelau", "TKL", "", ""]+stats,
+          ["Tokelau", "TKL", "", ""]+stats,
+          ["Wales", "WLS", "", ""]+stats,
+          ["Wales", "WLS", "", ""]+stats,
+          ["Antarctica", "ATA", "", ""]+stats,
+          ["Antarctica", "ATA", "", ""]+stats,
+          ["Christmas Island", "CXR", "", ""]+stats,
+          ["Christmas Island", "CXR", "", ""]+stats,
+          ["the Holy See", "VAT", "", ""]+stats,
+          ["the Holy See", "VAT", "", ""]+stats]
+
+df2 = DataFrame(to_add, columns=elecDf.columns)
+elecDf = elecDf.append(df2).reset_index(drop=True)
 
 total_lists_nums = []
 rural_lists_nums = []
