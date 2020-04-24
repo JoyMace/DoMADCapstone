@@ -91,10 +91,8 @@ class SearchLocations extends React.Component {
                     <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
                 </div>
 
-               
-
-                <div id='master-content-root'>
-                        <CountryDataTabs ref='datatabs'/>
+                <div>
+                    <CountryDataTabs ref='datatabs'/>
                 </div>
             </div>
         )

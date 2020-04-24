@@ -1,75 +1,62 @@
 /*=== Main - Country Tab Content === */
-.country-pages-wrapper {
+#country-page-container {
   display: flex;
-  position: relative;
   flex-direction: row;
-  /*padding-top: 25px;*/
-  padding-bottom: 0px;
+  position: relative;
   width: 100%;
+  padding: 0 1% 0 1%;
 }
 
-#tabs-wrapper {
-    margin-right: 1%;
-    margin-left: 1%;
-}
-
-    /*=== <TabList> ===*/
-    .tab-style {
+    /*== <TabList> */
+    #tabs-flexbox {
         display: flex;
         flex-flow: row nowrap;
-        justify-content: space-evenly;
         align-items: flex-end;
+        justify-content: space-around;
         width: 100%;
         height: auto;
-        margin: 0 5px;
-        padding-bottom: 12px;
+        padding-bottom: 6px;
     }
 
-      .country-flag-block {
-          width: 160px;
-          min-width: 160px;
-          height: auto;
-          flex-basis: 8;
-          overflow: hidden;
-          display: inline-block;
+      #flag-wrap {
+        align-self: flex-start;
+        width: 200px; /*flex-basis: 30%;*/
+        height: auto;
+        margin-right: 1%; 
       }
-        .country-flag {
-            display: block;
-            width: 100%;
-            height: auto;
-            object-position: center;
+        #flag-img {
+          width: 100%;
+          height: auto;
+          border: 1px solid #010925;
         }
 
-      .country-name-block {
-          display: flex;
-          flex-basis: 6;
-          padding: 5px;
-          margin: auto;
-          height: 80px;
+      #name-wrap {
+          flex-basis: 20%;
+          margin-right: 1%;
+          border: white 1px;
+          border-radius: 5px; 
 
-          border: white 1px; border-radius: 5px;
           background-color: #010925;
+          font-size: 1.4em; 
           color: white;
-          font-size: 1.5em;
-          text-align: center;
+          text-align: center; 
+          height: 80px;
       }
       
       .regular-tabs {
-          flex-basis: 3;
-          display: inline-block;
-          padding: 12px 12px;
-          height: auto; min-height: 60px;
-          border-bottom: none;
-          margin: auto 4px;   
-
-          background-color: gray;
-          border-radius: 5px;
+          flex-basis: 12.5%;
+          margin-right: 0.5%;
+          padding: 12px;
+          height: auto; 
+          min-height: 50px;
+          text-align: center;
+          border: white 1px; border-radius: 5px 5px 0 0;
+          transition: all 0.5s;
+          background-color: #a8a8a8;
           list-style: none;
           cursor: pointer;
-          transition: all 0.5s;
-          color: white;
-          text-align: center;
-          font-size: 1.1em;
+          color: black;
+          font-size: 1em;
           overflow: visible;
       }
     

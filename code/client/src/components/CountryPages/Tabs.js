@@ -7,7 +7,7 @@ import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
 // Batch import all flag files
 
-const flags = require.context('./flags', false);
+//const flags = require.context('./flags', false);
 //const flagPath = (name) => flags(name, true);
 
 
@@ -50,20 +50,20 @@ class CountryTabs extends React.Component {
             .then(res => {
                 console.log(res[0], res[1]);
                 if (res[0] == true) {
-                    console.log("country info load success!");
-                    //document.getElementById('country-flag').src = res[1] + '.png';
-                    //this.flag_path = 'flags/' + res[1] + '.png';
-                    
-                    this.setState({ active_abbr: res[1], loading_info: false,
-                        loading_donations: true, 
-                        loading_orgs: true, 
-                        loading_blogs: true
+                    this.setState({ 
+                        active_abbr: res[1], 
+                        loading_info: false,
+                        loading_donations: true, loading_orgs: true, loading_blogs: true
                     });
+                    console.log("country info load success!");
+                    //console.log(document.getElementById('country-flag').src);
+
                     // load rest of data
+                    
                 } else {
                     console.log('bad');
                 }
-            });   
+            });
     }
 
     //<img src={`${require(flag_path)}`} alt="No Flag" id="country-flag"/>
@@ -76,18 +76,16 @@ class CountryTabs extends React.Component {
             transitionDuration: "0.2s", transitionDelay: "0"
         }
         console.log('abbr:', this.state.active_abbr);
-        //let flag_path = 'flags/' + this.state.active_abbr + '.png';
-        let flag_path = './flags/USA.png';
+
         return (
-        <div id='country-pages-wrapper'>
-            <div id="tabs-wrapper" style={defaultStyles}>
+            <div id='country-page-container' style={defaultStyles}>
                 <Tabs>
-                    <TabList className="tab-style">
-                        <li className="country-flag-block">
-                            <img src='/flags/USA.png' alt="No Flag" id="country-flag"/>
+                    <TabList id="tabs-flexbox">
+                        <li id="flag-wrap">
+                            <img id="flag-img" src={'./flags/'+this.state.active_abbr+'.png'} alt="No Flag" />
                         </li>
-                        <li className="country-name-block">
-                            <h3>{this.state.current_country}</h3>
+                        <li id="name-wrap">
+                            <p>{this.state.active_name}</p>
                         </li>
                         <Tab active className="regular-tabs">Country Info</Tab>
                         <Tab className="regular-tabs">Donation Items</Tab>
@@ -107,9 +105,8 @@ class CountryTabs extends React.Component {
                     <TabPanel tabIndex={3}>
                         <BlogPostsComponent ref="BlogPosts"/>
                     </TabPanel>
-            </Tabs>
+                </Tabs>
             </div>
-        </div>
         )
     }
 }
