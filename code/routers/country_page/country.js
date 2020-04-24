@@ -168,7 +168,7 @@ router.post('/insert-organizations', (req, res) => {
     }else{
       var updatedOrgIDs = []
       Country.find(countryQuery, function(err, country) {
-        if(err) {
+        if(err || country.length == 0) {
           return res.status(countryCodes.insertOrganizations.countryNotFound.status).send({
             message: countryCodes.insertOrganizations.countryNotFound.message
           });
@@ -236,7 +236,7 @@ router.post('/remove-organizations', (req, res) => {
     }else{
       var updatedOrgIDs = []
       Country.find(countryQuery, function(err, country) {
-        if(err) {
+        if(err || country.length == 0) {
           return res.status(countryCodes.removeOrganizations.countryNotFound.status).send({
             message: countryCodes.removeOrganizations.countryNotFound.message
           });
@@ -260,6 +260,10 @@ router.post('/remove-organizations', (req, res) => {
               }
               return toKeep
             })
+          }else{
+            return res.status(countryCodes.removeOrganizations.noCountryOrganizations.status).send({
+              message: countryCodes.removeOrganizations.noCountryOrganizations.message
+            });
           }
           // Normally doing this:
 

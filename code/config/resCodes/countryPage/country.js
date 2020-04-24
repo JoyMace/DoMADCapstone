@@ -71,6 +71,10 @@ resCode = {
     organizationUpdateFail:{
       status:404,
       message:'Found country, but failed to update organizationIDs'
+    },
+    noCountryOrganizations:{
+      status:500,
+      message:"Specified country has no organizations to remove"
     }
   }
 }
