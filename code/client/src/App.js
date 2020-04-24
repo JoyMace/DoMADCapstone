@@ -20,7 +20,6 @@ import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
 import HowItWorks from './components/Pages/HowItWorks';
 import CountryPages from './components/CountryPages/CountryPages';
-import IndividualBlogs from './components/Pages/IndividualBlogs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
@@ -99,7 +98,6 @@ class App extends Component {
             <Route path="/how_it_works" component={HowItWorks} />
             <Route path="/country_pages" component={CountryPages} />
             <Route path="/forgot" component={Reset} />
-            <Route path="/individual_blogs" component={IndividualBlogs} />
             <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
           </Switch>
 

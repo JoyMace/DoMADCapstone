@@ -7,7 +7,9 @@ import SideDrawer from '../SideDrawer/SideDrawer';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
 
-var loggedin = false;
+// it was decided that if a user was not logged in they would not be able to access the blogs page or Share Your Trip page so those are removed as options when a user isn't logged in
+
+var loggedin = false; // need this in order to determine if the user is logged in or not
 
 class Navbar extends React.Component {
     constructor(props) {
@@ -17,8 +19,7 @@ class Navbar extends React.Component {
         };
     }
 
-    reload = () => {
-        console.log('READLOAD');
+    reload = () => { // same reload function as used in the blogs file except it calls checkLoggedInStatus instead of getTrips
         this.setState({ loading: 'true', reloadAccount: this.reload });
         this.checkLoggedInStatus(this)
           .then(res => {
@@ -29,10 +30,10 @@ class Navbar extends React.Component {
           });
     }
 
-    checkLoggedInStatus = async () => {
-        const response = await fetch('/api/user/auth/check-login');
+    checkLoggedInStatus = async () => { // the get request to check if a user is logged in
+        const response = await fetch('/api/user/auth/check-login'); // calling the api
         const data = await response.json();
-        if (response.status === 200) {
+        if (response.status === 200) { // response will be 200 if user is logged in and 500 if not
             loggedin = true;
             console.log("this is the log in response", response.status);
             this.setState({

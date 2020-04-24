@@ -12,6 +12,8 @@ import dons from '../../images/png_icons/comingSoonIcon.svg';
 
 import { Link } from 'react-router-dom';
 
+// see navbar file for comments on how log in/log out functionality works
+
 var loggedin = false;
 
 class HomeBlogInfo extends React.Component {
@@ -90,7 +92,6 @@ class HomeBlogContainer extends React.Component {
     }
 
     reload = () => {
-        console.log('READLOAD');
         this.setState({ loading: 'true', reloadAccount: this.reload });
         this.getTrips(this)
           .then(res => {
@@ -148,7 +149,7 @@ function Home(props) {
         });
 
         trips = <div className="blog-trips-container">
-            {trips.reverse().slice(0,3)}
+            {trips.reverse().slice(0,3)} {/* this reverses the order of the blogs so the newest shows first and limits the amount of blogs being shown to 3 */}
         </div>
     }
 
@@ -172,6 +173,7 @@ function Home(props) {
             </article>
             <article className='donations-wrapper'>
                 <h2>Recent Donations</h2>
+                <p>DoMAD requires users to be logged in to their account in order to view all user donations and travel stories.</p>
                 {trips}
             </article>
         </div>
@@ -213,7 +215,6 @@ class HomeNavbar extends React.Component {
     }
 
     reload = () => {
-        console.log('READLOAD');
         this.setState({ loading: 'true', reloadAccount: this.reload });
         this.checkLoggedInStatus(this)
           .then(res => {
@@ -229,7 +230,6 @@ class HomeNavbar extends React.Component {
         const data = await response.json();
         if (response.status === 200) {
             loggedin = true;
-            console.log("this is the log in response", response.status);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
@@ -237,7 +237,6 @@ class HomeNavbar extends React.Component {
         }
         else {
             loggedin = false;
-            console.log("this is the log in response", response.status);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
@@ -264,9 +263,7 @@ class HomeNavbar extends React.Component {
 		};
         const response2 = await fetch('/api/user/auth/logout' , requestOptions);
         if (response2.status === 200) {
-            console.log("logout successful")
             loggedin = false;
-            console.log("this is the login status", loggedin);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
@@ -274,7 +271,7 @@ class HomeNavbar extends React.Component {
             window.location.reload();
         }
         else {
-            console.log("logout not successful")
+            console.log("");
         }
     };
 
@@ -319,7 +316,7 @@ class HomeNavbar extends React.Component {
                                 <a href="/search_locations">Explore</a>
                             </div>
                             <div id='blog' className='block-box'>
-                                <a href="/blogs">Blogs</a>
+                                <a href="/blogs">Blogs</a> {/* if a user is not logged in the button will show register instead */}
                             </div>
                         </div>
                     </div>
@@ -364,7 +361,7 @@ class HomeNavbar extends React.Component {
                                 <a href="/search_locations">Explore</a>
                             </div>
                             <div id='blog' className='block-box'>
-                                <a href="/register">Register</a>
+                                <a href="/register">Register</a> {/* this button shows if a user is not logged in, if they are it will show blogs instead */}
                             </div>
                         </div>
                     </div>
