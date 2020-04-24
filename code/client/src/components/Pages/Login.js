@@ -46,7 +46,7 @@ class Login extends React.Component {
     const { username, password, submitted } = this.state;
     if (this.state.submitted) {
       // redirect to account page if signed in
-      return <Redirect to = {{ pathname: "/account/:username" }} />;
+      return <Redirect to = {this.forceUpdate} />;
     }
     return (
       <div className = "Login">

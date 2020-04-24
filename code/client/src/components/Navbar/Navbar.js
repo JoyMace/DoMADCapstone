@@ -42,22 +42,11 @@ class Navbar extends React.Component {
             });
         }
         else {
-            /*if(matchPath == "/account") {
-                window.location.reload();
-            }*/
-            var path = window.location.pathname;
-            console.log("this is the path", path)
-            if(path == "/account") {
-                // this.reload();
-                // need to get page to render fully after logging in, currently after logging in the page doesn't fully render with all components
-            }
             loggedin = false;
-            console.log("this is the log in response", response.status);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
             });
-            // this.reload();
         }
         return data;
     };
@@ -88,9 +77,11 @@ class Navbar extends React.Component {
                 reloadAccount: this.reload
             });
             window.location.reload();
+            this.forceUpdate();
         }
         else {
-            console.log("logout not successful")
+            console.log("logout not successful");
+            window.location.reload();
         }
     };
 
@@ -99,7 +90,6 @@ class Navbar extends React.Component {
         if(loggedin === true) {
             return (
                 <div>
-                    <SideDrawer loggedin={true} />
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
@@ -129,7 +119,6 @@ class Navbar extends React.Component {
                                         <a href="javascript:void(0)" className="info-label">Profile<FaCaretDown /></a>
                                         <div className="info-dropdown-content">
                                             <Link to="/account" className="dropdown-options">Account</Link>
-                                            {/*<Link to="/" className="dropdown-options" onClick={this.handleLogoutClick}>Log Out</Link>*/}
                                             <div onClick={this.handleLogoutClick}>
                                                 <Link to="/" className="dropdown-options">Log Out</Link>
                                             </div>
@@ -145,7 +134,6 @@ class Navbar extends React.Component {
         else if(loggedin === false) {
             return (
                 <div>
-                    <SideDrawer loggedin={false} />
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
