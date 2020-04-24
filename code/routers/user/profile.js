@@ -59,15 +59,16 @@ console.log(req.user);
         else{
           userData['tripsCount'] = user[0] ? user[0].count : 0
           console.log("USER TRIP COUNT", userData['tripsCount'], user[0]);
-          Donation.aggregate( [
+          Trip.aggregate( [
             { $lookup:
               {
-                from: "Trips",
-                localField: "tripID",
-                foreignField: "userID",
+                from: "Donations",
+                localField: "userID",
+                foreignField: "tripID",
                 as: "matched-docs"
               }
-            },            
+            }, 
+            { $match: { userID : userID },  },           
             { $group: { _id : null, count: { $sum : 1 } } }], function(err, user) {
 
             if(err) {
