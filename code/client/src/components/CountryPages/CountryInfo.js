@@ -1,9 +1,8 @@
 import React from 'react';
 import './CountryInfo.css';
-
-import mapfiller from '../../images/map_filler.PNG';
 import { Link } from 'react-router-dom';
 
+import mapfiller from '../../images/map_filler.PNG';
 
 
 class CountryInfo extends React.Component {

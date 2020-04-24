@@ -5,8 +5,8 @@ import CountryInfoComponent from '../CountryPages/CountryInfo';
 import DonationItemsComponent from '../CountryPages/DonationItems';
 import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
-// Batch import all flag files
 
+// Batch import all flag files
 //const flags = require.context('./flags', false);
 //const flagPath = (name) => flags(name, true);
 
@@ -18,7 +18,7 @@ class CountryTabs extends React.Component {
         this.state = { 
             active: false, 
             active_name: '',
-            active_abbr: 'USA',
+            active_abbr: '',
             loading_info: false, loading_donations: false,
             loading_orgs: false, loading_blogs: false
         };

@@ -33,9 +33,9 @@
       #name-wrap {
           flex-basis: 20%;
           margin-right: 1%;
-          border: white 1px;
-          border-radius: 5px; 
-
+          padding-top: 10px;
+          
+          border: white 1px; border-radius: 5px; 
           background-color: #010925;
           font-size: 1.4em; 
           color: white;
