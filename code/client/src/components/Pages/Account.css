@@ -14,6 +14,7 @@
 	align-content: center;	
 	flex: 30%;
 	float: left;	
+	max-width: 30%;
 }
 
 /* Post Top Row*/
@@ -249,13 +250,13 @@
 
 
 /* On smaller screens, switch to columns */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 600px) {
     .Post {
-        flex: 50%;
+        max-width: 100%;
     }
 }
 /* On smaller screens, switch to columns */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
     .account-row {
         flex-direction: column;
 	}
