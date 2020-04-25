@@ -14,6 +14,16 @@
     filter: brightness(50%);
 }
 
+.about-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
 .mission-header {
     font-size: 30px;
     color: white;
@@ -23,31 +33,38 @@
 }
 
 .about-pad {
-    position: absolute;
     display: flex;
+    flex-direction: row;
+    width: 400px;
+    height: 60px;
     text-align: center;
+    margin: auto;
     background-color: rgb(255,255,255,0.3);
     border-radius: 10px;
-    width: 500px;
-    height: 60px;
-    top: 150px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
 }
 
 .mission-paragraph-container {
-    position: absolute;
-    top: 370px;
-    left: 30%;
-    transform: translate(-20%, -50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
     line-height: 1.7;
+    font-size: 1.1vw;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.mission-paragraph-container-under {
+    display: none;
+    padding-top: 15px;
+    line-height: 1.7;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .mission-paragraphs {
     color: white;
+}
+
+.mission-paragraphs-under {
+    color: black;
 }
 
 .under-image-content {
@@ -64,6 +81,16 @@
 .separator-line {
     width: 60%;
     margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.separator-line-under {
+    display: none;
+    width: 60%;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .about-us-header {
@@ -117,3 +144,31 @@
     width: 250px;
     height: 175px;
 }
+
+@media screen and (max-width:900px) {
+    .mission-paragraph-container {
+        display: none;
+    }
+    
+    .mission-paragraph-container-under {
+        display: block;
+    }
+
+    .separator-line-under {
+        display: block;
+    }
+}
+
+/* @media screen and (max-height:710px) {
+    .mission-paragraph-container {
+        display: none;
+    }
+
+    .mission-paragraph-container-under {
+        display: block;
+    }
+
+    .separator-line-under {
+        display: block;
+    }
+} */
