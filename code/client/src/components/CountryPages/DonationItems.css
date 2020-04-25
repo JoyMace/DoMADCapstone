@@ -105,11 +105,6 @@
     padding-top: 20px;
 }
 
-/* Change background color of buttons on hover */
-.tablink:hover {
-    background-color: #777;
-}
-
 /* Set default styles for tab content */
 .tabcontent {
     color: white;
@@ -131,7 +126,7 @@
   }
   
   .react-tabs__tab--selected {
-    background-color: #010925;
+    background-color: #363D48;
     color: white;
     border-radius: 5px;
     font-size: 1.1em;

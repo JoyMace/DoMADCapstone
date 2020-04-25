@@ -3,6 +3,7 @@
     flex-direction: row;
     padding-bottom: 50px;
     height: 80vh;
+    
 }
 
 .country-column1 {
@@ -12,6 +13,7 @@
     margin-left: 1%;
     margin-right: 1%;
     align-content: center;
+
 }
 
 .map_image {

@@ -19,7 +19,11 @@ import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
 import HowItWorks from './components/Pages/HowItWorks';
-import CountryPages from './components/CountryPages/CountryPages';
+import CountryInfo from './components/CountryPages/CountryInfo';
+import BlogPosts from './components/CountryPages/BlogPosts';
+import DonationItems from './components/CountryPages/DonationItems';
+import Organizations from './components/CountryPages/Organizations';
+import Tabs from './components/CountryPages/Tabs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
@@ -86,19 +90,23 @@ class App extends Component {
           </Switch>
           {backdrop}
           <Switch>
-            <Route path="/about" component={About} />
-            <Route path="/account" component={Account} />
-            <Route path="/blogs" component={Blogs} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/disclaimer" component={Disclaimer} />
-            <Route path="/faq" component={Faq} />
-            <Route path="/register" component={Register} />
-            <Route path="/search_locations" component={SearchLocations} />
-            <Route path="/login" component={Login} />
-            <Route path="/how_it_works" component={HowItWorks} />
-            <Route path="/country_pages" component={CountryPages} />
-            <Route path="/forgot" component={Reset} />
-            <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
+          <Route path="/about" component={About} />
+          <Route path="/account" component={Account} />
+          <Route path="/blogs" component={Blogs} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/disclaimer" component={Disclaimer} />
+          <Route path="/faq" component={Faq} />
+          <Route path="/register" component={Register} />
+          <Route path="/search_locations" component={SearchLocations} />
+          <Route path="/login" component={Login} />
+          <Route path="/how_it_works" component={HowItWorks} />
+          <Route path="/country_info" component={CountryInfo} />
+          <Route path="/blog_posts" component={BlogPosts} />
+          <Route path="/donation_items" component={DonationItems} />
+          <Route path="/organizations" component={Organizations} />
+          <Route path="/tabs" component={Tabs} />
+          <Route path="/forgot" component={Reset} />
+          <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
           </Switch>
 
           <Footer />
