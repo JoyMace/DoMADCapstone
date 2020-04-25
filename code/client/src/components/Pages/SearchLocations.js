@@ -53,7 +53,7 @@ class SearchLocations extends React.Component {
                     the continent name to the search bar to be searched
         - Parameters: continent: String
         - Invokes: SearchBar.updateQueryToContinent() 
-        - Returns: none
+        - Returns: none 
     */
     sendContinentSearch(continent) {
         this.refs.searchbar.updateQueryToContinent(continent);
@@ -64,16 +64,15 @@ class SearchLocations extends React.Component {
             <div id="search-locations">
                 <div id='exploring-root'>
                     <div id='header-search-flexbox'>
-                        <div id="title">
-                            <p>Explore Locations</p>
-                        </div>
-                        <div>
+                        <div id="title">Explore Locations</div>
+                        <div className="search-column">
                             <SearchBar ref='searchbar' sendCountryOnSelect={this.sendCountryOnSelect} />
                         </div>
                     </div>
                     
                     <div id="header-desc">
-                        <h3>Where might your next donation take you?</h3>
+                        <br></br>
+                        <h3>Where will your next donation take you?</h3>
                     </div>
 
                     <div id='map-content-wrap'>
@@ -152,7 +151,7 @@ class WorldMapController extends React.Component {
         continents: Dict - the 7 continents and their code
     Functions:
         updateQueryToContinent(cont_key)
-        handleSearch(text)
+        handleSearch(text) 
     Renders: 
         search bar in the upper right
 */
@@ -501,26 +500,24 @@ class SearchBar extends React.Component {
     }
     
     render() {
-        return (
-            <React.Fragment>
-                <div id="search-wrap">
-                    <input id="search-input" ref='search' onKeyUp={(e) => this.handleSearch(e.target.value)} 
-                        type="text" placeholder="Search Countries.." maxLength='100'/>
-                    <button id='search-btn' type="submit" onClick={() => this.props.sendCountryOnSelect(this.refs.search.value)}>
-                        <img id="icon" src={search_icon} alt=""/>
-                    </button>
+        return (           
+            <div id="search-wrap">
+                <input id="search-input" ref='search' onKeyUp={(e) => this.handleSearch(e.target.value)} 
+                    type="text" placeholder="Search Countries.." />
+                <button id='search-btn' type="submit" onClick={() => this.props.sendCountryOnSelect(this.refs.search.value)}>
+                    <img id="icon" src={search_icon} alt=""/>
+                </button>
 
-                    <div id='searchUL-wrap'>
-                        <ul className="searchUL">
-                            {this.state.filteredCountries.map(country => (
-                                <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country.name)}>
-                                    {country.name}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                <div id='searchUL-wrap'>
+                    <ul className="searchUL">
+                        {this.state.filteredCountries.map(country => (
+                            <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country.name)}>
+                                {country.name}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-            </React.Fragment>
+            </div>           
         )
     }
 }

@@ -36,6 +36,21 @@ function About() {
                 </div>            
             </StickyContainer>
             <div className="under-image-content">
+                <div className="mission-paragraph-container-under">
+                    <p className="mission-paragraphs-under">
+                        Donations Make A Difference (DoMAD) is a website to inform international travelers about items they can contribute to address local needs in communities they will visit.
+                    </p>
+                    <p className="mission-paragraphs-under">
+                        In many parts of the world, local citizens need various items such as soap, bandages, flashlights, tarps and reading glasses, but these are either not readily available to them or they cannot afford to buy them.  For most international travelers, however, these items are easy to find and rather inexpensive to buy. So, if even a small percentage of the roughly 1.24 billion people who travel internationally each year brought with them and then donated just ONE such item to a local individual or organization at their destination, it would significantly help enhance the quality of life for a substantial number of people.
+                    </p>
+                    <p className="mission-paragraphs-under">
+                        After traveling, please help future travelers by posting about your experience.  DoMAD is intended to be a crowd-sourced website, meaning it relies on users like you to help update its content.  You can keep it quick & simple by rating your experience donating specific items on a scale of one (low) to five (high) stars. You can also propose new donation ideas and specify where and/or how to donate.
+                    </p>
+                    <p className="mission-paragraphs-under">
+                    As a non-profit organization, DoMAD is dedicated to inspiring and facilitating travelers to give back to the communities they visit, thus improving the quality of life for those less fortunate.
+                    </p>
+                </div>
+                <hr className="separator-line-under"></hr>
                 <p className="under-image-paragraph">
                     If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
                     destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 

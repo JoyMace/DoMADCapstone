@@ -1,8 +1,8 @@
 import React from 'react';
 import './Organizations.css';
-import mapfiller from '../../images/map_filler.PNG';
+import WorldMapImage from '../../images/Map_soon.svg';
 import { Link } from 'react-router-dom';
-
+import mapfiller from '../../images/map_filler.PNG'
 
 class Organizations extends React.Component {
     constructor(props) {

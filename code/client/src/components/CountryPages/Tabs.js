@@ -74,28 +74,14 @@ class CountryTabs extends React.Component {
                 this.setState({ errors: true, display: false });
                 console.log(Error("Info GET failed:", err));
             });
-    }
-            
+    }   
 
     handleTabChange = (Index, prevIndex) => {
         console.log(Index, prevIndex);
 
         if (Index === prevIndex) {
             return false
-        } /*else {
-            if (Index === 0) {
-
-            }
-            if (Index === 1) {
-                
-            }
-            if (Index === 2) {
-                
-            }
-            if (Index === 3) {
-                
-            }
-        }*/
+        }
         this.setState({ tabIndex: Index });
     }
 
@@ -103,7 +89,7 @@ class CountryTabs extends React.Component {
     render() {
         /*--- Construct and conditionally render tabs ---*/
         if (!this.state.errors) { 
-            let dataStyles = { // initial
+            let defaultStyles = { // initial
                 display: (this.state.display ? 'flex' : 'none'),
                 marginleft: '1%', marginright: '1%',
                 transition: "visibility 0s, opacity 0.5s linear",
@@ -111,11 +97,12 @@ class CountryTabs extends React.Component {
             }
 
             // <Tabs selectedTabPanelClassName="" selectedTabClassName="">
-            return ( 
+            return (
                 <div>
                 {this.state.display ? this.spacer_line : this.spacer_desc}
-
-                <div id='country-page-container' style={dataStyles}>
+                
+                <div id='country-page-container' style={defaultStyles}>
+                    <div className="category-tabs">
                     <Tabs selectedIndex={this.state.tabIndex} onSelect={(i,pi) => this.handleTabChange(i,pi)} 
                         forceRenderTabPanel={true}>
                         <TabList id="tabs-flexbox">
@@ -123,14 +110,14 @@ class CountryTabs extends React.Component {
                                 <img id="flag-img" src={'./flags/'+this.state.active_abbr+'.png'} alt="No Flag" />
                             </li>
                             <li id="name-wrap">
-                                <p>{this.state.active_name}</p>
+                                {this.state.active_name}
                             </li>
-                            <Tab active="true" className="regular-tabs">Country Info</Tab>
+                            <Tab active className="regular-tabs">Country Info</Tab>
                             <Tab className="regular-tabs">Donation Items</Tab>
                             <Tab className="regular-tabs">Organizations</Tab>
                             <Tab className="regular-tabs">Blog Posts</Tab>
                         </TabList>
-
+    
                         <TabPanel tabIndex={0}>
                             <CountryInfoComponent ref='InfoRef' />
                         </TabPanel>
@@ -144,6 +131,7 @@ class CountryTabs extends React.Component {
                             <BlogPostsComponent ref="BlogsRef" />
                         </TabPanel>
                     </Tabs>
+                    </div>
                 </div>
                 </div>
             )

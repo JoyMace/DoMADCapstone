@@ -1,28 +1,30 @@
 /*=== Main - Country Tab Content === */
 #country-page-container {
   display: flex;
-  flex-direction: row;
-  position: relative;
   width: 100%;
   padding: 0 1% 0 1%;
 }
 
+.category-tabs {
+  width: 100%;
+}
+
     /*== <TabList> */
-    #tabs-flexbox {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: flex-end;
-        justify-content: space-around;
+     #tabs-flexbox {
+        display: flex; flex-flow: row nowrap;
         width: 100%;
+        justify-content: space-evenly;
         height: auto;
-        padding-bottom: 6px;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
       #flag-wrap {
         align-self: flex-start;
         width: 200px; /*flex-basis: 30%;*/
         height: auto;
-        margin-right: 1%; 
+        margin: auto; 
       }
         #flag-img {
           width: 100%;
@@ -32,25 +34,28 @@
 
       #name-wrap {
           flex-basis: 20%;
-          margin-right: 1%;
-          height: 80px;
-          
-          padding: 10px 5px 5px 0;
-          border: white 1px; border-radius: 5px; 
+          margin: auto;
+          padding: 10px;
+          align-items: center;
+          vertical-align: middle;
+          border: white 1px; 
+          border-radius: 5px; 
           background-color: #010925;
           font-size: 1.4em; 
           color: white;
           text-align: center; 
+          /* height: 80px; */
       }
       
       .regular-tabs {
-          flex-basis: 12.5%;
-          /*margin-right: 0.5%;*/
+          width: 12%;
+          margin: auto;
           padding: 12px;
-          height: auto; 
-          min-height: 50px; max-height: 70px;
+          height: 50px; 
+          min-height: 50px;
           text-align: center;
-          border: white 1px; border-radius: 5px 5px 0 0;
+          border: white 1px; 
+          border-radius: 5px;
           transition: all 0.5s;
           background-color: #a8a8a8;
           list-style: none;
@@ -63,23 +68,71 @@
         background-color: #010925;
       }
     
-    /**** From react-tabs ****/
-    /* <TabPanel> */
+/* --- <Tab className = "regular-tabs"> --- */
+    .regular-tabs:hover {
+      background-color: #363D48;
+      color: white;
+    }
+    /*--- From react-tabs ---*/
+    .react-tabs__tab--disabled {
+      color: gray;
+    }
+    .react-tabs__tab--selected {
+      background-color: #363D48;
+      color: white;
+      transition: all 0.5s;
+    }
+
     .react-tabs__tab-panel {
       display: none;
     }
     .react-tabs__tab-panel--selected {
       display: block;
     }
-      /*class for specifically selected/active tab*/
-      .react-tabs__tab--selected {
-        background-color: #010925;
-        color: white;
-        transition: all 0.5s;
-      }
-      .react-tabs__tab--disabled {
-        color: gray;
-      }
+    .react-tabs__tab {
+      display: inline-block;
+      border-bottom: none;
+      position: relative;
+      list-style: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .tabcontent {
+      color: white;
+      display: none;
+      text-align: center;
+  }
+  .tab-style {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    height: auto;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/*.tablink {
+    background-color: #555;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}*/
+
+/*class for specifically selected/active tab*/
+.react-tabs__tab--selected {
+  background-color: #010925;
+  color: white;
+  transition: all 0.5s;
+}
+.react-tabs__tab--disabled {
+  color: gray;
+}
+
 
 
 /*--- Description spacer for pre-load and db callback error ---*/

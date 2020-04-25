@@ -23,7 +23,7 @@ class DonationItems extends React.Component {
             throw Error(data.message);
         } 
         else {
-            //this.callbackJSON = data.countryInfoData;
+            console.log('received donation items');
             console.log(data);
            
             // FILL DATA
