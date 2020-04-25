@@ -1,6 +1,6 @@
 import React from 'react';
 import './Account.css';
-import WorldMapImage from '../../images/Map.png';
+import WorldMapImage from '../../images/Map_soon.svg';
 import avatar from '../../images/Avatar.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
@@ -672,7 +672,7 @@ function Account(props) {
 					  <br></br>
 					<img src={ WorldMapImage } alt="map of the world" width='100%' />
 				  </div>
-				  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>				  
+				  {/* <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>	 */}			  
 			  </div>
 			  <div className='account-column'>
 					<div className='container'>
