@@ -25,15 +25,13 @@
     }
         #title {
             padding: 12px 16px 12px;
-            font-size: 1.4em;   
-            width: 40%;       
+            font-size: 1.5em;
         }
-        #search-wrap { 
+        #search-column { 
             position: relative;
             width: 80%;            
         }
             #search-input {
-                
                 height: 29px; /*- 15 + 2*6(padding) + 2*1(border) */
                 padding: 10px;
                 border: 1px solid white;
@@ -42,7 +40,6 @@
                 color: #010925;
                 font-size: 1em;
                 flex: 80%;
-                
             }
             #search-btn {
                 position: absolute;
@@ -93,21 +90,13 @@
                     background-color: #eee; /* Add hover effect to all links minus header */
                 }
 
-    /*--- Map and Data spacer ---*/
-    #spacer {
-        width: 92%;
-        flex-grow: 4;
-        text-align: center;
-        font-size: 0.9em; font-style: italic;
-        padding: 4px 6px;
-        margin: 12px 4% 30px 4%; /* 5% = 100 - (96*1/2) */
-    }
-    #spacer-line {
-        margin-top: 30px;
-        width: 2;
-        color: #081d68;
-        background-color: #081d68;
-      }
+#header-desc {
+    margin: 5px auto;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;;
+}
+
 
 /*=== Map & its Sidebar ===*/
 #map-content-wrap {
