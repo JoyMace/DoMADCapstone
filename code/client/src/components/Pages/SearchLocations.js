@@ -66,14 +66,15 @@ class SearchLocations extends React.Component {
             <div id="search-locations">
                 <div id='exploring-root'>
                     <div id='header-search-flexbox'>
-                        <div id="title"><p>Explore Locations</p></div>
-                        <div>
+                        <div id="title">Explore Locations</div>
+                        <div className="search-column">
                             <SearchBar ref='searchbar' sendCountryOnSelect={this.sendCountryOnSelect} />
                         </div>
                     </div>
                     
                     <div id="description-box">
-                        <h5>Choose a country to view by filtering for a specific continent on the world map, searching by name, or a combination of the two!</h5>
+                        <br></br>
+                        <h3>Choose a country to view by filtering for a specific continent on the world map, searching by name, or a combination of the two!</h3>
                     </div>
 
                     <div id='map-content-wrap'>
@@ -86,7 +87,7 @@ class SearchLocations extends React.Component {
                     </div>
 
                     <div id="spacer">
-                        <h5>Once a country is selected tabular donation and country information will populate below.</h5>
+                        <h3 style={{marginLeft: "auto", marginRight: "auto"}}>Once a country is selected tabular donation and country information will populate below.</h3>
                     </div>
                     <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
                 </div>
@@ -504,26 +505,24 @@ class SearchBar extends React.Component {
     }
     
     render() {
-        return (
-            <React.Fragment>
-                <div id="search-wrap">
-                    <input id="search-input" ref='search' onKeyUp={(e) => this.handleSearch(e.target.value)} 
-                        type="text" placeholder="Search Countries.." maxLength='100'/>
-                    <button id='search-btn' type="submit" onClick={() => this.props.sendCountryOnSelect(this.refs.search.value)}>
-                        <img id="icon" src={search_icon} alt=""/>
-                    </button>
+        return (           
+            <div id="search-wrap">
+                <input id="search-input" ref='search' onKeyUp={(e) => this.handleSearch(e.target.value)} 
+                    type="text" placeholder="Search Countries.." />
+                <button id='search-btn' type="submit" onClick={() => this.props.sendCountryOnSelect(this.refs.search.value)}>
+                    <img id="icon" src={search_icon} alt=""/>
+                </button>
 
-                    <div id='searchUL-wrap'>
-                        <ul className="searchUL">
-                            {this.state.filteredCountries.map(country => (
-                                <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country.name)}>
-                                    {country.name}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                <div id='searchUL-wrap'>
+                    <ul className="searchUL">
+                        {this.state.filteredCountries.map(country => (
+                            <li className="filtered-country-items" key={country.name} onClick={() => this.props.sendCountryOnSelect(country.name)}>
+                                {country.name}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-            </React.Fragment>
+            </div>           
         )
     }
 }
