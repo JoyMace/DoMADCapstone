@@ -2,91 +2,58 @@
 	margin-left: 5%;
 	margin-right: 5%;	
 }
+/* Whole Page Formatting to give Top Row, Two columns on top, and Bottom row*/
+/* Top Row contains user info, user map and Trip form */
+.account-row {	
+	display: flex;
+	flex-direction: row;
+	width: 100%;	
+	align-items: space-between;	
+	flex-wrap: wrap;	
+}
+.account-column {		
+	flex-direction: column;
+	margin-top: 120px;
+	flex: 45%; 
+}
 
-/* Post Container */
-.Post {
-	margin: 10px;
-	background: #363D48;
-	border: 1px solid #FFFFFF;
+/* This is the top right of the Top Left Column that contains userName, signupDate, tripCount and donationCount */
+
+/*User Info Container*/
+.user-info-container {	
+	display: flex;
+	width: 90%;
+	margin: auto;
+	height: 140px;	
+	background-color: #F4F4F4;
 	border-radius: 5px;
-	color: #FFFFFF;
-	padding: 10px;
-	align-content: center;	
-	flex: 30%;
-	float: left;	
-	max-width: 30%;
-	min-width: 450px;
+	padding-left: 5px;
+	flex-direction: row;	
 }
-
-/* Post Top Row*/
-.post-top-row {
+.UserInfo {
 	display: flex;
-	flex-direction: row;
-	width: 100%;	
-	align-content: center;
-	align-content: space-evenly;
-	flex-basis: 0
-	
-}
-.post-date-column {	
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	font-size: 12px;
-	flex-basis: 1;
-	width: 25%;	
-}
-
-.post-destination-column {	
-	display: flex;
-	flex-direction: column;
-	align-items: left;	
-	font-size: 24px;
-	flex-basis: 2;
-	width: 75%;
-}
-/* Post Middle Picture */
-.post-middle-row {	
-	display: flex;
-	flex-direction: row;
-	flex-flow: column-wrap;
-	text-align: center;
+	font-size: 16px;
+	align-content: space-between;
 	width: 100%;
-	margin-left: 3%;	
 }
-/* Post Details */
-.post-description-row {	
+
+.user-info-column {	
 	display: flex;
-	flex-direction: row;
-	flex-flow: column-wrap;
-	width: 100%;	
-	flex-basis: 0;
-	flex-grow: 1;	
+	flex-direction: column;
+	width: 60%;	
+	text-align: left;
+	flex: 0 1 auto;
+	margin: auto;	
 }
-
-.post-donation-row {	
-	display: flex;
-	flex-direction: row;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;	
+.UserInfo-name {	
+	font-size: 36px;
+	font-weight: 700;	
 }
-
-.post-stars {	
-	display: flex;
-	flex-direction: row;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;
-	color: yellow;	
-}
-
-
 /* User Trip Form styling */
 .container {	
 	color: #FFFFFF;
-	width: 560px;
-	height: 800px;	
+	width: 90%;
+	height: 920px;	
 	top: 200px;
 	padding-left: 5%;
 	padding-right: 5%;
@@ -96,7 +63,19 @@
 	border-radius: 5px;
 	margin: auto;	
 }
-
+.text-area-css {
+	display: block;
+	height: 100px;
+	border-radius: 3px;
+}
+.select-css {
+	display: block;
+	border-radius: 3px;
+	line-height: 3;
+	font-weight: 300;
+	padding: .7em 1.5em .6em .5em;
+	
+}
 /* User Trip Form Formatting */
 
 .flex-outer,
@@ -168,7 +147,7 @@
 }
 
 .flex-inner li {
-  width: 100px;  
+  max-width: 100px;  
 }
 
 .star-rating {	
@@ -179,21 +158,92 @@
 }
 /*end form formatting*/
 
-/* Whole Page Formatting to give Top Row, Two columns on top, and Bottom row*/
-/* Top Row contains user info, user map and Trip form */
-.account-row {	
+/* Post Container */
+.Post {
+	margin: 10px;
+	background: #363D48;
+	border: 1px solid #FFFFFF;
+	border-radius: 5px;
+	color: #FFFFFF;
+	padding: 10px;
+	align-content: center;	
+	flex: 30%;
+	float: left;	
+	max-width: 30%;
+	min-width: 450px;
+}
+
+/* Post Top Row*/
+.post-top-row {
 	display: flex;
 	flex-direction: row;
 	width: 100%;	
-	align-items: space-between;	
-	flex-wrap: wrap;	
+	align-content: center;
+	align-content: space-evenly;
+	flex-basis: 0;
+	padding: 5px;	
 }
-.account-column {		
+.post-date-column {	
+	display: flex;
 	flex-direction: column;
-	margin-top: 120px;
-	flex: 50%;
+	align-items: center;
+	flex-basis: 1;
+	flex: 25%;	
+}
+.post-date {
+	width: 100%;
+	font-size: 24px;
+	text-align: center;
+}
+.post-destination-column {	
+	display: flex;
+	flex-direction: column;
+	align-items: left;	
+	font-size: 24px;
+	flex-basis: 2;
+	flex: 75%;
+}
+/* Post Middle Picture */
+.post-middle-row {	
+	display: flex;
+	flex-direction: row;
+	flex-flow: column-wrap;
+	text-align: center;
+	width: 100%;
+	margin-left: 3%;	
+}
+/* Post Details */
+.post-description-row {	
+	display: flex;
+	flex-direction: row;
+	flex-flow: column-wrap;
+	width: 100%;	
+	flex-basis: 0;
+	flex-grow: 1;	
+}
+.post-donation-row {	
+	display: flex;
+	flex-direction: row;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;	
+}
+.post-stars {	
+	display: flex;
+	flex-direction: row;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;
+	color: yellow;	
 }
 
+
+
+.map {
+	width: 100%;
+	text-align: center;
+	margin: auto;
+}
 /* This is the portion of the Top Left Column that contains user Data */
 .user-info-row {
 	display: flex;
@@ -204,51 +254,15 @@
 }
 
 /* This is the portion of the Top Left Column that contains user Avatars */
-.UserInfo-avatar {	
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;	
-}
+
 
 /* This is the top left of the Top Left Column that contains user Avatars */
 .avatar-column {	
 	display: flex;
 	flex-direction: column;
 	align-items: center;	
-	width: 120px;
-	padding-left: 5px
-}
-
-/* This is the top right of the Top Left Column that contains userName, signupDate, tripCount and donationCount */
-.user-info-column {	
-	display: flex;
-	flex-direction: column;
-	width: 100%;	
-	align-items: left;
-	flex: 0 1 auto;
-	padding-top: 5%;
-	padding-left: 25px;
-}
-
-.UserInfo-name {
-	text-align: left;
-	font-size: 24px;	
-}
-
-/*User Info Container*/
-.user-info-container {	
-	display: flex;
-	width: 400px;
-	height: 120px;	
-	background-color: #F4F4F4;
-	border-radius: 5px;
-	padding-left: 5px;
-	flex-direction: row;
-	
-}
-.UserInfo {
-	display: flex;
-	font-size: 12px;	
+	width: 40%;
+	padding: 5px
 }
 
 
