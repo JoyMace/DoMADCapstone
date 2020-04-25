@@ -1,7 +1,7 @@
 import React from 'react';
 import './Account.css';
 import WorldMapImage from '../../images/Map.png';
-import avatar from '../../images/Avatar.png';
+import avatar from '../../images/Avatar.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import ComingSoonIcon from '../../images/png_icons/comingSoonIcon.svg';
@@ -60,7 +60,7 @@ class User extends React.Component {
 				<div className="user-info-row">
 					<div className="avatar-column">
 							<div className='UserInfo-avatar'>
-							<img src={ avatar } alt= "avatar" height='120px' />
+							<img src={ avatar } alt= "avatar" height='128px'  />
 							</div>
 					</div>
 					<div className="user-info-column">  
@@ -177,7 +177,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
-					<select required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
+					<select className="select-css" required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
 					<option value="Select From List">Select From List</option>
 					<option value="Afghanistan">Afghanistan</option>
 					<option value="Albania">Albania</option>
@@ -429,7 +429,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
-					<select required = "Required" name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
+					<select className="select-css" required = "Required" name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
 					  <option value="Animal Welfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
@@ -446,7 +446,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Individual or Organization Drop Down */}	
 					<label name="donationRecipient" className="donationRecipient"></label>				
-					<select name="donationRecipient" value={this.state.donationRecipient} onChange={this.accountChangeHandler}>
+					<select className="select-css" name="donationRecipient" value={this.state.donationRecipient} onChange={this.accountChangeHandler}>
 						<option value="selected">Individual or Organization?</option>
 						<option value="individual">Donation to an Individual</option>
 						<option value="organization">Donation to an Organization</option>
@@ -456,7 +456,7 @@ class UserTripForm extends React.Component {
 
 				<li>{/* Donation Usefulness Rating DropDown */}
 					<label name="rating" className="rating">How useful was this donation? 5 = Very Useful</label>
-					<select required = "Required" name='rating' value={this.state.rating} onChange={this.accountChangeHandler}>
+					<select className="select-css" required = "Required" name='rating' value={this.state.rating} onChange={this.accountChangeHandler}>
 					  <option value="selected">Score out of 5</option>
 					  <option value="1">1</option>
 					  <option value="2">2</option>
@@ -469,7 +469,6 @@ class UserTripForm extends React.Component {
 				{/* To-Do: Add Another Item functionality*/}
 				{/* <li>
 					<button>Add Item</button>
-
 				</li> */}
 
 				<li>{/* Suggested Future Donation Item Name Text Entry */}
@@ -479,7 +478,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Suggested Future Donation Item Category Selection List */}
 					<label name="donationCategorySuggested" className="donationCategorySuggested"></label>
-					<select name='donationCategorySuggested' value={this.state.donationCategorySuggested} onChange={this.accountChangeHandler}>
+					<select className="select-css" name='donationCategorySuggested' value={this.state.donationCategorySuggested} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
 					  <option value="AnimalWelfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
@@ -501,7 +500,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
-					<input required = "Required" name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
+					<textarea  className="text-area-css" required = "Required" name='description' placeholder="Type your story here." onChange={this.accountChangeHandler}/>
 				</li>
 
 				{/* <li> Make Private  Checkbox - feature currently not supported: checkbox not sending bool to console
@@ -582,7 +581,7 @@ class Post extends React.Component {
 				</div>
 				<div className="post-middle-row">
 					<div className="Post-image">
-						<img src={ ComingSoonIcon } alt="One person helping another" height='175px'/>
+						<img src={ ComingSoonIcon } alt="One person helping another" width='400px'/>
 					</div>
 				</div>
 				<br></br>
@@ -667,11 +666,11 @@ function Account(props) {
 					  <User/> 
 				  </div>
 				  <br></br>					  
-				  <h1>Your Travel Map</h1>
+				  <h1 style={{paddingLeft: '5%'}}>Your Travel Map</h1>
 				  <div className='map'style={{margin: "auto"}} >
 					  <br></br>
 					  <br></br>
-					<img src={ WorldMapImage } alt="map of the world" width='590px' style={{marginRight: '10px'}}/>
+					<img src={ WorldMapImage } alt="map of the world" width='100%' />
 				  </div>
 				  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>				  
 			  </div>
@@ -684,7 +683,7 @@ function Account(props) {
 					</div>
 			  </div>
 		  </div>
-		  <h1 style={{lineHeight:2}}> Your Trips </h1>
+		  <h1 > Your Trips </h1>
 		    {trips}	
 	  </div>
 	  );
