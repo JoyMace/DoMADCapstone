@@ -582,7 +582,7 @@ class Post extends React.Component {
 				</div>
 				<div className="post-middle-row">
 					<div className="Post-image">
-						<img src={ ComingSoonIcon } alt="One person helping another" height='175px'/>
+						<img src={ ComingSoonIcon } alt="One person helping another" width='400px'/>
 					</div>
 				</div>
 				<br></br>
