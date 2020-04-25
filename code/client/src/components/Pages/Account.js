@@ -1,7 +1,7 @@
 import React from 'react';
 import './Account.css';
-import WorldMapImage from '../../images/Map.png';
-import avatar from '../../images/Avatar.png';
+import WorldMapImage from '../../images/Map_soon.svg';
+import avatar from '../../images/Avatar.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import ComingSoonIcon from '../../images/png_icons/comingSoonIcon.svg';
@@ -60,7 +60,11 @@ class User extends React.Component {
 				<div className="user-info-row">
 					<div className="avatar-column">
 							<div className='UserInfo-avatar'>
+<<<<<<< HEAD
 							<img src={ avatar } alt= "avatar" />
+=======
+							<img src={ avatar } alt= "avatar" height='128px'  />
+>>>>>>> 66aa826828b5121fa25ab9b6cf428aa5b4325c56
 							</div>
 					</div>
 					<div className="user-info-column">  
@@ -469,7 +473,6 @@ class UserTripForm extends React.Component {
 				{/* To-Do: Add Another Item functionality*/}
 				{/* <li>
 					<button>Add Item</button>
-
 				</li> */}
 
 				<li>{/* Suggested Future Donation Item Name Text Entry */}
@@ -673,7 +676,7 @@ function Account(props) {
 					  <br></br>
 					<img src={ WorldMapImage } alt="map of the world" width='100%' />
 				  </div>
-				  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>				  
+				  {/* <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>	 */}			  
 			  </div>
 			  <div className='account-column'>
 					<div className='container'>
