@@ -24,7 +24,6 @@ import BlogPosts from './components/CountryPages/BlogPosts';
 import DonationItems from './components/CountryPages/DonationItems';
 import Organizations from './components/CountryPages/Organizations';
 import Tabs from './components/CountryPages/Tabs';
-import IndividualBlogs from './components/Pages/IndividualBlogs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
 
@@ -107,7 +106,6 @@ class App extends Component {
           <Route path="/organizations" component={Organizations} />
           <Route path="/tabs" component={Tabs} />
           <Route path="/forgot" component={Reset} />
-          <Route path="/individual_blogs" component={IndividualBlogs} />
           <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
           </Switch>
 
