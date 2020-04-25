@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './Register.css';
-
+import axios from 'axios';
 
 class Register extends React.Component {
     constructor(props) {
@@ -29,50 +29,62 @@ class Register extends React.Component {
 
     handleSubmit(e) {
           e.preventDefault();
-          this.setState({ submitted: true });
-          const { username, firstName, lastName, email, password, verifyPassword } = this.state;
-          if ((username && firstName && lastName && email && password && verifyPassword)) {
-              this.props.Register(username, firstName, lastName, email, password, verifyPassword);
-          }
+          
+          let currentComponent = this;
+      
+          axios.post('/api/user/auth/signup',
+          {
+            username:this.state.username,
+            password:this.state.password, 
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            verifyPassword: this.state.verifyPassword
+          })
+          .then(function(response){
+              if(response.status === 200){
+                  currentComponent.setState({ submitted: true });
+              }
+          })
 
       }
 
     render() {
         const { username, firstName, lastName, email, password, verifyPassword } = this.state;
+        if (this.state.submitted) 
+        {
+          return <Redirect to ={{ pathname:"/login" }} />;
+        }
         return (
             <div className="Register">
               <div className="register-left">
                 <h1 className="title">Create Account</h1>
-                <form className="RegisterForm" onSubmit={this.handleSubmit} action="/api/user/auth/signup" method="POST">
+                <form className="RegisterForm" onSubmit={this.handleSubmit}>
                     <div className="username">
                         <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                        <input placeholder="Username" required="Required" type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
                     </div>
                     <div className="firstName">
                         <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={firstName} onChange={this.handleChange} />
-
+                        <input placeholder="First Name" required = "Required" type="text" className="form-control" name="firstName" value={firstName} onChange={this.handleChange} />
                     </div>
                     <div className="lastName">
                         <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control" name="lastName" value={lastName} onChange={this.handleChange} />
-
+                        <input placeholder="Last Name" required = "Required" type="text" className="form-control" name="lastName" value={lastName} onChange={this.handleChange} />
                     </div>
                     <div className="email">
                         <label htmlFor="email">Email address</label>
-                        <input type="text" className="form-control" name="email" value={email} onChange={this.handleChange} />
-
+                        <input placeholder="Email Address" required = "Required" type="text" className="form-control" name="email" value={email} onChange={this.handleChange} />
                     </div>
-
                     <div className="password">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-
+                        <p style={{fontSize: 10}}> </p>
+                        <input placeholder="Password (minimum 8 characters, one upper case and one lower case)" required = "Required" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                        
                     </div>
                     <div className="verifyPassword">
                         <label htmlFor="verifyPassword">Verify Password</label>
-                        <input type="password" className="form-control" name="verifyPassword" value={verifyPassword} onChange={this.handleChange} />
-
+                        <input placeholder="Type Password Again" required = "Required" type="password" className="form-control" name="verifyPassword" value={verifyPassword} onChange={this.handleChange} />
                     </div>
                     <div className="createAccount">
                       <button type="submit">Create Account</button>
@@ -83,37 +95,45 @@ class Register extends React.Component {
                 </form>
               </div>
               <div className="register-right-info">
-                  <br></br>
-                  <br></br>
-                  <br></br>
-
-                  <h2>Register Now</h2>
-                  <br></br>
-                  <h2> It’s quick & easy!</h2>
-                  <br></br>
-                  <h2>Registration allows you to join a community of travelers who want to make a difference!</h2>
-                  <br></br>
-                  <h2> By registering you’ll be able to log your trips, share your travel experiences, and rate your donations.</h2>
-                  <br></br>
-                  <h2>DoMAD will never sell your personal information.</h2>
+              <h1 className="title">Register Now</h1>
+              <h2 className="title">It’s quick & easy!</h2>
+                  <div className="right-info-content">
+                    <br></br>
+                    <h2>By registering you’ll be able to log your trips, share your travel experiences, rate your donations and view other traveler blogs.</h2>
+                    <br></br>
+                    <h2>DoMAD will never sell your personal information.</h2>
+                  </div>
               </div>
             </div>
         );
     }
-
-
-handleChange = event => {
-  this.setState({
-    [event.target.name]: event.target.value
-  });
-};
-
-handleSubmit = event => {
-  console.log("Submitting");
-  console.log(this.state);
-  };
+    handleChange = event => {
+      this.setState({
+        [event.target.name]: event.target.value
+      });
+    };
+    handleSubmit = event => {
+      event.preventDefault();
+          let currentComponent = this;
+          axios.post('/api/user/auth/signup',
+          {
+            username:this.state.username,
+            password:this.state.password, 
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            verifyPassword: this.state.verifyPassword
+          })
+          .then(function(response){
+            console.log(response.status);
+              if(response.status === 201){
+                  currentComponent.setState({ submitted: true });                  
+              }
+          })
+      console.log("Submitting", this.state.submitted);
+      console.log(this.state);
+      };
+    
 }
-
-
 
 export default Register;

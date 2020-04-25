@@ -12,20 +12,20 @@ function Contact() {
                         <div className="first-last-name-contact">
                             <div className="first-name-contact">
                                 <p>First Name:</p>
-                                <input type="text" name="firstname" className="input-contact"/>
+                                <input required = "Required" type="text" name="firstname" className="input-contact"/>
                             </div>
                             <div className="last-name-contact">
                                 <p>Last Name:</p>
-                                <input type="text" name="lastname" className="input-contact"/><br/>
+                                <input required = "Required" type="text" name="lastname" className="input-contact"/><br/>
                             </div>
                         </div>
                         <div className="email-contact">
                             <p>Email:</p>
-                            <input type="text" name="email" className="input-contact"/><br/>
+                            <input required = "Required" type="text" name="email" className="input-contact"/><br/>
                         </div>
                         <div className="feedback-contact">
                             <p>Questions or Feedback</p>
-                            <textarea rows="5" id="message" name="message" className="feedback-box-contact"></textarea><br/>
+                            <textarea required = "Required" rows="5" id="message" name="message" className="feedback-box-contact"></textarea><br/>
                         </div>
                         <button type="submit" className="submit-contact-button">Sumbit Form</button>
                     </form>

@@ -13,8 +13,7 @@ For instance, the Account Page will contain a UserForm, a UserProfileData sectio
 that are generated when the Form is used to add Trip Data to DoMAD. */
 
 
-
-/* class with API pull of user info */
+/* class with API pull of user info Displays UserData in upper left corner of AccountPage */
 class User extends React.Component {
 	constructor(props) {
 		super(props)
@@ -24,7 +23,7 @@ class User extends React.Component {
 		signupDate: "",
 		tripsCount: "",
 		donationCount: "",	
-
+		
 	};
 	}
 
@@ -41,12 +40,14 @@ class User extends React.Component {
 	componentDidMount() {
 		this.getUser(this)
 			.then(res => {
+				var signUpDate = new Date(res.userData.signupDate)
 				this.setState({
 					firstName: res.userData.firstName,
 					lastName: res.userData.lastName,
-					signupDate: res.userData.signupDate,
-					tripsCount: res.userData.tripsCount,
-					donationCount: res.userData.donationCount
+					signupDate: (signUpDate.getMonth() + 1) + "/" + signUpDate.getDate() + "/" + signUpDate.getFullYear(),
+					tripsCount: res.userData.tripsCount ? res.userData.tripsCount : "None",
+					donationCount: res.userData.donationCount ? res.userData.donationCount : "None",
+          
 										
 				});
 			})
@@ -62,7 +63,7 @@ class User extends React.Component {
 							<img src={ avatar } alt= "avatar" height='120px' />
 							</div>
 					</div>
-					<div className="user-info-column"> {/* This is still not working, I hardcoded the values in UserInfoContainer*/} 
+					<div className="user-info-column">  
 						<div className="UserInfo-name">{this.state.firstName + " " + this.state.lastName}</div>
 						<div className='UserInfo-signupDate'>DoMAD Member Since: {this.state.signupDate}</div>
 						<div className="UserInfo-tripsCount">Number of trips: {this.state.tripsCount}</div>
@@ -76,11 +77,12 @@ class User extends React.Component {
 /* The Form a User fills out when they want to report a trip and donation */
 class UserTripForm extends React.Component {
 	constructor(props) {
-		super(props);		
+		super(props);	
+		this.userID = this.props.userID;
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
 			date: "",
-			country: "Select from List",
+			country: "",
 			city: "",
 			donationItem: "",
 			donationCategory: "",
@@ -117,9 +119,16 @@ class UserTripForm extends React.Component {
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
+		/* var newSuggestedDonation = {
+		  "itemName": this.state.suggestedDonationItem,
+		  "category": this.state.donationCategorySuggested,
+		  "suggestion": true,
+		  "reason": this.state.suggestedDonationReason
+		} */
 		donations.push(newDonation);
+		//donations.push(newSuggestedDonation);
 		const reqBody = {
-		  "userID": "5e77a660f3ad797398557439", // This should work once you can signin and a login session is saved
+		  
 		  "tripDate": this.state.tripDate,
 		  "donations": donations,
 		  "notes": this.state.description,
@@ -160,15 +169,16 @@ class UserTripForm extends React.Component {
 
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
-				<input name="userID" value="5e77a660f3ad797398557439" type="hidden"/>
+				{/*<input name="userID" value={this.userID} type="hidden"/>*/}
 				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
-					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
+					<input required = "Required" id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
 				
 				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
-					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
+					<select required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
+					<option value="Select From List">Select From List</option>
 					<option value="Afghanistan">Afghanistan</option>
 					<option value="Albania">Albania</option>
 					<option value="Algeria">Algeria</option>
@@ -409,17 +419,17 @@ class UserTripForm extends React.Component {
 
 				<li>{/* City Text Entry*/}
 					<label name="city" className="city">What city?</label>
-					<input name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
+					<input required = "Required" name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
 				</li>
 
 				<li>{/* Donation Item Text Entry */}
 					<label name="donationItem" className="donationItem">What did you donate?</label>
-					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
+					<input required = "Required" name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
 				
 				<li>{/* Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
-					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
+					<select required = "Required" name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
 					  <option value="Animal Welfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
@@ -446,7 +456,7 @@ class UserTripForm extends React.Component {
 
 				<li>{/* Donation Usefulness Rating DropDown */}
 					<label name="rating" className="rating">How useful was this donation? 5 = Very Useful</label>
-					<select name='rating' value={this.state.rating} onChange={this.accountChangeHandler}>
+					<select required = "Required" name='rating' value={this.state.rating} onChange={this.accountChangeHandler}>
 					  <option value="selected">Score out of 5</option>
 					  <option value="1">1</option>
 					  <option value="2">2</option>
@@ -491,7 +501,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
-					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
+					<input required = "Required" name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
 				</li>
 
 				{/* <li> Make Private  Checkbox - feature currently not supported: checkbox not sending bool to console
@@ -519,83 +529,82 @@ class UserTripForm extends React.Component {
 
 
 /* The card that displays a user's trip information by date in descending order */
-class PostContainer extends React.Component {
+class Post extends React.Component {
 	constructor(props) {
 		super(props)
     var tripInfo = this.props.tripInfo;
-    var tripDate = new Date(tripInfo.tripDate);
+	var tripDate = new Date(tripInfo.tripDate);
+	
     this.state = {
-      city: tripInfo.locationID.city,
-      country: tripInfo.locationID.country,
-      tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-	  notes: tripInfo.notes, 
-	  donationItem: tripInfo.donations[0].itemName,
-	  donationRating: tripInfo.donations[0].rating,
-	  userID: tripInfo.userID
-	 
-    }
+		city: tripInfo.locationID.city,
+		country: tripInfo.locationID.country,
+		tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
+		notes: tripInfo.notes, 
+		donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+		donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+		userID: tripInfo.userID	 
+    	}
 	}
+	
 	render() {
-		return <Post post={this.state} />
+		var star_number;
+		var rating_number = this.state.donationRating;
+		if (rating_number === 1) 
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 2)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 3)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 4)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+		else if (rating_number === 5)
+		{
+			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+		}
+	return (
+		
+			<div className="Post">
+				<div className="post-top-row">
+					<div className="post-destination-column">
+						<div className="Post-destination">{this.state.city}, {this.state.country}</div>
+					</div>
+					<div className="post-date-column">
+						<div className="Post-date"> {this.state.tripDate}</div>
+					</div>
+				</div>
+				<div className="post-middle-row">
+					<div className="Post-image">
+						<img src={ ComingSoonIcon } alt="One person helping another" height='175px'/>
+					</div>
+				</div>
+				<br></br>
+				<div className="post-description-row"> {this.state.notes} </div>
+				<br></br>
+				<div className="Post-donation-row"> Items Donated:  {this.state.donationItem}</div>
+				<br></br>
+				<div className="Post-stars"> Donation rating: {star_number}	</div>
+				<br></br>
+				<div className="Post-donation-row"> Suggested Donations:  {this.state.donationItem}</div>
+				<br></br>
+			</div>
+		
+  		);
 	}
 }
 
-/* This function handles the formatting of the Trip Cards on an Account Page */
-function Post(props) {
-	var star_number;
-	var rating_number = props.post.donationRating;
-	if (rating_number === 1) 
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 2)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 3)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 4)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	else if (rating_number === 5)
-	{
-		star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-	}
-	return (
-	<div className="Post">
-		<div className="post-top-row">
-			<div className="post-destination-column">
-				<div className="Post-destination">{props.post.city}, {props.post.country}</div>
-			</div>
-			<div className="post-date-column">
-				<div className="Post-date"> {props.post.tripDate}</div>
-			</div>
-		</div>
-		<div className="post-middle-row">
-			<div className="Post-image">
-			<img src={ ComingSoonIcon } alt="One person helping another" height='175px'/>
-			</div>
-		</div>
-		<br></br>
-		<div className="post-description-row"> {props.post.notes} </div>
-		<br></br>
-		<div className="Post-donation-row"> Items Donated:  {props.post.donationItem}</div>
-		<br></br>
-			<div className="Post-stars"> Donation rating: {star_number}	</div>
-		<br></br>
-		<div className="Post-donation-row"> Suggested Donations:  {PostContainer.donation}</div>
-		<br></br>
-	</div>
-  );
-}
-/* This component loads Trip Info from the database for Trip Cards on an Account Page */
+
+/* This component loads Trip Info from the database for Posts on an Account Page */
 class AccountContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		
     this.state = { loading: 'true', reloadAccount: this.reload };
 	}
   reload = () => {
@@ -615,7 +624,8 @@ class AccountContainer extends React.Component {
     const data = await response.json();
     if (response.status !== 200) {
       throw Error(response.message)
-    }
+	}
+	console.log(data);
     return data;
   }; 
 	componentDidMount() {
@@ -643,44 +653,39 @@ function Account(props) {
 	if(props.post.loading === "false"){
 	  var tripData = props.post.trips.trips;
 	  trips = tripData.map(trip => {
-		return <div className='post-container'>
-		  <PostContainer tripInfo={trip} />
-		</div>
+		return (<Post tripInfo={trip}/> )
+				
 	  });
-	  trips = <div className="main-bottom-row">
-		{trips.reverse()}
-	  </div>
+	  trips = <div className="account-row">{trips.reverse()} </div>
 	}
 	
 	return (
 	  <div className="Account">
-		  <div className='main-top-row'>
-			  <div className='left-column'>
+		  <div className='account-row'>
+			  <div className='account-column'>
 				  <div className='user-info-container'>
-					  <User userID={props.post.userID}/>
+					  <User/> 
 				  </div>
+				  <br></br>					  
+				  <h1>Your Travel Map</h1>
+				  <div className='map'style={{margin: "auto"}} >
 					  <br></br>
-					  <div id="mapid">
-					  <h1>Your Travel Map</h1>
-					  <div className='map' >
-						  <img src={ WorldMapImage } alt="map of the world" width='600px'/>
-					  </div>
-					  <p style={{fontSize:12, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>
+					  <br></br>
+					<img src={ WorldMapImage } alt="map of the world" width='590px' style={{marginRight: '10px'}}/>
 				  </div>
+				  <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>				  
 			  </div>
-			  <div className='right-column'>
+			  <div className='account-column'>
 					<div className='container'>
 					  <h3 style={{fontSize: 18, textAlign: "center", lineHeight: 5}}>
 						  Share your recent DoMAD travel story!
 					  </h3>
-					  <UserTripForm reloadAccount={props.post.reloadAccount}/>
+					  <UserTripForm reloadAccount={props.post.reloadAccount} />
 					</div>
 			  </div>
 		  </div>
-		  <div className='main-bottom-row'>
-		  	<h1 style={{padding: 20, lineHeight:2}}> Your Trips </h1>
-	  		{trips}
-		  	</div>
+		  <h1 style={{lineHeight:2}}> Your Trips </h1>
+		    {trips}	
 	  </div>
 	  );
   }

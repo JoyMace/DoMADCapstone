@@ -79,6 +79,7 @@
     height: auto;
     width: 25vw;
     margin: 20px;
+    flex: 30%;
 }
 
 .top-blog-image {
@@ -112,4 +113,11 @@
 .blog-same-line {
     display: flex;
     flex-direction: row;
+}
+
+@media screen and (max-width: 750px) {
+    .blog-entry {
+        flex: 100%;
+        width: 75vw;
+    }
 }

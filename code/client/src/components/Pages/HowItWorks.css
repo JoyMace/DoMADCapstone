@@ -2,90 +2,52 @@
     margin-top: 64px;
     text-align: center;
     vertical-align: middle;
-    font-family: Cambria, Georgia, serif;
+    font-family: Cambria, Georgia, serif;    
+    flex-wrap: wrap;
 }
-
-/* Step 1 */
-.step-1-row {
+/* Rows and columns */
+.step-row {
     display: flex;
-    flex-direction: row;
+    flex: wrap;
     margin-left: 10%;
     margin-right: 5%;
-    font-size: 20px;
+    font-size: 20px;    
 }
-.step-1-left-column {   
-    flex-direction: column;
-    flex: 1;
-    margin: 2%;  
+.step-column {
+    flex: 50%;
+    margin: 2%; 
 }
-.step-1-right-column {
-    flex-direction: column;
-    flex: 1;
-    margin: 2%;  
-}
+/* Images on page */
 .map {
     width: 100%;
     margin: 20px;
     flex: 1;   
     vertical-align: middle;
 }
-img.step1 {  
-    width: 50px;      
+.suitcase {
+    width: 75%;
+    margin: 20px;
+    flex: 1;   
+    text-align: center;
+}
+.formpic {
+    width: 100%;
+    margin: 20px;
+    flex: 1;   
+    text-align: center;
 }
 
-/* Step 2 */
-.step-2-row {
-    display: flex;
-    flex-direction: row;
-    margin-left: 10%;
-    margin-right: 5%;
-    font-size: 20px;    
-}
-.step-2-left-column {
-    flex-direction: column;
-    flex: 1;
-    margin: 2%;  
-}
-.step-2-right-column {
-    flex-direction: column;
-    flex: 1;
-    margin: 2%;  
-}
-img.howPacking {
-    width: 100%;
-    padding: 20px;
-    flex: 1;     
+img.step1 {  
+    width: 50px;      
 }
 img.step2 {
     width: 50px;      
 }
-
-/* Step 3 */
-.step-3-row {
-    display: flex;
-    flex-direction: row;
-    margin-left: 10%;
-    margin-right: 5%;
-    font-size: 20px;    
-}
-.step-3-left-column {
-    flex-direction: column;
-    flex: 1;
-    margin: 2%;   
-}
-.step-3-right-column {
-    flex-direction: column;
-    flex: 1;
-    margin: 2%;  
-}
 img.step3 {
     width: 50px;      
 }
-img.howTravel {
-    width: 100%;
-    margin: 10%;  
-}
 
+/* Blue Text box on bottom above Footer */
 .bluePadding {
     background-color: #010925;
     border-radius: 5px;
@@ -101,4 +63,12 @@ img.howTravel {
 p.downCenter{
     font-family: Cambria, Georgia, serif;
     color: white;
+}
+
+/* On smaller screens, switch to columns */
+@media screen and (max-width: 900px) {
+    .step-row {
+        flex-direction: column;
+    }
+
 }
