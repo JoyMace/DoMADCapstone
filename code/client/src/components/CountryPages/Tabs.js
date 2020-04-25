@@ -79,18 +79,21 @@ class CountryTabs extends React.Component {
 
         return (
             <div id='country-page-container' style={defaultStyles}>
+                <div className="category-tabs">
                 <Tabs>
                     <TabList id="tabs-flexbox">
+                        <div className="tab-style">
                         <li id="flag-wrap">
                             <img id="flag-img" src={'./flags/'+this.state.active_abbr+'.png'} alt="No Flag" />
                         </li>
                         <li id="name-wrap">
-                            <p>{this.state.active_name}</p>
+                            {this.state.active_name}
                         </li>
                         <Tab active className="regular-tabs">Country Info</Tab>
                         <Tab className="regular-tabs">Donation Items</Tab>
                         <Tab className="regular-tabs">Organizations</Tab>
                         <Tab className="regular-tabs">Blog Posts</Tab>
+                        </div>
                     </TabList>
 
                     <TabPanel tabIndex={0}>
@@ -106,6 +109,7 @@ class CountryTabs extends React.Component {
                         <BlogPostsComponent ref="BlogPosts"/>
                     </TabPanel>
                 </Tabs>
+                </div>
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import './CountryInfo.css';
 import { Link } from 'react-router-dom';
 
-import mapfiller from '../../images/map_filler.PNG';
+import WorldMapImage from '../../images/Map_soon.svg';
 
 
 class CountryInfo extends React.Component {
@@ -78,11 +78,11 @@ class CountryInfo extends React.Component {
             <div className="countryinfo">
                 <div className="country-column1">
                     <div className="map-row">
-                        <img src={ mapfiller } alt="map" className="map_image"/>
+                        <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
                     <div className="below-map-row">
                         <p>
-                            Have a trip you'd like to share to CountryName? Click <Link to="/account" className="shareaccountlink">here</Link> to submit your info!
+                            Have a trip you'd like to share? Log In or Register to submit your info!
                         </p>
                     </div>
                 </div>

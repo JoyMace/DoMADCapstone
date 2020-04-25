@@ -60,11 +60,7 @@ class User extends React.Component {
 				<div className="user-info-row">
 					<div className="avatar-column">
 							<div className='UserInfo-avatar'>
-<<<<<<< HEAD
-							<img src={ avatar } alt= "avatar" />
-=======
 							<img src={ avatar } alt= "avatar" height='128px'  />
->>>>>>> 66aa826828b5121fa25ab9b6cf428aa5b4325c56
 							</div>
 					</div>
 					<div className="user-info-column">  
