@@ -102,26 +102,6 @@
       display: none;
       text-align: center;
   }
-  .tab-style {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    height: auto;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-/*.tablink {
-    background-color: #555;
-    color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
-    width: 25%;
-}*/
 
 /*class for specifically selected/active tab*/
 .react-tabs__tab--selected {
@@ -132,7 +112,6 @@
 .react-tabs__tab--disabled {
   color: gray;
 }
-
 
 
 /*--- Description spacer for pre-load and db callback error ---*/
