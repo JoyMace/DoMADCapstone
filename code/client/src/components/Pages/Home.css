@@ -314,3 +314,10 @@
         align-items: center;
     }
 }
+
+@media screen and (max-width:650px) {
+    /*.block-wrapper { top: 20%; } */
+    .block-box {
+        width: 100%;
+    }
+}
