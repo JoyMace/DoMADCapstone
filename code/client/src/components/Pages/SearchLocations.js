@@ -25,8 +25,6 @@ class SearchLocations extends React.Component {
     constructor(props) {
         super(props);
         
-        this.spacerHTML_hr = "<hr id='spacer-line'/>";
-
         this.sendCountryOnSelect = this.sendCountryOnSelect.bind(this);
         this.sendContinentSearch = this.sendContinentSearch.bind(this);
     }
@@ -41,9 +39,9 @@ class SearchLocations extends React.Component {
         let cname_LC = country_name.trim().toLowerCase();
         
         if (this.refs.searchbar.countries.some(e => (e.name.toLowerCase() === cname_LC))) {
-            document.getElementById('spacer').innerHTML = this.spacerHTML_hr;
-            this.refs.datatabs.receiveCountry(country_name);
-            this.refs.searchbar.setState({ filteredCountries: [], queryText: ''}); 
+            this.refs.datatabs.loadCountry(country_name);
+            this.refs.searchbar.setState({ filteredCountries: [], queryText: ''});
+            document.getElementById('header-desc')
         } else {
             // Make an on page alert??
             console.log(cname_LC, "is not a country!");
@@ -66,14 +64,16 @@ class SearchLocations extends React.Component {
             <div id="search-locations">
                 <div id='exploring-root'>
                     <div id='header-search-flexbox'>
-                        <div id="title"><p>Explore Locations</p></div>
+                        <div id="title">
+                            <p>Explore Locations</p>
+                        </div>
                         <div>
                             <SearchBar ref='searchbar' sendCountryOnSelect={this.sendCountryOnSelect} />
                         </div>
                     </div>
                     
-                    <div id="description-box">
-                        <h5>Choose a country to view by filtering for a specific continent on the world map, searching by name, or a combination of the two!</h5>
+                    <div id="header-desc">
+                        <h3>Where might your next donation take you?</h3>
                     </div>
 
                     <div id='map-content-wrap'>
@@ -85,9 +85,6 @@ class SearchLocations extends React.Component {
                         </div>
                     </div>
 
-                    <div id="spacer">
-                        <h5>Once a country is selected tabular donation and country information will populate below.</h5>
-                    </div>
                     <ToTopBtn returnstepinms="25" returnstepinpx="50"/>
                 </div>
 

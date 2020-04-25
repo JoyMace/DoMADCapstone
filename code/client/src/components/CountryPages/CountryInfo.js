@@ -9,69 +9,44 @@ class CountryInfo extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            cname: null,
+            genInfo: null,
+            statistics: null
+        };
+    
         this.getInfo = this.getInfo.bind(this);
+        this.fillCountryInfo = this.fillCountryInfo.bind(this);
     }
 
     getInfo = async (country) => {
-        // blogposts & donation items - OK
-        // let ping_BP_DI = '/api/user/trip/all-trips?country=' + country;
-        // Organizations - TEST
-        // let ping_O = '/api/country-page/country/get-organizations?country=' + country;
-        
-        try {
-            let info_ping = '/api/country-page/country/get-country-info?country=' + country;
-            const response = await fetch(info_ping);
-            const data = await response.json();
+        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
+        const response = await fetch(ping_CI);
+        const data = await response.json();
 
-            console.log('STATUS:', response.status);
-            if (response.status !== 200) {
-                console.log('BAD COUNTRY, NOT FOUND:', response.status)
-                //throw Error(data.message);
-                return [false, null];
-            } 
-            else {
-                this.callbackJSON = data.countryInfoData;
-                this.setState({
-                    name: data.countryInfoData.countryName,
-                    abbr: data.countryInfoData.abbreviation,
-                    genInfo: data.countryInfoData.generalInformation,
-                    statistics: data.countryInfoData.statistics
-                });
-                console.log(this.state.name, this.state.abbr);
-                console.log(this.state.genInfo);
-                console.log(this.state.statistics); 
-                //if (data.countryInfoData.generalInformation === null) {}
-                return [true, this.state.abbr];
-            }
-            
-        } catch (error) {
-            console.log("DATA GET CAUGHT ERROR: ", error);
-            throw error;
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } 
+        else {
+            console.log('attached');
+            let dataJSON = data.countryInfoData;
+            let abbr = dataJSON.abbreviation;
+            let name = dataJSON.countryName;
+            // send to self to populate, callback to tabs
+            //fillCountryInfo(dataJSON);
+            return [name, abbr];
         }
     }
 
-    /*getTrips = async () => {        
-        if(countryselected === false) {
-            const response = await fetch('/api/user/trip/all-trips');
-            const data = await response.json();
-            console.log("The main api was called.")
-            if (response.status !== 200) {
-                throw Error(response.message)
-            }
-            return data;
-        } else {
-            var response2 = await fetch(this.state.countryAppend);
-            response2 = await fetch(this.state.countryAppend);
-            console.log(response2);
-            console.log("This api was called.");
-            const data2 = await response2.json();
-            console.log("This api was called.");
-            if (response2.status !== 200) {
-              throw Error(response2.message)
-            }
-            return data2;
-        }
-    };*/
+    fillCountryInfo(countryJSON) {
+        //console.log(countryJSON);
+        this.setState({
+            name: countryJSON.countryName,
+            genInfo: countryJSON.generalInformation,
+            statistics: countryJSON.countryInfoData.statistics
+        });
+    }
+    
 
     render() {
         return (
@@ -82,7 +57,7 @@ class CountryInfo extends React.Component {
                     </div>
                     <div className="below-map-row">
                         <p>
-                            Have a trip you'd like to share to CountryName? Click <Link to="/account" className="shareaccountlink">here</Link> to submit your info!
+                            Have a trip you'd like to share to {this.state.cname}? Click <Link to="/account" className="shareaccountlink">here</Link> to submit your info!
                         </p>
                     </div>
                 </div>
@@ -102,9 +77,9 @@ class CountryInfo extends React.Component {
                         <div className="info-results-row">Languages Info</div>
                         <div className="info-results-row">Population Info</div>
                         <div className="info-results-row">Human Development Index (HDI) Info</div>
-                        <div className="info-results-row">% Pop Below Poverty Level Info</div>
-                        <div className="info-results-row">% Pop in Urban Areas Info</div>
-                        <div className="info-results-row">% Pop in Rural Areas Info</div>
+                        <div className="info-results-row">% Pop. Below Poverty Level Info</div>
+                        <div className="info-results-row">% Pop. in Urban Areas Info</div>
+                        <div className="info-results-row">% Pop. in Rural Areas Info</div>
                         <div className="info-results-row">Air Quality Info</div>
                         <div className="info-results-row">Access to Clean Water</div>
                         <div className="info-results-row">Access to Electricity</div>

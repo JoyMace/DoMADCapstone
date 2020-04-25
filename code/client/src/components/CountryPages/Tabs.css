@@ -33,22 +33,22 @@
       #name-wrap {
           flex-basis: 20%;
           margin-right: 1%;
-          padding-top: 10px;
+          height: 80px;
           
+          padding: 10px 5px 5px 0;
           border: white 1px; border-radius: 5px; 
           background-color: #010925;
           font-size: 1.4em; 
           color: white;
           text-align: center; 
-          height: 80px;
       }
       
       .regular-tabs {
           flex-basis: 12.5%;
-          margin-right: 0.5%;
+          /*margin-right: 0.5%;*/
           padding: 12px;
           height: auto; 
-          min-height: 50px;
+          min-height: 50px; max-height: 70px;
           text-align: center;
           border: white 1px; border-radius: 5px 5px 0 0;
           transition: all 0.5s;
@@ -59,24 +59,43 @@
           font-size: 1em;
           overflow: visible;
       }
+      .regular-tabs:hover {
+        background-color: #010925;
+      }
     
-/* --- <Tab className = "regular-tabs"> --- */
-    .regular-tabs:hover {
-      background-color: #010925;
-    }
-    /*--- From react-tabs ---*/
-    .react-tabs__tab--disabled {
-      color: gray;
-    }
-    .react-tabs__tab--selected {
-      background-color: #010925;
-      color: white;
-      transition: all 0.5s;
-    }
-
+    /**** From react-tabs ****/
+    /* <TabPanel> */
     .react-tabs__tab-panel {
       display: none;
     }
     .react-tabs__tab-panel--selected {
       display: block;
     }
+      /*class for specifically selected/active tab*/
+      .react-tabs__tab--selected {
+        background-color: #010925;
+        color: white;
+        transition: all 0.5s;
+      }
+      .react-tabs__tab--disabled {
+        color: gray;
+      }
+
+
+/*--- Description spacer for pre-load and db callback error ---*/
+#spacer-desc {
+  width: 92%;
+  text-align: center;
+  font-size: 0.9em; font-style: italic;
+  padding: 4px 6px;
+  margin: 12px 4% 30px 4%; /* 5% = 100 - (96*1/2) */
+}
+
+/*--- Map spacer ---*/
+#spacer-line {
+  margin: 40px 8% 60px 8%;
+  width: 84%;
+  height: 3px;
+  color: #081d68;
+  background-color: #081d68;
+}

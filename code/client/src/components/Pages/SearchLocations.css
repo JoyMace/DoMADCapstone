@@ -24,8 +24,9 @@
     }
         #title {
             padding: 12px 16px 12px;
-            font-size: 1.4em;
+            font-size: 1.5em;
         }
+
         #search-wrap { 
             position: relative;
         }
@@ -89,21 +90,12 @@
                     background-color: #eee; /* Add hover effect to all links minus header */
                 }
 
-    /*--- Map and Data spacer ---*/
-    #spacer {
-        width: 92%;
-        flex-grow: 4;
-        text-align: center;
-        font-size: 0.9em; font-style: italic;
-        padding: 4px 6px;
-        margin: 12px 4% 30px 4%; /* 5% = 100 - (96*1/2) */
-    }
-    #spacer-line {
-        margin-top: 30px;
-        width: 2;
-        color: #081d68;
-        background-color: #081d68;
-      }
+#header-desc {
+    margin: 10px 20% 0 5%;
+    text-align: left;
+    font-style: italic;
+    font-size: 1.2em;;
+}
 
 /*=== Map & its Sidebar ===*/
 #map-content-wrap {
