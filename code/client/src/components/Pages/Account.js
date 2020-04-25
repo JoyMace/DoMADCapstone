@@ -82,7 +82,7 @@ class UserTripForm extends React.Component {
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
 			date: "",
-			country: "Select from List",
+			country: "",
 			city: "",
 			donationItem: "",
 			donationCategory: "",
@@ -172,12 +172,13 @@ class UserTripForm extends React.Component {
 				{/*<input name="userID" value={this.userID} type="hidden"/>*/}
 				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
-					<input id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
+					<input required = "Required" id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
 				
 				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
-					<select name="country" value={this.state.value} onChange={this.accountChangeHandler}>
+					<select required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
+					<option value="Select From List">Select From List</option>
 					<option value="Afghanistan">Afghanistan</option>
 					<option value="Albania">Albania</option>
 					<option value="Algeria">Algeria</option>
@@ -418,17 +419,17 @@ class UserTripForm extends React.Component {
 
 				<li>{/* City Text Entry*/}
 					<label name="city" className="city">What city?</label>
-					<input name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
+					<input required = "Required" name="city" type="text" placeholder="Enter city name" value={this.state.city} onChange={this.accountChangeHandler}/>
 				</li>
 
 				<li>{/* Donation Item Text Entry */}
 					<label name="donationItem" className="donationItem">What did you donate?</label>
-					<input name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
+					<input required = "Required" name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
 				
 				<li>{/* Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
-					<select name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
+					<select required = "Required" name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
 					  <option value="Animal Welfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
@@ -455,7 +456,7 @@ class UserTripForm extends React.Component {
 
 				<li>{/* Donation Usefulness Rating DropDown */}
 					<label name="rating" className="rating">How useful was this donation? 5 = Very Useful</label>
-					<select name='rating' value={this.state.rating} onChange={this.accountChangeHandler}>
+					<select required = "Required" name='rating' value={this.state.rating} onChange={this.accountChangeHandler}>
 					  <option value="selected">Score out of 5</option>
 					  <option value="1">1</option>
 					  <option value="2">2</option>
@@ -500,7 +501,7 @@ class UserTripForm extends React.Component {
 				
 				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
-					<input name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
+					<input required = "Required" name='description' type="text" placeholder="Type your story here." onChange={this.accountChangeHandler}/>
 				</li>
 
 				{/* <li> Make Private  Checkbox - feature currently not supported: checkbox not sending bool to console

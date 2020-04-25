@@ -56,7 +56,7 @@ class Login extends React.Component {
 
           <div className="username">
               <label htmlFor="username">Username</label>
-              <input name="username" type="text" placeholder="Enter your username" value={username} onChange={this.handleChange}/>
+              <input required = "Required" name="username" type="text" placeholder="Enter your username" value={username} onChange={this.handleChange}/>
               {submitted && !username &&
                 <div className="help-block">username is required</div>
             }
@@ -64,7 +64,7 @@ class Login extends React.Component {
 
           <div className="password">
               <label htmlFor="password">Password</label>
-              <input name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}/>
+              <input required = "Required" name="password" type="password" placeholder="Enter your password" value={password} onChange={this.handleChange}/>
               {submitted && !password &&
                 <div className="help-block">Password is required</div>
           }
