@@ -15,6 +15,7 @@
 	flex: 30%;
 	float: left;	
 	max-width: 30%;
+	min-width: 300px;
 }
 
 /* Post Top Row*/
@@ -97,6 +98,7 @@
 }
 
 /* User Trip Form Formatting */
+
 .flex-outer,
 .flex-inner {
   list-style-type: none;
@@ -149,6 +151,8 @@
 .flex-outer li input:not([type='checkbox']),
 .flex-outer li textarea {
   padding: 2%;
+  display: block;
+  border-radius: 3px;
   border: none;
 }
 
@@ -253,12 +257,8 @@
 @media screen and (max-width: 600px) {
     .Post {
         max-width: 100%;
-    }
-}
-/* On smaller screens, switch to columns */
-@media screen and (max-width: 600px) {
-    .account-row {
+	}
+	.account-row {
         flex-direction: column;
 	}
-	
 }
