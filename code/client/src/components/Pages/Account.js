@@ -82,7 +82,7 @@ class UserTripForm extends React.Component {
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
 			date: "",
-			country: "Select from List",
+			country: "",
 			city: "",
 			donationItem: "",
 			donationCategory: "",
@@ -178,6 +178,7 @@ class UserTripForm extends React.Component {
 				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
 					<select required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
+					<option value="Select From List">Select From List</option>
 					<option value="Afghanistan">Afghanistan</option>
 					<option value="Albania">Albania</option>
 					<option value="Algeria">Algeria</option>
