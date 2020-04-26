@@ -119,14 +119,16 @@ class UserTripForm extends React.Component {
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
-		/* var newSuggestedDonation = {
+		var newSuggestedDonation = {
 		  "itemName": this.state.suggestedDonationItem,
 		  "category": this.state.donationCategorySuggested,
+		  "rating": -1,
 		  "suggestion": true,
-		  "reason": this.state.suggestedDonationReason
-		} */
+		  "organization": false,
+		  "itemDescription": this.state.suggestedDonationReason
+		}
 		donations.push(newDonation);
-		//donations.push(newSuggestedDonation);
+		donations.push(newSuggestedDonation);
 		const reqBody = {
 		  
 		  "tripDate": this.state.tripDate,
@@ -529,6 +531,8 @@ class Post extends React.Component {
 		notes: tripInfo.notes, 
 		donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
 		donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+		suggestedDonationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "None",
+		suggestedDonationReason: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].description : "None",
 		userID: tripInfo.userID	 
     	}
 	}
@@ -579,7 +583,7 @@ class Post extends React.Component {
 				<br></br>
 				<div className="Post-stars"> Donation rating: {star_number}	</div>
 				<br></br>
-				<div className="Post-donation-row"> Suggested Donations:  {this.state.donationItem}</div>
+				<div className="Post-donation-row"> Suggested Donations:  {this.state.suggestedDonationItem}</div>
 				<br></br>
 			</div>
 		
