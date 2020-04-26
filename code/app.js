@@ -48,6 +48,7 @@ app.use('/api/user/auth', require('./routers/user/auth'));
 app.use('/api/user/trip', require('./routers/user/trip'));
 app.use('/api/user/reset', require('./routers/user/reset'));
 app.use('/api/user/profile', require('./routers/user/profile'));
+app.use('/api/user/profile_image', require('./routers/user/profile_image'));
 
 app.use('/api/admin', require('./routers/admin'));
 

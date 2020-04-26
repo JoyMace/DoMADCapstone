@@ -48,12 +48,12 @@ router.get('/profile', (req, res) => {
     }
     else{
       userData = {userName: user.username, firstName: user.firstName, lastName: user.lastName,
-                signupDate: user.signupDate, locationID: user.locationID};
+                signupDate: user.signupDate, locationID: user.locationID, imageName: user.imageName};
 
-      Trip.aggregate( [ 
+      Trip.aggregate( [
         { $match: { userID : userID } },
         { $group: { _id : null, count: { $sum : 1 } } } ], function(err, user) {
-        
+
         if(err) {
           return res.status(profileCodes.profile.tripcountNotFound.status).send({
             message: profileCodes.profile.tripcountNotFound.message
@@ -70,8 +70,8 @@ router.get('/profile', (req, res) => {
                 foreignField: "tripID",
                 as: "matched-docs"
               }
-            }, 
-            { $match: { userID : userID },  },           
+            },
+            { $match: { userID : userID },  },
             { $group: { _id : null, count: { $sum : 1 } } }], function(err, user) {
 
             if(err) {

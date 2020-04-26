@@ -5,8 +5,10 @@ import avatar from '../../images/Avatar.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import ComingSoonIcon from '../../images/png_icons/comingSoonIcon.svg';
+const axios = require("axios");
+
 /* NOTES: We want to export the main component of the page so that everything renders properly
-This means that we will display other components within the main component. 
+This means that we will display other components within the main component.
 We will need to have a main class that is the default export. This should be the AccountPage class.
 Every part that appears on the page will need to be a separate component.
 For instance, the Account Page will contain a UserForm, a UserProfileData section, and Posts
@@ -19,12 +21,17 @@ class User extends React.Component {
 		super(props)
 		this.state = {
 		firstName: "",
-		lastName: "", 
+		lastName: "",
 		signupDate: "",
 		tripsCount: "",
-		donationCount: "",	
-		
-	};
+		donationCount: "",
+		imageName: "",
+		file: null,
+
+		};
+
+		this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
 	}
 
 	getUser = async () => {
@@ -47,23 +54,53 @@ class User extends React.Component {
 					signupDate: (signUpDate.getMonth() + 1) + "/" + signUpDate.getDate() + "/" + signUpDate.getFullYear(),
 					tripsCount: res.userData.tripsCount ? res.userData.tripsCount : "None",
 					donationCount: res.userData.donationCount ? res.userData.donationCount : "None",
-          
-										
+					imageName: res.userData.imageName ? res.userData.imageName : "None"
+
+
 				});
 			})
 			.catch(err => console.log(err));
 	}
 
+	onFormSubmit(e){
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('myImage',this.state.file);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("/api/user/profile_image/upload",formData,config)
+            .then((response) => {
+                alert("The file is successfully uploaded");
+            }).catch((error) => {
+        });
+    }
+    onChange(e) {
+        this.setState({file:e.target.files[0]});
+    }
+
+
 	render() {
+
 		return(
 		<div className="UserInfo">
 				<div className="user-info-row">
 					<div className="avatar-column">
+						<div className='UserInfo-avatar'>
+							<form onSubmit={this.onFormSubmit}>
+								<h5>File Upload</h5>
+								<input type="file" name="myImage" onChange= {this.onChange} />
+								<button type="submit">Upload</button>
+							</form>
 							<div className='UserInfo-avatar'>
-							<img src={ avatar } alt= "avatar" height='128px'  />
+								<img src={process.env.PUBLIC_URL + 'client/src/images/profile/IMAGE-1587939475957.png'} alt= "avatar" height='128px'  />
 							</div>
+
+						</div>
 					</div>
-					<div className="user-info-column">  
+					<div className="user-info-column">
 						<div className="UserInfo-name">{this.state.firstName + " " + this.state.lastName}</div>
 						<div className='UserInfo-signupDate'>DoMAD Member Since: {this.state.signupDate}</div>
 						<div className="UserInfo-tripsCount">Number of trips: {this.state.tripsCount}</div>
@@ -77,7 +114,7 @@ class User extends React.Component {
 /* The Form a User fills out when they want to report a trip and donation */
 class UserTripForm extends React.Component {
 	constructor(props) {
-		super(props);	
+		super(props);
 		this.userID = this.props.userID;
 		this.reloadAccount = this.props.reloadAccount;
 		this.state = {
@@ -94,9 +131,9 @@ class UserTripForm extends React.Component {
 			description: "",
 			isPrivate: false,
 		};
-		this.accountChangeHandler = this.accountChangeHandler.bind(this);		
+		this.accountChangeHandler = this.accountChangeHandler.bind(this);
 	}
-	
+
 	accountChangeHandler(event) {
 		const target = event.target;
 		const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -106,7 +143,7 @@ class UserTripForm extends React.Component {
 		  [name]: value
 		});
 	  }
-	
+
 
 	reportTrip = async () => {
 		// TODO: Create support for adding multiple items at a time
@@ -115,7 +152,7 @@ class UserTripForm extends React.Component {
 		var newDonation = {
 		  "itemName": this.state.donationItem,
 		  "category": this.state.donationCategory,
-		  "rating": this.state.rating, 
+		  "rating": this.state.rating,
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
@@ -128,13 +165,13 @@ class UserTripForm extends React.Component {
 		donations.push(newDonation);
 		//donations.push(newSuggestedDonation);
 		const reqBody = {
-		  
+
 		  "tripDate": this.state.tripDate,
 		  "donations": donations,
 		  "notes": this.state.description,
 		  "isPrivate": this.state.isPrivate,
 		  "country": this.state.country,
-		  "city": this.state.city 
+		  "city": this.state.city
 		}
 		console.log(reqBody);
 		const requestOptions = {
@@ -174,7 +211,7 @@ class UserTripForm extends React.Component {
 					<label name="date">When did this trip occur?</label>
 					<input required = "Required" id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
-				
+
 				<li>{/* Country Selection List */}
 					<label> Where did you go?</label>
 					<select className="select-css" required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
@@ -414,7 +451,7 @@ class UserTripForm extends React.Component {
 					<option value="Zambia">Zambia</option>
 					<option value="Zimbabwe">Zimbabwe</option>
 					</select>
-				
+
 				</li>
 
 				<li>{/* City Text Entry*/}
@@ -426,7 +463,7 @@ class UserTripForm extends React.Component {
 					<label name="donationItem" className="donationItem">What did you donate?</label>
 					<input required = "Required" name="donationItem" className="donationItem" type="text" placeholder="Enter Donation Item" value={this.state.donationItem} onChange={this.accountChangeHandler}/>
 				</li>
-				
+
 				<li>{/* Donation Item Category Selection List */}
 					<label name="donationCategory" className="donationCategory"></label>
 					<select className="select-css" required = "Required" name='donationCategory' value={this.state.donationCategory} onChange={this.accountChangeHandler}>
@@ -443,15 +480,15 @@ class UserTripForm extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				
-				<li>{/* Individual or Organization Drop Down */}	
-					<label name="donationRecipient" className="donationRecipient"></label>				
+
+				<li>{/* Individual or Organization Drop Down */}
+					<label name="donationRecipient" className="donationRecipient"></label>
 					<select className="select-css" name="donationRecipient" value={this.state.donationRecipient} onChange={this.accountChangeHandler}>
 						<option value="selected">Individual or Organization?</option>
 						<option value="individual">Donation to an Individual</option>
 						<option value="organization">Donation to an Organization</option>
 					</select>
-						
+
 				</li>
 
 				<li>{/* Donation Usefulness Rating DropDown */}
@@ -462,7 +499,7 @@ class UserTripForm extends React.Component {
 					  <option value="2">2</option>
 					  <option value="3">3</option>
 					  <option value="4">4</option>
-					  <option value="5">5</option>					  
+					  <option value="5">5</option>
 					</select>
 
 				</li>
@@ -475,7 +512,7 @@ class UserTripForm extends React.Component {
 					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
 					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
 				</li>
-				
+
 				<li>{/* Suggested Future Donation Item Category Selection List */}
 					<label name="donationCategorySuggested" className="donationCategorySuggested"></label>
 					<select className="select-css" name='donationCategorySuggested' value={this.state.donationCategorySuggested} onChange={this.accountChangeHandler}>
@@ -492,12 +529,12 @@ class UserTripForm extends React.Component {
 					  <option value="Sports">Sports</option>
 					</select>
 				</li>
-				
+
 				<li>{/* Suggested Future Donation Item Readon Text Entry */}
 				<label name="suggestedDonationReason" className="suggestedDonationReason"></label>
 				<input name="suggestedDonationReason" className="suggestedDonationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
 				</li>
-				
+
 				<li>{/* Trip Descritption Text Entry */}
 					<label name="description" className="description" >What else would you like to share?</label>
 					<textarea  className="text-area-css" required = "Required" name='description' placeholder="Type your story here." onChange={this.accountChangeHandler}/>
@@ -505,10 +542,10 @@ class UserTripForm extends React.Component {
 
 				{/* <li> Make Private  Checkbox - feature currently not supported: checkbox not sending bool to console
 					<label>Make Private?</label>
-						<ul className="flex-inner">						
+						<ul className="flex-inner">
 						<label>Private
 						<input name="isPrivate" type="checkbox"  checked={this.state.isPrivate} onChange={this.accountChangeHandler} />
-						</label>	
+						</label>
             </ul>
 				<li>
 				{/* Image Upload not currently supported. Uncomment this code to show button and add functionality
@@ -533,22 +570,22 @@ class Post extends React.Component {
 		super(props)
     var tripInfo = this.props.tripInfo;
 	var tripDate = new Date(tripInfo.tripDate);
-	
+
     this.state = {
 		city: tripInfo.locationID.city,
 		country: tripInfo.locationID.country,
 		tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
-		notes: tripInfo.notes, 
+		notes: tripInfo.notes,
 		donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
 		donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
-		userID: tripInfo.userID	 
+		userID: tripInfo.userID
     	}
 	}
-	
+
 	render() {
 		var star_number;
 		var rating_number = this.state.donationRating;
-		if (rating_number === 1) 
+		if (rating_number === 1)
 		{
 			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
@@ -569,7 +606,7 @@ class Post extends React.Component {
 			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
 	return (
-		
+
 			<div className="Post">
 				<div className="post-top-row">
 					<div className="post-destination-column">
@@ -594,7 +631,7 @@ class Post extends React.Component {
 				<div className="Post-donation-row"> Suggested Donations:  {this.state.donationItem}</div>
 				<br></br>
 			</div>
-		
+
   		);
 	}
 }
@@ -626,7 +663,7 @@ class AccountContainer extends React.Component {
 	}
 	console.log(data);
     return data;
-  }; 
+  };
 	componentDidMount() {
     this.getTrips(this)
       .then(res => {
@@ -653,26 +690,26 @@ function Account(props) {
 	  var tripData = props.post.trips.trips;
 	  trips = tripData.map(trip => {
 		return (<Post tripInfo={trip}/> )
-				
+
 	  });
 	  trips = <div className="account-row">{trips.reverse()} </div>
 	}
-	
+
 	return (
 	  <div className="Account">
 		  <div className='account-row'>
 			  <div className='account-column'>
 				  <div className='user-info-container'>
-					  <User/> 
+					  <User/>
 				  </div>
-				  <br></br>					  
+				  <br></br>
 				  <h1 style={{paddingLeft: '5%'}}>Your Travel Map</h1>
 				  <div className='map'style={{margin: "auto"}} >
 					  <br></br>
 					  <br></br>
 					<img src={ WorldMapImage } alt="map of the world" width='100%' />
 				  </div>
-				  {/* <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>	 */}			  
+				  {/* <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>	 */}
 			  </div>
 			  <div className='account-column'>
 					<div className='container'>
@@ -684,7 +721,7 @@ function Account(props) {
 			  </div>
 		  </div>
 		  <h1 > Your Trips </h1>
-		    {trips}	
+		    {trips}
 	  </div>
 	  );
   }
