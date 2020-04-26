@@ -9,27 +9,43 @@ import { IconContext } from "react-icons";
 class DonationItems extends React.Component {
     constructor(props) {
         super(props);
-
-        this.base_path = '/api/user/trip/all-trips?country='
-        this.getDonations = this.getDonations.bind(this);
+        
+        console.log(props);
+        this.state = {
+            cooltab: '',
+            tripData: null
+        };
+        this.fillDonations = this.fillDonations.bind(this);
     }
 
-    getDonations = async (country) => {
-        let ping_DI = this.base_path + country;
-        const response = await fetch(ping_DI);
-        const data = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } 
-        else {
-            console.log('received donation items');
-            console.log(data);
-           
-            // FILL DATA
-            /*this.setState({ });*/
-            return;
+    componentDidUpdate(props) {
+        if (props.data !== null) {
+            //console.log(props.data);
+            this.fillDonations(props.data);
+            /* populate data here */
         }
+    }
+
+    fillDonations(tripsJSON) {
+        console.log(tripsJSON);
+        //trips = 
+        //console.log(trips);
+        //console.log('hey');
+        //trips = [];
+        /*for (var tr in tripsJSON.donations) {
+            console.log(tr);
+            for (var don in tr) {
+                console.log(don);
+            }*/
+            /*for (var trz in tr) {
+                let don = tr.donations;
+                console.log(don);*/
+                //let tripDons = trips.tripInfo['donations'];
+
+                /*for (var att in tripDons) {
+                    console.log(att)
+                }*/
+        return
     }
 
     render() {
@@ -38,6 +54,7 @@ class DonationItems extends React.Component {
             <div className="donation-tabs-component">
                 <TabList>
                     <div className="column1-donations">
+                        <p></p>
                         <div className="donation-tab-style">
                             <h4 className="category-header">Select a category to view donation items</h4>
                             <Tab default className="donation-tabs">Animal Welfare</Tab>

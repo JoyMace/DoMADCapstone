@@ -1,6 +1,7 @@
 import React from 'react';
 import './CountryInfo.css';
-import { Link } from 'react-router-dom';
+
+//import { Link } from 'react-router-dom';
 
 import WorldMapImage from '../../images/Map_soon.svg';
 
@@ -10,45 +11,35 @@ class CountryInfo extends React.Component {
         super(props);
 
         this.state = {
-            cname: null,
+            name: null,
+            abbr: null,
+            languages: [],
+            
             genInfo: null,
             statistics: null
         };
     
-        this.getInfo = this.getInfo.bind(this);
-        this.fillCountryInfo = this.fillCountryInfo.bind(this);
     }
 
-    getInfo = async (country) => {
-        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
-        const response = await fetch(ping_CI);
-        const data = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } 
-        else {
-            console.log('received country info.');
-            let dataJSON = data.countryInfoData;
-            let abbr = dataJSON.abbreviation;
-            let name = dataJSON.countryName;
-            console.log('INFO:', name, abbr);
-            // send to self to populate, callback to tabs
-            //fillCountryInfo(dataJSON);
-            return [name, abbr];
+    
+    componentDidUpdate() {
+        if (this.props.data !== null) {
+            /* populate data here */
+            this.populateInfo(this.props.data);
         }
     }
 
-    fillCountryInfo(countryJSON) {
-        //console.log(countryJSON);
-        this.setState({
-            name: countryJSON.countryName,
-            genInfo: countryJSON.generalInformation,
-            statistics: countryJSON.countryInfoData.statistics
-        });
+    populateInfo(data) {
+        //console.log(data);
+        
+        /*this.setState({
+            cname: data.countryName,
+            genInfo: data.generalInformation,
+            statistics: data.countryInfoData.statistics
+        });*/
+        return;
     }
     
-
     render() {
         return (
             <div className="countryinfo">
@@ -57,9 +48,7 @@ class CountryInfo extends React.Component {
                         <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
                     <div className="below-map-row">
-                        <p>
-                            Have a trip you'd like to share? Log In or Register to submit your info!
-                        </p>
+                        <p>Have a trip you'd like to share? Log In or Register to submit your info!</p>
                     </div>
                 </div>
                 <div className="country-column2">
