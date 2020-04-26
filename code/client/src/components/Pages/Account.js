@@ -90,7 +90,7 @@ class UserTripForm extends React.Component {
 			rating: "",
 			suggestedDonationItem: "",
 			donationCategorySuggested: "",
-			suggestedDonationReason: "",
+			itemDescription: "",
 			description: "",
 			isPrivate: false,
 		};
@@ -119,14 +119,16 @@ class UserTripForm extends React.Component {
 		  "suggestion": false,
 		  "organization": false // Check in to too if we are only doing this and no organization information
 		}
-		/* var newSuggestedDonation = {
+		var newSuggestedDonation = {
 		  "itemName": this.state.suggestedDonationItem,
 		  "category": this.state.donationCategorySuggested,
+		  "rating": this.state.rating,
 		  "suggestion": true,
-		  "reason": this.state.suggestedDonationReason
-		} */
+		  "organization": false,
+		  "itemDescription": this.state.itemDescription
+		}
 		donations.push(newDonation);
-		//donations.push(newSuggestedDonation);
+		donations.push(newSuggestedDonation);
 		const reqBody = {
 		  
 		  "tripDate": this.state.tripDate,
@@ -461,14 +463,15 @@ class UserTripForm extends React.Component {
 
 				<li>{/* Suggested Future Donation Item Name Text Entry */}
 					<label name="suggestedDonationItem" className="suggestedDonationItem">Suggest Future Donation Item?</label>
-					<input name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
+					<input required = "Required"  name="suggestedDonationItem" className="suggestedDonationItem" type="text" placeholder="Enter Donation Item or type 'None'"value={this.state.suggestedDonationItem} onChange={this.accountChangeHandler} />
 				</li>
 				
 				<li>{/* Suggested Future Donation Item Category Selection List */}
 					<label name="donationCategorySuggested" className="donationCategorySuggested"></label>
-					<select className="select-css" name='donationCategorySuggested' value={this.state.donationCategorySuggested} onChange={this.accountChangeHandler}>
+					<select required = "Required" className="select-css" name='donationCategorySuggested' value={this.state.donationCategorySuggested} onChange={this.accountChangeHandler}>
 					  <option value="selected">Select the Donation Category</option>
-					  <option value="AnimalWelfare">Animal Welfare</option>
+					  <option value="NA">Not Applicable</option>
+					  <option value="Animal Welfare">Animal Welfare</option>
 					  <option value="Art">Art</option>
 					  <option value="Clothing">Clothing</option>
 					  <option value="Education">Education</option>
@@ -482,8 +485,8 @@ class UserTripForm extends React.Component {
 				</li>
 				
 				<li>{/* Suggested Future Donation Item Readon Text Entry */}
-				<label name="suggestedDonationReason" className="suggestedDonationReason"></label>
-				<input name="suggestedDonationReason" className="suggestedDonationReason" type="text" placeholder="Enter Reason for Future Donation" value={this.state.donationReason} onChange={this.accountChangeHandler}/>
+				<label name="itemDescription" className="itemDescription"></label>
+				<input required = "Required"  name="itemDescription" className="itemDescription" type="text" placeholder="Enter Reason for Suggestion or 'None'" value={this.state.itemDescription} onChange={this.accountChangeHandler}/>
 				</li>
 				
 				<li>{/* Trip Descritption Text Entry */}
@@ -527,8 +530,10 @@ class Post extends React.Component {
 		country: tripInfo.locationID.country,
 		tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
 		notes: tripInfo.notes, 
-		donationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
-		donationRating: tripInfo.donations ? tripInfo.donations[0].rating : "None",
+		donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "None",
+		donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : "None",
+		suggestedDonationItem: tripInfo.donations ? tripInfo.donations[0].itemName : "None",
+		itemDescription: tripInfo.donations ? tripInfo.donations[0].itemDescription : "None",
 		userID: tripInfo.userID	 
     	}
 	}
@@ -579,7 +584,9 @@ class Post extends React.Component {
 				<br></br>
 				<div className="Post-stars"> Donation rating: {star_number}	</div>
 				<br></br>
-				<div className="Post-donation-row"> Suggested Donations:  {this.state.donationItem}</div>
+				<div className="Post-donation-row"> Suggested Donations:  {this.state.suggestedDonationItem}</div>
+				<br></br>
+				<div className="Post-donation-row"> Suggested Donation Reason:  {this.state.itemDescription}</div>
 				<br></br>
 			</div>
 		
