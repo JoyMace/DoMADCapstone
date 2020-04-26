@@ -7,7 +7,7 @@ const Location = require('./location');
 const LocationSchema = mongoose.model('Location').schema;
 
 const donationCategories = ['Health', 'Household', 'Clothing', 'Education', 'Art', 
-  'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food'];
+  'Sports', 'Miscellaneous', 'Animal Welfare', 'Environment', 'Food', 'NA'];
 
 const donationSchema = new mongoose.Schema({
   itemName: {type: String, required: true},

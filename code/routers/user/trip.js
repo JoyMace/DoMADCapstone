@@ -57,7 +57,7 @@ router.post('/report', function(req, res) {
   newTrip.tripDate = tripDate;
   newTrip.notes = notes;
   newTrip.isPrivate = isPrivate;
-
+  
   var locationQuery = {
     country: country,
     city: city
