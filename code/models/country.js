@@ -6,17 +6,26 @@ const OrganizationSchema = mongoose.model('Organization').schema;
 
 const countrySchema = new mongoose.Schema({
   name: { type: String, required: true },
+  originalName: String,
   abbreviation: { type: String, required: true },
-  organizationIDs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Organization'}],
   generalInformation: {
-    officialLanguages: [ String ],
-    flag: String, // For now this is just a file location. Looking GridFS
-    map: String, // Same as above 
+    continentAbbr: String,
+    continentName: String,
+    currency: String,
+    languages: [ String ],
     locationID: {type: mongoose.Schema.Types.ObjectId, ref: 'Location'}
   },
   statistics: {
-    totalElectricity: mongoose.Types.Decimal128,
-    ruralElectriity: mongoose.Types.Decimal128
+    population: mongoose.Types.Decimal128,
+    HDIRank: mongoose.Types.Decimal128,
+    GNI: mongoose.Types.Decimal128,
+    lifeExpectancy: mongoose.Types.Decimal128,
+    povertyPercent: mongoose.Types.Decimal128,
+    popUrbanPercent: mongoose.Types.Decimal128,
+    cleanWaterAccess:mongoose.Types.Decimal128,
+    averageSchooling:mongoose.Types.Decimal128,
+    electricityAccessRuralPop:mongoose.Types.Decimal128,
+    electricityAccessTotalPop:mongoose.Types.Decimal128,    
   }
 });
 
