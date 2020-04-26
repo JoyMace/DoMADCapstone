@@ -289,9 +289,9 @@ class HomeNavbar extends React.Component {
                                 </a>
                                 <div className="dropdown-content">
                                     <a href="/account">Account</a>
-                                    <div onClick={this.handleLogoutClick}>
-                                        <Link to="/">Log Out</Link>
-                                    </div>
+                                    <a href="/" onClick={this.handleLogoutClick}>
+                                        <div>Log Out</div>
+                                    </a>
                                 </div>
                             </li>
                             <li className='dropdown'>

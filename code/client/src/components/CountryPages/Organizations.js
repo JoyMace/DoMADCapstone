@@ -2,7 +2,6 @@ import React from 'react';
 import './Organizations.css';
 import WorldMapImage from '../../images/Map_soon.svg';
 import { Link } from 'react-router-dom';
-import mapfiller from '../../images/map_filler.PNG'
 
 class Organizations extends React.Component {
     constructor(props) {
@@ -37,7 +36,7 @@ class Organizations extends React.Component {
             <div className="organizations">
                 <div className="organizations-column1">
                     <div className="map-row">
-                        <img src={ mapfiller } alt="map" className="map_image"/>
+                        <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
                     <div className="below-map-row">
                         <p>

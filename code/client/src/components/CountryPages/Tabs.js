@@ -22,7 +22,8 @@ class CountryTabs extends React.Component {
         this.state = { 
             tabIndex: 0,
             display: false, 
-            errors: false
+            errors: false,
+            refreshMe: false
         };
 
         this.spacer_line = (<hr id='spacer-line'/>);
@@ -69,18 +70,23 @@ class CountryTabs extends React.Component {
                 console.log("Fetched donation data");
                 console.log(loads);
                 console.log("Fetched Blog information")
+                this.refreshTabs();
             })
             .catch(err => {
                 this.setState({ errors: true, display: false });
                 console.log(Error("Info GET failed:", err));
             });
-    }   
+    }
+
+    refreshTabs = () => {
+        
+    }
 
     handleTabChange = (Index, prevIndex) => {
         console.log(Index, prevIndex);
-
+        this.forceUpdate();
         if (Index === prevIndex) {
-            return false
+            return false;
         }
         this.setState({ tabIndex: Index });
     }
@@ -128,7 +134,7 @@ class CountryTabs extends React.Component {
                             <OrganizationsComponent ref="OrgsRef" />
                         </TabPanel>
                         <TabPanel tabIndex={3}>
-                            <BlogPostsComponent ref="BlogsRef" />
+                            <BlogPostsComponent ref="BlogsRef" refresh={ this.state.refreshMe }/>
                         </TabPanel>
                     </Tabs>
                     </div>
