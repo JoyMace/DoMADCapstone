@@ -416,6 +416,7 @@ class BlogDropDown extends React.Component { // this class has only the drop dow
                 </select>
 
                 <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                <option selected>South America</option>
                 <option value="Argentina">Argentina</option>
                 <option value="Bolivia, Plurinational State of">Bolivia, Plurinational State of</option>
                 <option value="Brazil">Brazil</option>
