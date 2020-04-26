@@ -1,7 +1,6 @@
 import React from 'react';
 import './Reset_token.css'
-import ReactDOM from 'react-dom'; //added to retrive token from url
-import {BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+import {BrowserRouter as useParams } from "react-router-dom";
 
 function Reset_token() {
 
@@ -17,12 +16,12 @@ function Reset_token() {
 
               <div className="Password">
                 <label htmlFor="passowrd">New Password</label>
-                <input name="password" type="password" placeholder="New password" />
+                <input required = "Required" name="password" type="password" placeholder="New password" />
               </div>
 
               <div className="Confirm">
                 <label htmlFor="confirm">Confirm Password</label>
-                <input name="confirm" type="password" placeholder="Confirm password" />
+                <input required = "Required" name="confirm" type="password" placeholder="Confirm password" />
               </div>
 
               <div className="resetbutton">

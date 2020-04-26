@@ -1,121 +1,133 @@
-.tabs-component {
-    display: flex;
-    margin-top: 10px;
-    height: 50px;
-    width: 100vw;
-}
-
-.regular-tabs {
-    height: auto;
-    min-height: 50px;
-    width: 12%;
-    text-align: center;
-    border-bottom: none;
-    list-style: none;
-    padding: 12px 12px;
-    cursor: pointer;
-    margin: auto;
-    background-color: gray;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1em;
-}
-
-.country-flag-block {
-    width: 160px;
-    overflow: hidden;
-    margin-right: 1%;
-    border-radius: 5px;
-    height: 80px;
-}
-
-.flag-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #363D48;
-    object-position: center;
-}
-
-.country-name-block {
-    display: flex;
-    width: 20%;
-    margin-left: 1%;
-    background-color: #010925;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.5em;
-    text-align: center;
-    height: 50px;
-    margin: auto;
-}
-
-.country-name-text {
-    margin: auto;
+/*=== Main - Country Tab Content === */
+#country-page-container {
+  display: flex;
+  width: 100%;
+  padding: 0 1% 0 1%;
 }
 
 .category-tabs {
-    width: 100%;
-    margin-right: 1%;
+  width: 100%;
 }
 
-.tab-style {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    height: auto;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
+    /*== <TabList> */
+     #tabs-flexbox {
+        display: flex; flex-flow: row nowrap;
+        width: 100%;
+        justify-content: space-evenly;
+        height: auto;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+      #flag-wrap {
+        align-self: flex-start;
+        width: 200px; /*flex-basis: 30%;*/
+        height: auto;
+        margin: auto; 
+      }
+        #flag-img {
+          width: 100%;
+          height: auto;
+          border: 1px solid #010925;
+        }
+
+      #name-wrap {
+          flex-basis: 20%;
+          margin: auto;
+          padding: 10px;
+          align-items: center;
+          vertical-align: middle;
+          border: white 1px; 
+          border-radius: 5px; 
+          background-color: #010925;
+          font-size: 1.4em; 
+          color: white;
+          text-align: center; 
+          /* height: 80px; */
+      }
+      
+      .regular-tabs {
+          width: 12%;
+          margin: auto;
+          padding: 12px;
+          height: 50px; 
+          min-height: 50px;
+          text-align: center;
+          border: white 1px; 
+          border-radius: 5px;
+          transition: all 0.5s;
+          background-color: #a8a8a8;
+          list-style: none;
+          cursor: pointer;
+          color: black;
+          font-size: 1em;
+          overflow: visible;
+      }
+      .regular-tabs:hover {
+        background-color: #010925;
+      }
+    
+/* --- <Tab className = "regular-tabs"> --- */
+    .regular-tabs:hover {
+      background-color: #363D48;
+      color: white;
+    }
+    /*--- From react-tabs ---*/
+    .react-tabs__tab--disabled {
+      color: gray;
+    }
+    .react-tabs__tab--selected {
+      background-color: #363D48;
+      color: white;
+      transition: all 0.5s;
+    }
+
+    .react-tabs__tab-panel {
+      display: none;
+    }
+    .react-tabs__tab-panel--selected {
+      display: block;
+    }
+    .react-tabs__tab {
+      display: inline-block;
+      border-bottom: none;
+      position: relative;
+      list-style: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .tabcontent {
+      color: white;
+      display: none;
+      text-align: center;
+  }
+
+/*class for specifically selected/active tab*/
+.react-tabs__tab--selected {
+  background-color: #010925;
+  color: white;
+  transition: all 0.5s;
+}
+.react-tabs__tab--disabled {
+  color: gray;
 }
 
-.tablink {
-    background-color: #555;
-    color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
-    width: 25%;
+
+/*--- Description spacer for pre-load and db callback error ---*/
+#spacer-desc {
+  width: 92%;
+  text-align: center;
+  font-size: 0.9em; font-style: italic;
+  padding: 4px 6px;
+  margin: 12px 4% 30px 4%; /* 5% = 100 - (96*1/2) */
 }
 
-/* Change background color of buttons on hover */
-.tablink:hover {
-    background-color: #777;
+/*--- Map spacer ---*/
+#spacer-line {
+  margin: 40px 8% 60px 8%;
+  width: 84%;
+  height: 3px;
+  color: #081d68;
+  background-color: #081d68;
 }
-
-/* Set default styles for tab content */
-.tabcontent {
-    color: white;
-    display: none;
-    text-align: center;
-}
-  
-  .react-tabs__tab {
-    display: inline-block;
-    border-bottom: none;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
-  .react-tabs__tab--disabled {
-    color: white;
-  }
-  
-  .react-tabs__tab--selected {
-    background-color: #010925;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1em;
-  }
-  
-  .react-tabs__tab-panel {
-    display: none;
-  }
-  
-  .react-tabs__tab-panel--selected {
-    display: block;
-  }

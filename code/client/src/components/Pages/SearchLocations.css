@@ -1,4 +1,159 @@
-.search-locations {
-    margin-top: 64px;
+#search-locations {
+    margin-top: 56px;
     text-align: center;
+}
+
+/*=== Top - Search Bar === */
+#exploring-root {
+    padding: 16px 4% 0; /*--Skinnier viewport than content area */
+}
+
+    /*--- Toolbar Styling ---*/
+    #header-search-flexbox {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        vertical-align: middle;
+        padding: 12px; /* title box size */
+        width: 90%;
+        border-radius: 8px;
+        background-color: #010925;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+    }
+        #title {
+            padding: 12px 16px 12px;
+            font-size: 1.5em;
+        }
+        #search-column { 
+            position: relative;
+            width: 80%;            
+        }
+            #search-input {
+                height: 29px; /*- 15 + 2*6(padding) + 2*1(border) */
+                padding: 10px;
+                border: 1px solid white;
+                border-radius: 6px;
+                overflow-x: hidden;
+                color: #010925;
+                font-size: 1em;
+                flex: 80%;
+            }
+            #search-btn {
+                position: absolute;
+                top: 0; /*=(28px-height)/2 */
+                right: 0;
+                padding: 3px;
+                border: 1px solid gray;
+                border-radius: 0 5px 6px 0;
+                
+                background-color: #010925;
+                color: white;
+                cursor: pointer;
+            }
+            #search-btn #icon {
+                width: 18px;
+                height: 18px;
+                filter: brightness(0%) invert(1);
+            }
+                #searchUL-wrap {
+                    position: absolute;
+                    display: block;
+                    z-index: 99;
+
+                    width: 100%;
+                    max-height: 75vw;
+                    overflow-y: auto;
+                }
+                #searchUL {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+                    border: 1px solid #010925;
+                }
+                .filtered-country-items {
+                    display: block; 
+                    margin-top: -1px; /* Prevent double borders */
+                    padding: 6px;
+                    border: 1px solid #ddd;
+                    
+                    text-align: left;
+                    background-color: #f6f6f6;
+                    text-decoration: none;
+                    font-size: 0.7em;
+                    color: black;
+                    cursor: pointer;
+                }
+                .filtered-country-items:hover:not(.header) {
+                    background-color: #eee; /* Add hover effect to all links minus header */
+                }
+
+#header-desc {
+    margin: 5px auto;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;;
+}
+
+
+/*=== Map & its Sidebar ===*/
+#map-content-wrap {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 24px;
+}
+    
+    
+    /*-- React-Simple-Map --*/
+    #map-stretchy-wrapper {
+        flex-grow: 2; /*80% width*/
+        width: 90%;
+        position: relative;
+        padding: 10px;
+        border-radius: 5px;
+    } 
+    .map-img {  /*--svg map element*/
+        width: 90% !important;  /* overwrite static inline dimensions*/
+        height: auto !important; 
+        /* viewbox scales to match aspect ratio. auto 
+        height renders the 'minimum' height necessaery. */
+    }
+        #map-stretchy-wrapper .row { 
+            margin-top: 0; /*overwriting from Account.css-- FIX THIS */
+        } 
+        .map-img path {
+            stroke: black;
+            stroke-width: 1px;
+            stroke-linejoin: bevel;
+        }
+
+        .map-img .map-unselected {
+            fill: #d5ddd5;
+        }
+            .map-img .map-unselected:hover {
+                fill: #428FBE;
+                transition: fill 0.5s;
+                transition-delay: 0;
+            }
+
+        .map-img .map-selected {
+            fill: #081d68;
+        }
+            .map-img .map-selected:hover {
+                cursor: pointer;
+                opacity: 0.85;
+            }
+
+/*--- Conditional "Return to top" Button (master styles in component) */
+#new-search-btn:hover {
+    background-color: #555; /*dark-grey background on hover*/
+}
+
+.search-column {
+    width: 60%;
 }

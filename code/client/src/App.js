@@ -19,12 +19,13 @@ import Register from './components/Pages/Register';
 import SearchLocations from './components/Pages/SearchLocations';
 import Login from './components/Pages/Login';
 import HowItWorks from './components/Pages/HowItWorks';
-import CountryPages from './components/CountryPages/CountryPages';
-import IndividualBlogs from './components/Pages/IndividualBlogs';
+import CountryInfo from './components/CountryPages/CountryInfo';
+import BlogPosts from './components/CountryPages/BlogPosts';
+import DonationItems from './components/CountryPages/DonationItems';
+import Organizations from './components/CountryPages/Organizations';
+import Tabs from './components/CountryPages/Tabs';
 import Reset from './components/Pages/Reset';
 import Reset_token from './components/Pages/Reset_token';
-
-import ReactDOM from 'react-dom';
 
 class App extends Component {
   state = {
@@ -99,11 +100,13 @@ class App extends Component {
           <Route path="/search_locations" component={SearchLocations} />
           <Route path="/login" component={Login} />
           <Route path="/how_it_works" component={HowItWorks} />
-          <Route path="/country_pages" component={CountryPages} />
+          <Route path="/country_info" component={CountryInfo} />
+          <Route path="/blog_posts" component={BlogPosts} />
+          <Route path="/donation_items" component={DonationItems} />
+          <Route path="/organizations" component={Organizations} />
+          <Route path="/tabs" component={Tabs} />
           <Route path="/forgot" component={Reset} />
-          <Route path="/individual_blogs" component={IndividualBlogs} />
-          <Route path="/:token" component={Reset_token} /> //Leave this line last
-
+          <Route path="/:token" component={Reset_token} /> {/*//Leave this line last*/}
           </Switch>
 
           <Footer />

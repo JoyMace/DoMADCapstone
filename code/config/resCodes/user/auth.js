@@ -38,6 +38,26 @@ resCode = {
       status:400,
       message:'Failed to add user'
     }
+  },
+  logout:{
+    success:{
+      status:200,
+      message:'User has been successfully signed out'
+    },
+    noUserSessionFound:{
+      status:500,
+      message:'No user session was found'
+    }
+  },
+  checkLogin:{
+    success:{
+      status:200,
+      message:'User is logged in'
+    },
+    noUserSessionFound:{
+      status:500,
+      message:'No user session was found'
+    }
   }
 }
 

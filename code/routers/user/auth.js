@@ -137,11 +137,29 @@ router.post('/signup', function(req, res) {
   logout api
 
   logs a user out of their current local session
-  and redirects thme to /loggedout
 */
 router.post('/logout', function(req, res){
-  req.logout();
-  res.redirect('/loggedout');
+  if (req.user) {
+    console.log(req.user);
+    req.logout();
+    return res.status(authCode.logout.success.status).send({message: authCode.logout.success.message});
+  } else {
+    return res.status(authCode.logout.noUserSessionFound.status).send({message: authCode.logout.noUserSessionFound.message});
+  }
+
+});
+
+/*
+  Check if a user is logged in api
+
+  Checks if there is a user logged in by checking for a passport session
+*/
+router.get('/check-login', function(req, res) {
+  if (req.user) {
+    return res.status(authCode.checkLogin.success.status).send({message: authCode.checkLogin.success.message});
+  } else {
+    return res.status(authCode.checkLogin.noUserSessionFound.status).send({message: authCode.checkLogin.noUserSessionFound.message});
+  }
 });
 
 module.exports = router;

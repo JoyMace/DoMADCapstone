@@ -53,3 +53,9 @@
 .foot-items a:active {
     color: #CBB95A;
 }
+
+@media screen and (max-width:750px) {
+    .foot-items {
+        font-size: 0.6em;
+    }
+}

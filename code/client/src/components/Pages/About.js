@@ -1,12 +1,15 @@
 import React from 'react';
 import './About.css';
-import AboutImage from '../../images/AboutImage.jpg'
-import HeaderImage from '../../images/Frequent-Traveler-Successful.jpg'
+import HeaderImage from '../../images/Frequent-Traveler-Successful.jpg';
+import FounderImage1 from '../../images/Founder/Horseride.jpg';
+// import FounderImage2 from '../../images/Founder/Horseride2.jpg'; // extra image for founders section if needed
+import FounderImage3 from '../../images/Founder/PeruHike.JPG';
+import FounderImage4 from '../../images/Founder/shannahanridge.jpg';
 
 function About() {
     return (
         <div className="about">
-            <StickyContainer className="about-container">
+            <StickyContainer className="about-container"> {/* see StickContainer function below */}
                 <div className="tinted" >
                     <img className="about-image" src={HeaderImage} alt="person backpacking"/>
                 </div>
@@ -33,6 +36,21 @@ function About() {
                 </div>            
             </StickyContainer>
             <div className="under-image-content">
+                <div className="mission-paragraph-container-under">
+                    <p className="mission-paragraphs-under">
+                        Donations Make A Difference (DoMAD) is a website to inform international travelers about items they can contribute to address local needs in communities they will visit.
+                    </p>
+                    <p className="mission-paragraphs-under">
+                        In many parts of the world, local citizens need various items such as soap, bandages, flashlights, tarps and reading glasses, but these are either not readily available to them or they cannot afford to buy them.  For most international travelers, however, these items are easy to find and rather inexpensive to buy. So, if even a small percentage of the roughly 1.24 billion people who travel internationally each year brought with them and then donated just ONE such item to a local individual or organization at their destination, it would significantly help enhance the quality of life for a substantial number of people.
+                    </p>
+                    <p className="mission-paragraphs-under">
+                        After traveling, please help future travelers by posting about your experience.  DoMAD is intended to be a crowd-sourced website, meaning it relies on users like you to help update its content.  You can keep it quick & simple by rating your experience donating specific items on a scale of one (low) to five (high) stars. You can also propose new donation ideas and specify where and/or how to donate.
+                    </p>
+                    <p className="mission-paragraphs-under">
+                    As a non-profit organization, DoMAD is dedicated to inspiring and facilitating travelers to give back to the communities they visit, thus improving the quality of life for those less fortunate.
+                    </p>
+                </div>
+                <hr className="separator-line-under"></hr>
                 <p className="under-image-paragraph">
                     If even a small percentage of the roughly 1.24 billion people who travel internationally each year donated a single item once at their 
                     destination, it would help enhance the quality of life for a substantial number of people in less developed communities. 
@@ -64,9 +82,9 @@ function About() {
                         </p>
                     </div>
                     <div className="sponsor-images">
-                        <img className="sponsor-image-styling" src={HeaderImage} alt="person backpacking"/>
-                        <img className="sponsor-image-styling" src={HeaderImage} alt="person backpacking"/>
-                        <img className="sponsor-image-styling" src={HeaderImage} alt="person backpacking"/>
+                        <img className="sponsor-image-styling" src={FounderImage3} alt="hike in peru"/>
+                        <img className="sponsor-image-styling" src={FounderImage1} alt="horse riding"/>
+                        <img className="sponsor-image-styling" src={FounderImage4} alt="people outdoors"/>
                     </div>
                 </div>
             </div>
@@ -74,7 +92,7 @@ function About() {
     )
 }
 
-function StickyContainer({ children, sticky=false, className, ...rest }){
+function StickyContainer({ children, sticky=false, className, ...rest }){ // this is necessary to have the content appear over top of the image at the top of this page
     const [isSticky, setIsSticky] = React.useState(false);
     const ref = React.createRef();
     
@@ -90,7 +108,7 @@ function StickyContainer({ children, sticky=false, className, ...rest }){
       
         // unmount
         return function(){ observer.unobserve(cachedRef); }
-    }, [])
+    }, [ref])
     
   return (
         <div className={className + (isSticky ? " isSticky" : "")} ref={ref} {...rest}>

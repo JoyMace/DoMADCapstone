@@ -71,21 +71,25 @@ router.post('/insert-country-info', (req, res) => {
 */
 
 router.get('/get-country-info', (req, res) => {
-
-  var name = req.body.name;
-
+  
+  let name = req.query.country;
+  
   var query = { name: name };
 
   Country.find(query, function(err, country) {
 
-    if(err) {
+    if(err || country.length === 0) {
       return res.status(countryCodes.countryInfo.countryNotFound.status).send({
         message: countryCodes.countryInfo.countryNotFound.message
       });
     }
     else{
-      countryInfoData = {countryName: country[0].name, abbreviation: country[0].abbreviation,
-            generalInformation: country[0].generalInformation, statistics: country[0].statistics};
+      countryInfoData = {
+        countryName: country[0].name, 
+        abbreviation: country[0].abbreviation,
+        generalInformation: country[0].generalInformation, 
+        statistics: country[0].statistics
+      };
       return res.status(countryCodes.countryInfo.success.status).send({countryInfoData: countryInfoData});
     }
 

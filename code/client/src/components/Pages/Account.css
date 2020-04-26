@@ -1,105 +1,60 @@
 .Account {
-	
+	margin-left: 5%;
+	margin-right: 5%;	
 }
-.Post {
-	
-	
+/* Whole Page Formatting to give Top Row, Two columns on top, and Bottom row*/
+/* Top Row contains user info, user map and Trip form */
+.account-row {	
+	display: flex;
+	flex-direction: row;
+	width: 100%;	
+	align-items: space-between;	
+	flex-wrap: wrap;	
 }
-/* Post Container */
-.post-container {	
-	display:flex;
-	width: 337px;
+.account-column {		
+	flex-direction: column;
+	margin-top: 120px;
+	flex: 45%; 
+}
+
+/* This is the top right of the Top Left Column that contains userName, signupDate, tripCount and donationCount */
+
+/*User Info Container*/
+.user-info-container {	
+	display: flex;
+	width: 90%;
+	margin: auto;
+	height: 140px;	
 	background: #363D48;
-	border: 1px solid #FFFFFF;
-	border-radius: 5px;
 	color: #FFFFFF;
-	padding: 10px;
-	margin-left: 100px;
-	margin-bottom: 20px;
-	align-content: center;
-	
+	border-radius: 5px;
+	padding-left: 5px;
+	flex-direction: row;	
 }
-/* Post Top Row*/
-.post-top-row {
+.UserInfo {
 	display: flex;
-	flex-direction: row;
-	width: 100%;	
-	align-content: center;
-	align-content: space-evenly;
-	flex-basis: 0
-	
+	font-size: 16px;
+	align-content: space-between;
+	width: 100%;
 }
-.post-date-column {	
+
+.user-info-column {	
 	display: flex;
 	flex-direction: column;
-	align-items: center;	
-	font-size: 12px;
-	flex-basis: 0;
-	width: 25%;
-	
+	width: 60%;	
+	text-align: left;
+	flex: 0 1 auto;
+	margin: auto;	
 }
-
-.post-destination-column {	
-	display: flex;
-	flex-direction: column;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;
-	width: 75%;
-	
-
+.UserInfo-name {	
+	font-size: 36px;
+	font-weight: 700;	
 }
-/* Post Middle Picture */
-.post-middle-row {
-	
-	display: flex;
-	flex-direction: row;
-	flex-flow: column-wrap;
-	width: 100%;	
-}
-/* Post Details */
-.post-detail-row {
-	
-	display: flex;
-	flex-direction: row;
-	flex-flow: column-wrap;
-	width: 100%;	
-	flex-basis: 0;
-	flex-grow: 1;	
-}
-
-.post-description {
-	display: flex;
-	flex-direction: row;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;
-	
-}
-
-.post-donation {
-	
-	display: flex;
-	flex-direction: row;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;	
-}
-
-.post-stars {	
-	display: flex;
-	flex-direction: row;
-	align-items: left;	
-	font-size: 32px;
-	flex-basis: 2;	
-}
-
-/* User Donation Form styling */
+/* User Trip Form styling */
 .container {	
 	color: #FFFFFF;
-	width: 600px;
-	height: 980px;
-	left: 725px;
+	width: 90%;
+	height: 920px;	
 	top: 200px;
 	padding-left: 5%;
 	padding-right: 5%;
@@ -107,11 +62,23 @@
 	border: 1px solid #FFFFFF;
 	box-sizing: border-box;
 	border-radius: 5px;
-	
+	margin: auto;	
+}
+.text-area-css {
+	display: block;
+	height: 100px;
+	border-radius: 3px;
+}
+.select-css {
+	display: block;
+	border-radius: 3px;
+	line-height: 3;
+	font-weight: 300;
+	padding: .7em 1.5em .6em .5em;
 	
 }
+/* User Trip Form Formatting */
 
-/* User Donation Form Formatting */
 .flex-outer,
 .flex-inner {
   list-style-type: none;
@@ -127,8 +94,7 @@
 .flex-inner {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  
+  align-items: center;  
 }
 
 .flex-inner {
@@ -144,8 +110,7 @@
 .flex-outer li label,
 .flex-outer li p {
   padding: 5px;
-  font-weight: 300; 
-  
+  font-weight: 300;   
 }
 
 .flex-outer > li > label,
@@ -166,6 +131,8 @@
 .flex-outer li input:not([type='checkbox']),
 .flex-outer li textarea {
   padding: 2%;
+  display: block;
+  border-radius: 3px;
   border: none;
 }
 
@@ -181,13 +148,10 @@
 }
 
 .flex-inner li {
-  width: 100px;
-
-  
+  max-width: 100px;  
 }
 
-.star-rating {
-	
+.star-rating {	
 	display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -195,46 +159,93 @@
 }
 /*end form formatting*/
 
-.main-top-row {
-	
+/* Post Container */
+.Post {
+	margin: 10px;
+	background: #363D48;
+	border: 1px solid #FFFFFF;
+	border-radius: 5px;
+	color: #FFFFFF;
+	padding: 10px;
+	align-content: center;	
+	flex: 30%;
+	float: left;	
+	max-width: 30%;
+	min-width: 450px;
+}
+
+/* Post Top Row*/
+.post-top-row {
+	display: flex;
+	flex-direction: row;
+	width: 100%;	
+	align-content: center;
+	align-content: space-evenly;
+	flex-basis: 0;
+	padding: 5px;	
+}
+.post-date-column {	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-basis: 1;
+	flex: 25%;	
+}
+.post-date {
+	width: 100%;
+	font-size: 24px;
+	text-align: center;
+}
+.post-destination-column {	
+	display: flex;
+	flex-direction: column;
+	align-items: left;	
+	font-size: 24px;
+	flex-basis: 2;
+	flex: 75%;
+}
+/* Post Middle Picture */
+.post-middle-row {	
+	display: flex;
+	flex-direction: row;
+	flex-flow: column-wrap;
+	text-align: center;
+	width: 100%;
+	margin-left: 3%;	
+}
+/* Post Details */
+.post-description-row {	
 	display: flex;
 	flex-direction: row;
 	flex-flow: column-wrap;
 	width: 100%;	
-	align-items: stretch;	
-	
+	flex-basis: 0;
+	flex-grow: 1;	
 }
-.main-bottom-row {
+.post-donation-row {	
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
-	width: 100%;	
-		
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;	
 }
-
-.left-column {
-	
-	padding-top: 100px;
-	flex-direction: column;
-	margin-top: 20px;
-	margin-left: 10%;
-	margin-right: 0%;
-	flex: 2;
-}
-
-.right-column {
-	
-	padding-top: 100px;
-	flex-direction: column;
-	margin-top: 20px;	
-	margin-left: 0%;
-	margin-right: 0%;
-	flex: 2;
+.post-stars {	
+	display: flex;
+	flex-direction: row;
+	align-items: left;	
+	font-size: 32px;
+	flex-basis: 2;
+	color: yellow;	
 }
 
 
 
-
+.map {
+	width: 100%;
+	text-align: center;
+	margin: auto;
+}
+/* This is the portion of the Top Left Column that contains user Data */
 .user-info-row {
 	display: flex;
 	flex-direction: row;
@@ -243,54 +254,26 @@
 	align-items: stretch;	
 }
 
-.UserInfo-avatar {
-	
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;
-	
-}
+/* This is the portion of the Top Left Column that contains user Avatars */
 
-.avatar-column {
-	
+
+/* This is the top left of the Top Left Column that contains user Avatars */
+.avatar-column {	
 	display: flex;
 	flex-direction: column;
 	align-items: center;	
-	width: 120px;
-	padding-left: 5px
-}
-
-.user-info-column {
-	
-	display: flex;
-	flex-direction: column;
-	width: 100%;	
-	align-items: left;
-	flex: 0 1 auto;
-	padding-top: 5%;
-	padding-left: 25px;
+	width: 40%;
+	padding: 5px
 }
 
 
-.UserInfo-name {
-	text-align: left;
-	font-size: 24px;
-	
-}
-/*User Info Container*/
-.user-info-container {
-	
-	display: flex;
-	width: 400px;
-	height: 120px;	
-	background-color: #F4F4F4;
-	border-radius: 5px;
-	padding-left: 5px;
-	flex-direction: row;
-	
-}
-.UserInfo {
-	display: flex;
-	font-size: 12px;
-	
+
+/* On smaller screens, switch to columns */
+@media screen and (max-width: 600px) {
+    .Post {
+        max-width: 100%;
+	}
+	.account-row {
+        flex-direction: column;
+	}
 }
