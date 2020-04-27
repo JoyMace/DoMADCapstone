@@ -24,7 +24,8 @@
         align-self: flex-start;
         width: 200px; /*flex-basis: 30%;*/
         height: auto;
-        margin: auto; 
+        margin: auto;
+        list-style: none;
       }
         #flag-img {
           width: 100%;

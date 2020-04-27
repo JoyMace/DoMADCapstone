@@ -45,14 +45,14 @@ router.post('/forgot', function(req, res, next) {
         host: "smtp.gmail.com",
         auth: {
           type: "login",
-          user: "DOMAD24901@gmail.com",
-          pass: "DoMADTemp#2020",
+          user: "DoMADworldwide@gmail.com",
+          pass: "Newaccount8",
         }
       });
 
       var mailOptions = {
         to: user.email,
-        from: 'DOMAD24901@gmail.com',
+        from: 'DoMADworldwide@gmail.com',
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -115,13 +115,13 @@ router.post('/:token', function(req, res) {
         host: "smtp.gmail.com",
         auth: {
           type: "login",
-          user: "DOMAD24901@gmail.com",
-          pass: "DoMADTemp#2020",
+          user: "DoMADworldwide@gmail.com",
+          pass: "Newaccount8",
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'DOMAD24901@gmail.com',
+        from: 'DoMADworldwide@gmail.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -163,8 +163,8 @@ router.post('/contact', function(req, res) {
     host: "smtp.gmail.com",
     auth: {
       type: "login",
-      user: "DOMAD24901@gmail.com",
-      pass: "DoMADTemp#2020",
+      user: "DoMADworldwide@gmail.com",
+      pass: "Newaccount8",
     }
   });
 
