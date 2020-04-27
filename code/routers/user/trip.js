@@ -22,7 +22,7 @@ const donationFunc = require('./donation');
     notes: String
     isPrivate: boolean
 
-  donationJSON: contains any information that a donations has (item name, rating, etc.)
+  donationJSON: contains any infrmation that a donations has (item name, rating, etc.)
 
   creates new trip entry
   calls function to create new donations with reference to the new trip

@@ -31,6 +31,43 @@ resCode = {
     countryNotFound:{
       status:404,
       message:'Could not find country'
+    },
+    organizationsNotFound:{
+      status:404,
+      message:'Specified country has no organizations'
+    }
+  },
+  insertOrganizations:{
+    success:{
+      status:200,
+      message:'Successfully inserted organizations to specified country'
+    },
+    countryNotFound:{
+      status:404,
+      message:'Could not find specified country'
+    },
+    organizationsNotFound:{
+      status:404,
+      message:'Could not find organizations'
+    },
+
+  },
+  removeOrganizations:{
+    success:{
+      status:200,
+      message:'Successfully removed organizations of specified country'
+    },
+    countryNotFound:{
+      status:404,
+      message:'Could not find specified country'
+    },
+    noCountryOrganizations:{
+      status:500,
+      message:"Country has no organizations to remove"
+    },
+    saveCountryFail:{
+      status:404,
+      message:'Failed to save updated country to database'
     }
   }
 }
