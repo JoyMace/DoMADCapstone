@@ -5,11 +5,11 @@ import CountryInfoComponent from '../CountryPages/CountryInfo';
 import DonationItemsComponent from '../CountryPages/DonationItems';
 import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
+//import { FaPassport } from 'react-icons/fa';
 
 // Batch import all flag files?????
 //const flags = require.context('./flags', false);
 //const flagPath = (name) => flags(name, true);
-
 
 /* More to add???
     - fading tab animations
@@ -18,123 +18,205 @@ import BlogPostsComponent from '../CountryPages/BlogPosts';
 class CountryTabs extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = { 
+            active_country: '',
+            active_abbr: '',
             tabIndex: 0,
-            display: false, 
-            errors: false,
-            refreshMe: false
+            displaying: false, 
+            isFetching: false, 
+            hasErrors: false,
+            infoData: null,
+            blogData: null,
+            orgData: null,
+            loading: 'true',
+            reloadAccount: this.reload
         };
+        this.fetchInfo = this.fetchInfo.bind(this);
+        this.fetchDonationsBlogs = this.fetchDonationsBlogs.bind(this);
+        this.fetchOrgs = this.fetchOrgs.bind(this);
+}
 
-        this.spacer_line = (<hr id='spacer-line'/>);
-        this.spacer_desc = (<h6 id='spacer-desc'>Filter by choosing a continent, searching by country name, 
-            or a combination of the two!<br/>Once a selection is made, relevant information will populate below.</h6>);
-        
-        this.loadCountry = this.loadCountry.bind(this);
-        this.fetchData = this.fetchData.bind(this);
-        this.handleTabChange = this.handleTabChange.bind(this);
-    }
+    componentWillReceiveProps(props) {
+        let new_country = props.selection;
 
-    // Invoked from parent passing down selected country name
-    // Passes country to the loader handler
-    loadCountry(country) {
-        this.setState({
-            active_name: (country.substring(0,1).toUpperCase() + country.substring(1)),
-            display: false, errors: false, tabIndex: 0
-        });
-
-        this.fetchData(country);
-    }
-
-    /* Calls the 4 components serverside functions on country selection
-        asynchronously after country info is returned
-    */
-    fetchData = async (country) => {
-        const proms = [
-            new Promise(resolve => this.refs.DonationsRef.getDonations(country)),
-            new Promise(resolve => this.refs.BlogsRef.getBlogs(country)),
-            /*new Promise(resolve=> this.refs.OrgsRef.getOrgs(country))*/
-        ];
-        // GET callback from CountryInfo
-        this.refs.InfoRef.getInfo(country)
-            .then(resp => { 
-                this.setState({ 
-                    display: true, 
-                    active_name: resp[0],
-                    active_abbr: resp[1]
+        if (new_country !== null || new_country !== this.state.active_country) { //check a second time for same measure?
+            //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
+            this.executeLoad(new_country)
+                .then((res) => {
+                    this.setState({ 
+                        displaying: true, isFetching: false,
+                        hasErrors: false,
+                        active_country: res[0].countryName,
+                        active_abbr: res[0].abbreviation,
+                        infoData: res[0],
+                        donationData: res[1].donations,
+                        blogData: res[1],
+                        orgData: res[2]
+                    });
                 });
-                // On successful fetch of country info, GET the other 3 tab's data
-                return Promise.all(proms);
-            })
-            .then(loads => {
-                console.log("Fetched donation data");
-                console.log(loads);
-                console.log("Fetched Blog information")
-                this.refreshTabs();
-            })
-            .catch(err => {
-                this.setState({ errors: true, display: false });
-                console.log(Error("Info GET failed:", err));
-            });
+        }
     }
 
-    refreshTabs = () => {
-        
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.isFetching || nextState.infoData === null){
+            return false;
+        }
+        return true;
     }
+
+
+    /********* Main Loader******************/
+    executeLoad = async (country) => {
+        this.setState({ isFetching: true, displaying: false });
+
+        const proms = [
+            new Promise(resolve => resolve(this.fetchDonationsBlogs(country))),
+            new Promise(resolve => resolve(this.fetchOrgs(country)))
+        ];
+                                 
+        console.log("getting data for", country);
+        
+        return new Promise((resolve) => {
+            resolve(this.fetchInfo(country));
+        
+        }).then(info => {
+            this.infoJSON = info;
+            return Promise.all(proms);
+
+        }).then(data => {
+            let tripsJSON = data[0];
+            let orgJSON = data[1];
+            //console.log([this.infoJSON, tripsJSON]);
+            return [this.infoJSON, tripsJSON, orgJSON];
+        })
+        .catch(err => {
+            this.setState({ 
+                displaying: false,
+                errors: true
+            });
+            console.log(Error("Info GET failed:", err));
+        });
+    }
+
+    /********* Data Fetching ***************/
+    fetchInfo = async (country) => {
+        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
+        const response = await fetch(ping_CI);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } else {
+            return data.countryInfoData;
+        }
+    }
+
+    reload = () => {
+        this.setState({ loading: 'true', reloadAccount: this.reload });
+        this.fetchDonationsBlogs(this)
+            .then(blogres => {
+            this.setState({
+                trips: blogres,
+                loading: 'false',
+                reloadAccount: this.reload
+            });
+        });
+    }
+
+    // Data and trips are pulled from the same dataset
+    fetchDonationsBlogs = async (country) => {
+        let ping_DI = '/api/user/trip/all-trips?country=' + country;
+        const response = await fetch(ping_DI);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        }
+        return data;
+    }
+
+    componentDidMount() {
+        this.fetchDonationsBlogs(this)
+        .then(blogres => {
+            this.setState({
+                trips: blogres,
+                loading: 'false',
+                reloadAccount: this.reload
+            });
+        })
+      .catch(err => console.log(err)); // TODO: handle all errors and relay to user
+    }
+
+    fetchOrgs = async (country) => {
+        return "Cannot find "+{country}+"organizations at this time.";
+        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
+        const response = await fetch(ping_OG);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } else {
+            return data; //. what??
+        }*/
+    }
+/********************************* */
 
     handleTabChange = (Index, prevIndex) => {
-        console.log(Index, prevIndex);
-        this.forceUpdate();
         if (Index === prevIndex) {
-            return false;
+            return false
         }
         this.setState({ tabIndex: Index });
     }
 
-
     render() {
-        /*--- Construct and conditionally render tabs ---*/
-        if (!this.state.errors) { 
-            let defaultStyles = { // initial
-                display: (this.state.display ? 'flex' : 'none'),
+    if (!this.state.hasErrors) { // && !this.state.isFetching
+            let defaultStyles = { 
+                display: (this.state.displaying ? 'flex' : 'none'),
                 marginleft: '1%', marginright: '1%',
                 transition: "visibility 0s, opacity 0.5s linear",
                 transitionDuration: "0.2s", transitionDelay: "0"
             }
+            let line_or_desc = ((this.state.displaying) ?
+                (<hr id='spacer-line'/>) :
+                (<h6 id='spacer-desc'>Filter by choosing a continent, searching by country name, 
+                    or a combination of the two!<br/>Once a selection is made, relevant information will populate below.</h6>)
+            );
+            console.log(this.state.isFetching);
+            console.log(this.state.infoData);
+            console.log("blog data: ", this.state.blogData);
+            console.log(this.state.active_country);
 
-            // <Tabs selectedTabPanelClassName="" selectedTabClassName="">
             return (
                 <div>
-                {this.state.display ? this.spacer_line : this.spacer_desc}
+                {line_or_desc}
                 
                 <div id='country-page-container' style={defaultStyles}>
                     <div className="category-tabs">
                     <Tabs selectedIndex={this.state.tabIndex} onSelect={(i,pi) => this.handleTabChange(i,pi)} 
-                        forceRenderTabPanel={true}>
+                        forceRenderTabPanel={true} >
                         <TabList id="tabs-flexbox">
                             <li id="flag-wrap">
-                                <img id="flag-img" src={'./flags/'+this.state.active_abbr+'.png'} alt="No Flag" />
+                                {(this.state.active_abbr !== '')
+                                    ? (<img id="flag-img" src={'./flags/'+this.state.active_abbr+'.png'} alt="No Flag" />)
+                                    : (<div/>) }
                             </li>
                             <li id="name-wrap">
-                                {this.state.active_name}
+                                {this.state.active_country}
                             </li>
-                            <Tab active className="regular-tabs">Country Info</Tab>
+                            <Tab className="regular-tabs">Country Info</Tab>
                             <Tab className="regular-tabs">Donation Items</Tab>
                             <Tab className="regular-tabs">Organizations</Tab>
                             <Tab className="regular-tabs">Blog Posts</Tab>
                         </TabList>
     
                         <TabPanel tabIndex={0}>
-                            <CountryInfoComponent ref='InfoRef' />
+                            <CountryInfoComponent ref='InfoRef' data={this.state.infoData} />
                         </TabPanel>
                         <TabPanel tabIndex={1}>
-                            <DonationItemsComponent ref="DonationsRef" />
+                            <DonationItemsComponent ref="DonationsRef" data={this.state.blogData} />
                         </TabPanel>
                         <TabPanel tabIndex={2}>
-                            <OrganizationsComponent ref="OrgsRef" />
+                            <OrganizationsComponent ref="OrgsRef" data={this.state.orgData} />
                         </TabPanel>
                         <TabPanel tabIndex={3}>
-                            <BlogPostsComponent ref="BlogsRef" refresh={ this.state.refreshMe }/>
+                            <BlogPostsComponent ref="BlogsRef" data={this.state} />
                         </TabPanel>
                     </Tabs>
                     </div>
@@ -146,7 +228,7 @@ class CountryTabs extends React.Component {
         else { 
             return (
                 <div>
-                    <h2 id='spacer-desc'>An Error occured while attempting to load {this.state.active_name} 's data. Whoops!</h2>
+                    <h2 id='spacer-desc'>An Error occured while attempting to load {this.state.active_country} 's data. Whoops!</h2>
                 </div>
             )
         } 

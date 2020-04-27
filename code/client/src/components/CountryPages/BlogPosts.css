@@ -1,19 +1,26 @@
 .blogposts {
+    padding-bottom: 50px;
+    width: 100%;
+}
+
+.country-blog-trips-container {
+    width: auto;
     display: flex;
     flex-direction: row;
-    padding-bottom: 50px;
-    height: 85vh;
-    width: 100%;
+    justify-content: left;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.country-blog-container-wrapper {
+    width: auto;
 }
 
 .country-blog-container {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    justify-content: left;
+    height: 100%;
 }
 
 .country-blog-entry {
@@ -21,21 +28,14 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 384px;
+    height: 100%;
     width: 338px;
     margin: 20px;
 }
 
-.country-blog-entry:hover {
-    border: 5px solid #010925;
-}
-
 .top-image {
-    height: 60%;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    height: auto;
+    border: 5px solid #010925;
 }
 
 .top-image img {
@@ -44,18 +44,19 @@
 }
 
 .bottom-content {
-    height: 40%;
+    height: 100%;
     text-align: left;
-    padding-left: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
     padding-top: 25px;
+    padding-bottom: 25px;
     background-color: #010925;
     color: white;
-    line-height: 2em;
+    line-height: 1.8em;
 }
 
 .star-rating {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    vertical-align: middle;
 }

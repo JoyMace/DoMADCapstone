@@ -11,22 +11,21 @@ import { IconContext } from "react-icons";
 class BlogPosts extends React.Component {
     constructor(props) {
         super(props);
-        
-        console.log(props);
-        //this.fillBlogs = this.fillBlogs.bind(this);
     }
 
-    componentDidUpdate(props) {
-        console.log(this.props.data);
-        if (props.data !== null) {
-            //console.log(props.data);
-            /* populate data here */
+    componentDidUpdate(prevProps, prevState) {
+        console.log("Data: ",this.props.data);
+        if(prevProps.data !== this.props.data) {
+            if (this.props.data !== null) {
+                console.log("this is the blogs data: ", this.props.data);
+            }
         }
     }
 
     render() {
+        console.log(this.props.data);
         return (
-            <Blogs tripInfo={this.props.data} loading={false} />
+            <Blogs blog={this.props.data} />
         )
     }
 
@@ -36,22 +35,21 @@ class BlogPosts extends React.Component {
 class BlogInfo extends React.Component { // this is what pull the back end trip info and assigns it to variables set in the state
     constructor(props) {
 		super(props)
-
         var tripInfo = this.props.tripInfo;
         var tripDate = new Date(tripInfo.tripDate);
-        console.log('blog info');
         this.state = {
             city: tripInfo.locationID.city,
             country: tripInfo.locationID.country,
             tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
             notes: tripInfo.notes,
-            donationItem: tripInfo.donations ? tripInfo.donations[1].itemName : "None",
-	        donationRating: tripInfo.donations ? tripInfo.donations[1].rating : "None",
+            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "None",
+		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : "None",
             privatePost: tripInfo.isPrivate
         }
     }
 
 	render() {
+        console.log("this is the country name: ", this.state.country);
 		return <BlogEntry blog={this.state} /> // the state with all back end info is returned to the function BlogEntry so it can be shown on the page
 	}
 }
@@ -62,7 +60,6 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
 /*** ONE BLOG ****/
 function BlogEntry(props) { // need to take in props in order to pull from class BlogInfo
     var star_amount; // star amount is the amount of stars shown for the donation rating based on the rating pulled from the back end
-    console.log('blog entry');
     if(props.blog.donationRating === 1) {
         star_amount = <div><FaStar /></div> // <FaStar /> is a separate package that is imported into the file in order to use the star icons
     }
@@ -80,12 +77,12 @@ function BlogEntry(props) { // need to take in props in order to pull from class
     }
 
     return (
-        <div className="blog-container">
-            <div className="blog-entry">
-                <div className="top-blog-image">
+        <div className="country-blog-container">
+            <div className="country-blog-entry">
+                <div className="top-image">
                     <img src={ defaultblogimage } alt="icon of person donating something" /> {/* default image used for blogs image since currently there is no functionality to upload images*/}
                 </div>
-                <div className="bottom-blog-content">
+                <div className="bottom-content">
                     <div className="blog-same-line">
                         <h4>Location: </h4>
                         {props.blog.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
@@ -98,7 +95,7 @@ function BlogEntry(props) { // need to take in props in order to pull from class
                         <h4>Donation Item: </h4>
                         {props.blog.donationItem}
                     </div>
-                    <div className="star-blog-rating">
+                    <div className="star-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}> {/* this sets styling for the star icons used */}
                             <div className="star-blog-rating">
                                 <h4>Rating: </h4>
@@ -114,23 +111,23 @@ function BlogEntry(props) { // need to take in props in order to pull from class
 }
 
 function Blogs(props) { // function to take back end data and display it
-    console.log('blogs');
     var trips = <div></div>
+    console.log("this is the data: ", props.blog.blogData);
+    if(props.blog.loading === "false"){
+        var tripData = props.blog.blogData.trips;
 
-    /*if(props.blog.loading === "false"){
-        var tripData = props.blog.trips.trips;
         trips = tripData.map(trip => {
-        return <div className='blog-container-wrapper'>
+        return <div className='country-blog-container-wrapper'>
             <BlogInfo tripInfo={trip} />
         </div>
         });
-        trips = <div className="blog-trips-container">
+        console.log("trips updated: ", trips);
+        trips = <div className="country-blog-trips-container">
             {trips.reverse()} {}
         </div>
-    }*/
-
+    }
     return (
-        <div className="blogs">
+        <div className="blogposts">
             {trips}
         </div>
     );
