@@ -33,8 +33,8 @@ router.post('/contact', function(req, res) {
     host: "smtp.gmail.com",
     auth: {
       type: "login",
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
+      user: "DoMADworldwide@gmail.com",
+      pass: "Newaccount8",
     }
   });
 
