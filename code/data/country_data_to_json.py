@@ -1,5 +1,9 @@
 import json
 
+'''
+  Convert country data csv to json format
+  this data will only contain the country name and statistical information
+'''
 with open('CountryData.csv', 'r') as f_read:
   country_data = f_read.read().split('\n')
 
