@@ -12,12 +12,12 @@ class BlogPosts extends React.Component {
     constructor(props) {
         super(props);
         
-        console.log(props);
+        //console.log(props);
         //this.fillBlogs = this.fillBlogs.bind(this);
     }
 
     componentDidUpdate(props) {
-        console.log(this.props.data);
+        //console.log(this.props.data);
         if (props.data !== null) {
             //console.log(props.data);
             /* populate data here */
@@ -39,7 +39,7 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
 
         var tripInfo = this.props.tripInfo;
         var tripDate = new Date(tripInfo.tripDate);
-        console.log('blog info');
+        //console.log('blog info');
         this.state = {
             city: tripInfo.locationID.city,
             country: tripInfo.locationID.country,
@@ -62,7 +62,7 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
 /*** ONE BLOG ****/
 function BlogEntry(props) { // need to take in props in order to pull from class BlogInfo
     var star_amount; // star amount is the amount of stars shown for the donation rating based on the rating pulled from the back end
-    console.log('blog entry');
+    //console.log('blog entry');
     if(props.blog.donationRating === 1) {
         star_amount = <div><FaStar /></div> // <FaStar /> is a separate package that is imported into the file in order to use the star icons
     }
@@ -114,7 +114,7 @@ function BlogEntry(props) { // need to take in props in order to pull from class
 }
 
 function Blogs(props) { // function to take back end data and display it
-    console.log('blogs');
+    //console.log('blogs');
     var trips = <div></div>
 
     /*if(props.blog.loading === "false"){

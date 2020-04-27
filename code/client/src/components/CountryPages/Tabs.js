@@ -25,8 +25,7 @@ class CountryTabs extends React.Component {
             displaying: false, 
             isFetching: false, 
             hasErrors: false,
-            infoData: null, donationData: null,
-            blogData: null, orgData: null
+            infoData: null, blogData: null, orgData: null
         };
         this.fetchInfo = this.fetchInfo.bind(this);
         this.fetchDonationsBlogs = this.fetchDonationsBlogs.bind(this);
@@ -36,7 +35,7 @@ class CountryTabs extends React.Component {
     componentWillReceiveProps(props) {
         let new_country = props.selection;
 
-        if (new_country !== null) { //check a second time for same measure?
+        if (new_country !== null || new_country !== this.state.active_country) { //check a second time for same measure?
             //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
             this.executeLoad(new_country)
                 .then((res) => {
@@ -46,7 +45,6 @@ class CountryTabs extends React.Component {
                         active_country: res[0].countryName,
                         active_abbr: res[0].abbreviation,
                         infoData: res[0],
-                        donationData: res[1].donations,
                         blogData: res[1],
                         orgData: res[2]
                     });
@@ -81,10 +79,10 @@ class CountryTabs extends React.Component {
             return Promise.all(proms);
 
         }).then(data => {
-            let tripsJSON = data[0];
+            let blogsJSON = data[0];
             let orgJSON = data[1];
             //console.log([this.infoJSON, tripsJSON]);
-            return [this.infoJSON, tripsJSON, orgJSON];
+            return [this.infoJSON, blogsJSON, orgJSON];
         })
         .catch(err => {
             this.setState({ 
@@ -155,7 +153,6 @@ class CountryTabs extends React.Component {
             //console.log(this.state.isFetching);
             //console.log(this.state.infoData);
             //console.log(this.state.blogData);
-            //console.log(this.state.donationData);
             //console.log(this.state.active_country);
 
             return (
@@ -185,7 +182,7 @@ class CountryTabs extends React.Component {
                             <CountryInfoComponent ref='InfoRef' data={this.state.infoData} />
                         </TabPanel>
                         <TabPanel tabIndex={1}>
-                            <DonationItemsComponent ref="DonationsRef" data={this.state.donationData} />
+                            <DonationItemsComponent ref="DonationsRef" data={this.state.blogData} />
                         </TabPanel>
                         <TabPanel tabIndex={2}>
                             <OrganizationsComponent ref="OrgsRef" data={this.state.orgData} />

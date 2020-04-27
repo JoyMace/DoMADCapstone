@@ -13,32 +13,50 @@ class CountryInfo extends React.Component {
         this.state = {
             name: null,
             abbr: null,
+            currency: '',
             languages: [],
-            
-            genInfo: null,
-            statistics: null
+            GNI: '', 
+            HDIrank: '',
+            avgSchooling: '',
+            waterAccess: '',
+            electricityRuralPop: '',
+            electricityTotal: '',
+            lifeExpectancy: '',
+            popUrbanPercent: '',
+            popTotal: '',
+            povertyPercent: ''
         };
-    
     }
 
-    
-    componentDidUpdate() {
-        if (this.props.data !== null) {
-            /* populate data here */
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.data !== this.props.data && this.props.data !== null) {
             this.populateInfo(this.props.data);
         }
     }
 
     populateInfo(data) {
-        //console.log(data);
-        
-        /*this.setState({
-            cname: data.countryName,
-            genInfo: data.generalInformation,
-            statistics: data.countryInfoData.statistics
-        });*/
-        return;
+        this.setState({
+            name: data.countryName,
+            abbr: data.abbreviation,
+            
+            continent: data.generalInformation.continentName,
+            currency: data.generalInformation.currency,
+            languages: data.generalInformation.languages.map((lang) => {
+                return lang.substring(0, lang.indexOf(":"));
+            }),
+            electricityRuralPop: data.statistics.electricityAccessRuralPop,
+            electricityTotal: data.statistics.electricityAccessTotalPop,
+            popUrbanPercent: data.statistics.population,
+            popTotal: data.statistics.population,
+            GNI: data.statistics.GNI, 
+            HDIrank: data.statistics.HDIRank,
+            avgSchooling: data.statistics.averageSchooling,
+            waterAccess: data.statistics.cleanWaterAccess,
+            lifeExpectancy: data.statistics.lifeExpectancy,
+            povertyPercent: data.statistics.povertyPercent
+        });
     }
+
     
     render() {
         return (
@@ -47,32 +65,46 @@ class CountryInfo extends React.Component {
                     <div className="map-row">
                         <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
+                    <div>
+                        <p>Digit Code: {this.state.abbr}</p>
+                        <p>Continent:</p>
+                        <p>{this.state.continent}</p>
+                        <p>Currency:</p>
+                        <p>{this.state.currency}</p>
+                        <p>Languages:</p>
+                        {this.state.languages.map(lang => {
+                            return <p>{lang}</p>
+                        })}
+                    </div>
                     <div className="below-map-row">
                         <p>Have a trip you'd like to share? Log In or Register to submit your info!</p>
                     </div>
                 </div>
                 <div className="country-column2">
                     <div className="info-column">
-                        <div className="info-row">Languages</div>
-                        <div className="info-row">Population</div>
-                        <div className="info-row">Human Development Index (HDI)</div>
-                        <div className="info-row">% Pop Below Poverty Level</div>
-                        <div className="info-row">% Pop in Urban Areas</div>
-                        <div className="info-row">% Pop in Rural Areas</div>
-                        <div className="info-row">Air Quality</div>
-                        <div className="info-row">Access to Clean Water</div>
-                        <div className="info-row">Access to Electricity</div>
+                        <div className="info-row"> Population (2018) </div>
+                        <div className="info-row"> Electricity </div>
+                        <div className="info-row"> Human Development Index (HDI) (2018) </div>
+                        <div className="info-row"> Gross National Income per capita (GNI) (2018) </div>
+                        <div className="info-row"> Average Schooling (in years) (2018) </div>
+                        <div className="info-row"> Access to Clean Water (2017) </div>
+                        <div className="info-row"> Life Expectancy (2018) </div>                        
                     </div>
                     <div className="info-results-column">
-                        <div className="info-results-row">Languages Info</div>
-                        <div className="info-results-row">Population Info</div>
-                        <div className="info-results-row">Human Development Index (HDI) Info</div>
-                        <div className="info-results-row">% Pop. Below Poverty Level Info</div>
-                        <div className="info-results-row">% Pop. in Urban Areas Info</div>
-                        <div className="info-results-row">% Pop. in Rural Areas Info</div>
-                        <div className="info-results-row">Air Quality Info</div>
-                        <div className="info-results-row">Access to Clean Water</div>
-                        <div className="info-results-row">Access to Electricity</div>
+                        <div className="info-results-row">
+                            <div> Total (millions): {this.state.popTotal} </div>
+                            <div> Urban %: {this.state.popUrbanPercent} </div>
+                            <div> Poverty %: {this.state.povertyPercent} </div>
+                        </div>
+                        <div className="info-results-row">
+                            <div> Overall Access %: {this.state.electricityTotal} </div>
+                            <div> Urban Access %: {this.state.electricityRuralPop} </div>
+                        </div>
+                        <div className="info-results-row"> HDI{this.state.HDIrank} </div>
+                        <div className="info-results-row"> GNI{this.state.GNI} </div>
+                        <div className="info-results-row"> {this.state.avgSchooling} </div>
+                        <div className="info-results-row"> water{this.state.waterAccess} </div>
+                        <div className="info-results-row"> {this.state.lifeExpectancy} </div>
                     </div>
                 </div>
             </div>
