@@ -80,7 +80,6 @@ class Navbar extends React.Component {
         }
     };
 
-
     render () {
         if(loggedin === true) {
             return (
