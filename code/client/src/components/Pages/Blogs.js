@@ -235,6 +235,7 @@ class BlogDropDown extends React.Component { // this class has only the drop dow
                     <option value="Somalia">Somalia</option>
                     <option value="South Africa">South Africa</option>
                     <option value="South Sudan">South Sudan</option>
+                    <option value="Saint Helena, Ascension and Tristan da Cunha">Saint Helena, Ascension and Tristan da Cunha</option>
                     <option value="Sudan">Sudan</option>
                     <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
                     <option value="Togo">Togo</option>
@@ -293,33 +294,6 @@ class BlogDropDown extends React.Component { // this class has only the drop dow
                     <option value="Uzbekistan">Uzbekistan</option>
                     <option value="Viet Nam">Viet Nam</option>
                     <option value="Yemen">Yemen</option>
-                </select>
-
-                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
-                    <option selected>Oceania</option>
-                    <option value="American Samoa">American Samoa</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Cook Islands">Cook Islands</option>
-                    <option value="Fiji">Fiji</option>
-                    <option value="French Polynesia">French Polynesia</option>
-                    <option value="Guam">Guam</option>
-                    <option value="Kiribati">Kiribati</option>
-                    <option value="Marshall Islands">Marshall Islands</option>
-                    <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
-                    <option value="Nauru">Nauru</option>
-                    <option value="New Caledonia">New Caledonia</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Niue">Niue</option>
-                    <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-                    <option value="Palau">Palau</option>
-                    <option value="Papua New Guinea">Papua New Guinea</option>
-                    <option value="Samoa">Samoa</option>
-                    <option value="Solomon Islands">Solomon Islands</option>
-                    <option value="Timor-Leste">Timor-Leste</option>
-                    <option value="Tonga">Tonga</option>
-                    <option value="Tuvalu">Tuvalu</option>
-                    <option value="Vanuatu">Vanuatu</option>
-                    <option value="Wallis and Futuna">Wallis and Futuna</option>
                 </select>
 
                 <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
@@ -416,21 +390,48 @@ class BlogDropDown extends React.Component { // this class has only the drop dow
                 </select>
 
                 <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
-                <option selected>South America</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Bolivia, Plurinational State of">Bolivia, Plurinational State of</option>
-                <option value="Brazil">Brazil</option>
-                <option value="Chile">Chile</option>
-                <option value="Colombia">Colombia</option>
-                <option value="Ecuador">Ecuador</option>
-                <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
-                <option value="French Guiana">French Guiana</option>
-                <option value="Guyana">Guyana</option>
-                <option value="Paraguay">Paraguay</option>
-                <option value="Peru">Peru</option>
-                <option value="Suriname">Suriname</option>
-                <option value="Uruguay">Uruguay</option>
-                <option value="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian Republic of</option>
+                    <option selected>Oceania</option>
+                    <option value="American Samoa">American Samoa</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Cook Islands">Cook Islands</option>
+                    <option value="Fiji">Fiji</option>
+                    <option value="French Polynesia">French Polynesia</option>
+                    <option value="Guam">Guam</option>
+                    <option value="Kiribati">Kiribati</option>
+                    <option value="Marshall Islands">Marshall Islands</option>
+                    <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                    <option value="Nauru">Nauru</option>
+                    <option value="New Caledonia">New Caledonia</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Niue">Niue</option>
+                    <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                    <option value="Palau">Palau</option>
+                    <option value="Papua New Guinea">Papua New Guinea</option>
+                    <option value="Samoa">Samoa</option>
+                    <option value="Solomon Islands">Solomon Islands</option>
+                    <option value="Timor-Leste">Timor-Leste</option>
+                    <option value="Tonga">Tonga</option>
+                    <option value="Tuvalu">Tuvalu</option>
+                    <option value="Vanuatu">Vanuatu</option>
+                    <option value="Wallis and Futuna">Wallis and Futuna</option>
+                </select>
+
+                <select name="country" value={this.state.value} className="country-buttons" onChange={this.props.updateCountry}>
+                    <option selected>South America</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Bolivia, Plurinational State of">Bolivia, Plurinational State of</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+                    <option value="French Guiana">French Guiana</option>
+                    <option value="Guyana">Guyana</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Suriname">Suriname</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian Republic of</option>
                 </select>
             </div>
         )
