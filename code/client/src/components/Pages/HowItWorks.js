@@ -6,6 +6,7 @@ import RecentTravelStoryPic from '../../images/RecentTravelStoryPic.png'
 import Step1 from '../../images/Step1.png'
 import Step2 from '../../images/Step2.png'
 import Step3 from '../../images/Step3.png'
+import { Link } from 'react-router-dom';
 
 
 function HowItWorks() {
@@ -16,7 +17,7 @@ function HowItWorks() {
                 <div className="step-column">                    
                     <img className="step1" src={Step1}  alt="number 1 icon"/>
                     <h1>Gather Info</h1>
-                    <p>After planning a trip, visit DoMAD.org before traveling to gather information on what items are needed for the area you are visiting. For example, if you are planning go trekking in Peru, you would consult DoMAD before departing, enter your trekking location and learn that tarps and rain ponchos are most needed items in that area.</p>
+                    <p>After planning a trip, visit <Link to="/search_locations" className='contact-us-link'>our exploration page</Link> before traveling to gather information on what items are needed for the area you are visiting. For example, if you are planning go trekking in Peru, you would consult DoMAD before departing, enter your trekking location and learn that tarps and rain ponchos are most needed items in that area.</p>
                     <p>DoMAD provides suggested items for travelers to donate at their travel destination.  In many parts of the developing world, items that are relatively inexpensive for international travelers -- soap, bandages, flashlights, tarps and reading glasses -- are not readily available or affordable.</p>
                 </div>
                 <div className="step-column">                    
