@@ -1,6 +1,6 @@
 import React from 'react';
 import './Organizations.css';
-import WorldMapImage from '../../images/Map_soon.svg';
+//import WorldMapImage from '../../images/Map_soon.svg';
 import { Link } from 'react-router-dom';
 import mapfiller from '../../images/map_filler.PNG'
 
@@ -8,28 +8,20 @@ class Organizations extends React.Component {
     constructor(props) {
         super(props);
         
-        this.base_path_ORG = '/api/country-page/country/get-organizations?country=';
-        this.getOrgs = this.getOrgs.bind(this);
+        this.fillOrganisations = this.fillOrganisations.bind(this);
     }
 
-    getOrgs = async (country) => {
-        let ping_orgs = this.base_path_ORG + country;
-        console.log(ping_orgs);
-
-        const response = await fetch(ping_orgs);
-        const data = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } 
-        else {
-            //this.callbackJSON = data.countryInfoData;
-            console.log(data);
-            
-            // FILL DATA
-            /*this.setState({ });*/
+    componentDidUpdate(props) {
+        if (props.data !== null) {
+            //console.log(props.data);
+            /* populate data here */
             return;
         }
+    }
+
+    fillOrganisations(orgsJSON) {
+        //console.log(orgsJSON);
+        return;
     }
 
     render () {

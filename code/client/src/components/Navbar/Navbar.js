@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link, Redirect, matchPath } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import logo from '../../images/DoMADLogoDark.svg';
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
-import SideDrawer from '../SideDrawer/SideDrawer';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
 
@@ -69,19 +68,15 @@ class Navbar extends React.Component {
 		};
         const response2 = await fetch('/api/user/auth/logout' , requestOptions);
         if (response2.status === 200) {
-            console.log("logout successful")
             loggedin = false;
-            console.log("this is the login status", loggedin);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
             });
             window.location.reload();
-            this.forceUpdate();
         }
         else {
-            console.log("logout not successful");
-            window.location.reload();
+            console.log("");
         }
     };
 
@@ -119,9 +114,9 @@ class Navbar extends React.Component {
                                         <a href="javascript:void(0)" className="info-label">Profile<FaCaretDown /></a>
                                         <div className="info-dropdown-content">
                                             <Link to="/account" className="dropdown-options">Account</Link>
-                                            <div onClick={this.handleLogoutClick}>
-                                                <Link to="/" className="dropdown-options">Log Out</Link>
-                                            </div>
+                                            <a href="/" onClick={this.handleLogoutClick}>
+                                                <div className="dropdown-options">Log Out</div>
+                                            </a>
                                         </div>
                                     </li>
                                 </ul>
