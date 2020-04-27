@@ -56,7 +56,6 @@ class User extends React.Component {
 					donationCount: res.userData.donationCount ? res.userData.donationCount : "None",
 					imageName: res.userData.imageName ? res.userData.imageName : "None"
 
-
 				});
 			})
 			.catch(err => console.log(err));
@@ -95,7 +94,7 @@ class User extends React.Component {
 								<button type="submit">Upload</button>
 							</form>
 							<div className='UserInfo-avatar'>
-								<img src={process.env.PUBLIC_URL + 'client/src/images/profile/IMAGE-1587939475957.png'} alt= "avatar" height='128px'  />
+								<img src={'./images/'+this.state.imageName} alt= "image" height='128px'/>
 							</div>
 
 						</div>

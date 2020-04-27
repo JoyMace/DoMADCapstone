@@ -8,7 +8,7 @@ const User = require('../../models/user');
 const profileCodes = require('../../config/resCodes').profile;
 
 const storage = multer.diskStorage({
-   destination: "./client/src/images/profile",
+   destination: "./client/public/images",
    filename: function(req, file, cb){
       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
    }
@@ -23,14 +23,8 @@ const upload = multer({
 
 router.post('/upload', (req, res) => {
     upload(req, res, function (err) {
-        console.log("Request ---", req.body);
-        console.log("Request file ---", req.file);//Here you get file.
-        /*Now do where ever you want to do*/
-
 
         imageName = req.file["filename"]
-
-        console.log("image name: "+imageName)
 
         var userID;
         // checks if user is logged in or external request
@@ -45,8 +39,6 @@ router.post('/upload', (req, res) => {
           return res.status(profileCodes.profile.userNotGiven.status).send({
             message: profileCodes.profile.userNotGiven.message});
         }
-
-        console.log("userId: "+userID)
 
         User.findById(userID, function (err, user) {
           user.imageName = imageName;
