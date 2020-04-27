@@ -18,7 +18,7 @@ class Reset extends React.Component {
 
               <div className="signinbutton">
                 <button type="submit">Send Link</button>
-                <h4>A link will be sent shortly if the provided email has an account associated with DoMAD</h4>
+                <h4 className="reset-message-header">A link will be sent shortly if the provided email has an account associated with DoMAD. Be sure to check your spam folder if you aren't seeing an email in your inbox.</h4>
               </div>
            </form>
           </div>
