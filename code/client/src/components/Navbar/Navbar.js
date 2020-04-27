@@ -114,9 +114,9 @@ class Navbar extends React.Component {
                                         <a href="javascript:void(0)" className="info-label">Profile<FaCaretDown /></a>
                                         <div className="info-dropdown-content">
                                             <a href="/account" className="dropdown-options">Account</a>
-                                            <a href="/" onClick={this.handleLogoutClick}>
+                                            <div onClick={this.handleLogoutClick}>
                                                 <div className="dropdown-options">Log Out</div>
-                                            </a>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
