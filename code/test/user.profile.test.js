@@ -13,6 +13,9 @@ const Trip = require('../models/trip');
 const Donation = require('../models/donation');
 
 
+// TODO: Doantion count test
+
+
 describe('[ User profile APIs ]', function() {
 
   describe('[ Get profile ]', function() {
@@ -23,8 +26,8 @@ describe('[ User profile APIs ]', function() {
       var findProfileDBStub = sandbox.stub(mongoose.Model, 'findById');
       findProfileDBStub.yields(null, fakeUser);
       findProfileDBStub.onCall(1).yields(null, fakeUser);
-      findProfileDBStub.onCall(2).yields(null, fakeUser);
-      findProfileDBStub.onCall(3).yields(true, null);
+      //findProfileDBStub.onCall(2).yields(null, fakeUser);
+      findProfileDBStub.onCall(2).yields(true, null);
 
 
       var oneTrip = new Trip(testVar.tripInfo)
@@ -37,13 +40,14 @@ describe('[ User profile APIs ]', function() {
       tripCountDBStub.onCall(2).yields(true, null);
 
 
-      var oneDonation = new Donation(testVar.donationInformation);
-      var secondDonation = new Donation(testVar.donationInformation);
-      var fakeDonations = [oneDonation,secondDonation]
 
-      var donationCountDBStub = sandbox.stub(Donation, 'aggregate');
-      donationCountDBStub.yields(null, fakeDonations);
-      donationCountDBStub.onCall(1).yields(true, null);
+      // var oneDonation = new Donation(testVar.donationInformation);
+      // var secondDonation = new Donation(testVar.donationInformation);
+      // var fakeDonations = [oneDonation,secondDonation]
+      //
+      // var donationCountDBStub = sandbox.stub(Donation, 'aggregate');
+      // donationCountDBStub.yields(null, fakeDonations);
+      // donationCountDBStub.onCall(1).yields(true, null);
 
       done();
 
@@ -79,23 +83,6 @@ describe('[ User profile APIs ]', function() {
       done();
     });
 
-    it('get profile FAILTURE - donation count not found', function(done) {
-      var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
-
-      request(app)
-        .get('/api/user/profile/profile')
-        .type('form')
-        .query(fakeUser)
-        .then(function(res) {
-          statusCode = res.statusCode;
-          message = JSON.parse(res.res.text).message
-          expect(message).to.equal(profileCodes.profile.donationcountNotFound.message);
-          expect(statusCode).to.equal(profileCodes.profile.donationcountNotFound.status);
-        });
-
-      done();
-    });
-
     it('get profile FAILTURE - trip count not found', function(done) {
       var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
 
@@ -112,6 +99,25 @@ describe('[ User profile APIs ]', function() {
 
       done();
     });
+
+    // it('get profile FAILTURE - donation count not found', function(done) {
+    //   var fakeUser = JSON.parse(JSON.stringify(new User(testVar.userInfo)));
+    //
+    //   request(app)
+    //     .get('/api/user/profile/profile')
+    //     .type('form')
+    //     .query(fakeUser)
+    //     .then(function(res) {
+    //       statusCode = res.statusCode;
+    //       message = JSON.parse(res.res.text).message
+    //       expect(message).to.equal(profileCodes.profile.donationcountNotFound.message);
+    //       expect(statusCode).to.equal(profileCodes.profile.donationcountNotFound.status);
+    //     });
+    //
+    //   done();
+    // });
+
+
 
 
     it('get profile FAILTURE - profile not found', function(done) {
