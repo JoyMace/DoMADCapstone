@@ -68,6 +68,7 @@ class Navbar extends React.Component {
 			headers: { "Content-Type": "application/json" }
 		};
         const response2 = await fetch('/api/user/auth/logout' , requestOptions);
+        console.log("this api is being called");
         if (response2.status === 200) {
             loggedin = false;
             this.setState({
