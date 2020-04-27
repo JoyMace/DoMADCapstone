@@ -156,14 +156,18 @@ router.get('/get-organizations', (req, res) => {
 router.post('/insert-organizations', (req, res) => {
 
   //Handling of multiple organizations, still expecting them to be from the same country
+  var insertToAllCountries = false;
   if(Array.isArray(req.body)){
-    var orgNames = [];
+    var countryNames = [];
     for (var i = 0; i < req.body.length; i++){
       var curBody = req.body[i];
-      orgNames.push(curBody.orgName);
+      countryNames.push(curBody.countryName);
+      if(curBody.countryName == 'Global'){
+        insertToAllCountries = true;
+      }
     }
-    var orgQuery = {orgName: {$in: orgNames}};
-    var countryQuery = {name: req.body[0].countryName}; 
+    var orgQuery = {orgName: req.body[0].orgName};
+    var countryQuery = {name: {$in: countryNames}};
   }else{
     var orgQuery = {orgName: req.body.orgName}; 
     var countryQuery = {name: req.body.countryName};  
@@ -176,38 +180,42 @@ router.post('/insert-organizations', (req, res) => {
         message: countryCodes.insertOrganizations.organizationsNotFound.message
       });
     }else{
+
       var updatedOrgIDs = []
-      Country.find(countryQuery, function(err, country) {
-        if(err || country.length == 0) {
+      if(countryQuery.name == 'Global' || insertToAllCountries){
+        countryQuery = {}; //Query all countries
+      }
+      Country.find(countryQuery, function(err, countries) {
+        if(err || countries.length == 0) {
           return res.status(countryCodes.insertOrganizations.countryNotFound.status).send({
             message: countryCodes.insertOrganizations.countryNotFound.message
           });
         }else{
-          if (!country[0].organizationIDs){
-            country[0].organizationIDs = organizations;
-          }else{
-            var prevOrgs = country[0].organizationIDs;
-            for (var i = 0; i < prevOrgs.length; i++) {
-              updatedOrgIDs.push(prevOrgs[i]);
+          for (var i = 0; i < countries.length; i++){
+            if (!countries[i].organizationIDs){
+              countries[i].organizationIDs = [organizations[0]]; //ONLY ONE ORGANIZATION
+            }else{              
+              countries[i].organizationIDs.push(organizations[0]._id); //ONLY ONE ORGANIZATION
             }
-            for (var i = 0; i < organizations.length; i++) {
-              updatedOrgIDs.push(organizations[i]._id);
-            }
-            country[0].organizationIDs = updatedOrgIDs;
-          }
 
-          var updatedCountry = new Country(country[0]);
-          updatedCountry.save(function(err, savedCountry){
-            if(err){
-              return res.status(countryCodes.insertOrganizations.saveCountryFail.status).send({
-                message: countryCodes.insertOrganizations.saveCountryFail.message
-              })
-            }else{
-              return res.status(countryCodes.insertOrganizations.success.status).send({
-                message: countryCodes.insertOrganizations.success.message
-              })
-            }
-          });
+            var updatedCountry = new Country(countries[i]);
+            updatedCountry.save(function(err, savedCountry){
+              if(err){
+                console.log("Failed to save updated country");
+                // return res.status(countryCodes.insertOrganizations.saveCountryFail.status).send({
+                //   message: countryCodes.insertOrganizations.saveCountryFail.message
+                // })
+              }else{
+                console.log("Updated:", savedCountry.name)
+                // return res.status(countryCodes.insertOrganizations.success.status).send({
+                //   message: countryCodes.insertOrganizations.success.message
+                // });
+              }
+            });
+          }
+          return res.status(countryCodes.removeOrganizations.success.status).send({
+            message: countryCodes.removeOrganizations.success.message
+          })
         }
       })
     }
@@ -234,17 +242,19 @@ router.post('/remove-organizations', (req, res) => {
   //Handling of multiple organizations, still expecting them to be from the same country
   if(Array.isArray(req.body)){
     var orgNames = [];
+    var countryNames = [];
     for (var i = 0; i < req.body.length; i++){
       var curBody = req.body[i];
       orgNames.push(curBody.orgName);
+      countryNames.push(curBody.countryName);
     }
     var orgQuery = {orgName: {$in: orgNames}};
-    var countryQuery = {name: req.body[0].countryName}; 
+    var countryQuery = {name: {$in: countryNames}}; 
   }else{
     var orgQuery = {orgName: req.body.orgName}; 
     var countryQuery = {name: req.body.countryName};  
   }
-
+  
   Organization.find(orgQuery, function(err, organizations) {
     if(err || organizations.length == 0){
       return res.status(countryCodes.removeOrganizations.organizationsNotFound.status).send({
@@ -252,50 +262,58 @@ router.post('/remove-organizations', (req, res) => {
       });
     }else{
       var updatedOrgIDs = []
-      Country.find(countryQuery, function(err, country) {
-        if(err || country.length == 0) {
+      if(countryQuery.name == 'Global' || countryQuery.name == {$in: 'Global'}){
+        countryQuery = {}; //Query all countries
+      }
+      Country.find(countryQuery, function(err, countries) {
+        if(err || countries.length == 0) {
           return res.status(countryCodes.removeOrganizations.countryNotFound.status).send({
             message: countryCodes.removeOrganizations.countryNotFound.message
           });
         }else{
-          if(!country[0].organizationIDs){
-            return res.status(countryCodes.removeOrganizations.noCountryOrganizations.status).send({
-              message: countryCodes.removeOrganizations.noCountryOrganizations.message
-            });
-          }else{
-            var updatedOrgIDs = [];
-            var deleteOrgIDs = [];
-            for (var i = 0; i < organizations.length; i++) {
-              deleteOrgIDs.push(organizations[i]._id);
-            }
+          for (var i = 0; i < countries.length; i++){
+            if(!countries[i].organizationIDs){
+              return res.status(countryCodes.removeOrganizations.noCountryOrganizations.status).send({
+                message: countryCodes.removeOrganizations.noCountryOrganizations.message
+              });
+            }else{
+              var deleteOrgIDs = [];
+              for (var j = 0; j < organizations.length; j++) {
+                deleteOrgIDs.push(organizations[j]._id);
+              }
 
-            var prevOrgs = country[0].organizationIDs;
-            updatedOrgIDs = prevOrgs.filter(curOrg => {
-              var toKeep = true;
-              for (var i = 0; i < deleteOrgIDs.length; i++){
-                if(curOrg.equals(deleteOrgIDs[i])){
-                  toKeep = false;
-                  deleteOrgIDs.splice(i, 1); //remove organization since it's already been covered
-                  break;
+              var prevOrgs = countries[i].organizationIDs;
+              countries[i].organizationIDs = prevOrgs.filter(curOrg => {
+                var toKeep = true;
+                for (var j = 0; j < deleteOrgIDs.length; j++){
+                  if(curOrg.equals(deleteOrgIDs[j])){
+                    toKeep = false;
+                    deleteOrgIDs.splice(j, 1); //remove organization since it's already been covered
+                    break;
+                  }
                 }
-              }
-              return toKeep;
-            });
+                return toKeep;
+              });
 
-            country[0].organizationIDs = updatedOrgIDs;
-            var updatedCountry = new Country(country[0]); //this makes a mongoose country document that we can save
-            updatedCountry.save(function(err, savedCountry){
-              if(err){
-                return res.status(countryCodes.removeOrganizations.saveCountryFail.status).send({
-                  message: countryCodes.removeOrganizations.saveCountryFail.message
-                })
-              }else{
-                return res.status(countryCodes.removeOrganizations.success.status).send({
-                  message: countryCodes.removeOrganizations.success.message
-                })
-              }
-            });
+              var updatedCountry = new Country(countries[i]); //this makes a mongoose country document that we can save
+              updatedCountry.save(function(err, savedCountry){
+                if(err){
+                  console.log("Failed to save updated country");
+                  // return res.status(countryCodes.insertOrganizations.saveCountryFail.status).send({
+                  //   message: countryCodes.insertOrganizations.saveCountryFail.message
+                  // })
+                }else{
+                  console.log("Updated:", savedCountry.name)
+                  // return res.status(countryCodes.insertOrganizations.success.status).send({
+                  //   message: countryCodes.insertOrganizations.success.message
+                  // });
+                }
+              });
+            }
           }
+          return res.status(countryCodes.removeOrganizations.success.status).send({
+            message: countryCodes.removeOrganizations.success.message
+          })
         }
       })
     }
