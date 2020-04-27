@@ -62,6 +62,7 @@ class Navbar extends React.Component {
     }
 
     handleLogoutClick = async () => {
+        console.log("this function is being called");
         const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" }
@@ -113,9 +114,9 @@ class Navbar extends React.Component {
                                         <a href="javascript:void(0)" className="info-label">Profile<FaCaretDown /></a>
                                         <div className="info-dropdown-content">
                                             <a href="/account" className="dropdown-options">Account</a>
-                                            <Link to="/" onClick={this.handleLogoutClick}>
+                                            <a href="/" onClick={this.handleLogoutClick}>
                                                 <div className="dropdown-options">Log Out</div>
-                                            </Link>
+                                            </a>
                                         </div>
                                     </li>
                                 </ul>
