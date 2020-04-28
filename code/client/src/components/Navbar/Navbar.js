@@ -69,10 +69,7 @@ class Navbar extends React.Component {
 			headers: { "Content-Type": "application/json" }
 		};
         const response2 = await fetch('/api/user/auth/logout');*/
-        axios.get('/api/user/auth/logout')
-        .then(function(response)) {
-            loggedin = false;
-        }
+        axios.get('/api/user/auth/logout');
         console.log("this api is being called");
         // loggedin = false;
         window.location.reload();
