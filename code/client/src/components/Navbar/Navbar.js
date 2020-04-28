@@ -72,7 +72,7 @@ class Navbar extends React.Component {
         if (response2.status === 200) {
             loggedin = false;
             this.setState({
-                loading: 'true',
+                loading: 'false',
                 reloadAccount: this.reload
             });
             window.location.reload();
