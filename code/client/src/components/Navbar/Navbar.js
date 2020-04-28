@@ -78,7 +78,8 @@ class Navbar extends React.Component {
                 loading: 'false',
                 // reloadAccount: this.reload
             });*/
-            window.location.reload();
+            // window.location.reload();
+            this.checkLoggedInStatus();
         }
         else {
             console.log("");
