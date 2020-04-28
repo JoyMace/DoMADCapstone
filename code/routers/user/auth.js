@@ -143,7 +143,7 @@ router.post('/logout', function(req, res){
     console.log(req.user);
     req.logout();
     res.redirect('/');
-    return res.status(authCode.logout.success.status).send({message: authCode.logout.success.message});
+    // return res.status(authCode.logout.success.status).send({message: authCode.logout.success.message});
   } else {
     return res.status(authCode.logout.noUserSessionFound.status).send({message: authCode.logout.noUserSessionFound.message});
   }
