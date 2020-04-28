@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import logo from '../../images/DoMADLogoDark.svg';
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
-
-import axios from 'axios';
 
 // it was decided that if a user was not logged in they would not be able to access the blogs page or Share Your Trip page so those are removed as options when a user isn't logged in
 
@@ -16,7 +14,7 @@ class Navbar extends React.Component {
     constructor(props) {
         super(props);
 		this.state = {
-            loading: 'true', reloadAccount: this.reload
+            loading: 'true', reloadAccount: this.reload, redirect: false
         };
     }
 
@@ -62,17 +60,29 @@ class Navbar extends React.Component {
       .catch(err => console.log(err)); // TODO: handle all errors and relay to user
     }
 
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if(this.state.redirect) {
+            return <Redirect to="/" />
+        }
+    }
+
     handleLogoutClick = async () => {
         console.log("this function is being called");
         /*const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" }
-		};
-        const response2 = await fetch('/api/user/auth/logout');*/
-        axios.get('/api/user/auth/logout');
+		};*/
+        const response2 = await fetch('/api/user/auth/logout');
         console.log("this api is being called");
-        // loggedin = false;
+        loggedin = false;
         window.location.reload();
+        this.renderRedirect();
         /*if (response2.status === 200) {
             console.log("response of api", response2.status);
             loggedin = false;
