@@ -258,22 +258,9 @@ class HomeNavbar extends React.Component {
     }
 
     handleLogoutClick = async () => {
-        const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" }
-		};
-        const response2 = await fetch('/api/user/auth/logout' , requestOptions);
-        if (response2.status === 200) {
-            loggedin = false;
-            this.setState({
-                loading: 'true',
-                reloadAccount: this.reload
-            });
-            window.location.reload();
-        }
-        else {
-            console.log("");
-        }
+        const response2 = await fetch('/api/user/auth/logout');
+        loggedin = false;
+        window.location.reload();
     };
 
     render () {
