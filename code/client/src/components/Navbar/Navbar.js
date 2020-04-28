@@ -73,11 +73,11 @@ class Navbar extends React.Component {
             console.log("response of api", response2.status);
             loggedin = false;
             console.log("logged in status", loggedin);
-            this.setState({
+            /*this.setState({
                 loading: 'false',
-                reloadAccount: this.reload
-            });
-            window.location.reload();
+                // reloadAccount: this.reload
+            });*/
+            // window.location.reload();
         }
         else {
             console.log("");
