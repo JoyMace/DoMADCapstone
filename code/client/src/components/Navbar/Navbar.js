@@ -77,7 +77,7 @@ class Navbar extends React.Component {
                 loading: 'false',
                 // reloadAccount: this.reload
             });*/
-            // window.location.reload();
+            window.location.reload();
         }
         else {
             console.log("");
