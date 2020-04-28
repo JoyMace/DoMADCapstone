@@ -6,6 +6,8 @@ import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import './Navbar.css';
 import { FaCaretDown } from 'react-icons/fa';
 
+import axios from 'axios';
+
 // it was decided that if a user was not logged in they would not be able to access the blogs page or Share Your Trip page so those are removed as options when a user isn't logged in
 
 var loggedin = false; // need this in order to determine if the user is logged in or not
@@ -62,13 +64,17 @@ class Navbar extends React.Component {
 
     handleLogoutClick = async () => {
         console.log("this function is being called");
-        const requestOptions = {
+        /*const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" }
 		};
-        const response2 = await fetch('/api/user/auth/logout');
+        const response2 = await fetch('/api/user/auth/logout');*/
+        axios.get('/api/user/auth/logout')
+        .then(function(response)) {
+            loggedin = false;
+        }
         console.log("this api is being called");
-        loggedin = false;
+        // loggedin = false;
         window.location.reload();
         /*if (response2.status === 200) {
             console.log("response of api", response2.status);
