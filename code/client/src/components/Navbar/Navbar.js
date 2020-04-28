@@ -82,6 +82,7 @@ class Navbar extends React.Component {
         console.log("this api is being called");
         loggedin = false;
         window.location.reload();
+        this.setRedirect();
         /*if (response2.status === 200) {
             console.log("response of api", response2.status);
             loggedin = false;
