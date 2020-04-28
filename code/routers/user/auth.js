@@ -140,6 +140,7 @@ router.post('/signup', function(req, res) {
 */
 router.get('/logout', function(req, res){
     req.logout();
+    res.redirect('/login');
 });
 
 /*

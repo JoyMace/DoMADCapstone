@@ -32,9 +32,7 @@ class Navbar extends React.Component {
     checkLoggedInStatus = async () => { // the get request to check if a user is logged in
         const response = await fetch('/api/user/auth/check-login'); // calling the api
         if (response.status === 200) { // response will be 200 if user is logged in and 500 if not
-            console.log("logged in status from navbar: ", loggedin);
             loggedin = true;
-            console.log("this is the log in response", response.status);
             this.setState({
                 loading: 'true',
                 reloadAccount: this.reload
@@ -87,7 +85,7 @@ class Navbar extends React.Component {
         if(loggedin === true) {
             return (
                 <div>
-                    { this.renderRedirect() }
+                    {this.renderRedirect() }
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
@@ -132,7 +130,7 @@ class Navbar extends React.Component {
         else if(loggedin === false) {
             return (
                 <div>
-                    { this.renderRedirect() }
+                    {this.renderRedirect() }
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
