@@ -140,9 +140,6 @@ router.post('/signup', function(req, res) {
 */
 router.get('/logout', function(req, res){
     req.logout();
-    res.redirect('/login');
-    // return res.status(authCode.logout.success.status).send({message: authCode.logout.success.message});
-
 });
 
 /*

@@ -60,50 +60,34 @@ class Navbar extends React.Component {
       .catch(err => console.log(err)); // TODO: handle all errors and relay to user
     }
 
+    // set redirect to true when called
     setRedirect = () => {
         this.setState({
             redirect: true
         })
     }
 
+    // redirect to home page when called if redirect is set to true
     renderRedirect = () => {
         if(this.state.redirect) {
             return <Redirect to="/" />
         }
     }
 
+    // call the logout api, there is no response so that doesn't get assigned to anything
+    // set loggedin to false and then call set redirect
+    // renderRedirect() is called in the render & return statements
     handleLogoutClick = async () => {
-        console.log("this function is being called");
-        /*const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" }
-		};*/
         const response2 = await fetch('/api/user/auth/logout');
-        console.log("this api is being called");
         loggedin = false;
-        // window.location.reload();
         this.setRedirect();
-        /*if (response2.status === 200) {
-            console.log("response of api", response2.status);
-            loggedin = false;
-            console.log("logged in status", loggedin);
-            /*this.setState({
-                loading: 'false',
-                // reloadAccount: this.reload
-            });
-            // window.location.reload();
-            this.checkLoggedInStatus();
-        }
-        else {
-            console.log("");
-        }*/
     };
 
     render () {
         if(loggedin === true) {
             return (
                 <div>
-                    {this.renderRedirect() }
+                    { this.renderRedirect() }
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
@@ -148,7 +132,7 @@ class Navbar extends React.Component {
         else if(loggedin === false) {
             return (
                 <div>
-                    {this.renderRedirect() }
+                    { this.renderRedirect() }
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
