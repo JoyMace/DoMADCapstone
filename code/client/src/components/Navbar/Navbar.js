@@ -82,7 +82,6 @@ class Navbar extends React.Component {
         console.log("this api is being called");
         loggedin = false;
         window.location.reload();
-        this.renderRedirect();
         /*if (response2.status === 200) {
             console.log("response of api", response2.status);
             loggedin = false;
@@ -103,6 +102,7 @@ class Navbar extends React.Component {
         if(loggedin === true) {
             return (
                 <div>
+                    {this.renderRedirect() }
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
@@ -147,6 +147,7 @@ class Navbar extends React.Component {
         else if(loggedin === false) {
             return (
                 <div>
+                    {this.renderRedirect() }
                     <header className="navbar">
                         <nav className="navbar_navigation">
                             <div className="navbar_toggle-button">
