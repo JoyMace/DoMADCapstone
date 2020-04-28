@@ -80,6 +80,20 @@
     padding-bottom: 6px;
 }
 
+.dropdown-options-logout {
+    color: white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+}
+
+.dropdown-options-logout:hover {
+    transition: ease-in 0.4s;
+    background-color: #1e2231;
+    border-left: 2px solid white;
+    color: white;
+}
+
 .info-dropdown:first-child { 
     float: left; 
 }
