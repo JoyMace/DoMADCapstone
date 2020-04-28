@@ -71,20 +71,20 @@ class Navbar extends React.Component {
         const response2 = await fetch('/api/user/auth/logout' , requestOptions);
         console.log("this api is being called");
         loggedin = false;
-        if (response2.status === 200) {
+        /*if (response2.status === 200) {
             console.log("response of api", response2.status);
             loggedin = false;
             console.log("logged in status", loggedin);
             /*this.setState({
                 loading: 'false',
                 // reloadAccount: this.reload
-            });*/
+            });
             // window.location.reload();
             this.checkLoggedInStatus();
         }
         else {
             console.log("");
-        }
+        }*/
     };
 
     render () {
@@ -120,9 +120,9 @@ class Navbar extends React.Component {
                                         <a href="javascript:void(0)" className="info-label">Profile<FaCaretDown /></a>
                                         <div className="info-dropdown-content">
                                             <a href="/account" className="dropdown-options">Account</a>
-                                            <a href="/" onClick={this.handleLogoutClick}>
+                                            <div onClick={this.handleLogoutClick}>
                                                 <div className="dropdown-options">Log Out</div>
-                                            </a>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
