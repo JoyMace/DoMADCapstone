@@ -229,6 +229,7 @@ class HomeNavbar extends React.Component {
         const response = await fetch('/api/user/auth/check-login');
         const data = await response.json();
         if (response.status === 200) {
+            console.log("logged in status: ", loggedin);
             loggedin = true;
             this.setState({
                 loading: 'true',
