@@ -229,6 +229,7 @@ class HomeNavbar extends React.Component {
         const response = await fetch('/api/user/auth/check-login');
         const data = await response.json();
         if (response.status === 200) {
+            console.log("logged in status: ", loggedin);
             loggedin = true;
             this.setState({
                 loading: 'true',
@@ -289,9 +290,9 @@ class HomeNavbar extends React.Component {
                                 </a>
                                 <div className="dropdown-content">
                                     <a href="/account">Account</a>
-                                    <a href="/" onClick={this.handleLogoutClick}>
+                                    <div onClick={this.handleLogoutClick} className="dropdown-options-home">
                                         <div>Log Out</div>
-                                    </a>
+                                    </div>
                                 </div>
                             </li>
                             <li className='dropdown'>
