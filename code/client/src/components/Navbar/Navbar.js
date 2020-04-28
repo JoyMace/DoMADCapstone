@@ -31,7 +31,6 @@ class Navbar extends React.Component {
 
     checkLoggedInStatus = async () => { // the get request to check if a user is logged in
         const response = await fetch('/api/user/auth/check-login'); // calling the api
-        const data = await response.json();
         if (response.status === 200) { // response will be 200 if user is logged in and 500 if not
             console.log("logged in status from navbar: ", loggedin);
             loggedin = true;
@@ -48,7 +47,6 @@ class Navbar extends React.Component {
                 reloadAccount: this.reload
             });
         }
-        return data;
     };
     
     componentDidMount() {
@@ -68,10 +66,10 @@ class Navbar extends React.Component {
 			method: "POST",
 			headers: { "Content-Type": "application/json" }
 		};
-        const response2 = await fetch('/api/user/auth/logout' , requestOptions);
+        const response2 = await fetch('/api/user/auth/logout');
         console.log("this api is being called");
         loggedin = false;
-        // window.location.reload();
+        window.location.reload();
         /*if (response2.status === 200) {
             console.log("response of api", response2.status);
             loggedin = false;
