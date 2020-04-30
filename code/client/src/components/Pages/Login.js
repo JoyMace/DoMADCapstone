@@ -50,7 +50,7 @@ class Login extends React.Component {
     }
     return (
       <div className = "Login">
-       <div className = "form-wrapper">
+       <div className = "login-form-wrapper">
         <h1 className="title">Log In To DoMAD</h1>
         <form className="LoginForm" onSubmit={this.handleSubmit}  >
 

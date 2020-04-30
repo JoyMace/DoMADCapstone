@@ -1,15 +1,15 @@
-.Login {
-
-    padding-top: 8%;
-    padding-bottom: 75px;
+.Login {    
+    height: 100%;
+    margin-top: 110px;
+    margin-bottom: 110px;
     display: flex;
     justify-content: center;
-    width: 100%;
     background-color: #ffffff;
     color: #FFFFFF;
   }
 
-  .form-wrapper {
+.login-form-wrapper {
+  height: 80%;
   width: 400px;
   display: flex;
   flex-direction: column;
