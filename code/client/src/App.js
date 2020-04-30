@@ -71,7 +71,7 @@ class App extends Component {
           // If path is "/" ==> Home page
           // Else ==> NavBar, SideDrawer, {backdrop}
       <Router>
-        <div style={{height: '100%'}}>
+        
 
           <Switch>
             location.path
@@ -110,7 +110,7 @@ class App extends Component {
           </Switch>
 
           <Footer />
-        </div>
+        
       </Router>
     );
   }
