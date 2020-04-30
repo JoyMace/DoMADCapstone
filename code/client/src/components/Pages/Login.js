@@ -52,6 +52,7 @@ class Login extends React.Component {
       <div className = "Login">
        <div className = "login-form-wrapper">
         <h1 className="title">Log In To DoMAD</h1>
+        <br></br>
         <form className="LoginForm" onSubmit={this.handleSubmit}  >
 
           <div className="username">
@@ -69,9 +70,10 @@ class Login extends React.Component {
                 <div className="help-block">Password is required</div>
           }
           </div>
+          <br></br>
           <div className="signinbutton">
             <button type="submit" className="signinbuttonstyling">Sign In</button>
-            <ul className="accountlink"><Link to="/register" className="accountlink">Don't Have Account?</Link></ul>
+            <ul className="accountlink"><Link to="/register" className="accountlink">Don't Have An Account?</Link></ul>
             <ul className="accountlink"><Link to="/forgot" className="accountlink"> Forgot Password? </Link></ul>
             <ul className="accountlink"><Link to="/contact" className="accountlink">Need More Help?</Link></ul>
           </div>
