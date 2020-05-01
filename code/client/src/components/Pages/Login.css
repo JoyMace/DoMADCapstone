@@ -1,8 +1,9 @@
 .Login {    
-    
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;   
     margin-top: 110px;
-    display: flex;
-    justify-content: center;
+    display: flex;    
     background-color: #ffffff;
     color: #FFFFFF;
   }
