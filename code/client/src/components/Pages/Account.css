@@ -10,11 +10,13 @@
 	width: 100%;	
 	align-items: space-between;	
 	flex-wrap: wrap;	
+	
 }
 .account-column {		
 	flex-direction: column;
 	margin-top: 120px;
 	flex: 45%; 
+	
 }
 
 /* This is the top right of the Top Left Column that contains userName, signupDate, tripCount and donationCount */
@@ -238,12 +240,14 @@
 	color: yellow;	
 }
 
-
-
-.map {
+.account-map {
+	display: flex;
+	flex-direction: column;
+	flex: 100%;
 	width: 100%;
 	text-align: center;
-	margin: auto;
+	margin-top: 5%;
+	flex-shrink: 0;
 }
 /* This is the portion of the Top Left Column that contains user Data */
 .user-info-row {
@@ -269,11 +273,15 @@
 
 
 /* On smaller screens, switch to columns */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
     .Post {
         max-width: 100%;
 	}
 	.account-row {
-        flex-direction: column;
+		flex-direction: column;
+		flex-wrap:  wrap;
+	}
+	.account-column {
+		min-height: 600px;
 	}
 }
