@@ -9,11 +9,10 @@
   }
 
 .login-form-wrapper {
-  height: 80%;
   width: 400px;
   display: flex;
   flex-direction: column;
-  padding: 20px 40px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 10px 50px #555;
   background-color: #363D48;
