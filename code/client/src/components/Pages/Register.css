@@ -1,42 +1,43 @@
 .Register {
-  margin-top: 100px;  
-  padding-bottom: 75px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: #ffffff;
-  flex-wrap: wrap;
-  
+  margin-left: 15%;
+  margin-right: 15%;  
+}
+.register-row {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ align-items: space-between;
+ flex-wrap: wrap;
 }
 
 .register-left {
-  max-width: 30%;
-  min-width: 600px;
+  margin-top: 90px;
+  max-width: 600px;
+  flex: 60%;  
   display: flex;
   flex-direction: column;
-  padding: 1% 2%;
+  padding: 5px;
   border-radius: 10px;
   box-shadow: 0px 10px 50px #555;
   background-color: #363D48;
   color: #ffffff;
-  height: 600px;
-  margin-bottom: 2%; 
+  height: 570px;  
 }
 
 .register-right-info {
-  max-width: 25%;
-  min-width: 400px;
+  max-width: 400px;
+  flex: 40%;
+  margin-top: 90px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   background-color: #363D48;
   color: #ffffff;
-  height: 600px;
+  height: 570px;
   text-align: center;
   vertical-align: middle;
-  padding: 1% 2%;
+  padding: 1%;
   margin-left: 2%;
-
 }
 
 .RegisterForm {
@@ -133,9 +134,16 @@
 
 @media screen and (max-width: 900px) {
   .Register {
-    flex-direction: column;
+    justify-content: center;
+    margin-left: -300px;
+    align-items: space-between;
+     
+    
   }
   .register-left {
     min-width: 600px;
+  }
+  .Register body {
+    height: 1400px;
   }
 }
