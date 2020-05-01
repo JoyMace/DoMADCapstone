@@ -61,20 +61,11 @@ function HomeBlogEntry(props) {
                     <img src={ dons } alt="boulder" />
                 </div>
                 <div className="donation-content">
-                    <div className="blog-same-line">
-                        <h4>Location: </h4>
-                        {props.homeblog.country}
-                    </div>
-                    <div className="blog-same-line">
-                        <h4>Donation Item: </h4>
-                        {props.homeblog.donationItem}
-                    </div>
+                    <div className="blog-same-line">Location:      {props.homeblog.country}</div>
+                    <div className="blog-same-line">Donation Item: {props.homeblog.donationItem}</div>
                     <div className="star-blog-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                            <div className="star-blog-rating">
-                                <h4>Rating: </h4>
-                                {star_amount}
-                            </div>
+                            <div className="star-blog-rating">Rating:  {star_amount}</div>
                         </IconContext.Provider>
                     </div>
                 </div>

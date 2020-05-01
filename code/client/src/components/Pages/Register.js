@@ -57,6 +57,7 @@ class Register extends React.Component {
         }
         return (
             <div className="Register">
+              <div className='register-row'>
               <div className="register-left">
                 <h1 className="title">Create Account</h1>
                 <form className="RegisterForm" onSubmit={this.handleSubmit}>
@@ -104,6 +105,7 @@ class Register extends React.Component {
                     <h2>DoMAD will never sell your personal information.</h2>
                   </div>
               </div>
+            </div>
             </div>
         );
     }
