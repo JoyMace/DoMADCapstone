@@ -36,7 +36,7 @@ function Contact() {
               
                   <div className="right-info-content">
                     <br></br>
-                    <h2>Fill out the form to the left to share your thouhgts, concerns, questions or comments.</h2>
+                    <h2>Fill out the form to the left to share your thoughts, concerns, questions or comments.</h2>
                     <br></br>
                     <h2>DoMAD will never sell your personal information.</h2>
                   </div>
