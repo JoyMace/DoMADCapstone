@@ -83,27 +83,18 @@ function BlogEntry(props) { // need to take in props in order to pull from class
                     <img src={ defaultblogimage } alt="icon of person donating something" /> {/* default image used for blogs image since currently there is no functionality to upload images*/}
                 </div>
                 <div className="bottom-content">
-                    <div className="blog-same-line">
-                        <h4>Location: </h4>
-                        {props.blog.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
+                    <div className="blog-same-line">Location: {props.blog.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
                     </div>
-                    <div className="blog-same-line">
-                        <h4>Travel Date: </h4>
-                        {props.blog.tripDate}
-                    </div>
-                    <div className="blog-same-line">
-                        <h4>Donation Item: </h4>
-                        {props.blog.donationItem}
-                    </div>
+                    <div className="blog-same-line">Travel Date: {props.blog.tripDate}</div>
+                    <div className="blog-same-line">Donation Item: {props.blog.donationItem}</div>
                     <div className="star-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}> {/* this sets styling for the star icons used */}
-                            <div className="star-blog-rating">
-                                <h4>Rating: </h4>
-                                {star_amount} {/* stars are returned in brackets in order to render */}
+                            <div className="star-blog-rating">Rating: {star_amount} {/* stars are returned in brackets in order to render */}
                             </div>
                         </IconContext.Provider>
                     </div>
-                    <h4>Travel Story:</h4>{props.blog.notes}
+                    <div className="blog-same-line">Travel Story </div>
+                    {props.blog.notes}
                 </div>
             </div>
         </div>
