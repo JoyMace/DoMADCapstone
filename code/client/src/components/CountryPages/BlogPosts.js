@@ -93,7 +93,7 @@ function BlogEntry(props) { // need to take in props in order to pull from class
                             </div>
                         </IconContext.Provider>
                     </div>
-                    <div className="blog-same-line">Travel Story </div>
+                    <div className="blog-same-line">Travel Story: </div>
                     {props.blog.notes}
                 </div>
             </div>
