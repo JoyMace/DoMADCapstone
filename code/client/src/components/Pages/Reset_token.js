@@ -12,22 +12,19 @@ function Reset_token() {
         <div className="Reset_token">
           <div className = "form-wrapper">
           <h1 className="title">Enter New Password</h1>
-
+          <br></br>
           <form className="action" action={"api/user/reset/"+token} method="POST">
-
-              <div className="Password">
+        
                 <label htmlFor="passowrd">New Password</label>
                 <input required = "Required" name="password" type="password" placeholder="New password" />
-              </div>
-
-              <div className="Confirm">
+           
                 <label htmlFor="confirm">Confirm Password</label>
                 <input required = "Required" name="confirm" type="password" placeholder="Confirm password" />
-              </div>
+             
 
-              <div className="resetbutton">
-                <button type="submit">Update Password</button>
-              </div>
+              
+                <button className='reset-button' type="submit">Update Password</button>
+              
           </form>
           </div>
         </div>
