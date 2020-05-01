@@ -19,8 +19,8 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
             country: tripInfo.locationID.country,
             tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
             notes: tripInfo.notes,
-            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "Shoes",
-		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : 4,
+            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "No donation item",
+		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : "No rating",
             privatePost: tripInfo.isPrivate
         }
     }
