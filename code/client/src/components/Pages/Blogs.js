@@ -19,8 +19,8 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
             country: tripInfo.locationID.country,
             tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
             notes: tripInfo.notes,
-            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "None",
-		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : "None",
+            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "Shoes",
+		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : 4,
             privatePost: tripInfo.isPrivate
         }
     }
@@ -145,7 +145,7 @@ class BlogContainer extends React.Component {
             return (
                 <div>
                     <div className="page-info">
-                        <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                        <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by date with most recent stories appearing first, or can be sorted by country. Click on the name of a continent and select the desired country to see where DoMAD users have been!</p>
                     </div>
                     <div className="country-button-container">
                         <BlogDropDown updateCountry={this.updateCountryonClick} /> {/* this pulls in the class BlogDropDown so that it can be accessed by updateCountryonClick */}
@@ -157,7 +157,7 @@ class BlogContainer extends React.Component {
         return (
             <div>
                 <div className="page-info">
-                    <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                    <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by date with most recent stories appearing first, or can be sorted by country. Click on the name of a continent and select the desired country to see where DoMAD users have been!</p>
                 </div>
                 <div className="country-button-container">
                     <BlogDropDown updateCountry={this.updateCountryonClick} />
