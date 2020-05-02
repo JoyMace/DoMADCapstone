@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    top: 150px;
+    top: 2%;
     left: 50%;
     transform: translate(-50%, 0%);
 }
@@ -46,7 +46,7 @@
 
 .mission-paragraph-container {
     line-height: 1.7;
-    font-size: 1.1vw;
+    font-size: 1vw;
     padding-left: 10%;
     padding-right: 10%;
 }

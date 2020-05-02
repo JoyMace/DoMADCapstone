@@ -17,6 +17,7 @@
     color: white;
     padding: 20px;
     border-radius: 5px;
+    text-align: center;
 }
 
 .country-button-container {
@@ -112,6 +113,7 @@
 .blog-same-line {
     display: flex;
     flex-direction: row;
+    align-items: left;
 }
 
 @media screen and (max-width: 750px) {

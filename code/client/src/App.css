@@ -1,12 +1,23 @@
 * {
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
 }
-
+/* There is also some styling in the body tag on index.css */
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 6rem;
+  margin: 0;
+}
+/* This keeps the footer on the bottom of all pages*/
+footer {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  
 }
 
 a {

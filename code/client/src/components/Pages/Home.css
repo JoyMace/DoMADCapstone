@@ -112,6 +112,19 @@
             display: block;
         }
 
+        .dropdown-options-home {
+            padding: 6px 8px;
+            width: 100%;
+            text-align: left;
+            color: white;
+        }
+
+        .dropdown-options-home:hover {
+            transition: ease-in 0.4s;
+            background-color: #1e2231;
+            border-left: 2px solid #CBB95A;
+        }
+
             /* On Sub-Nav item hover */
             .dropdown-content a:hover {
                 transition: ease-in 0.4s;

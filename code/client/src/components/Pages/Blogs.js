@@ -19,8 +19,8 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
             country: tripInfo.locationID.country,
             tripDate: (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear(),
             notes: tripInfo.notes,
-            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "None",
-		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : "None",
+            donationItem: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].itemName : "No donation item",
+		    donationRating: ( tripInfo.donations && tripInfo.donations.length > 1) ? tripInfo.donations[1].rating : "No rating",
             privatePost: tripInfo.isPrivate
         }
     }
@@ -55,27 +55,19 @@ function BlogEntry(props) { // need to take in props in order to pull from class
                     <img src={ defaultblogimage } alt="icon of person donating something" /> {/* default image used for blogs image since currently there is no functionality to upload images*/}
                 </div>
                 <div className="bottom-blog-content">
-                    <div className="blog-same-line">
-                        <h4>Location: </h4>
-                        {props.blog.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
+                    <div className="blog-same-line">Location:  {props.blog.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
                     </div>
-                    <div className="blog-same-line">
-                        <h4>Travel Date: </h4>
-                        {props.blog.tripDate}
-                    </div>
-                    <div className="blog-same-line">
-                        <h4>Donation Item: </h4>
-                        {props.blog.donationItem}
-                    </div>
+                    <div className="blog-same-line"> Travel Date: {props.blog.tripDate} </div>
+                    <div className="blog-same-line"> Donation Item: {props.blog.donationItem}</div>
                     <div className="star-blog-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}> {/* this sets styling for the star icons used */}
-                            <div className="star-blog-rating">
-                                <h4>Rating: </h4>
-                                {star_amount} {/* stars are returned in brackets in order to render */}
+                            <div className="star-blog-rating"> Rating: {star_amount} {/* stars are returned in brackets in order to render */}
                             </div>
                         </IconContext.Provider>
                     </div>
-                    <h4>Travel Story:</h4>{props.blog.notes}
+                    <div className="blog-same-line">Travel Story: </div>
+                    {props.blog.notes}
+                   
                 </div>
             </div>
         </div>
@@ -153,7 +145,7 @@ class BlogContainer extends React.Component {
             return (
                 <div>
                     <div className="page-info">
-                        <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                        <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by date with most recent stories appearing first, or can be sorted by country. Click on the name of a continent and select the desired country to see where DoMAD users have been!</p>
                     </div>
                     <div className="country-button-container">
                         <BlogDropDown updateCountry={this.updateCountryonClick} /> {/* this pulls in the class BlogDropDown so that it can be accessed by updateCountryonClick */}
@@ -165,7 +157,7 @@ class BlogContainer extends React.Component {
         return (
             <div>
                 <div className="page-info">
-                    <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by country and then by date with most recent stories appearing first. Click on the name of a continent to see where DoMAD users have been!</p>
+                    <p>View Donation Stories by country or scroll down to see the most recent posts. All stories are sorted by date with most recent stories appearing first, or can be sorted by country. Click on the name of a continent and select the desired country to see where DoMAD users have been!</p>
                 </div>
                 <div className="country-button-container">
                     <BlogDropDown updateCountry={this.updateCountryonClick} />

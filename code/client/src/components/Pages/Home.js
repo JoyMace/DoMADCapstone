@@ -61,20 +61,11 @@ function HomeBlogEntry(props) {
                     <img src={ dons } alt="boulder" />
                 </div>
                 <div className="donation-content">
-                    <div className="blog-same-line">
-                        <h4>Location: </h4>
-                        {props.homeblog.country}
-                    </div>
-                    <div className="blog-same-line">
-                        <h4>Donation Item: </h4>
-                        {props.homeblog.donationItem}
-                    </div>
+                    <div className="blog-same-line">Location:      {props.homeblog.country}</div>
+                    <div className="blog-same-line">Donation Item: {props.homeblog.donationItem}</div>
                     <div className="star-blog-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                            <div className="star-blog-rating">
-                                <h4>Rating: </h4>
-                                {star_amount}
-                            </div>
+                            <div className="star-blog-rating">Rating:  {star_amount}</div>
                         </IconContext.Provider>
                     </div>
                 </div>
@@ -229,6 +220,7 @@ class HomeNavbar extends React.Component {
         const response = await fetch('/api/user/auth/check-login');
         const data = await response.json();
         if (response.status === 200) {
+            console.log("logged in status: ", loggedin);
             loggedin = true;
             this.setState({
                 loading: 'true',
@@ -257,22 +249,9 @@ class HomeNavbar extends React.Component {
     }
 
     handleLogoutClick = async () => {
-        const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" }
-		};
-        const response2 = await fetch('/api/user/auth/logout' , requestOptions);
-        if (response2.status === 200) {
-            loggedin = false;
-            this.setState({
-                loading: 'true',
-                reloadAccount: this.reload
-            });
-            window.location.reload();
-        }
-        else {
-            console.log("");
-        }
+        const response2 = await fetch('/api/user/auth/logout');
+        loggedin = false;
+        window.location.reload();
     };
 
     render () {
@@ -289,9 +268,9 @@ class HomeNavbar extends React.Component {
                                 </a>
                                 <div className="dropdown-content">
                                     <a href="/account">Account</a>
-                                    <a href="/" onClick={this.handleLogoutClick}>
-                                        <div>Log Out</div>
-                                    </a>
+                                    <div onClick={this.handleLogoutClick} className="dropdown-options-home">
+                                        Log Out
+                                    </div>
                                 </div>
                             </li>
                             <li className='dropdown'>

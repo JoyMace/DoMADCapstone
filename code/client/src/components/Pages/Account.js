@@ -660,14 +660,11 @@ function Account(props) {
 				  <div className='user-info-container'>
 					  <User/> 
 				  </div>
-				  <br></br>					  
+				  					  
 				  <h1 style={{paddingLeft: '5%'}}>Your Travel Map</h1>
-				  <div className='map'style={{margin: "auto"}} >
-					  <br></br>
-					  <br></br>
+				  <div className='account-map' >
 					<img src={ WorldMapImage } alt="map of the world" width='100%' />
-				  </div>
-				  {/* <p style={{textAlign: "center", fontSize:20, lineHeight:2}}> Interactive Map Feature Coming Soon.</p>	 */}			  
+				  </div>			  
 			  </div>
 			  <div className='account-column'>
 					<div className='container'>
