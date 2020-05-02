@@ -148,14 +148,15 @@ router.get('/get-organizations', (req, res) => {
     alternative inputs:
       body: inputs[]
 
-    inputs[]: A list of inputs, i.e. [{countryName: "myCountry", orgName: "org1"}, {countryName: "myCountry", orgName: "org2"}],
-      note that countryName is expected to be the same in all elements.
+    inputs[]: A list of inputs, i.e. [{countryName: "country1", orgName: "orgA"}, {countryName: "country2", orgName: "orgA"}],
+    
+    PLEASE NOTE: This API expects the organizations to be the same. The countries may be different.
+    If countryName is "Global", the API will attempt to insert given organization into ALL countries in the Database.
 
-    Future work on this API: Allow for multiple countries and multiple organizations at the same time
+    Future work on this API: 
+      Allow for multiple countries and multiple organizations at the same time
 */
-router.post('/insert-organizations', (req, res) => {
-
-  //Handling of multiple organizations, still expecting them to be from the same country
+router.post('/insert-organizations', (req, res) => {5
   var insertToAllCountries = false;
   if(Array.isArray(req.body)){
     var countryNames = [];
@@ -187,35 +188,39 @@ router.post('/insert-organizations', (req, res) => {
       }
       Country.find(countryQuery, function(err, countries) {
         if(err || countries.length == 0) {
-          return res.status(countryCodes.insertOrganizations.countryNotFound.status).send({
-            message: countryCodes.insertOrganizations.countryNotFound.message
+          return res.status(countryCodes.insertOrganizations.countriesNotFound.status).send({
+            message: countryCodes.insertOrganizations.countriesNotFound.message
           });
         }else{
+          var allCountriesPassed = true;
+          var message = {};
           for (var i = 0; i < countries.length; i++){
             if (!countries[i].organizationIDs){
               countries[i].organizationIDs = [organizations[0]]; //ONLY ONE ORGANIZATION
             }else{              
-              countries[i].organizationIDs.push(organizations[0]._id); //ONLY ONE ORGANIZATION
+              countries[i].organizationIDs.push(organizations[0]._id);
             }
 
             var updatedCountry = new Country(countries[i]);
             updatedCountry.save(function(err, savedCountry){
-              if(err){
-                console.log("Failed to save updated country");
-                // return res.status(countryCodes.insertOrganizations.saveCountryFail.status).send({
-                //   message: countryCodes.insertOrganizations.saveCountryFail.message
-                // })
-              }else{
-                console.log("Updated:", savedCountry.name)
-                // return res.status(countryCodes.insertOrganizations.success.status).send({
-                //   message: countryCodes.insertOrganizations.success.message
-                // });
-              }
+                if(err){
+                  allCountriesPassed = false;
+                  message[updatedCountry.name] = "Failed: Error saving updated country";
+                }else{
+                  message[updatedCountry.name] = "Success";
+                }
             });
           }
-          return res.status(countryCodes.removeOrganizations.success.status).send({
-            message: countryCodes.removeOrganizations.success.message
-          })
+          if(allCountriesPassed){
+            return res.status(countryCodes.insertOrganizations.success.status).send({
+              message: message
+            });
+          }
+          else{
+            return res.status(countryCodes.insertOrganizations.notAllCountriesUpdated.status).send({
+              message: message
+            });
+          }
         }
       })
     }
@@ -232,24 +237,27 @@ router.post('/insert-organizations', (req, res) => {
     alternative inputs:
       body: inputs[]
 
-    inputs[]: A list of inputs, i.e. [{countryName: "myCountry", orgName: "org1"}, {countryName: "myCountry", orgName: "org2"}],
-      note that countryName is expected to be the same in all elements.
+    inputs[]: A list of inputs, i.e. [{countryName: "country1", orgName: "orgA"}, {countryName: "country2", orgName: "orgA"}],
+    
+    PLEASE NOTE: This API expects the organizations to be the same. The countries may be different.
+    If countryName is "Global", the API will attempt to remove given organization from ALL countries in the Database.
 
-    Future work on this API: Allow for multiple countries and multiple organizations at the same time
+    Future work on this API: 
+      Allow for multiple countries and multiple organizations at the same time
 */
 router.post('/remove-organizations', (req, res) => {
-  
-  //Handling of multiple organizations, still expecting them to be from the same country
+  var removeFromAllCountries = false;
   if(Array.isArray(req.body)){
-    var orgNames = [];
     var countryNames = [];
     for (var i = 0; i < req.body.length; i++){
       var curBody = req.body[i];
-      orgNames.push(curBody.orgName);
       countryNames.push(curBody.countryName);
+      if(curBody.countryName == 'Global'){
+        removeFromAllCountries = true;
+      }
     }
-    var orgQuery = {orgName: {$in: orgNames}};
-    var countryQuery = {name: {$in: countryNames}}; 
+    var orgQuery = {orgName: req.body[0].orgName}; //This is where the API assumes all organizations are the same
+    var countryQuery = {name: {$in: countryNames}};
   }else{
     var orgQuery = {orgName: req.body.orgName}; 
     var countryQuery = {name: req.body.countryName};  
@@ -262,20 +270,21 @@ router.post('/remove-organizations', (req, res) => {
       });
     }else{
       var updatedOrgIDs = []
-      if(countryQuery.name == 'Global' || countryQuery.name == {$in: 'Global'}){
-        countryQuery = {}; //Query all countries
+      if(countryQuery.name == 'Global' || removeFromAllCountries){
+        countryQuery = {}; //Queries all countries
       }
+
       Country.find(countryQuery, function(err, countries) {
         if(err || countries.length == 0) {
-          return res.status(countryCodes.removeOrganizations.countryNotFound.status).send({
-            message: countryCodes.removeOrganizations.countryNotFound.message
+          return res.status(countryCodes.removeOrganizations.countriesNotFound.status).send({
+            message: countryCodes.removeOrganizations.countriesNotFound.message
           });
         }else{
+          var allCountriesPassed = true;
+          var message = {};
           for (var i = 0; i < countries.length; i++){
             if(!countries[i].organizationIDs){
-              return res.status(countryCodes.removeOrganizations.noCountryOrganizations.status).send({
-                message: countryCodes.removeOrganizations.noCountryOrganizations.message
-              });
+              message[updatedCountry.name] = "Failed: No Organizations to remove";
             }else{
               var deleteOrgIDs = [];
               for (var j = 0; j < organizations.length; j++) {
@@ -298,22 +307,24 @@ router.post('/remove-organizations', (req, res) => {
               var updatedCountry = new Country(countries[i]); //this makes a mongoose country document that we can save
               updatedCountry.save(function(err, savedCountry){
                 if(err){
-                  console.log("Failed to save updated country");
-                  // return res.status(countryCodes.insertOrganizations.saveCountryFail.status).send({
-                  //   message: countryCodes.insertOrganizations.saveCountryFail.message
-                  // })
+                  allCountriesPassed = false;
+                  message[updatedCountry.name] = "Failed: Error saving updated country";
                 }else{
-                  console.log("Updated:", savedCountry.name)
-                  // return res.status(countryCodes.insertOrganizations.success.status).send({
-                  //   message: countryCodes.insertOrganizations.success.message
-                  // });
+                  message[updatedCountry.name] = "Success";
                 }
               });
             }
           }
-          return res.status(countryCodes.removeOrganizations.success.status).send({
-            message: countryCodes.removeOrganizations.success.message
-          })
+          if(allCountriesPassed){
+            return res.status(countryCodes.removeOrganizations.success.status).send({
+              message: message
+            });
+          }
+          else{
+            return res.status(countryCodes.removeOrganizations.notAllCountriesUpdated.status).send({
+              message: message
+            });
+          }
         }
       })
     }
