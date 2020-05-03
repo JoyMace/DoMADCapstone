@@ -181,8 +181,8 @@ router.post('/insert-organizations', (req, res) => {5
 
   Organization.find(orgQuery, function(err, organizations) {
     if(err || organizations.length == 0){
-      return res.status(countryCodes.insertOrganizations.organizationsNotFound.status).send({
-        message: countryCodes.insertOrganizations.organizationsNotFound.message
+      return res.status(countryCodes.insertOrganizations.organizationNotFound.status).send({
+        message: countryCodes.insertOrganizations.organizationNotFound.message
       });
     }else{
 
@@ -269,8 +269,8 @@ router.post('/remove-organizations', (req, res) => {
   
   Organization.find(orgQuery, function(err, organizations) {
     if(err || organizations.length == 0){
-      return res.status(countryCodes.removeOrganizations.organizationsNotFound.status).send({
-        message: countryCodes.removeOrganizations.organizationsNotFound.message
+      return res.status(countryCodes.removeOrganizations.organizationNotFound.status).send({
+        message: countryCodes.removeOrganizations.organizationNotFound.message
       });
     }else{
       var updatedOrgIDs = []

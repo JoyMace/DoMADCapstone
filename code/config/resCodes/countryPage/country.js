@@ -42,6 +42,10 @@ resCode = {
       status:200,
       message:'Successfully inserted organizations to specified country'
     },
+    organizationNotFound:{
+      status:404,
+      message: 'Could not find specified organization'
+    },
     countriesNotFound:{
       status:404,
       message:'Could not find specified countries'
@@ -55,6 +59,10 @@ resCode = {
     success:{
       status:200,
       message:'Successfully removed organizations of specified country'
+    },
+    organizationNotFound:{
+      status:404,
+      message: 'Could not find specified organization'
     },
     countriesNotFound:{
       status:404,
