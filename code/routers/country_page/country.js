@@ -217,7 +217,7 @@ router.post('/insert-organizations', (req, res) => {5
           }
           if(allCountriesPassed){
             return res.status(countryCodes.insertOrganizations.success.status).send({
-              message: message
+              message: countryCodes.insertOrganizations.success.message
             });
           }
           else{
@@ -321,7 +321,7 @@ router.post('/remove-organizations', (req, res) => {
           }
           if(allCountriesPassed){
             return res.status(countryCodes.removeOrganizations.success.status).send({
-              message: message
+              message: countryCodes.removeOrganizations.success.message
             });
           }
           else{

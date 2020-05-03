@@ -40,7 +40,7 @@ resCode = {
   insertOrganizations:{
     success:{
       status:200,
-      message:'Successfully inserted organizations to specified country'
+      message:'Successfully inserted organization to all specified countries'
     },
     organizationNotFound:{
       status:404,
@@ -58,7 +58,7 @@ resCode = {
   removeOrganizations:{
     success:{
       status:200,
-      message:'Successfully removed organizations of specified country'
+      message:'Successfully removed organization from all specified countries'
     },
     organizationNotFound:{
       status:404,
