@@ -1,53 +1,56 @@
 import React from 'react';
 import './CountryInfo.css';
 import { Link } from 'react-router-dom';
-
 import WorldMapImage from '../../images/Map_soon.svg';
 
 
 class CountryInfo extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(this.props.data);
         this.state = {
-            cname: null,
-            genInfo: null,
-            statistics: null
-        };
-    
-        this.getInfo = this.getInfo.bind(this);
-        this.fillCountryInfo = this.fillCountryInfo.bind(this);
-    }
-
-    getInfo = async (country) => {
-        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
-        const response = await fetch(ping_CI);
-        const data = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } 
-        else {
-            console.log('received country info.');
-            let dataJSON = data.countryInfoData;
-            let abbr = dataJSON.abbreviation;
-            let name = dataJSON.countryName;
-            console.log('INFO:', name, abbr);
-            // send to self to populate, callback to tabs
-            //fillCountryInfo(dataJSON);
-            return [name, abbr];
+            countryName: "boo",
+            languages: "",
+            GNI: "",
+            HDIRank: "",
+            averageSchooling: "",
+            cleanWaterAccess: "",
+            electricityAccessRuralPop: "",
+            electricityAccessTotalPop: "",
+            lifeExpectancy: "",
+            popUrbanPercent: "",
+            population: "",
+            povertyPercent: ""
         }
     }
-
-    fillCountryInfo(countryJSON) {
-        //console.log(countryJSON);
-        this.setState({
-            name: countryJSON.countryName,
-            genInfo: countryJSON.generalInformation,
-            statistics: countryJSON.countryInfoData.statistics
-        });
-    }
     
+    
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.data !== this.props.data) {
+            if (this.props.data !== null) {
+                this.setState({
+                    countryName: this.props.data.countryName ? this.props.data.countryName : "No Data Available",
+                    languages: this.props.data.generalInformation.languages[0] ? this.props.data.generalInformation.languages[0] : "No Data Available",
+                    GNI: this.props.data.statistics.GNI ? this.props.data.statistics.GNI.$numberDecimal: "No Data Available",
+                    HDIRank: this.props.data.statistics.HDIRank ? this.props.data.statistics.HDIRank.$numberDecimal : "No Data Available",
+                    averageSchooling: this.props.data.statistics.averageSchooling ? this.props.data.statistics.averageSchooling.$numberDecimal : "No Data Available",
+                    cleanWaterAccess: this.props.data.statistics.cleanWaterAccess ? this.props.data.statistics.cleanWaterAccess.$numberDecimal : "No Data Available",
+                    electricityAccessRuralPop: this.props.data.statistics.electricityAccessRuralPop ? this.props.data.statistics.electricityAccessRuralPop.$numberDecimal : "No Data Available",
+                    electricityAccessTotalPop: this.props.data.statistics.electricityAccessTotalPop ? this.props.data.statistics.electricityAccessTotalPop.$numberDecimal : "No Data Available",
+                    lifeExpectancy: this.props.data.statistics.lifeExpectancy ? this.props.data.statistics.lifeExpectancy.$numberDecimal : "No Data Available",
+                    popUrbanPercent: this.props.data.statistics.popUrbanPercent ? this.props.data.statistics.popUrbanPercent.$numberDecimal : "No Data Available",
+                    population: this.props.data.statistics.population ? this.props.data.statistics.population.$numberDecimal : "No Data Available",
+                    povertyPercent: this.props.data.statistics.povertyPercent ? this.props.data.statistics.povertyPercent.$numberDecimal : "No Data Available"
+
+                })
+                console.log("This is the country data: ", this.props.data);
+                
+                    console.log(this.props.data);
+                }
+            }
+        
+    }
+
 
     render() {
         return (
@@ -64,31 +67,37 @@ class CountryInfo extends React.Component {
                 </div>
                 <div className="country-column2">
                     <div className="info-column">
-                        <div className="info-row">Languages</div>
-                        <div className="info-row">Population</div>
-                        <div className="info-row">Human Development Index (HDI)</div>
-                        <div className="info-row">% Pop Below Poverty Level</div>
-                        <div className="info-row">% Pop in Urban Areas</div>
-                        <div className="info-row">% Pop in Rural Areas</div>
-                        <div className="info-row">Air Quality</div>
-                        <div className="info-row">Access to Clean Water</div>
-                        <div className="info-row">Access to Electricity</div>
+                        <div className="info-row">Most Common Languages</div>
+                        <div className="info-row">GNI</div>
+                        <div className="info-row">Human Development Index (HDI) Rank</div>
+                        <div className="info-row">Average Years of School</div>
+                        <div className="info-row">% with Clean Water Access</div>
+                        <div className="info-row">% Rural with Electricity Access</div>
+                        <div className="info-row">% Total with Electricity Access</div>
+                        <div className="info-row">Life Expectancy (years)</div>
+                        <div className="info-row">% Population Urban</div>
+                        <div className="info-row">Total Population</div>
+                        <div className="info-row">% Population in Poverty</div>
                     </div>
                     <div className="info-results-column">
-                        <div className="info-results-row">Languages Info</div>
-                        <div className="info-results-row">Population Info</div>
-                        <div className="info-results-row">Human Development Index (HDI) Info</div>
-                        <div className="info-results-row">% Pop. Below Poverty Level Info</div>
-                        <div className="info-results-row">% Pop. in Urban Areas Info</div>
-                        <div className="info-results-row">% Pop. in Rural Areas Info</div>
-                        <div className="info-results-row">Air Quality Info</div>
-                        <div className="info-results-row">Access to Clean Water</div>
-                        <div className="info-results-row">Access to Electricity</div>
+                        <div className="info-results-row">{this.state.languages}</div>{/*Languages*/}
+                        <div className="info-results-row">{this.state.GNI}</div>{/*GNI*/}
+                        <div className="info-results-row">{this.state.HDIRank}</div>{/*HDI*/}
+                        <div className="info-results-row">{this.state.averageSchooling}</div>
+                        <div className="info-results-row">{this.state.cleanWaterAccess}</div>
+                        <div className="info-results-row">{this.state.electricityAccessRuralPop}</div>
+                        <div className="info-results-row">{this.state.electricityAccessTotalPop}</div>
+                        <div className="info-results-row">{this.state.lifeExpectancy}</div>
+                        <div className="info-results-row">{this.state.popUrbanPercent}</div>
+                        <div className="info-results-row">{this.state.population}</div>
+                        <div className="info-results-row">{this.state.povertyPercent}</div>
+
                     </div>
                 </div>
             </div>
         )
     }
+    
 }
 
 export default CountryInfo;
