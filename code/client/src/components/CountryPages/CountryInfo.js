@@ -68,12 +68,12 @@ class CountryInfo extends React.Component {
                 <div className="country-column2">
                     <div className="info-column">
                         <div className="info-row">Most Common Languages</div>
-                        <div className="info-row">GNI</div>
+                        <div className="info-row">Gross National Income (GNI)</div>
                         <div className="info-row">Human Development Index (HDI) Rank</div>
                         <div className="info-row">Average Years of School</div>
-                        <div className="info-row">% with Clean Water Access</div>
-                        <div className="info-row">% Rural with Electricity Access</div>
-                        <div className="info-row">% Total with Electricity Access</div>
+                        <div className="info-row">% Population with Clean Water Access</div>
+                        <div className="info-row">% Rural Population with Electricity Access</div>
+                        <div className="info-row">% Total Population with Electricity Access</div>
                         <div className="info-row">Life Expectancy (years)</div>
                         <div className="info-row">% Population Urban</div>
                         <div className="info-row">Total Population</div>
