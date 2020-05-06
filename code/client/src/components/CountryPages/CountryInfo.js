@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import WorldMapImage from '../../images/Map_soon.svg';
 
 
-class CountryInfo extends React.Component {
+class CountryInfoComponent extends React.Component {
     constructor(props) {
         super(props);
-        //console.log(this.props.data);
+        console.log("CountryInfoComponent: ", this.props.data);
         this.state = {
             countryName: "boo",
             languages: "",
@@ -43,7 +43,7 @@ class CountryInfo extends React.Component {
                     povertyPercent: this.props.data.statistics.povertyPercent ? this.props.data.statistics.povertyPercent.$numberDecimal : "No Data Available"
 
                 })
-               // console.log("This is the country data: ", this.props.data);
+               console.log("This is the country data: ", this.props.data);
                 
                     //console.log(this.props.data);
                 }
@@ -108,4 +108,4 @@ class CountryInfo extends React.Component {
     
 }
 
-export default CountryInfo;
+export default CountryInfoComponent;

@@ -77,8 +77,6 @@ class DonationCategory extends React.Component {
     }
 }
 
-
-
 class DonationItems extends React.Component {
     constructor(props) {
         super(props);
@@ -89,22 +87,23 @@ class DonationItems extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-            if (prevProps.data !== this.props.data /*&& this.props.data !== null*/) {
-                var dicts;
-                dicts = this.populateDonations(this.props.data); //this is working
-                this.setState({
-                    donatedItemsDict: dicts[0],
-                    suggestedItemsDict: dicts[1]
-                })
-                console.log(dicts);
+            if (prevProps.data !== this.props.data)
+            {
+                if (this.props.data !== null) {
+                    var dicts;
+                    dicts = this.populateDonations(this.props.data); 
+                    this.setState({
+                        donatedItemsDict: dicts[0],
+                        suggestedItemsDict: dicts[1]
+                    })
+                    console.log(dicts);
+                    }
+            }
         }
-    }
     /* This function currently only works when you can only report a single donated item and a single suggested item per trip.
     It will need to be altered to allow for multiple donations per trip parsing */
     populateDonations(tripData) {
-        //console.log("TripData", tripData);
-        var donationCategory;
-        var suggestedItemCategory;
+
         var donatedItems = {};
         var donatedItemsList = [];
         var suggestedItems = {};
@@ -113,7 +112,7 @@ class DonationItems extends React.Component {
         for (var i = 0; i < trips.length; i++) 
         {
             console.log("Number of trips: ", trips.length);
-            console.log("TRIP: ", trips[i].donations); //TO DO You got it to print out each individual trip
+            console.log("TRIP: ", trips[i].donations); 
 
             var suggestedItem = {};
             var donatedItem = {};
@@ -148,8 +147,6 @@ class DonationItems extends React.Component {
                 }
                 
             } 
-            /* donationCategory = donatedItem.category;
-            suggestedItemCategory = suggestedItem.category; */
 
             donatedItemsList.push(donatedItem);
             suggestedItemsList.push(suggestedItem);

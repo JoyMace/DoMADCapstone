@@ -84,12 +84,12 @@ router.get('/get-country-info', (req, res) => {
       });
     }
     else{
-      countryInfoData = [
-        /*countryName:*/ country[0].name, 
-        /*abbreviation:*/ country[0].abbreviation,
-        /*generalInformation:*/ country[0].generalInformation, 
-        /*statistics:*/ country[0].statistics
-      ];
+      countryInfoData = {
+        countryName: country[0].name, 
+        abbreviation: country[0].abbreviation,
+        generalInformation: country[0].generalInformation, 
+        statistics: country[0].statistics
+      };
       return res.status(countryCodes.countryInfo.success.status).send({countryInfoData: countryInfoData});
     }
 

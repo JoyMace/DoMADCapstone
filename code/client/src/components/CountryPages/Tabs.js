@@ -31,7 +31,7 @@ class CountryTabs extends React.Component {
 
     componentWillReceiveProps(props) {
         let new_country = props.selection;
-
+        console.log(props.selection);
         if (new_country !== null || new_country !== this.state.active_country) { //check a second time for same measure?
             //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
             this.executeLoad(new_country)
@@ -46,6 +46,8 @@ class CountryTabs extends React.Component {
                         blogData: res[1],
                         orgData: res[2]
                     });
+                    console.log("Results of componentWillReceiveProps: ", res)
+
                 });
         }
     }
@@ -91,16 +93,16 @@ class CountryTabs extends React.Component {
         });
     }
 
-    /********* Data Fetching ***************/
+    /********* Data Fetching ***************/ 
     fetchInfo = async (country) => {
-        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
-        const response = await fetch(ping_CI);
+        const response = await fetch('/api/country-page/country/get-country-info?country=' + country);
         const data = await response.json();
         if (response.status !== 200) {
-            throw Error(data.message);
-        } else {
-            return data.countryInfoData;
+            throw Error(response.message);
         }
+        console.log("FetchInfo: ",data);
+        return data.countryInfoData;
+        
     }
 
     reload = () => {
