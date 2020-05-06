@@ -11,70 +11,51 @@ class DonationCategory extends React.Component {
         super(props);        
         console.log("GETTING ANYTHING?", this.props.data);
         this.state = {
-            donatedItemName: (this.props.data && this.props.data[0]) ? this.props.data[0].itemName : "None",
-            donatedItemRating: (this.props.data && this.props.data[0]) ? this.props.data[0].rating : "None",
-            suggestedItemName: (this.props.data && this.props.data[1]) ? this.props.data[1].itemName : "None",
+            donatedItems: (this.props.data && this.props.data[0]) ? this.props.data[0] : "None",
+            suggestedItems: (this.props.data && this.props.data[1]) ? this.props.data[1] : "None",
         };
+        console.log("In Class DonationCategory: donatedItems: ", this.state.donatedItems);
+        console.log("In Class DonationCategory: suggestedDonationItems: ", this.state.suggestedItems);
     }  
 
-    render () {
-        var star_number;
-		var rating_number = this.state.donatedItemRating;
-		if (rating_number === 1) 
+    starRating(rating_number) {
+        if (rating_number === 1) 
 		{
-			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+			return  <div><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
 		else if (rating_number === 2)
 		{
-			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+			return  <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
 		else if (rating_number === 3)
 		{
-			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+			return  <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
 		else if (rating_number === 4)
 		{
-			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+			return  <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
 		else if (rating_number === 5)
 		{
-			star_number = <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
+			return <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
-        var donationsHTML = null;
-        /*if (this.state.donations !== null) {
-            donationsHTML = this.state.donations.map(item => {
-                return (<div className="donation-item">
-                    <p>{item.name}</p>
-                    <div className="item-rating">
-                        <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}>
-                            <FaStar />  <FaStar />  <FaStar />  <FaStar />
-                        </IconContext.Provider>
-                    </div>
-                </div>)
-            });
-        }*/
-
-        var suggestionsHTML = null;
-        /*if (this.state.suggested !== null) {
-            suggestionsHTML = this.state.suggested.map(item => {
-                return (
-                    <div className="single-suggested-item">
-                    <p className="suggestion-date">{item.date}</p>
-                <p className="suggested-item">{item.name}s</p>
-                    <p className="suggested-item-reason">I was told by the people that live here that they need work gloves.</p>
-                </div>
-                )
-            });
-        }*/
-       
-        return (
+    }
+    render () {       
+        return (            
             <div className="donations-tab-wrapper">
                 <div className="column-donations">
                     <div className="donations-header">
                         <h4>Items Donated by Users</h4>
                     </div>
                     <div className="item-list">
-                        {this.state.donatedItemName } {star_number}
+                       { 
+                       Object.keys(this.state.donatedItems).map(item =>(
+                        <div className="blog-same-line">{this.state.donatedItems[item].itemName}   {this.starRating(this.state.donatedItems[item].rating)}
+                        </div>
+                       ))                     
+                        
+                    }
+                         
                     </div>
                 </div>
                 <div className="column-suggested-donations">
@@ -83,7 +64,12 @@ class DonationCategory extends React.Component {
                         {/*<p>These items are user submitted suggestions based on experiences while traveling; these include the date of submission, suggested item, and reason the item may be needed. </p>*/}
                     </div>
                     <div className="suggested-items-list">
-                        {this.state.suggestedItemName}
+                    { 
+                       Object.keys(this.state.suggestedItems).map(item =>(
+                        <div className="blog-same-line">{this.state.suggestedItems[item].itemName}</div>
+                       ))                     
+                        
+                    }
                     </div>
                 </div>
             </div>
@@ -120,11 +106,14 @@ class DonationItems extends React.Component {
         var donationCategory;
         var suggestedItemCategory;
         var donatedItems = {};
+        var donatedItemsList = [];
         var suggestedItems = {};
+        var suggestedItemsList = [];
         var trips = tripData.trips;
         for (var i = 0; i < trips.length; i++) 
         {
-            //console.log("TRIP: ", trips[i].donations); //TO DO You got it to print out each individual trip
+            console.log("Number of trips: ", trips.length);
+            console.log("TRIP: ", trips[i].donations); //TO DO You got it to print out each individual trip
 
             var suggestedItem = {};
             var donatedItem = {};
@@ -159,16 +148,72 @@ class DonationItems extends React.Component {
                 }
                 
             } 
-            donationCategory = donatedItem.category;
-            //console.log("Donated Item Category: ",donationCategory);
-            suggestedItemCategory = suggestedItem.category;
-            //console.log("Suggested Item Category: ", suggestedItemCategory);  
-            donatedItems[donationCategory] = donatedItem;
-            suggestedItems[suggestedItemCategory] = suggestedItem;      
+            /* donationCategory = donatedItem.category;
+            suggestedItemCategory = suggestedItem.category; */
+
+            donatedItemsList.push(donatedItem);
+            suggestedItemsList.push(suggestedItem);
+
         }       
+        donatedItems["Art"] = donatedItemsList.filter(function(item) {
+            return item.category === "Art";
+        });
+        donatedItems["Clothing"] = donatedItemsList.filter(function(item) {
+            return item.category === "Clothing";
+        })
+        donatedItems["Education"] = donatedItemsList.filter(function(item) {
+            return item.category === "Education";
+        })
+        donatedItems["Animal Welfare"] = donatedItemsList.filter(function(item) {
+            return item.category === "Animal Welfare";
+        })
+        donatedItems["Food"] = donatedItemsList.filter(function(item) {
+            return item.category === "Food";
+        })
+        donatedItems["Health"] = donatedItemsList.filter(function(item) {
+            return item.category === "Health";
+        })
+        donatedItems["Household"] = donatedItemsList.filter(function(item) {
+            return item.category === "Household";
+        })
+        donatedItems["Sports"] = donatedItemsList.filter(function(item) {
+            return item.category === "Sports";
+        })
+        donatedItems["Miscellaneous"] = donatedItemsList.filter(function(item) {
+            return item.category === "Miscellaneous";
+        })
+        /* SUGGESTED DONATIONS */
+        suggestedItems["Art"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Art";
+        });
+        suggestedItems["Clothing"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Clothing";
+        })
+        suggestedItems["Education"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Education";
+        })
+        suggestedItems["Animal Welfare"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Animal Welfare";
+        })
+        suggestedItems["Food"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Food";
+        })
+        suggestedItems["Health"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Health";
+        })
+        suggestedItems["Household"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Household";
+        })
+        suggestedItems["Sports"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Sports";
+        })
+        suggestedItems["Miscellaneous"] = suggestedItemsList.filter(function(item) {
+            return item.category === "Miscellaneous";
+        })
+
         
-        
-        console.log("Results of Populate function: ", donatedItems, suggestedItems);
+        console.log("Donated Items Dictionary: ", donatedItems);
+        console.log("Suggested Items Dictionary: ", suggestedItems);
         return [donatedItems, suggestedItems];
     }
     
