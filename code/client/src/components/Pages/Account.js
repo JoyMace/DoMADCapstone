@@ -171,14 +171,13 @@ class UserTripForm extends React.Component {
 
 		<form onSubmit={this.onSubmit}>
 			<ul className="flex-outer">
-				{/*<input name="userID" value={this.userID} type="hidden"/>*/}
 				<li>{/* Trip Date Entry */}
 					<label name="date">When did this trip occur?</label>
 					<input required = "Required" id="tripDate" name='tripDate' type="date" onChange={this.accountChangeHandler } />
 				</li>
 				
 				<li>{/* Country Selection List */}
-					<label> Where did you go?</label>
+					<label name="country">Where did you go?</label>
 					<select className="select-css" required = "Required" name="country" value={this.state.value} onChange={this.accountChangeHandler}>
 						<option value="Afghanistan">Afghanistan</option>
 						<option value="Albania">Albania</option>
@@ -403,8 +402,7 @@ class UserTripForm extends React.Component {
 						<option value="Yemen">Yemen</option>
 						<option value="Zambia">Zambia</option>
 						<option value="Zimbabwe">Zimbabwe</option>
-					</select>
-				
+					</select>				
 				</li>
 
 				<li>{/* City Text Entry*/}

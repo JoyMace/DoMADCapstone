@@ -14,16 +14,16 @@ class BlogPosts extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("Data: ",this.props.data);
+        //console.log("Data: ",this.props.data);
         if(prevProps.data !== this.props.data) {
             if (this.props.data !== null) {
-                console.log("this is the blogs data: ", this.props.data);
+               // console.log("this is the blogs data: ", this.props.data);
             }
         }
     }
 
     render() {
-        console.log(this.props.data);
+        //console.log(this.props.data);
         return (
             <Blogs blog={this.props.data} />
         )
@@ -49,7 +49,7 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
     }
 
 	render() {
-        console.log("this is the country name: ", this.state.country);
+        //console.log("this is the country name: ", this.state.country);
 		return <BlogEntry blog={this.state} /> // the state with all back end info is returned to the function BlogEntry so it can be shown on the page
 	}
 }
@@ -103,7 +103,7 @@ function BlogEntry(props) { // need to take in props in order to pull from class
 
 function Blogs(props) { // function to take back end data and display it
     var trips = <div></div>
-    console.log("this is the data: ", props.blog.blogData);
+    //console.log("this is the data: ", props.blog.blogData);
     if(props.blog.loading === "false"){
         var tripData = props.blog.blogData.trips;
 
@@ -112,7 +112,7 @@ function Blogs(props) { // function to take back end data and display it
             <BlogInfo tripInfo={trip} />
         </div>
         });
-        console.log("trips updated: ", trips);
+        //console.log("trips updated: ", trips);
         trips = <div className="country-blog-trips-container">
             {trips.reverse()} {}
         </div>

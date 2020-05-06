@@ -7,13 +7,6 @@ import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
 //import { FaPassport } from 'react-icons/fa';
 
-// Batch import all flag files?????
-//const flags = require.context('./flags', false);
-//const flagPath = (name) => flags(name, true);
-
-/* More to add???
-    - fading tab animations
-*/
 
 class CountryTabs extends React.Component {
     constructor(props) {
@@ -38,7 +31,7 @@ class CountryTabs extends React.Component {
 
     componentWillReceiveProps(props) {
         let new_country = props.selection;
-
+        console.log(props.selection);
         if (new_country !== null || new_country !== this.state.active_country) { //check a second time for same measure?
             //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
             this.executeLoad(new_country)
@@ -53,6 +46,8 @@ class CountryTabs extends React.Component {
                         blogData: res[1],
                         orgData: res[2]
                     });
+                    console.log("Results of componentWillReceiveProps: ", res)
+
                 });
         }
     }
@@ -98,16 +93,16 @@ class CountryTabs extends React.Component {
         });
     }
 
-    /********* Data Fetching ***************/
+    /********* Data Fetching ***************/ 
     fetchInfo = async (country) => {
-        let ping_CI = '/api/country-page/country/get-country-info?country=' + country;
-        const response = await fetch(ping_CI);
+        const response = await fetch('/api/country-page/country/get-country-info?country=' + country);
         const data = await response.json();
         if (response.status !== 200) {
-            throw Error(data.message);
-        } else {
-            return data.countryInfoData;
+            throw Error(response.message);
         }
+        console.log("FetchInfo: ",data);
+        return data.countryInfoData;
+        
     }
 
     reload = () => {
@@ -153,6 +148,30 @@ class CountryTabs extends React.Component {
         if (response.status !== 200) {
             throw Error(data.message);
         } else {
+            return data.countryInfoData;
+        }
+    }
+
+    // Data and trips are pulled from the same dataset
+    fetchDonationsBlogs = async (country) => {
+        let ping_DI = '/api/user/trip/all-trips?country=' + country;
+        const response = await fetch(ping_DI);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } else {
+            return data.trips;
+        }
+    }
+
+    fetchOrgs = async (country) => {
+        return "Cannot find "+{country}+"organizations at this time.";
+        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
+        const response = await fetch(ping_OG);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } else {
             return data; //. what??
         }*/
     }
@@ -166,7 +185,7 @@ class CountryTabs extends React.Component {
     }
 
     render() {
-    if (!this.state.hasErrors) { // && !this.state.isFetching
+        if (!this.state.hasErrors) { // && !this.state.isFetching
             let defaultStyles = { 
                 display: (this.state.displaying ? 'flex' : 'none'),
                 marginleft: '1%', marginright: '1%',
