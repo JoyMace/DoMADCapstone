@@ -8,6 +8,7 @@ const countrySchema = new mongoose.Schema({
   name: { type: String, required: true },
   originalName: String,
   abbreviation: { type: String, required: true },
+  organizationIDs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Organization'}],
   generalInformation: {
     continentAbbr: String,
     continentName: String,
