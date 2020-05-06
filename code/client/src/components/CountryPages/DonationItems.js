@@ -40,6 +40,18 @@ class DonationCategory extends React.Component {
 			return <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
 		}
     }
+
+    dateChange(date) {
+        if(date == undefined) {
+            return null;
+        }
+        else {
+            var tripDate = new Date(date);
+            tripDate = (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear();
+            return tripDate;
+        }
+    }
+
     render () {       
         return (            
             <div className="donations-tab-wrapper">
@@ -66,7 +78,11 @@ class DonationCategory extends React.Component {
                     <div className="suggested-items-list">
                     { 
                        Object.keys(this.state.suggestedItems).map(item =>(
-                        <div className="blog-same-line">{this.state.suggestedItems[item].itemName}</div>
+                        <div className="suggested-items-style">
+                            <div>{ this.dateChange(this.state.suggestedItems[item].date) }</div>
+                            <div>{ this.state.suggestedItems[item].itemName }</div>
+                            <div>{ this.state.suggestedItems[item].itemDescription }</div>
+                        </div>
                        ))                     
                         
                     }
@@ -126,6 +142,7 @@ class DonationItems extends React.Component {
                     suggestedItem["city"] = trips[i].locationID.city;
                     suggestedItem["with_org"] = trips[i].organization;
                     suggestedItem["rating"] = trips[i].donations[0].rating;
+                    suggestedItem["itemDescription"] = trips[i].donations[0].itemDescription;
                 }
                 if(!trips[i].donations[0].suggestion)
                 {

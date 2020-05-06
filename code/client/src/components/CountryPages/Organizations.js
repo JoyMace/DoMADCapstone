@@ -32,9 +32,7 @@ class Organizations extends React.Component {
                         <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
                     <div className="below-map-row">
-                        <p>
-                            Have a trip you'd like to share to CountryName? Click <Link to="/account" className="shareaccountlink">here</Link> to submit your info!
-                        </p>
+                        <p>Have a trip you'd like to share? Log In or Register to submit your info!</p>
                     </div>
                 </div>
                 <div className="organizations-column2">
