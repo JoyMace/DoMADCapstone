@@ -87,6 +87,7 @@ router.get('/get-country-info', (req, res) => {
       countryInfoData = {
         countryName: country[0].name, 
         abbreviation: country[0].abbreviation,
+        organizationIDs: country[0].organizationIDs, //if changes to representation of organizations are made, need to delete this line 
         generalInformation: country[0].generalInformation, 
         statistics: country[0].statistics
       };
