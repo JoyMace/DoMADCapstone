@@ -6,6 +6,12 @@
     flex: column;
 }
 
+.donation-spacer {
+    width: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 /* Donations page navigation */
 .column-categories {
     display: flex;

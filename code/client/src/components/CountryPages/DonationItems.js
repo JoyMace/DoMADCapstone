@@ -50,7 +50,7 @@ class DonationCategory extends React.Component {
                     <div className="item-list">
                        { 
                        Object.keys(this.state.donatedItems).map(item =>(
-                        <div className="blog-same-line">{this.state.donatedItems[item].itemName}   {this.starRating(this.state.donatedItems[item].rating)}
+                        <div className="blog-same-line">{this.state.donatedItems[item].itemName}<div className="donation-spacer"></div>{this.starRating(this.state.donatedItems[item].rating)}
                         </div>
                        ))                     
                         
