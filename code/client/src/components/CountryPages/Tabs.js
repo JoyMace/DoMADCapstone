@@ -7,13 +7,6 @@ import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
 //import { FaPassport } from 'react-icons/fa';
 
-// Batch import all flag files?????
-//const flags = require.context('./flags', false);
-//const flagPath = (name) => flags(name, true);
-
-/* More to add???
-    - fading tab animations
-*/
 
 class CountryTabs extends React.Component {
     constructor(props) {
@@ -39,14 +32,19 @@ class CountryTabs extends React.Component {
             //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
             this.executeLoad(new_country)
                 .then((res) => {
+                    let new_info = [res[0]]; //Object.keys(res[0]).map(i => res[0][i]);
+                    let new_blogs = res[1];
+                    let new_orgs = res[2];
+                    
                     this.setState({ 
-                        displaying: true, isFetching: false,
+                        displaying: true, 
+                        isFetching: false,
                         hasErrors: false,
-                        active_country: res[0].countryName,
-                        active_abbr: res[0].abbreviation,
-                        infoData: res[0],
-                        blogData: res[1],
-                        orgData: res[2]
+                        active_country: new_info[0].countryName,
+                        active_abbr: new_info[1],
+                        infoData: new_info,
+                        blogData: new_blogs,
+                        orgData: new_orgs
                     });
                 });
         }
@@ -65,32 +63,31 @@ class CountryTabs extends React.Component {
         this.setState({ isFetching: true, displaying: false });
 
         const proms = [
+            new Promise(resolve => resolve (this.fetchInfo(country))),
             new Promise(resolve => resolve(this.fetchDonationsBlogs(country))),
             new Promise(resolve => resolve(this.fetchOrgs(country)))
         ];
                                  
         console.log("getting data for", country);
-        
-        return new Promise((resolve) => {
-            resolve(this.fetchInfo(country));
-        
-        }).then(info => {
-            this.infoJSON = info;
-            return Promise.all(proms);
-
-        }).then(data => {
-            let blogsJSON = data[0];
-            let orgJSON = data[1];
-            //console.log([this.infoJSON, tripsJSON]);
-            return [this.infoJSON, blogsJSON, orgJSON];
-        })
-        .catch(err => {
-            this.setState({ 
-                displaying: false,
-                errors: true
+            //this.infoJSON = info;
+        return Promise.all(proms)
+            .then(resp => {
+                // React FLIPS OUT when an object is passed, so we make sure each is contained in an array???????
+                let infoJSON = resp[0];
+                let blogsJSON = resp[1];
+                let orgJSON = resp[2];
+                /*let infoJSON = resp[0];
+                let blogsJSON = resp[1];
+                let orgJSON = resp[2];*/
+                return [infoJSON, blogsJSON, orgJSON];
+            })
+            .catch(err => {
+                this.setState({ 
+                    displaying: false,
+                    errors: true
+                });
+                console.log(Error("Info GET failed:", err));
             });
-            console.log(Error("Info GET failed:", err));
-        });
     }
 
     /********* Data Fetching ***************/
@@ -138,7 +135,7 @@ class CountryTabs extends React.Component {
     }
 
     render() {
-    if (!this.state.hasErrors) { // && !this.state.isFetching
+        if (!this.state.hasErrors) { // && !this.state.isFetching
             let defaultStyles = { 
                 display: (this.state.displaying ? 'flex' : 'none'),
                 marginleft: '1%', marginright: '1%',
@@ -150,10 +147,6 @@ class CountryTabs extends React.Component {
                 (<h6 id='spacer-desc'>Filter by choosing a continent, searching by country name, 
                     or a combination of the two!<br/>Once a selection is made, relevant information will populate below.</h6>)
             );
-            //console.log(this.state.isFetching);
-            //console.log(this.state.infoData);
-            //console.log(this.state.blogData);
-            //console.log(this.state.active_country);
 
             return (
                 <div>
@@ -188,7 +181,7 @@ class CountryTabs extends React.Component {
                             <OrganizationsComponent ref="OrgsRef" data={this.state.orgData} />
                         </TabPanel>
                         <TabPanel tabIndex={3}>
-                            <BlogPostsComponent ref="BlogsRef" data={this.state.blogData} />
+                            <BlogPostsComponent ref="BlogsRef" data={this.state} />
                         </TabPanel>
                     </Tabs>
                     </div>

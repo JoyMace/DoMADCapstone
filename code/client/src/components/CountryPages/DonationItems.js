@@ -38,7 +38,7 @@ class DonationCategory extends React.Component {
 
     render () {
         var donationsHTML = null;
-        if (this.state.donations !== null) {
+        /*if (this.state.donations !== null) {
             donationsHTML = this.state.donations.map(item => {
                 return (<div className="donation-item">
                     <p>{item.name}</p>
@@ -49,10 +49,10 @@ class DonationCategory extends React.Component {
                     </div>
                 </div>)
             });
-        }
+        }*/
 
         var suggestionsHTML = null;
-        if (this.state.suggested !== null) {
+        /*if (this.state.suggested !== null) {
             suggestionsHTML = this.state.suggested.map(item => {
                 return (
                     <div className="single-suggested-item">
@@ -62,7 +62,7 @@ class DonationCategory extends React.Component {
                 </div>
                 )
             });
-        }
+        }*/
        
         return (
             <div className="donations-tab-wrapper">
@@ -108,10 +108,10 @@ class DonationItems extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("did update prevProps", prevProps.data);
-        console.log("did update prevState", prevState.healthDonations);
-        console.log("did update props", this.props.data);
-        if (prevProps.data !== this.props.data && this.props.data !== null) {
+        //console.log("did update prevProps", prevProps.data);
+        //console.log("did update prevState", prevState.healthDonations);
+        //console.log("did update props", this.props.data);
+        if (prevProps.data !== this.props.data /*&& this.props.data !== null*/) {
             this.populateDonations(this.props.data);
         }
     }
@@ -174,15 +174,16 @@ class DonationItems extends React.Component {
                     <div className="column-categories">
                     <div className="categories-style">
                         <h4 className="category-header">Categories</h4>
-                        <Tab default className="category-tab">Animal Welfare</Tab>
                         <Tab className="category-tab">Art</Tab>
                         <Tab className="category-tab">Clothing</Tab>
                         <Tab className="category-tab">Education</Tab>
+                        <Tab className="category-tab">Animal Welfare</Tab>
                         <Tab className="category-tab">Food</Tab>
                         <Tab className="category-tab">Health</Tab>
                         <Tab className="category-tab">Household</Tab>
-                        <Tab className="category-tab">Miscellaneous</Tab>
                         <Tab className="category-tab">Sports</Tab>
+                        <Tab className="category-tab">Miscellaneous</Tab>
+                        
                     </div>
                     </div>
                 </TabList>
@@ -195,6 +196,9 @@ class DonationItems extends React.Component {
                 </TabPanel>
                 <TabPanel>
                     <DonationCategory data={this.state.educationDonations}/>
+                </TabPanel>
+                <TabPanel>
+                    <DonationCategory data={this.state.welfareDonations}/>
                 </TabPanel>
                 <TabPanel>
                     <DonationCategory data={this.state.foodDonations}/>

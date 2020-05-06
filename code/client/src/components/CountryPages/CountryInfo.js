@@ -30,21 +30,19 @@ class CountryInfo extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.data !== this.props.data && this.props.data !== null) {
-            this.populateInfo(this.props.data);
+            let load = this.props.data[0];
+            this.populateInfo(load);
         }
     }
 
     populateInfo(data) {
+        console.log(data);
         this.setState({
             name: data.countryName,
             abbr: data.abbreviation,
-            
             continent: data.generalInformation.continentName,
             currency: data.generalInformation.currency,
-            languages: data.generalInformation.languages.map((lang) => {
-                return lang.substring(0, lang.indexOf(":"));
-            }),
-            electricityRuralPop: data.statistics.electricityAccessRuralPop,
+            electricityRuralPop: data.generalInformation.electricityAccessRuralPop,
             electricityTotal: data.statistics.electricityAccessTotalPop,
             popUrbanPercent: data.statistics.population,
             popTotal: data.statistics.population,
@@ -53,12 +51,17 @@ class CountryInfo extends React.Component {
             avgSchooling: data.statistics.averageSchooling,
             waterAccess: data.statistics.cleanWaterAccess,
             lifeExpectancy: data.statistics.lifeExpectancy,
-            povertyPercent: data.statistics.povertyPercent
+            povertyPercent: data.statistics.povertyPercent,
+            languages: data.generalInformation.languages.map((lang) => {
+                return lang.substring(0, lang.indexOf(":"));
+            })
         });
     }
 
     
     render() {
+        let data = this.props.data[0];
+        console.log(data);
         return (
             <div className="countryinfo">
                 <div className="country-column1">
@@ -66,15 +69,16 @@ class CountryInfo extends React.Component {
                         <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
                     <div>
-                        <p>Digit Code: {this.state.abbr}</p>
+                        <p>Digit Code: {}</p>
                         <p>Continent:</p>
-                        <p>{this.state.continent}</p>
+                        <p>{}</p>
                         <p>Currency:</p>
-                        <p>{this.state.currency}</p>
+                        <p>{}</p>
                         <p>Languages:</p>
-                        {this.state.languages.map(lang => {
+                        {/*this.state.languages.map(lang => {
                             return <p>{lang}</p>
-                        })}
+                        });*/
+                        }
                     </div>
                     <div className="below-map-row">
                         <p>Have a trip you'd like to share? Log In or Register to submit your info!</p>
@@ -92,18 +96,18 @@ class CountryInfo extends React.Component {
                     </div>
                     <div className="info-results-column">
                         <div className="info-results-row">
-                            <div> Total (millions): {this.state.popTotal} </div>
-                            <div> Urban %: {this.state.popUrbanPercent} </div>
-                            <div> Poverty %: {this.state.povertyPercent} </div>
+                            <div> Total (millions): {/*this.state.popTotal*/} </div>
+                            <div> Urban %: {/*this.state.popUrbanPercent*/} </div>
+                            <div> Poverty %: {/*this.state.povertyPercent*/} </div>
                         </div>
                         <div className="info-results-row">
-                            <div> Overall Access %: {this.state.electricityTotal} </div>
-                            <div> Urban Access %: {this.state.electricityRuralPop} </div>
+                            <div> Overall Access %: {/*this.state.electricityTotal*/} </div>
+                            <div> Urban Access %: {/*this.state.electricityRuralPop*/} </div>
                         </div>
-                        <div className="info-results-row"> HDI{this.state.HDIrank} </div>
-                        <div className="info-results-row"> GNI{this.state.GNI} </div>
+                        <div className="info-results-row"> {this.state.HDIrank} </div>
+                        <div className="info-results-row"> {this.state.GNI} </div>
                         <div className="info-results-row"> {this.state.avgSchooling} </div>
-                        <div className="info-results-row"> water{this.state.waterAccess} </div>
+                        <div className="info-results-row"> {this.state.waterAccess} </div>
                         <div className="info-results-row"> {this.state.lifeExpectancy} </div>
                     </div>
                 </div>
