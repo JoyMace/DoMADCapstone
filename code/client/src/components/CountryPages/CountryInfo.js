@@ -7,7 +7,7 @@ import WorldMapImage from '../../images/Map_soon.svg';
 class CountryInfo extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.data);
+        //console.log(this.props.data);
         this.state = {
             countryName: "boo",
             languages: "",
@@ -43,15 +43,13 @@ class CountryInfo extends React.Component {
                     povertyPercent: this.props.data.statistics.povertyPercent ? this.props.data.statistics.povertyPercent.$numberDecimal : "No Data Available"
 
                 })
-                console.log("This is the country data: ", this.props.data);
+               // console.log("This is the country data: ", this.props.data);
                 
-                    console.log(this.props.data);
+                    //console.log(this.props.data);
                 }
             }
         
-    }
-
-
+    }    
     render() {
         return (
             <div className="countryinfo">
@@ -59,24 +57,34 @@ class CountryInfo extends React.Component {
                     <div className="map-row">
                         <img src={ WorldMapImage } alt="map" className="map_image"/>
                     </div>
+                    <div>
+                        <p>Digit Code: {}</p>
+                        <p>Continent:</p>
+                        <p>{}</p>
+                        <p>Currency:</p>
+                        <p>{}</p>
+                        <p>Languages:</p>
+                        {/*this.state.languages.map(lang => {
+                            return <p>{lang}</p>
+                        });*/
+                        }
+                    </div>
                     <div className="below-map-row">
-                        <p>
-                            Have a trip you'd like to share? Log In or Register to submit your info!
-                        </p>
+                        <p>Have a trip you'd like to share? Log In or Register to submit your info!</p>
                     </div>
                 </div>
                 <div className="country-column2">
                     <div className="info-column">
                         <div className="info-row">Most Common Languages</div>
-                        <div className="info-row">Gross National Income (GNI)</div>
-                        <div className="info-row">Human Development Index (HDI) Rank</div>
-                        <div className="info-row">Average Years of School</div>
-                        <div className="info-row">% Population with Clean Water Access</div>
+                        <div className="info-row">Gross National Income (GNI) (2018)</div>
+                        <div className="info-row">Human Development Index (HDI) Rank (2018)</div>
+                        <div className="info-row">Average Years of School (2018)</div>
+                        <div className="info-row">% Population with Clean Water Access (2017)</div>
                         <div className="info-row">% Rural Population with Electricity Access</div>
                         <div className="info-row">% Total Population with Electricity Access</div>
-                        <div className="info-row">Life Expectancy (years)</div>
+                        <div className="info-row">Life Expectancy (years) (2018)</div>
                         <div className="info-row">% Population Urban</div>
-                        <div className="info-row">Total Population</div>
+                        <div className="info-row">Total Population (millions) (2018)</div>
                         <div className="info-row">% Population in Poverty</div>
                     </div>
                     <div className="info-results-column">

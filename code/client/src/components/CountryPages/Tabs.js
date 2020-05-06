@@ -7,13 +7,6 @@ import OrganizationsComponent from '../CountryPages/Organizations';
 import BlogPostsComponent from '../CountryPages/BlogPosts';
 //import { FaPassport } from 'react-icons/fa';
 
-// Batch import all flag files?????
-//const flags = require.context('./flags', false);
-//const flagPath = (name) => flags(name, true);
-
-/* More to add???
-    - fading tab animations
-*/
 
 class CountryTabs extends React.Component {
     constructor(props) {
@@ -153,6 +146,30 @@ class CountryTabs extends React.Component {
         if (response.status !== 200) {
             throw Error(data.message);
         } else {
+            return data.countryInfoData;
+        }
+    }
+
+    // Data and trips are pulled from the same dataset
+    fetchDonationsBlogs = async (country) => {
+        let ping_DI = '/api/user/trip/all-trips?country=' + country;
+        const response = await fetch(ping_DI);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } else {
+            return data.trips;
+        }
+    }
+
+    fetchOrgs = async (country) => {
+        return "Cannot find "+{country}+"organizations at this time.";
+        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
+        const response = await fetch(ping_OG);
+        const data = await response.json();
+        if (response.status !== 200) {
+            throw Error(data.message);
+        } else {
             return data; //. what??
         }*/
     }
@@ -166,7 +183,7 @@ class CountryTabs extends React.Component {
     }
 
     render() {
-    if (!this.state.hasErrors) { // && !this.state.isFetching
+        if (!this.state.hasErrors) { // && !this.state.isFetching
             let defaultStyles = { 
                 display: (this.state.displaying ? 'flex' : 'none'),
                 marginleft: '1%', marginright: '1%',
