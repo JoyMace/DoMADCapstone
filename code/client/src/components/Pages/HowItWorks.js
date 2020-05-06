@@ -35,7 +35,7 @@ function HowItWorks() {
                         <img className="step2" src={Step2} alt="number 2 icon"/>                    
                         <h1>Pack Items</h1>
                         <p>Based on this data, pack a few extra items to be donated to local organizations or directly to the local community when you arrive. Make sure to check with destination’s embassy and your airline to avoid traveling with forbidden items.</p> 
-                        <p>For example, if you are going to a country in Sub-Saharan Africa, you could bring a mosquito net in your luggage to donate, or you could buy your donation arrival your destination to help support the local economy.  Your donation can be given directly to an individual or to a local organization.</p>
+                        <p>For example, if you are going to a country in Sub-Saharan Africa, you could bring a mosquito net in your luggage to donate, or you could buy your donation item upon arrival at your destination to help support the local economy.  Your donation can be given directly to an individual or to a local organization.</p>
                 </div>
             </div>  
             <div className="step-row">
