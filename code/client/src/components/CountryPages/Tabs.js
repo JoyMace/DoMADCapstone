@@ -171,8 +171,7 @@ class CountryTabs extends React.Component {
             }
             let line_or_desc = ((this.state.displaying) ?
                 (<hr id='spacer-line'/>) :
-                (<h6 id='spacer-desc'>Filter by choosing a continent, searching by country name, 
-                    or a combination of the two!<br/>Once a selection is made, relevant information will populate below.</h6>)
+                (<h3 id='spacer-desc'>Where will your next donation take you?</h3>)
             );
             console.log(this.state.isFetching);
             console.log(this.state.infoData);
