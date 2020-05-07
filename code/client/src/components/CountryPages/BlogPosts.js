@@ -66,27 +66,36 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
         super(props)
         console.log("This is what is being passed to BlogInfo", props);
         
-        var tripDate = new Date(this.props.tripInfo.tripDate);
-        tripDate = (tripDate.getMonth() +1) +"/" +tripDate.getDate() + "/" + tripDate.getFullYear();
+        
     }
 
     /* TO DO STARS AND DATE NOT SHOWING PROPERLY */
 	render() {
+        var tripDate = new Date(this.props.tripInfo.tripDate);
+        //console.log(tripDate);
+        tripDate = (tripDate.getMonth() +1) +"/" +tripDate.getDate() + "/" + tripDate.getFullYear();
+        //console.log(tripDate);
+        var rating =  this.props.tripInfo.donations ? this.props.tripInfo.donations[1].rating : "No rating given";
+
         var star_amount; // star amount is the amount of stars shown for the donation rating based on the rating pulled from the back end
-        if(this.props.tripInfo.donationRating === 1) {
+        if(rating === 1) {
             star_amount = <div><FaStar /></div> // <FaStar /> is a separate package that is imported into the file in order to use the star icons
         }
-        else if(this.props.tripInfo.donationRating === 2) {
+        else if(rating === 2) {
             star_amount = <div><FaStar /> <FaStar /></div>
         }
-        else if(this.props.tripInfo.donationRating === 3) {
+        else if(rating === 3) {
             star_amount = <div><FaStar /> <FaStar /> <FaStar /></div>
         }
-        else if(this.props.tripInfo.donationRating === 4) {
+        else if(rating === 4) {
             star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
         }
-        else if(this.props.tripInfo.donationRating === 5) {
+        else if(rating === 5) {
             star_amount = <div><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></div>
+        }
+        else
+        {
+            star_amount = "No rating given";
         }
 
         return (
@@ -98,7 +107,7 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
                 <div className="bottom-content">
                     <div className="blog-same-line">Location: {this.props.tripInfo.locationID.country} {/* props is needed in order to pull the data from another class - in this case the class BlogInfo */}
                     </div>
-                    <div className="blog-same-line">Travel Date: {this.tripDate}</div>
+                    <div className="blog-same-line">Travel Date: {tripDate}</div>
                     <div className="blog-same-line">Donation Item: {( this.props.tripInfo.donations && this.props.tripInfo.donations.length > 1) ? this.props.tripInfo.donations[1].itemName : "None"}</div>
                     <div className="star-rating">
                         <IconContext.Provider value={{ color: "yellow", className: "global-class-name", style: { verticalAlign: "middle" } }}> {/* this sets styling for the star icons used */}
