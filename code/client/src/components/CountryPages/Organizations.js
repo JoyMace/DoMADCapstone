@@ -27,8 +27,8 @@ class Organizations extends React.Component {
     render () {
         let orgs = this.state.orgsData
         let org = orgs[0]        
-        console.log(orgs[1]);
-        console.log(org);
+        //console.log(orgs[1]);
+        //console.log(org);
         for (var i in orgs)
         {
             console.log(orgs[i]['link']); // jfc

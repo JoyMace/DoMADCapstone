@@ -41,6 +41,7 @@ class CountryTabs extends React.Component {
                         hasErrors: false,
                         active_country: res[0].countryName,
                         active_abbr: res[0].abbreviation,
+                        tabIndex: 0,
                         infoData: res[0],
                         donationData: res[1].donations,
                         blogData: res[1],

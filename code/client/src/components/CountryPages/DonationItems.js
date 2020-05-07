@@ -38,7 +38,11 @@ class DonationCategory extends React.Component {
 		else if (rating_number === 5)
 		{
 			return <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-		}
+        }
+        else
+        {
+            return "None";
+        }
     }
 
     dateChange(date) {
@@ -53,7 +57,8 @@ class DonationCategory extends React.Component {
     }
 
     render () {       
-        
+        let donatedItems = (this.props.data && this.props.data[0]) ? this.props.data[0] : "None";
+        let suggestedItems = (this.props.data && this.props.data[1]) ? this.props.data[1] : "None";
         return (            
             <div className="donations-tab-wrapper">
                 <div className="column-donations">
@@ -62,8 +67,8 @@ class DonationCategory extends React.Component {
                     </div>
                     <div className="item-list">
                        { 
-                       Object.keys(this.state.donatedItems).map(item =>(
-                        <div className="blog-same-line">{this.state.donatedItems[item].itemName}<div className="donation-spacer"></div>{this.starRating(this.state.donatedItems[item].rating)}
+                       Object.keys(donatedItems).map(item =>(
+                        <div className="blog-same-line">{donatedItems[item].itemName}<div className="donation-spacer"></div>{this.starRating(this.state.donatedItems[item].rating)}
                         </div>
                        ))                     
                         
@@ -78,11 +83,11 @@ class DonationCategory extends React.Component {
                     </div>
                     <div className="suggested-items-list">
                     { 
-                       Object.keys(this.state.suggestedItems).map(item =>(
+                       Object.keys(suggestedItems).map(item =>(
                         <div className="suggested-items-style">
-                            <div>{ this.dateChange(this.state.suggestedItems[item].date) }</div>
-                            <div>{ this.state.suggestedItems[item].itemName }</div>
-                            <div>{ this.state.suggestedItems[item].itemDescription }</div>
+                            <div>{ this.dateChange(suggestedItems[item].date) }</div>
+                            <div>{ suggestedItems[item].itemName }</div>
+                            <div>{ suggestedItems[item].itemDescription }</div>
                         </div>
                        ))                     
                         

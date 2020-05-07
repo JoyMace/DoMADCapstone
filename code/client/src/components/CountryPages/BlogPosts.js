@@ -76,7 +76,7 @@ class BlogInfo extends React.Component {
         //console.log(tripDate);
         tripDate = (tripDate.getMonth() +1) +"/" +tripDate.getDate() + "/" + tripDate.getFullYear();
         //console.log(tripDate);
-        var rating =  this.props.tripInfo.donations ? this.props.tripInfo.donations[1].rating : "No rating given";
+        var rating =  (this.props.tripInfo && this.props.tripInfo.donations) ? this.props.tripInfo.donations[0].rating : "No rating given";
 
         var star_amount; // star amount is the amount of stars shown for the donation rating based on the rating pulled from the back end
         if(rating === 1) {
