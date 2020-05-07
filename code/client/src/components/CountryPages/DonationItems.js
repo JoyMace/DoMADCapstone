@@ -53,6 +53,7 @@ class DonationCategory extends React.Component {
     }
 
     render () {       
+        
         return (            
             <div className="donations-tab-wrapper">
                 <div className="column-donations">

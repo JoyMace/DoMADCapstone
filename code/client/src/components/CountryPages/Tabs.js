@@ -31,7 +31,7 @@ class CountryTabs extends React.Component {
 
     componentWillReceiveProps(props) {
         let new_country = props.selection;
-        console.log(props.selection);
+        //console.log(props.selection);
         if (new_country !== null || new_country !== this.state.active_country) { //check a second time for same measure?
             //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
             this.executeLoad(new_country)
@@ -141,40 +141,16 @@ class CountryTabs extends React.Component {
     }
 
     fetchOrgs = async (country) => {
-        return "Cannot find "+{country}+"organizations at this time.";
-        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
-        const response = await fetch(ping_OG);
+        console.log("Country in fetchOrgs: ", country);
+        const response = await fetch('/api/country-page/country/get-organizations?name=' + country);
         const data = await response.json();
         if (response.status !== 200) {
             throw Error(data.message);
-        } else {
-            return data.countryInfoData;
-        }
+        } 
+        console.log("Country data returned from fetchOrgs: ", data);
+        return data;
     }
-
-    // Data and trips are pulled from the same dataset
-    fetchDonationsBlogs = async (country) => {
-        let ping_DI = '/api/user/trip/all-trips?country=' + country;
-        const response = await fetch(ping_DI);
-        const data = await response.json();
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } else {
-            return data.trips;
-        }
-    }
-
-    fetchOrgs = async (country) => {
-        return "Cannot find "+{country}+"organizations at this time.";
-        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
-        const response = await fetch(ping_OG);
-        const data = await response.json();
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } else {
-            return data; //. what??
-        }*/
-    }
+    
 /********************************* */
 
     handleTabChange = (Index, prevIndex) => {
