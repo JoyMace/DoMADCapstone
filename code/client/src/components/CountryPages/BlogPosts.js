@@ -32,13 +32,13 @@ class BlogPosts extends React.Component {
     render() {
         console.log(this.state.tripData);
         return (
-            <Blogs blog={this.state.tripData} />
+            <Blogs blog={this.state.tripData} /> // BlogsPost sends props to Blogs function
         )
     }
 
 }
-
-function Blogs(props) { // function to take back end data and display it
+/* Received Props from BlogsPost and parses out individual Trips for Blogs */
+function Blogs(props) { 
     var trips = <div></div>
     console.log("this is the data coming into Blogs function: ", props.blog.blogData);
     if(props.blog.loading === "false"){
@@ -61,7 +61,8 @@ function Blogs(props) { // function to take back end data and display it
     );
 }
 
-class BlogInfo extends React.Component { // this is what pull the back end trip info and assigns it to variables set in the state
+/* Received Individual Blogs Post info from Blogs funtion and parses the new data into Blogs Posts to display */
+class BlogInfo extends React.Component { 
     constructor(props) {
         super(props)
         console.log("This is what is being passed to BlogInfo", props);
@@ -69,7 +70,8 @@ class BlogInfo extends React.Component { // this is what pull the back end trip 
         
     }
 
-    /* TO DO STARS AND DATE NOT SHOWING PROPERLY */
+    /* State is not automatically updated when the above classes receive new props, therefore you must use props.info and not this.state 
+        to set new values for new country blogs */
 	render() {
         var tripDate = new Date(this.props.tripInfo.tripDate);
         //console.log(tripDate);
