@@ -8,8 +8,14 @@
 
 .donation-spacer {
     width: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 60px;
+}
+
+.suggested-items-style {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 30px;
 }
 
 /* Donations page navigation */
@@ -88,6 +94,11 @@
                     text-align: left;
                     width: 100px;
                 }
+
+                .item-list {
+                    height: 80%;
+                    overflow-y: scroll;
+                }
     
 
     .column-suggested-donations {
@@ -108,19 +119,15 @@
             text-align: center;
         }
 
-        /*.suggested-items-list {
+        .suggested-items-list {
+            height: 80%;
             overflow-y: scroll;
-        }*/
+        }
 
         .single-suggested-item {
             padding-bottom: 2%;
         }
 
-
-
-
-
-  
   .react-tabs__tab {
     display: inline-block;
     border-bottom: none;
@@ -132,6 +139,10 @@
 
   .react-tabs__tab--disabled {
     color: white;
+  }
+
+  .react-tabs__tab-list {
+      margin: 0px;
   }
   
   .react-tabs__tab--selected {
