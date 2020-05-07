@@ -9,13 +9,13 @@ list tab displaying their donations and suggested donations */
 class DonationCategory extends React.Component {
     constructor(props) {
         super(props);        
-        console.log("GETTING ANYTHING?", this.props.data);
+        //console.log("GETTING ANYTHING?", this.props.data);
         this.state = {
             donatedItems: (this.props.data && this.props.data[0]) ? this.props.data[0] : "None",
             suggestedItems: (this.props.data && this.props.data[1]) ? this.props.data[1] : "None",
         };
-        console.log("In Class DonationCategory: donatedItems: ", this.state.donatedItems);
-        console.log("In Class DonationCategory: suggestedDonationItems: ", this.state.suggestedItems);
+        /* console.log("In Class DonationCategory: donatedItems: ", this.state.donatedItems);
+        console.log("In Class DonationCategory: suggestedDonationItems: ", this.state.suggestedItems); */
     }  
 
     starRating(rating_number) {
@@ -111,8 +111,8 @@ class DonationItems extends React.Component {
         var trips = tripData.trips;
         for (var i = 0; i < trips.length; i++) 
         {
-            console.log("Number of trips: ", trips.length);
-            console.log("TRIP: ", trips[i].donations); 
+            /* console.log("Number of trips: ", trips.length);
+            console.log("TRIP: ", trips[i].donations);  */
 
             var suggestedItem = {};
             var donatedItem = {};
@@ -209,14 +209,14 @@ class DonationItems extends React.Component {
         })
 
         
-        console.log("Donated Items Dictionary: ", donatedItems);
-        console.log("Suggested Items Dictionary: ", suggestedItems);
+        //console.log("Donated Items Dictionary: ", donatedItems);
+        //console.log("Suggested Items Dictionary: ", suggestedItems);
         return [donatedItems, suggestedItems];
     }
     
 
     render() {
-        console.log("render: ", this.state.donatedItemsDict);
+        //console.log("render: ", this.state.donatedItemsDict);
         return (
         <Tabs defaultIndex={0}>
             <div id="donation-tabs-component">

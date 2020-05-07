@@ -100,7 +100,7 @@ class CountryTabs extends React.Component {
         if (response.status !== 200) {
             throw Error(response.message);
         }
-        console.log("FetchInfo: ",data);
+        //console.log("FetchInfo: ",data);
         return data.countryInfoData;
         
     }
