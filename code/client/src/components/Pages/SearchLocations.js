@@ -74,7 +74,9 @@ class SearchLocations extends React.Component {
                     
                     <div id="header-desc">
                         <br/>
-                        <h3>Where will your next donation take you?</h3>
+                        <h6 id='spacer-desc'>Filter by choosing a continent, searching by country name, 
+                    or a combination of the two!<br/>Once a selection is made, relevant information will populate below.</h6>
+                        
                     </div>
 
                     <div id='map-content-wrap'>

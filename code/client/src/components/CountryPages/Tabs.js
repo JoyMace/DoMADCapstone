@@ -31,7 +31,7 @@ class CountryTabs extends React.Component {
 
     componentWillReceiveProps(props) {
         let new_country = props.selection;
-        console.log(props.selection);
+        //console.log(props.selection);
         if (new_country !== null || new_country !== this.state.active_country) { //check a second time for same measure?
             //new_country = new_country.substring(0,1).toUpperCase() + new_country.substring(1); // normalized for fetching
             this.executeLoad(new_country)
@@ -41,6 +41,7 @@ class CountryTabs extends React.Component {
                         hasErrors: false,
                         active_country: res[0].countryName,
                         active_abbr: res[0].abbreviation,
+                        tabIndex: 0,
                         infoData: res[0],
                         donationData: res[1].donations,
                         blogData: res[1],
@@ -100,7 +101,7 @@ class CountryTabs extends React.Component {
         if (response.status !== 200) {
             throw Error(response.message);
         }
-        console.log("FetchInfo: ",data);
+        //console.log("FetchInfo: ",data);
         return data.countryInfoData;
         
     }
@@ -141,40 +142,16 @@ class CountryTabs extends React.Component {
     }
 
     fetchOrgs = async (country) => {
-        return "Cannot find "+{country}+"organizations at this time.";
-        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
-        const response = await fetch(ping_OG);
+        console.log("Country in fetchOrgs: ", country);
+        const response = await fetch('/api/country-page/country/get-organizations?name=' + country);
         const data = await response.json();
         if (response.status !== 200) {
             throw Error(data.message);
-        } else {
-            return data.countryInfoData;
-        }
+        } 
+        console.log("Country data returned from fetchOrgs: ", data);
+        return data;
     }
-
-    // Data and trips are pulled from the same dataset
-    fetchDonationsBlogs = async (country) => {
-        let ping_DI = '/api/user/trip/all-trips?country=' + country;
-        const response = await fetch(ping_DI);
-        const data = await response.json();
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } else {
-            return data.trips;
-        }
-    }
-
-    fetchOrgs = async (country) => {
-        return "Cannot find "+{country}+"organizations at this time.";
-        /*let ping_OG = '/api/country-page/country/get-organizations?country=' + country;
-        const response = await fetch(ping_OG);
-        const data = await response.json();
-        if (response.status !== 200) {
-            throw Error(data.message);
-        } else {
-            return data; //. what??
-        }*/
-    }
+    
 /********************************* */
 
     handleTabChange = (Index, prevIndex) => {
@@ -194,8 +171,7 @@ class CountryTabs extends React.Component {
             }
             let line_or_desc = ((this.state.displaying) ?
                 (<hr id='spacer-line'/>) :
-                (<h6 id='spacer-desc'>Filter by choosing a continent, searching by country name, 
-                    or a combination of the two!<br/>Once a selection is made, relevant information will populate below.</h6>)
+                (<h3 id='spacer-desc'>Where will your next donation take you?</h3>)
             );
             console.log(this.state.isFetching);
             console.log(this.state.infoData);

@@ -9,13 +9,13 @@ list tab displaying their donations and suggested donations */
 class DonationCategory extends React.Component {
     constructor(props) {
         super(props);        
-        console.log("GETTING ANYTHING?", this.props.data);
+        //console.log("GETTING ANYTHING?", this.props.data);
         this.state = {
             donatedItems: (this.props.data && this.props.data[0]) ? this.props.data[0] : "None",
             suggestedItems: (this.props.data && this.props.data[1]) ? this.props.data[1] : "None",
         };
-        console.log("In Class DonationCategory: donatedItems: ", this.state.donatedItems);
-        console.log("In Class DonationCategory: suggestedDonationItems: ", this.state.suggestedItems);
+        /* console.log("In Class DonationCategory: donatedItems: ", this.state.donatedItems);
+        console.log("In Class DonationCategory: suggestedDonationItems: ", this.state.suggestedItems); */
     }  
 
     starRating(rating_number) {
@@ -38,9 +38,27 @@ class DonationCategory extends React.Component {
 		else if (rating_number === 5)
 		{
 			return <div><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /><FontAwesomeIcon icon={faStar} color='yellow' /></div>
-		}
+        }
+        else
+        {
+            return "None";
+        }
     }
+
+    dateChange(date) {
+        if(date == undefined) {
+            return null;
+        }
+        else {
+            var tripDate = new Date(date);
+            tripDate = (tripDate.getMonth() + 1) + "/" +  tripDate.getDate() + "/" +  tripDate.getFullYear();
+            return tripDate;
+        }
+    }
+
     render () {       
+        let donatedItems = (this.props.data && this.props.data[0]) ? this.props.data[0] : "None";
+        let suggestedItems = (this.props.data && this.props.data[1]) ? this.props.data[1] : "None";
         return (            
             <div className="donations-tab-wrapper">
                 <div className="column-donations">
@@ -49,8 +67,8 @@ class DonationCategory extends React.Component {
                     </div>
                     <div className="item-list">
                        { 
-                       Object.keys(this.state.donatedItems).map(item =>(
-                        <div className="blog-same-line">{this.state.donatedItems[item].itemName}<div className="donation-spacer"></div>{this.starRating(this.state.donatedItems[item].rating)}
+                       Object.keys(donatedItems).map(item =>(
+                        <div className="blog-same-line">{donatedItems[item].itemName}<div className="donation-spacer"></div>{this.starRating(this.state.donatedItems[item].rating)}
                         </div>
                        ))                     
                         
@@ -65,8 +83,12 @@ class DonationCategory extends React.Component {
                     </div>
                     <div className="suggested-items-list">
                     { 
-                       Object.keys(this.state.suggestedItems).map(item =>(
-                        <div className="blog-same-line">{this.state.suggestedItems[item].itemName}</div>
+                       Object.keys(suggestedItems).map(item =>(
+                        <div className="suggested-items-style">
+                            <div>{ this.dateChange(suggestedItems[item].date) }</div>
+                            <div>{ suggestedItems[item].itemName }</div>
+                            <div>{ suggestedItems[item].itemDescription }</div>
+                        </div>
                        ))                     
                         
                     }
@@ -111,8 +133,8 @@ class DonationItems extends React.Component {
         var trips = tripData.trips;
         for (var i = 0; i < trips.length; i++) 
         {
-            console.log("Number of trips: ", trips.length);
-            console.log("TRIP: ", trips[i].donations); 
+            /* console.log("Number of trips: ", trips.length);
+            console.log("TRIP: ", trips[i].donations);  */
 
             var suggestedItem = {};
             var donatedItem = {};
@@ -126,6 +148,7 @@ class DonationItems extends React.Component {
                     suggestedItem["city"] = trips[i].locationID.city;
                     suggestedItem["with_org"] = trips[i].organization;
                     suggestedItem["rating"] = trips[i].donations[0].rating;
+                    suggestedItem["itemDescription"] = trips[i].donations[0].itemDescription;
                 }
                 if(!trips[i].donations[0].suggestion)
                 {
@@ -209,14 +232,14 @@ class DonationItems extends React.Component {
         })
 
         
-        console.log("Donated Items Dictionary: ", donatedItems);
-        console.log("Suggested Items Dictionary: ", suggestedItems);
+        //console.log("Donated Items Dictionary: ", donatedItems);
+        //console.log("Suggested Items Dictionary: ", suggestedItems);
         return [donatedItems, suggestedItems];
     }
     
 
     render() {
-        console.log("render: ", this.state.donatedItemsDict);
+        //console.log("render: ", this.state.donatedItemsDict);
         return (
         <Tabs defaultIndex={0}>
             <div id="donation-tabs-component">
