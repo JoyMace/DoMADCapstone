@@ -11,7 +11,8 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      submitted: false
+      submitted: false,
+      loginTried: false
     };
 
 
@@ -39,6 +40,7 @@ class Login extends React.Component {
         if(response.status === 200){
             currentComponent.setState({ submitted: true });
         }
+        
     })
   }
 
@@ -58,8 +60,8 @@ class Login extends React.Component {
           <div className="username">
               <label htmlFor="username">Username</label>
               <input required = "Required" name="username" type="text" placeholder="Enter your username" value={username} onChange={this.handleChange}/>
-              {submitted && !username &&
-                <div className="help-block">username is required</div>
+              {this.state.loginTried &&
+                <div className="help-block" style={{color: "red"}}>Username or password incorrect</div>
             }
           </div>
 
@@ -101,7 +103,9 @@ class Login extends React.Component {
             currentComponent.setState({ submitted: true });
         }
     })
+    this.setState({loginTried: true});
   };
 }
+
 
 export default Login;
