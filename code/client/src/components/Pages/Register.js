@@ -78,9 +78,9 @@ class Register extends React.Component {
                         <input placeholder="Email Address" required = "Required" type="text" className="form-control" name="email" value={email} onChange={this.handleChange} />
                     </div>
                     <div className="password">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Password  (minimum 8 characters, one upper case, one lower case)</label>
                         <p style={{fontSize: 10}}> </p>
-                        <input placeholder="Password (minimum 8 characters, one upper case and one lower case)" required = "Required" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                        <input placeholder="Password (minimum 8 characters, one upper case, one lower case)" required = "Required" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
                         
                     </div>
                     <div className="verifyPassword">
